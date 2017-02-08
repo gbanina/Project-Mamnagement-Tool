@@ -50,7 +50,7 @@
                 <input id="password" type="password" class="form-control" name="password" required placeholder="Password"/>
               </div>
               <div>
-                <input id="password-confirm" type="password" class="form-control" name="password_confirm" required placeholder="Confirm Password"/>
+                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="Confirm Password"/>
               </div>
 
               <div>

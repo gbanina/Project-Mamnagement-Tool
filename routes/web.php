@@ -12,20 +12,27 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    if (Auth::guest())
+        return view('auth.login');
+    else
+        return view('welcome');
 
-Route::get('profile', function () {
-    // Only authenticated users may enter...
-})->middleware('auth');
+});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::group(['middleware' => 'auth'], function()
+{
+    Route::get('/home', 'HomeController@index');
 
-Route::resource('project', 'ProjectController');
-Route::resource('task', 'TaskController');
+    Route::resource('project', 'ProjectController');
+    Route::resource('task', 'TaskController');
 
-Route::resource('type', 'Task\TypeController');
-Route::resource('status', 'Task\StatusController');
-Route::resource('prioritry', 'Task\PriorityController');
+    Route::resource('type', 'Task\TypeController');
+    Route::resource('status', 'Task\StatusController');
+    Route::resource('prioritry', 'Task\PriorityController');
+
+    Route::resource('help', 'HelpController');
+    Route::resource('settings', 'SettingsController');
+    Route::resource('profile', 'ProfileController');
+});

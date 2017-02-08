@@ -1,5 +1,5 @@
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-shield"></i> <span>Project RPG</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-shield"></i> <span>PMTool</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -11,7 +11,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2>{{Auth::user()->name}}</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
