@@ -22,3 +22,10 @@ Route::get('profile', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::resource('project', 'ProjectController');
+Route::resource('task', 'TaskController');
+
+Route::resource('type', 'Task\TypeController');
+Route::resource('status', 'Task\StatusController');
+Route::resource('prioritry', 'Task\PriorityController');

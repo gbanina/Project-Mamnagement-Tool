@@ -7,7 +7,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="{{ URL::to('images/img.jpg') }}" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
@@ -23,24 +23,21 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
-                    </ul>
-                  </li>
+                  <li><a href="{{ URL::to('/') }}"><i class="fa fa-laptop"></i> Dashboard <span class="label label-success pull-right">3 New Tasks</span></a></li>
                   <li><a><i class="fa fa-sitemap"></i> Projects <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">All Projects</a></li>
+                      <li><a href="{{ URL::to('project') }}">All Projects</a></li>
                       <li><a href="form_advanced.html">Add New Project</a></li>
                       <li><a href="form_advanced.html">Project Settings</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Tasks <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="general_elements.html">All Tasks</a></li>
-                      <li><a href="media_gallery.html">Add New Task</a></li>
+                      <li><a href="{{ URL::to('task') }}">All Tasks</a></li>
+                      <li><a href="{{ URL::to('task/create') }}">Add New Task</a></li>
+                      <li><a href="{{ URL::to('task/types') }}">Task Types</a></li>
+                      <li><a href="{{ URL::to('task/status') }}">Status</a></li>
+                      <li><a href="{{ URL::to('task/priority') }}">Priority</a></li>
                       <li><a href="media_gallery.html">Task Settings</a></li>
                     </ul>
                   </li>
@@ -50,7 +47,7 @@
                       <li><a href="tables_dynamic.html">Add New User</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-bar-chart-o"></i> Reports <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-bar-chart-o"></i> Timesheets <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="chartjs.html">Chart JS</a></li>
                       <li><a href="chartjs2.html">Chart JS2</a></li>
@@ -62,7 +59,7 @@
                 </ul>
               </div>
               <div class="menu_section">
-                <h3>Personal</h3>
+                <h3>My Projects</h3>
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-bug"></i> Notes <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -100,7 +97,6 @@
                         </li>
                     </ul>
                   </li>
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
               </div>
 

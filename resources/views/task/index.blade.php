@@ -1,7 +1,7 @@
 @extends('base')
 
 @section('content')
-<h1>Dashboard</h1>
+<h1>Tasks</h1>
 
 <p>Not implemented yet. Come back soon!</p>
 
