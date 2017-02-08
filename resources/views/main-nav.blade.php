@@ -35,25 +35,22 @@
                     <ul class="nav child_menu">
                       <li><a href="{{ URL::to('task') }}">All Tasks</a></li>
                       <li><a href="{{ URL::to('task/create') }}">Add New Task</a></li>
-                      <li><a href="{{ URL::to('task/types') }}">Task Types</a></li>
-                      <li><a href="{{ URL::to('task/status') }}">Status</a></li>
-                      <li><a href="{{ URL::to('task/priority') }}">Priority</a></li>
                       <li><a href="media_gallery.html">Task Settings</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-users"></i> Users <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tables.html">All Users</a></li>
-                      <li><a href="tables_dynamic.html">Add New User</a></li>
+                      <li><a href="{{ URL::to('users') }}">All Users</a></li>
+                      <li><a href="{{ URL::to('users/create') }}">Add New User</a></li>
+                      <li><a href="#">User Role</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-bar-chart-o"></i> Timesheets <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-key"></i> Admin <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
-                      <li><a href="morisjs.html">Moris JS</a></li>
-                      <li><a href="echarts.html">ECharts</a></li>
-                      <li><a href="other_charts.html">Other Charts</a></li>
+                      <li><a href="{{ URL::to('task/types') }}">Task Types</a></li>
+                      <li><a href="{{ URL::to('task/attributes') }}">Task Attributes</a></li>
+                      <li><a href="{{ URL::to('task/status') }}">Task Status</a></li>
+                      <li><a href="{{ URL::to('task/priority') }}">Task Priority</a></li>
                     </ul>
                   </li>
                 </ul>

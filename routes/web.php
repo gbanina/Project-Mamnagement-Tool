@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::resource('project', 'ProjectController');
     Route::resource('task', 'TaskController');
+    Route::resource('users', 'UsersController');
 
     Route::resource('type', 'Task\TypeController');
     Route::resource('status', 'Task\StatusController');
