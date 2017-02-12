@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Task;
+namespace App\Http\Controllers\Admin;
 
 use DB;
 use View;
 Use Redirect;
-use App\Bill;
+use App\Models\Role;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
-class TypeController extends BaseController {
+class RoleController extends BaseController {
 
     /**
      * Display a listing of the resource.
@@ -20,7 +20,8 @@ class TypeController extends BaseController {
      */
     public function index()
     {
-        $view = View::make('task.type.index');
+        $roles = Role::all();
+        $view = View::make('admin.role.index')->with('roles', $roles);
         return $view;
     }
 
@@ -31,7 +32,7 @@ class TypeController extends BaseController {
      */
     public function create()
     {
-        return View::make('task.type.create');
+        return View::make('admin.role.create');
     }
 
     /**
@@ -41,8 +42,17 @@ class TypeController extends BaseController {
      */
     public function store()
     {
-        dd(Input::all());
-        return Redirect::to('task.type.index');
+        $rules = array(
+            'role-name' => 'required',
+        );
+        $validator = Validator::make(Input::all(), $rules);
+
+        $role = new Role();
+        $role->owner_id = 1;
+        $role->name =Input::get('role-name');
+        $role->save();
+
+        return Redirect::to('admin/role');
     }
 
     /**
@@ -64,7 +74,10 @@ class TypeController extends BaseController {
      */
     public function edit($id)
     {
+        $role = Role::find($id);
 
+        $view = View::make('admin.role.edit')->with('role', $role);
+        return $view;
     }
 
     /**
@@ -75,7 +88,16 @@ class TypeController extends BaseController {
      */
     public function update($id)
     {
+        $rules = array(
+            'role-name' => 'required',
+        );
+        $validator = Validator::make(Input::all(), $rules);
 
+        $role = Role::find($id);
+        $role->name =Input::get('role-name');
+        $role->save();
+
+        return Redirect::to('admin/role');
     }
 
     /**

@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     if (Auth::guest())
-        return view('auth.login');
+        return view('landing');
     else
         return view('welcome');
 
@@ -36,4 +36,6 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('help', 'HelpController');
     Route::resource('settings', 'SettingsController');
     Route::resource('profile', 'ProfileController');
+
+    Route::resource('admin/role', 'Admin\RoleController');
 });

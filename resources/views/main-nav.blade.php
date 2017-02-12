@@ -42,7 +42,7 @@
                     <ul class="nav child_menu">
                       <li><a href="{{ URL::to('users') }}">All Users</a></li>
                       <li><a href="{{ URL::to('users/create') }}">Add New User</a></li>
-                      <li><a href="#">User Role</a></li>
+                      <li><a href="{{ URL::to('admin/role') }}">User Role</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-key"></i> Admin <span class="fa fa-chevron-down"></span></a>
