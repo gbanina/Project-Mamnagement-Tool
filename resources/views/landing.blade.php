@@ -111,7 +111,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
       date: "02 02 2018 09:00:00",/*Change your time here*/
       format: "on"
       },
-
       function() {
         // callback function
       });

@@ -25,7 +25,6 @@
                     <div class="clearfix"></div>
                   </div>
 
-
        <div class="">
                       {!! Form::open(array('url' => 'project', 'class' => 'form-horizontal form-label-left')) !!}
             <div class="clearfix"></div>

@@ -25,7 +25,6 @@
                     <div class="clearfix"></div>
                   </div>
 
-
        <div class="">
                       {!! Form::model($project, array('route' => array('project.update', $project->id), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}
             <div class="clearfix"></div>
@@ -146,12 +145,6 @@
               </div>
 
             </div>
-
-
-            <!-- end design1 -->
-
-
-
                   @if($errors->count() != 0):
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                             <div class="alert alert-danger alert-dismissible fade in" role="alert">
@@ -172,6 +165,7 @@
                 {!! Form::close() !!}
                     </div>
                 </div>
+                @include('project.tasks')
               </div>
             </div>
         </div>
