@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     if (Auth::guest())
-        return view('landing');
+        return view('dummy');
     else
         return view('welcome');
 });
