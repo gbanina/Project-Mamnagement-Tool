@@ -41,7 +41,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <div class="jumbotron masthead">
 <div class="container">
 
-<h1>Projectify</h1>
+<h1>TeamBiosis</h1>
 
 <p>Get more done, while {having='fun'}</p>
 
@@ -94,7 +94,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <div class="row-fluid">
 <div class="span8 offset2 footer">
 <p class="socialicons"> <a href="http://facebook.com/web3canvas" target="_blank" class="icons facebook"></a> <a href="http://twitter.com/web3canvas" target="_blank" class="icons twitter"></a> <a href="http://web3canvas.com/" target="_blank" class="icons linkedin"></a> </p>
-<p class="footertext"> copyright © 2013 Hello Inc. Made with love in India</p>
+<p class="footertext"> copyright © 2017 Made with love in Croatia</p>
 </div>
 </div>
 </div>

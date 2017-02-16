@@ -75,8 +75,8 @@
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                  <h1><i class="fa fa-paw"></i>TeamBiosis</h1>
+                  <p>copyright © 2017 Made with love in Croatia</p>
                 </div>
               </div>
             </form>

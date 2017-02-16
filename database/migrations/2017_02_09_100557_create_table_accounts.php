@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableOwner extends Migration
+class CreateTableAccounts extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateTableOwner extends Migration
      */
  public function up()
     {
-        Schema::create('owners', function (Blueprint $table) {
+        Schema::create('accounts', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name', 45);
             $table->enum('licence', ['SINGLE', 'PREMIUM', 'ENTERPRISE'])->nullable();
             $table->date('expires')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +31,6 @@ class CreateTableOwner extends Migration
      */
      public function down()
      {
-       Schema::dropIfExists('owners');
+       Schema::dropIfExists('accounts');
      }
 }

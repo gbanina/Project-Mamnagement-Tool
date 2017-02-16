@@ -42,7 +42,7 @@
                           <td>{{$user->name}}</td>
                           <td>{{$user->email}}</td>
                           <td>{{$user->created_at}}</td>
-                          <td>{{$user->currentTeam->name}}</td>
+                          <td>dummy</td>
                           <td>edit icon</td>
                         </tr>
                       @endforeach

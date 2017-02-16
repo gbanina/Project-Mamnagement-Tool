@@ -16,7 +16,6 @@ Route::get('/', function () {
         return view('landing');
     else
         return view('welcome');
-
 });
 
 Auth::routes();
@@ -25,7 +24,7 @@ Route::group(['middleware' => 'auth'], function()
 {
     Route::get('/home', 'HomeController@index');
 
-    Route::resource('project', 'ProjectController');
+    Route::resource('project', 'Project\ProjectController');
     Route::resource('task', 'TaskController');
     Route::resource('users', 'UsersController');
 
@@ -38,4 +37,6 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('profile', 'ProfileController');
 
     Route::resource('admin/role', 'Admin\RoleController');
+    Route::resource('admin/task-type', 'Admin\TaskTypeController');
+    Route::resource('admin/project-type', 'Admin\ProjectTypeController');
 });

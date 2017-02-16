@@ -36,12 +36,13 @@ class User extends Authenticatable
      */
     public function organisations()
     {
-        return $this->belongsToMany('App\Models\Organisation', 'user_organisations');
+        return $this->belongsToMany('App\Models\Account', 'user_accounts');
     }
     public function getCurrentTeamAttribute()
     {
-        $all = $this->belongsToMany('App\Models\Organisation', 'user_organisations');
-        return $all->where('owner_id','=',1)->first();
+        //$all = $this->belongsToMany('App\Models\Account', 'user_accounts');
+        //return $all->where('account_id','=',1)->first();
+        return $this->belongsToMany('App\Models\Account', 'user_accounts');
     }
 
 }

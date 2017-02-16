@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Project Management</title>
+    <title>TeamBiosis</title>
 
     <!-- Bootstrap -->
     <link href="{{ URL::to('css/bootstrap.min.css')}}" rel="stylesheet">
@@ -20,6 +20,9 @@
 
     <!-- Custom Theme Style -->
     <link href="{{ URL::to('css/custom.min.css')}}" rel="stylesheet">
+
+    <!-- Custom Tweeks -->
+    <link href="{{ URL::to('css/admin.css')}}" rel="stylesheet">
 
         <!-- jQuery -->
     <script src="{{ URL::to('js/jquery.min.js')}}"></script>

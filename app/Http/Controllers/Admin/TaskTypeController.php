@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use DB;
 use View;
 Use Redirect;
-use App\Bill;
+use App\Models\TaskType;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
-class ProjectController extends BaseController {
+class TaskTypeController extends BaseController {
 
     /**
      * Display a listing of the resource.
@@ -20,7 +20,8 @@ class ProjectController extends BaseController {
      */
     public function index()
     {
-        $view = View::make('project.index');
+        $tt = TaskType::all();
+        $view = View::make('admin.task-type.index')->with('roles', $tt);
         return $view;
     }
 
@@ -31,7 +32,7 @@ class ProjectController extends BaseController {
      */
     public function create()
     {
-        return View::make('project.create');
+        return View::make('admin.task-type.create');
     }
 
     /**
@@ -41,8 +42,17 @@ class ProjectController extends BaseController {
      */
     public function store()
     {
+        $rules = array(
+            'role-name' => 'required',
+        );
+        $validator = Validator::make(Input::all(), $rules);
 
-        return Redirect::to('project.index');
+        $tt = new TaskType();
+        $tt->owner_id = 1;
+        $tt->name =Input::get('role-name');
+        $tt->save();
+
+        return Redirect::to('admin/task-type');
     }
 
     /**
@@ -64,7 +74,10 @@ class ProjectController extends BaseController {
      */
     public function edit($id)
     {
+        $tt = TaskType::find($id);
 
+        $view = View::make('admin.task-type.edit')->with('taskTypes', $tt);
+        return $view;
     }
 
     /**
@@ -75,7 +88,16 @@ class ProjectController extends BaseController {
      */
     public function update($id)
     {
+        $rules = array(
+            'role-name' => 'required',
+        );
+        $validator = Validator::make(Input::all(), $rules);
 
+        $role = TaskType::find($id);
+        $role->name =Input::get('role-name');
+        $role->save();
+
+        return Redirect::to('admin/task-type');
     }
 
     /**

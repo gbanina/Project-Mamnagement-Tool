@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Admin;
 use DB;
 use View;
 Use Redirect;
-use App\Models\Role;
+use App\Models\ProjectTypes;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
-class RoleController extends BaseController {
+class ProjectTypeController extends BaseController {
 
     /**
      * Display a listing of the resource.
@@ -20,8 +20,8 @@ class RoleController extends BaseController {
      */
     public function index()
     {
-        $roles = Role::all();
-        $view = View::make('admin.role.index')->with('roles', $roles);
+        $pt = ProjectTypes::all();
+        $view = View::make('admin.project-type.index')->with('projectTypes', $pt);
         return $view;
     }
 
@@ -32,7 +32,7 @@ class RoleController extends BaseController {
      */
     public function create()
     {
-        return View::make('admin.role.create');
+        return View::make('admin.project-type.create');
     }
 
     /**
@@ -43,16 +43,16 @@ class RoleController extends BaseController {
     public function store()
     {
         $rules = array(
-            'role-name' => 'required',
+            'type-label' => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
 
-        $role = new Role();
-        $role->accounts_id = 1;
-        $role->name =Input::get('role-name');
-        $role->save();
+        $pt = new ProjectTypes();
+        $pt->accounts_id = 1;
+        $pt->label =Input::get('type-label');
+        $pt->save();
 
-        return Redirect::to('admin/role');
+        return Redirect::to('admin/project-type');
     }
 
     /**
@@ -74,9 +74,9 @@ class RoleController extends BaseController {
      */
     public function edit($id)
     {
-        $role = Role::find($id);
+        $pt = ProjectTypes::find($id);
 
-        $view = View::make('admin.role.edit')->with('role', $role);
+        $view = View::make('admin.project-type.edit')->with('projectType', $pt);
         return $view;
     }
 
@@ -89,15 +89,15 @@ class RoleController extends BaseController {
     public function update($id)
     {
         $rules = array(
-            'role-name' => 'required',
+            'type-label' => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
 
-        $role = Role::find($id);
-        $role->name =Input::get('role-name');
-        $role->save();
+        $pt = ProjectTypes::find($id);
+        $pt->label =Input::get('type-label');
+        $pt->update();
 
-        return Redirect::to('admin/role');
+        return Redirect::to('admin/project-type');
     }
 
     /**

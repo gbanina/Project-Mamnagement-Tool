@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableUserOrg extends Migration
+class CreateTableUserAcc extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,17 @@ class CreateTableUserOrg extends Migration
      */
     public function up()
     {
-        Schema::create('user_organisations', function (Blueprint $table) {
+        Schema::create('user_accounts', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->integer('organisation_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->timestamps();
-        });
+            $table->increments('accounts_id');
 
-        Schema::table('user_organisations', function($table) {
-            $table->foreign('organisation_id', 'fk_user_organisation_organisation1_idx')
-                ->references('id')->on('organisations')
-                ->onDelete('no action')
-                ->onUpdate('no action');
 
             $table->foreign('user_id', 'fk_user_organisation_users1_idx')
                 ->references('id')->on('users')
                 ->onDelete('no action')
                 ->onUpdate('no action');
-       });
+        });
     }
 
 
@@ -41,6 +34,6 @@ class CreateTableUserOrg extends Migration
      */
      public function down()
      {
-       Schema::dropIfExists('user_organisations');
+       Schema::dropIfExists('user_accounts');
      }
 }
