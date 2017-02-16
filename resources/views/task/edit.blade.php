@@ -46,7 +46,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Project</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('project_id', $projects, $task->projects_id, array('class' => 'form-control')) }}
+                          {{ Form::select('project_id', $projects, $task->projects_id, array('class' => 'form-control' , 'required')) }}
                         </div>
                       </div>
                       <div class="form-group">
@@ -58,25 +58,25 @@
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Type</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('type_id', $types, $task->task_types_id, array('class' => 'form-control')) }}
+                          {{ Form::select('type_id', $types, $task->task_types_id, array('class' => 'form-control', 'required')) }}
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Responsible</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('responsible_id', $users, $task->responsible_id, array('class' => 'form-control')) }}
+                          {{ Form::select('responsible_id', $users, $task->responsible_id, array('class' => 'form-control', 'required')) }}
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Status</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('status_id', $status, $task->status_id, array('class' => 'form-control')) }}
+                          {{ Form::select('status_id', $status, $task->status_id, array('class' => 'form-control', 'required')) }}
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Priority</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('priority_id', $priorities, $task->priority_id, array('class' => 'form-control')) }}
+                          {{ Form::select('priority_id', $priorities, $task->priority_id, array('class' => 'form-control', 'required')) }}
                         </div>
                       </div>
                       <div class="form-group">

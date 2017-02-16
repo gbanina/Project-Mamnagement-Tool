@@ -59,13 +59,13 @@
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Type</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('project_type', $projectTypes, $project->project_types_id, array('class' => 'form-control')) }}
+                          {{ Form::select('project_type', $projectTypes, $project->project_types_id, array('class' => 'form-control', 'required')) }}
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Default Responsible</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                            {{ Form::select('default_responsible', $users, $project->default_responsible, array('class' => 'form-control')) }}
+                            {{ Form::select('default_responsible', $users, $project->default_responsible, array('class' => 'form-control', 'required')) }}
                         </div>
                       </div>
                       <div class="form-group">
