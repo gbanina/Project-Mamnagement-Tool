@@ -89,9 +89,9 @@
 
                   <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                       <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Created by (Missing : TODO!!!)</label>
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Created by</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('created_by', $users, null, array('class' => 'form-control')) }}
+                          {{ Form::select('created_by', $users, $task->created_by, array('disabled', 'class' => 'form-control')) }}
                         </div>
                       </div>
                       <div class="form-group">

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Helpers\PMTypesHelper;
 use DB;
 
 class Project extends Model {
@@ -21,5 +22,31 @@ class Project extends Model {
     {
         $tasks = DB::table('tasks')->where('projects_id', '=', $this->id);
         return $tasks->get();
+    }
+
+    public function getEstimatedStartDateAttribute()
+    {
+        $item = DB::table('tasks')->where('projects_id', '=', $this->id)->min('estimated_start_date');
+        return PMTypesHelper::dateToHuman($item);
+    }
+    public function getEstimatedEndDateAttribute()
+    {
+        $item = DB::table('tasks')->where('projects_id', '=', $this->id)->max('estimated_end_date');
+        return PMTypesHelper::dateToHuman($item);
+    }
+    public function getRealStartDateAttribute()
+    {
+        $item = DB::table('tasks')->where('projects_id', '=', $this->id)->max('real_start_date');
+        return PMTypesHelper::dateToHuman($item);
+    }
+    public function getRealEndDateAttribute()
+    {
+        $item = DB::table('tasks')->where('projects_id', '=', $this->id)->max('real_end_date');
+        return PMTypesHelper::dateToHuman($item);
+    }
+    public function getEstimatedCostAttribute()
+    {
+        $item = DB::table('tasks')->where('projects_id', '=', $this->id)->sum('estimated_cost');
+        return $item;
     }
 }

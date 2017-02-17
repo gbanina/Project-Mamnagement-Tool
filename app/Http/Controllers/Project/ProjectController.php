@@ -13,6 +13,7 @@ use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 class ProjectController extends BaseController {
 
@@ -59,6 +60,7 @@ class ProjectController extends BaseController {
         $project->project_types_id = Input::get('project_type');
         $project->name = Input::get('project_name');
         $project->default_responsible = Input::get('default_responsible');
+        $project->created_by = Auth::user()->id;
         $project->save();
 
         $up = New UserProject;
@@ -140,7 +142,9 @@ class ProjectController extends BaseController {
      */
     public function destroy($id)
     {
-
+        $project = Project::find($id);
+        $project->delete();
+        return Redirect::to('project');
     }
 
 }

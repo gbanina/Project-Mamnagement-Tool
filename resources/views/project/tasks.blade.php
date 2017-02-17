@@ -42,7 +42,7 @@
                             {{ Form::open(['route' => ['task.destroy', $task->id], 'method' => 'delete', 'style'=>'display: inline']) }}
                             <button type="submit" class="btn btn-danger btn-xs">Delete</button>
                             {{ Form::close() }}
-                            <li>
+                            </li>
                           </td>
                         </tr>
                         @endforeach

@@ -95,34 +95,35 @@
                   </div>
                   <div class="x_content">
                     <br>
+
                     <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated Start Date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                            <input type="text" class="form-control has-feedback-left" id="single_cal1" placeholder="Estimated Start Date" aria-describedby="inputSuccess2Status2">
+                            {!! Form::text('estimated_start_date', $project->estimatedStartDate, array('disabled', 'id' => 'single_cal1', 'class' => 'form-control has-feedback-left')) !!}
                             <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="inputSuccess2Status1" class="sr-only">(success)</span>
                         </div>
                       </div>
                     <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Project Name</label>
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated End Date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                            <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="First Name" aria-describedby="inputSuccess2Status2">
+                            {!! Form::text('estimated_end_date', $project->estimatedEndtDate, array('disabled', 'id' => 'single_cal3', 'class' => 'form-control has-feedback-left')) !!}
                             <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="inputSuccess_status" class="sr-only">(success)</span>
                         </div>
                       </div>
                     <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Project Name</label>
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Real Start Date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                            <input type="text" class="form-control has-feedback-left" id="single_cal3" placeholder="First Name" aria-describedby="inputSuccess2Status2">
+                            {!! Form::text('real_start_date', $project->realStartDate, array('disabled', 'id' => 'single_cal3', 'class' => 'form-control has-feedback-left')) !!}
                             <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="inputSuccess2Status2" class="sr-only">(success)</span>
                         </div>
                       </div>
                     <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Project Name</label>
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Real End Date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                            <input type="text" class="form-control has-feedback-left" id="single_cal4" placeholder="First Name" aria-describedby="inputSuccess2Status2">
+                            {!! Form::text('real_end_date', $project->realEndDate, array('disabled', 'id' => 'single_cal3', 'class' => 'form-control has-feedback-left')) !!}
                             <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="inputSuccess2Status2" class="sr-only">(success)</span>
                         </div>
@@ -130,14 +131,14 @@
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated Cost</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="number" class="form-control" placeholder="Estimated Cost">
+                          {!! Form::text('estimated_cost', $project->estimatedCost, array('required' => 'required', 'class' => 'form-control ')) !!}
                         </div>
                       </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Real Cost</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="number" class="form-control" placeholder="Real Cost">
+                          <input disabled type="number" class="form-control" placeholder="Real Cost" value="N/A">
                         </div>
                       </div>
                   </div>

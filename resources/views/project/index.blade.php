@@ -56,7 +56,7 @@
                           <th style="width: 20%">Project Name</th>
                           <th>Team Members</th>
                           <th>Project Progress</th>
-                          <th>Status</th>
+                          <th>Type</th>
                           <th style="width: 20%">Edit</th>
                         </tr>
                       </thead>
@@ -97,7 +97,9 @@
                           <td>
                             <a href="{{ URL::to('project/'.$project->id.'/edit') }}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
                             <a href="{{ URL::to('project/'.$project->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                            <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                            {{ Form::open(['route' => ['project.destroy', $project->id], 'method' => 'delete', 'style'=>'display: inline']) }}
+                            <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+                            {{ Form::close() }}
                           </td>
                         @endforeach
                         </tr>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use View;
+use Auth;
 Use Redirect;
 use App\User;
 use App\Models\Status;
@@ -79,6 +80,7 @@ class TaskController extends BaseController {
         $task->priority_id = Input::get('priority_id');
         $task->description = Input::get('description');
         $task->archived = 'NO';
+        $task->created_by = Auth::user()->id;
 
         $task->estimated_start_date = PMTypesHelper::dateToSQL(Input::get('estimated_start_date'));
         $task->estimated_end_date = PMTypesHelper::dateToSQL(Input::get('estimated_end_date'));
