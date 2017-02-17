@@ -8,6 +8,7 @@ Use Redirect;
 use App\User;
 use App\Models\Project;
 use App\Models\ProjectTypes;
+use App\Models\UserProject;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
@@ -60,6 +61,11 @@ class ProjectController extends BaseController {
         $project->default_responsible = Input::get('default_responsible');
         $project->save();
 
+        $up = New UserProject;
+        $up->users_id = Input::get('project_manager');
+        $up->projects_id = $project->id;
+        $up->save();
+
         return Redirect::to('project');
     }
 
@@ -82,9 +88,17 @@ class ProjectController extends BaseController {
      */
     public function edit($id)
     {
+        $project = Project::find($id);
+        $pm = DB::table('user_projects')->where('projects_id', '=', $project->id)->first();
+        if($pm == null) $pm = '';
+        else $pm = $pm->users_id;
+
         $users = User::all()->pluck('name', 'id')->prepend('Choose user', '');
         $pt = ProjectTypes::all()->pluck('label', 'id')->prepend('Choose Project Type', '');
-        return View::make('project.edit')->with('users',$users)->with('projectTypes',$pt)->with('project', Project::find($id));
+        return View::make('project.edit')->with('users',$users)
+                                    ->with('projectTypes',$pt)
+                                        ->with('project_manager', $pm)
+                                            ->with('project', $project);
     }
 
     /**
@@ -108,6 +122,10 @@ class ProjectController extends BaseController {
         $project->name = Input::get('project_name');
         $project->default_responsible = Input::get('default_responsible');
         $project->update();
+
+        $pm = UserProject::where('projects_id', '=', $id)->first();
+        $pm->users_id = Input::get('project_manager');
+        $pm->update();
 
         return Redirect::to('project');
     }

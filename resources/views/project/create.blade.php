@@ -52,7 +52,7 @@
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Project Manager</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                        {{ Form::select('project_manager', $users, null, array('disabled', 'class' => 'form-control')) }}
+                        {{ Form::select('project_manager', $users, null, array('class' => 'form-control')) }}
                         </div>
                       </div>
                       <div class="form-group">
