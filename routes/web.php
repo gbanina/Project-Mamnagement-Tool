@@ -39,4 +39,6 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('admin/role', 'Admin\RoleController');
     Route::resource('admin/task-type', 'Admin\TaskTypeController');
     Route::resource('admin/project-type', 'Admin\ProjectTypeController');
+    Route::resource('admin/status', 'Admin\StatusController');
+
 });

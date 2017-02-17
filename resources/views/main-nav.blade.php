@@ -47,10 +47,10 @@
                   <li><a><i class="fa fa-key"></i> Admin <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ URL::to('admin/project-type') }}">Project Types</a></li>
+                      <li><a href="{{ URL::to('admin/status') }}">Task Status</a></li>
                       <!--
                       <li><a href="{{ URL::to('task/types') }}">Task Types</a></li>
                       <li><a href="{{ URL::to('task/attributes') }}">Task Attributes</a></li>
-                      <li><a href="{{ URL::to('task/status') }}">Task Status</a></li>
                       <li><a href="{{ URL::to('task/priority') }}">Task Priority</a></li>
                       -->
                     </ul>
