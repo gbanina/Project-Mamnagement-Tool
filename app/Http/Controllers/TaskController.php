@@ -116,7 +116,7 @@ class TaskController extends BaseController {
         $priorities = Priority::all()->pluck('label', 'id')->prepend('Choose priority', '');
         $types = TaskType::all()->pluck('name', 'id')->prepend('Choose type', '');
         $task = Task::find($id);
-
+        //dd($task->estimatedStartDate);
         return View::make('task.edit')->with('projects',$projects)
                                             ->with('users',$users)
                                                 ->with('status',$status)
