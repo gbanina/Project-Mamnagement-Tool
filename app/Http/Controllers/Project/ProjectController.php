@@ -124,8 +124,10 @@ class ProjectController extends BaseController {
         $project->update();
 
         $pm = UserProject::where('projects_id', '=', $id)->first();
+        if($pm == null) $pm = new UserProject;
+        $pm->projects_id = $id;
         $pm->users_id = Input::get('project_manager');
-        $pm->update();
+        $pm->save();
 
         return Redirect::to('project');
     }
