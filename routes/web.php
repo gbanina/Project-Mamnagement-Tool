@@ -40,5 +40,5 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('admin/task-type', 'Admin\TaskTypeController');
     Route::resource('admin/project-type', 'Admin\ProjectTypeController');
     Route::resource('admin/status', 'Admin\StatusController');
-
+    Route::resource('admin/priority', 'Admin\PriorityController');
 });
