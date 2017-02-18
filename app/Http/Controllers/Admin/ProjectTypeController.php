@@ -6,10 +6,12 @@ use DB;
 use View;
 Use Redirect;
 use App\Models\ProjectTypes;
+use App\Models\TaskType;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class ProjectTypeController extends BaseController {
 
@@ -40,17 +42,18 @@ class ProjectTypeController extends BaseController {
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
         $rules = array(
-            'type-label' => 'required',
+            'type-name' => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
 
         $pt = new ProjectTypes();
         $pt->accounts_id = 1;
-        $pt->label =Input::get('type-label');
+        $pt->label =Input::get('type-name');
         $pt->save();
+        $request->session()->flash('alert-success', 'Project Type was successfuly created!');
 
         return Redirect::to('admin/project-type');
     }
@@ -75,8 +78,10 @@ class ProjectTypeController extends BaseController {
     public function edit($id)
     {
         $pt = ProjectTypes::find($id);
-
-        $view = View::make('admin.project-type.edit')->with('projectType', $pt);
+        $tt = TaskType::all();
+        $hasTaskType = $pt->hasTaskType();
+        $view = View::make('admin.project-type.edit')->with('projectType', $pt)
+                    ->with('taskTypes', $tt)->with('hasTaskType', $hasTaskType);
         return $view;
     }
 
@@ -86,16 +91,17 @@ class ProjectTypeController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update($id, Request $request)
     {
         $rules = array(
             'type-label' => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
-
         $pt = ProjectTypes::find($id);
-        $pt->label =Input::get('type-label');
+        $pt->label = Input::get('type-name');
+        $pt->updateTaskTypes(Input::get('task_type'));
         $pt->update();
+        $request->session()->flash('alert-success', 'Project Type was successfuly updated!');
 
         return Redirect::to('admin/project-type');
     }
@@ -106,9 +112,13 @@ class ProjectTypeController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
+        $type = ProjectTypes::find($id);
+        $type->delete();
+        $request->session()->flash('alert-success', 'Project Type was successfuly deleted!');
 
+        return Redirect::to('admin/project-type');
     }
 
 }
