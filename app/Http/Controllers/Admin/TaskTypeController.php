@@ -10,6 +10,7 @@ use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class TaskTypeController extends BaseController {
 
@@ -21,7 +22,7 @@ class TaskTypeController extends BaseController {
     public function index()
     {
         $tt = TaskType::all();
-        $view = View::make('admin.task-type.index')->with('roles', $tt);
+        $view = View::make('admin.task-type.index')->with('taskTypes', $tt);
         return $view;
     }
 
@@ -40,18 +41,18 @@ class TaskTypeController extends BaseController {
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
         $rules = array(
-            'role-name' => 'required',
+            'type-name' => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
 
         $tt = new TaskType();
-        $tt->owner_id = 1;
-        $tt->name =Input::get('role-name');
+        $tt->accounts_id = 1;
+        $tt->name =Input::get('type-name');
         $tt->save();
-
+        $request->session()->flash('alert-success', 'Task Type was successfuly created!');
         return Redirect::to('admin/task-type');
     }
 
@@ -76,7 +77,7 @@ class TaskTypeController extends BaseController {
     {
         $tt = TaskType::find($id);
 
-        $view = View::make('admin.task-type.edit')->with('taskTypes', $tt);
+        $view = View::make('admin.task-type.edit')->with('taskType', $tt);
         return $view;
     }
 
@@ -86,17 +87,17 @@ class TaskTypeController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update($id, Request $request)
     {
         $rules = array(
-            'role-name' => 'required',
+            'type-name' => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
 
         $role = TaskType::find($id);
-        $role->name =Input::get('role-name');
+        $role->name =Input::get('type-name');
         $role->save();
-
+        $request->session()->flash('alert-success', 'Task Type was successfuly updated!');
         return Redirect::to('admin/task-type');
     }
 
@@ -106,9 +107,13 @@ class TaskTypeController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
+        $type = TaskType::find($id);
+        $type->delete();
+        $request->session()->flash('alert-success', 'Task Type was successfuly deleted!');
 
+        return Redirect::to('admin/task-type');
     }
 
 }
