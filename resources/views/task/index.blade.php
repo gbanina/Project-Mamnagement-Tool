@@ -84,7 +84,7 @@
                             </ul>
                           </td>
                           <td class="project_progress">
-                            {{$task->project}}
+                            {{$task->project->name}}
                           </td>
                           <td>
                             <button type="button" class="btn btn-success btn-xs">{{ $task->type }}</button>

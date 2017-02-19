@@ -11,6 +11,11 @@ use DB;
 class Task extends Model {
     use SoftDeletes;
 
+    public function possibleTypes()
+    {
+        return($this->project->posibleTaskTypes()->get());
+    }
+
     public function getTypeAttribute()
     {
         //Todo : refactor this!!!
@@ -22,11 +27,8 @@ class Task extends Model {
 
     public function getProjectAttribute()
     {
-        //Todo : refactor this!!!
-        //$type =  $this->hasOne('App\Models\ProjectTypes', 'fk_tasks_task_types1_idx');
-        //$result = TaskType::find($this->task_types_id)->get();
-        $project = DB::table('projects')->find($this->projects_id);
-        return $project->name;
+        $project =  $this->belongsTo('App\Models\Project', 'projects_id');
+        return $project->first();
     }
     public function getEstimatedStartDateAttribute()
     {

@@ -34,7 +34,11 @@ class ProjectTypeController extends BaseController {
      */
     public function create()
     {
-        return View::make('admin.project-type.create');
+        $tt = TaskType::all();
+        $view = View::make('admin.project-type.create')
+                        ->with('hasTaskType', array())
+                            ->with('taskTypes', $tt);
+        return $view;
     }
 
     /**
@@ -53,6 +57,7 @@ class ProjectTypeController extends BaseController {
         $pt->accounts_id = 1;
         $pt->label =Input::get('type-name');
         $pt->save();
+        $pt->updateTaskTypes(Input::get('task_type'));
         $request->session()->flash('alert-success', 'Project Type was successfuly created!');
 
         return Redirect::to('admin/project-type');
