@@ -1,5 +1,5 @@
 <?php
-
+/*App\Helpers\PMTypesHelper*/
 namespace App\Helpers;
 
 class PMTypesHelper{
@@ -12,5 +12,14 @@ class PMTypesHelper{
     public static function dateToHuman($date){
         $arr = explode('-', $date);
         return $arr[1] . '/' . $arr[2] . '/' . $arr[0];
+    }
+
+    public static function fieldTypeSelect(){
+        return array('NUMBER' => 'Number',
+                        'INPUT' => 'Word',
+                        'TEXTAREA' => 'Text',
+                        'DATE' => 'Date',
+                        'USER' => 'User',
+            );
     }
 }

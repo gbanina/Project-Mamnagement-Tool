@@ -48,12 +48,9 @@
                     <ul class="nav child_menu">
                       <li><a href="{{ URL::to('admin/project-type') }}">Project Types</a></li>
                       <li><a href="{{ URL::to('admin/task-type') }}">Task Types</a></li>
+                      <li><a href="{{ URL::to('admin/field') }}">Additional Fields</a></li>
                       <li><a href="{{ URL::to('admin/status') }}">Task Status</a></li>
                       <li><a href="{{ URL::to('admin/priority') }}">Task Priority</a></li>
-                      <!--
-
-                      <li><a href="{{ URL::to('task/attributes') }}">Task Attributes</a></li>
-                      -->
                     </ul>
                   </li>
                 </ul>
