@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\TaskType;
+use App\Models\TaskAttribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Helpers\PMTypesHelper;
@@ -13,15 +14,12 @@ class Task extends Model {
 
     public function possibleTypes()
     {
-        return($this->project->posibleTaskTypes()->get());
+        return $this->project->projectType->posibleTaskTypes()->get();
     }
 
     public function getTypeAttribute()
     {
-        //Todo : refactor this!!!
-        //$type =  $this->hasOne('App\Models\ProjectTypes', 'fk_tasks_task_types1_idx');
-        //$result = TaskType::find($this->task_types_id)->get();
-        $type = DB::table('task_types')->find($this->task_types_id);
+        $type =  $this->belongsTo('App\Models\TaskType', 'task_types_id')->first();
         return $type->name;
     }
 
@@ -30,6 +28,17 @@ class Task extends Model {
         $project =  $this->belongsTo('App\Models\Project', 'projects_id');
         return $project->first();
     }
+    public function taskType()
+    {
+        $type =  $this->belongsTo('App\Models\TaskType', 'task_types_id');
+        return $type;
+    }
+
+    public function attributes()
+    {
+        return $this->hasMany('App\Models\TaskAttribute');
+    }
+
     public function getEstimatedStartDateAttribute()
     {
         return PMTypesHelper::dateToHuman($this->attributes['estimated_start_date']);

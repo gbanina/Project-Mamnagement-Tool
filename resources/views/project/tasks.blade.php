@@ -1,4 +1,8 @@
                   <div class="x_content" style="display: block;">
+                    <p>
+                      <div id="task_type_buttons">
+                      </div>
+                    </p>
                     <p>Task listings for the project : {{$project->name}}</p>
                     <!-- start project list -->
                     <table class="table table-striped projects">

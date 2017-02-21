@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Helpers\PMTypesHelper;
-use DB;
 use App\Models\ProjectTaskType;
+use App\Models\ProjectTypes;
 
 class Project extends Model {
     use SoftDeletes;
@@ -19,10 +20,11 @@ class Project extends Model {
         $type = DB::table('project_types')->find($this->project_types_id);
         return $type->label;
     }
-    public function posibleTaskTypes()
-    {
-        return $this->belongsToMany('App\Models\TaskType', 'project_task_types', 'task_types_id', 'project_types_id');
+
+    public function projectType(){
+        return $this->belongsTo('App\Models\ProjectTypes', 'project_types_id');
     }
+
     public function getTasksAttribute()
     {
         $tasks = DB::table('tasks')->where('projects_id', '=', $this->id);

@@ -46,7 +46,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Project</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('project_id', $projects, $task->projects_id, array('class' => 'form-control' , 'required')) }}
+                          {{ Form::select('project_id', $projects, $task->projects_id, array('disabled', 'class' => 'form-control' , 'required')) }}
                         </div>
                       </div>
                       <div class="form-group">
@@ -140,21 +140,17 @@
                           {!! Form::number('estimated_cost', $task->estimated_cost, array( 'class' => 'form-control ')) !!}
                         </div>
                       </div>
+                      @include('task.additional-fields')
                   </div>
                   <div class="clearfix"></div>
                   {!! Form::submit('Submit', array('class' => 'btn btn-success')) !!}
                   {!! Form::close() !!}
                 </div>
-
               </div>
             </div>
-              </div>
-
-            </div>
+          </div>
         </div>
-
-
-
+      </div>
 @endsection
 
 @section('js_include')

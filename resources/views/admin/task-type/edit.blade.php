@@ -80,10 +80,11 @@
 
                       <div class="">
                         <ul class="to_do">
-                        @foreach(array() as $type)
+                        <ul class="to_do">
+                        @foreach($taskFields as $field)
                           <li>
                             <p>
-                              {{ Form::checkbox('task_type['.$type->id.']' , $type->id, in_array ($type->id, $hasTaskType), ['class' => 'flat']) }} {{$type->name}}
+                              {{ Form::checkbox('task_field['.$field->id.']' , $field->id, in_array ($field->id, $hasTaskField), ['class' => 'flat']) }} {{$field->label}}
                               </p>
                           </li>
                           @endforeach

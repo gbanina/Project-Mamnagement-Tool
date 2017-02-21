@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\ProjectTaskType;
+use App\Models\TaskType;
 
 class ProjectTypes extends Model {
     use SoftDeletes;
@@ -21,6 +22,10 @@ class ProjectTypes extends Model {
                 }
             }
         //End Transactions
+    }
+    public function posibleTaskTypes()
+    {
+        return $this->belongsToMany('App\Models\TaskType', 'project_task_types', 'project_types_id', 'task_types_id');
     }
     public function hasTaskType()
     {

@@ -12,11 +12,13 @@ use App\Models\Priority;
 use App\Models\TaskType;
 use App\Models\Project;
 use App\Models\Task;
+use App\Models\TaskAttribute;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use App\Helpers\PMTypesHelper;
+use Illuminate\Http\Request;
 
 class TaskController extends BaseController {
 
@@ -27,8 +29,7 @@ class TaskController extends BaseController {
      */
     public function index()
     {
-        $tasks = Task::all();
-        $view = View::make('task.index')->with('tasks', $tasks);
+        $view = View::make('task.index')->with('tasks', Task::all());
         return $view;
     }
 
@@ -37,19 +38,21 @@ class TaskController extends BaseController {
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $typeId = $request->input('type');
+        $projectId = $request->input('p');
+
         $projects = Project::all()->pluck('name', 'id')->prepend('Choose project', '');
         $users = User::all()->pluck('name', 'id')->prepend('Choose user', '');
         $status = Status::all()->pluck('name', 'id')->prepend('Choose status', '');
         $priorities = Priority::all()->pluck('label', 'id')->prepend('Choose priority', '');
         $types = TaskType::all()->pluck('name', 'id')->prepend('Choose type', '');
 
-        return View::make('task.create')->with('projects',$projects)
-                                            ->with('users',$users)
-                                                ->with('status',$status)
+        return View::make('task.create')->with('projects', $projects)->with('projectId', $projectId)
+                                            ->with('users',$users)->with('status',$status)
                                                     ->with('priorities',$priorities)
-                                                        ->with('types',$types);
+                                                        ->with('types',$types)->with('typeId',$typeId);
     }
 
     /**
@@ -57,7 +60,7 @@ class TaskController extends BaseController {
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
         $rules = array(
             'project' => 'required',
@@ -88,7 +91,7 @@ class TaskController extends BaseController {
 
         $task->save();
 
-        return Redirect::to('task');
+        return Redirect::to('task/' . $task->id . '/edit');
     }
 
     /**
@@ -114,16 +117,22 @@ class TaskController extends BaseController {
         $users = User::all()->pluck('name', 'id')->prepend('Choose user', '');
         $status = Status::all()->pluck('name', 'id')->prepend('Choose status', '');
         $priorities = Priority::all()->pluck('label', 'id')->prepend('Choose priority', '');
-        //$types = TaskType::all()->pluck('name', 'id')->prepend('Choose type', '');
         $task = Task::find($id);
         $types = $task->possibleTypes()->pluck('name', 'id')->prepend('Choose type', '');
-        //dd($task->estimatedStartDate);
+        $fields = array();
+        // Todo : refactor this
+        foreach($task->taskType()->first()->fields() as $field){
+            $att = TaskAttribute::where('task_id', $id)->where('task_fields_id', $field->id)->first();
+            $val = '';
+            if($att != null) $val = $att->value;
+            $fields[$field->id] = array('type' => $field->type,
+                                            'label' => $field->label,
+                                                'value' => $val);
+        }
         return View::make('task.edit')->with('projects',$projects)
-                                            ->with('users',$users)
-                                                ->with('status',$status)
-                                                    ->with('priorities',$priorities)
-                                                        ->with('types',$types)
-                                                            ->with('task',$task);
+                        ->with('users',$users)->with('status',$status)
+                            ->with('priorities',$priorities)->with('types',$types)
+                                ->with('task',$task)->with('fields',$fields);
     }
 
     /**
@@ -132,7 +141,7 @@ class TaskController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update($id, Request $request)
     {
         $rules = array(
             'project' => 'required',
@@ -148,7 +157,8 @@ class TaskController extends BaseController {
 
         $task = Task::find($id);
         $task->name = Input::get('name');
-        $task->projects_id = Input::get('project_id');
+        /* project and type cannot chainge here */
+        //$task->projects_id = Input::get('project_id');
         $task->task_types_id = Input::get('type_id');
         $task->responsible_id = Input::get('responsible_id');
         $task->status_id = Input::get('status_id');
@@ -161,7 +171,12 @@ class TaskController extends BaseController {
         $task->estimated_cost = Input::get('estimated_cost');
 
         $task->update();
-
+        TaskAttribute::where('task_id', $task->id)->delete();
+        if(Input::get('additional') !== null){
+            foreach (Input::get('additional') as $key=>$att){
+                TaskAttribute::create(['task_id' => $task->id, 'task_fields_id' => $key, 'value' => $att]);
+            }
+        }
         return Redirect::to('task');
     }
 
@@ -171,7 +186,7 @@ class TaskController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         $task = Task::find($id);
         $task->delete();

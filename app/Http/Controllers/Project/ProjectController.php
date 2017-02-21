@@ -91,16 +91,24 @@ class ProjectController extends BaseController {
     public function edit($id)
     {
         $project = Project::find($id);
-        $pm = DB::table('user_projects')->where('projects_id', '=', $project->id)->first();
-        if($pm == null) $pm = '';
-        else $pm = $pm->users_id;
+        // TODO : Refactor this
+        $projectManager = DB::table('user_projects')->where('projects_id', '=', $project->id)->first();
+        if($projectManager == null) $projectManager = '';
+        else $projectManager = $projectManager->users_id;
 
         $users = User::all()->pluck('name', 'id')->prepend('Choose user', '');
-        $pt = ProjectTypes::all()->pluck('label', 'id')->prepend('Choose Project Type', '');
+        $projectTypes = ProjectTypes::all();
+        $taskTypes = array();
+        foreach($projectTypes as $type){
+            $taskTypes[$type->id] = $type->posibleTaskTypes()->get()->toArray();
+        }
+        //dd($taskTypes);
+        $typesSelect = $projectTypes->pluck('label', 'id')->prepend('Choose Project Type', '');
+
         return View::make('project.edit')->with('users',$users)
-                                    ->with('projectTypes',$pt)
-                                        ->with('project_manager', $pm)
-                                            ->with('project', $project);
+                                            ->with('projectTypes',$typesSelect)
+                                                ->with('project_manager', $projectManager)
+                                                    ->with('project', $project)->with('taskTypes', $taskTypes);
     }
 
     /**

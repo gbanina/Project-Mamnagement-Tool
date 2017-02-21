@@ -1,5 +1,5 @@
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>TeamBiosis</span></a>
+              <a href="{{ URL::to('/') }}" class="site_title"><i class="fa fa-paw"></i> <span>TeamBiosis</span></a>
             </div>
             <div class="clearfix"></div>
 
@@ -33,7 +33,7 @@
                   <li><a><i class="fa fa-edit"></i> Tasks <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ URL::to('task') }}">All Tasks</a></li>
-                      <li><a href="{{ URL::to('task/create') }}">Add New Task</a></li>
+                      <!--<li><a href="{{ URL::to('task/create') }}">Add New Task</a></li>-->
                       <!-- <li><a href="media_gallery.html">Task Settings</a></li> -->
                     </ul>
                   </li>

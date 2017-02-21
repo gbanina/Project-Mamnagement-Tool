@@ -6,6 +6,7 @@ use DB;
 use View;
 Use Redirect;
 use App\Models\TaskType;
+use App\Models\TaskField;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
@@ -33,7 +34,9 @@ class TaskTypeController extends BaseController {
      */
     public function create()
     {
-        return View::make('admin.task-type.create');
+        $taskFields = TaskField::all();
+        return View::make('admin.task-type.create')
+            ->with('taskFields', $taskFields)->with('hasTaskField', array());
     }
 
     /**
@@ -48,10 +51,11 @@ class TaskTypeController extends BaseController {
         );
         $validator = Validator::make(Input::all(), $rules);
 
-        $tt = new TaskType();
-        $tt->accounts_id = 1;
-        $tt->name =Input::get('type-name');
-        $tt->save();
+        $taskType = new TaskType();
+        $taskType->accounts_id = 1;
+        $taskType->name =Input::get('type-name');
+        $taskType->save();
+        $taskType->updateTaskFields(Input::get('task_field'));
         $request->session()->flash('alert-success', 'Task Type was successfuly created!');
         return Redirect::to('admin/task-type');
     }
@@ -75,9 +79,13 @@ class TaskTypeController extends BaseController {
      */
     public function edit($id)
     {
-        $tt = TaskType::find($id);
+        $taskType = TaskType::find($id);
+        $taskFields = TaskField::all();
 
-        $view = View::make('admin.task-type.edit')->with('taskType', $tt);
+        $view = View::make('admin.task-type.edit')
+                        ->with('taskType', $taskType)
+                            ->with('taskFields', $taskFields)
+                                ->with('hasTaskField', $taskType->hasTaskField());
         return $view;
     }
 
@@ -94,9 +102,11 @@ class TaskTypeController extends BaseController {
         );
         $validator = Validator::make(Input::all(), $rules);
 
-        $role = TaskType::find($id);
-        $role->name =Input::get('type-name');
-        $role->save();
+        $taskType = TaskType::find($id);
+        $taskType->name =Input::get('type-name');
+        $taskType->save();
+        $taskType->updateTaskFields(Input::get('task_field'));
+
         $request->session()->flash('alert-success', 'Task Type was successfuly updated!');
         return Redirect::to('admin/task-type');
     }

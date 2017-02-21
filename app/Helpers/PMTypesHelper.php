@@ -11,6 +11,7 @@ class PMTypesHelper{
 
     public static function dateToHuman($date){
         $arr = explode('-', $date);
+        if(count ($arr) != 3) return 'N/A';
         return $arr[1] . '/' . $arr[2] . '/' . $arr[0];
     }
 

@@ -46,19 +46,21 @@
                     <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Project</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('project_id', $projects, null, array('class' => 'form-control' , 'required')) }}
+                          {{ Form::select('project_id', $projects, $projectId, array('disabled', 'class' => 'form-control' , 'required')) }}
+                          {{ Form::hidden('project_id', $projectId) }}
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Type</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          {{ Form::select('type_id', $types, $typeId, array('disabled', 'class' => 'form-control', 'required')) }}
+                          {{ Form::hidden('type_id', $typeId) }}
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Name</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           {!! Form::text('name', '', array('required' => 'required', 'class' => 'form-control ','placeholder'=>'Task Name')) !!}
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Type</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('type_id', $types, null, array('class' => 'form-control', 'required')) }}
                         </div>
                       </div>
                       <div class="form-group">
@@ -154,8 +156,6 @@
 
             </div>
         </div>
-
-
 
 @endsection
 
