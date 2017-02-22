@@ -10,6 +10,7 @@ use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class HelpController extends BaseController {
 
@@ -29,7 +30,7 @@ class HelpController extends BaseController {
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
         return View::make('help.create');
     }
@@ -39,9 +40,10 @@ class HelpController extends BaseController {
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
 
+        $request->session()->flash('alert-success', 'Help : '.''.' was successful created!');
         return Redirect::to('help.index');
     }
 
@@ -73,9 +75,10 @@ class HelpController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update($id, Request $request)
     {
-
+        $request->session()->flash('alert-success', 'Help : '.''.' was successful updated!');
+        return Redirect::to('help');
     }
 
     /**
@@ -84,9 +87,10 @@ class HelpController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-
+        $request->session()->flash('alert-success', 'Help : '.''.' was successful deleted!');
+        return Redirect::to('help');
     }
 
 }

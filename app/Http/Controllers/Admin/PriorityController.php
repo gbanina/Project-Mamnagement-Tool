@@ -50,7 +50,7 @@ class PriorityController extends BaseController {
 
         $priority = new Priority();
         $priority->accounts_id = 1;
-        $priority->label =Input::get('priority-name');
+        $priority->title =Input::get('title');
         $priority->save();
         $request->session()->flash('alert-success', 'Priority : '.$priority->label.' was successful created!');
 

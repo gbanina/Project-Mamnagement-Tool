@@ -15,7 +15,7 @@ Route::get('/', function () {
     if (Auth::guest())
         return view('landing');
     else
-        return view('welcome');
+        return Redirect::to('board');
 });
 
 Auth::routes();
@@ -42,4 +42,5 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('admin/status', 'Admin\StatusController');
     Route::resource('admin/priority', 'Admin\PriorityController');
     Route::resource('admin/field', 'Admin\TaskFieldController');
+    Route::resource('board', 'BoardController');
 });
