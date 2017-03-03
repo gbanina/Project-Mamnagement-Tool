@@ -58,7 +58,8 @@
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Type</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('type_id', $types, $task->task_types_id, array('class' => 'form-control', 'required')) }}
+                          {{ Form::select('type_id', $types, $task->task_types_id, array('disabled', 'class' => 'form-control', 'required')) }}
+                          {{ Form::hidden('type_id', $task->task_types_id) }}
                         </div>
                       </div>
                       <div class="form-group">

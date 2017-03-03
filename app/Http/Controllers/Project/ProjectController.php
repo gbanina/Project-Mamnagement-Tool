@@ -99,7 +99,6 @@ class ProjectController extends BaseController {
      */
     public function update($id)
     {
-        dd('update');
         $rules = array(
             'project_name' => 'required',
             'project_manager' => 'required',
@@ -121,7 +120,6 @@ class ProjectController extends BaseController {
      */
     public function destroy($id)
     {
-        dd('delete');
         $service = new ProjectServiceProvider(Auth::user());
         $service->delete($id);
 

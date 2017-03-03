@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('admin/field', 'Admin\TaskFieldController');
 
     Route::resource('board', 'BoardController');
+    Route::resource('work', 'Work\WorkController');
 
     Route::get('switch/{id}', 'AccountChaingeController@switchTo');
 });

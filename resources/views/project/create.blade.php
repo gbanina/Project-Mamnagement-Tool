@@ -3,10 +3,10 @@
 
 @section('content')
             <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Edit Project <small>Projects</small></h2>
+                    <h2>Create New Project <small>Projects</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -31,13 +31,7 @@
 
 
             <div class="row">
-              <div class="col-md-6 col-xs-12">
-
                 <div class="x_panel">
-                  <div class="x_title">
-                    <h2>General</h2>
-                    <div class="clearfix"></div>
-                  </div>
                   <div class="x_content">
                     <br>
 
@@ -67,82 +61,11 @@
                             {{ Form::select('default_responsible', $users, null, array('class' => 'form-control', 'required')) }}
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Task Types</label>
-                        <label class="data-label col-md-8 col-sm-8 col-xs-12">
-                          Task, Issue, Bug, Epic, Idea <br>
-                            <a href="" style="margin-bottom: 5px" class="btn btn-primary btn-xs">Edit</a>
-                        </label>
-                      </div>
-
-                      <div class="ln_solid"></div>
-                        <div class="btn-group">
-                          <button class="btn btn-default" type="button">Permissions</button>
-                          <button class="btn btn-default" type="button">Versions</button>
-                          <button class="btn btn-default" type="button">Cmponents</button>
-                        </div>
                   </div>
                 </div>
 
 
-              </div>
 
-              <div class="col-md-6 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Dates & Costs</h2>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <br>
-                    <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated Start Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                            <input type="text" class="form-control has-feedback-left" id="single_cal1" placeholder="Estimated Start Date" aria-describedby="inputSuccess2Status2">
-                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                            <span id="inputSuccess2Status1" class="sr-only">(success)</span>
-                        </div>
-                      </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated End Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                            <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="First Name" aria-describedby="inputSuccess2Status2">
-                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                            <span id="inputSuccess_status" class="sr-only">(success)</span>
-                        </div>
-                      </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Real Start Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                            <input type="text" class="form-control has-feedback-left" id="single_cal3" placeholder="First Name" aria-describedby="inputSuccess2Status2">
-                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                            <span id="inputSuccess2Status2" class="sr-only">(success)</span>
-                        </div>
-                      </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Real End Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                            <input type="text" class="form-control has-feedback-left" id="single_cal4" placeholder="First Name" aria-describedby="inputSuccess2Status2">
-                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                            <span id="inputSuccess2Status2" class="sr-only">(success)</span>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated Cost</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="number" class="form-control" placeholder="Estimated Cost">
-                        </div>
-                      </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Real Cost</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input type="number" class="form-control" placeholder="Real Cost">
-                        </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
 
             </div>
 

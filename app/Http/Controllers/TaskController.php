@@ -31,7 +31,6 @@ class TaskController extends BaseController {
     public function index()
     {
         $sp = new TaskServiceProvider($this);
-        dd($sp->prepareTasks());
         $view = View::make('task.index')->with('tasks', Task::all());
         return $view;
     }

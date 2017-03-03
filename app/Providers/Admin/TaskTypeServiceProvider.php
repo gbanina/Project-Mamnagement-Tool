@@ -38,7 +38,7 @@ class TaskTypeServiceProvider extends ServiceProvider
         $result = array();
 
         $result['taskType'] = TaskType::find($id);
-        $result['taskFields'] = TaskField::where('account_id', Auth::user()->current_acc);
+        $result['taskFields'] = TaskField::where('account_id', Auth::user()->current_acc)->get();
 
         return $result;
     }
