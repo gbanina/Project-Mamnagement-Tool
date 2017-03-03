@@ -4,6 +4,7 @@
 @section('content')
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
+
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Edit Project <small>Projects</small></h2>
@@ -26,19 +27,48 @@
                   </div>
 
        <div class="">
-                      {!! Form::model($project, array('route' => array('project.update', $project->id), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}
+
             <div class="clearfix"></div>
 
 
             <div class="row">
-              <div class="col-md-6 col-xs-12">
 
+              <ul class="stats-overview">
+                        <li>
+                          <span class="name"> Estimated Start Date </span>
+                          <span class="value text-success"> {{$project->estimatedStartDate}} </span>
+                        </li>
+                        <li>
+                          <span class="name"> Estimated End Date </span>
+                          <span class="value text-success"> {{$project->estimatedEndDate}} </span>
+                        </li>
+                        <li class="hidden-phone">
+                          <span class="name"> Estimated cost</span>
+                          <span class="value text-success"> {{$project->estimatedCost}} </span>
+                        </li>
+                        <li>
+                          <span class="name"> Real Start Date </span>
+                          <span class="value text-success"> {{$project->realStartDate}} </span>
+                        </li>
+                        <li>
+                          <span class="name"> Real End Date </span>
+                          <span class="value text-success"> {{$project->realEndDate}} </span>
+                        </li>
+                        <li class="hidden-phone">
+                          <span class="name"> Real cost</span>
+                          <span class="value text-success"> 0 </span>
+                        </li>
+                      </ul>
+
+              <div class="col-md-6 col-xs-12">
+{!! Form::model($project, array('route' => array('project.update', $project->id), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>General</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+
                     <br>
 
 
@@ -74,6 +104,12 @@
                             <!--<a href="" style="margin-bottom: 5px" class="btn btn-primary btn-xs">Edit</a>-->
                         </label>
                       </div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
+                          <a href="{{ URL::to('project') }}" class="btn btn-primary" type="button">Cancel</a>
+                          {!! Form::submit('Save', array('class' => 'btn btn-success')) !!}
+                        </div>
+                      </div>
 
                       <div class="ln_solid"></div>
                         <div class="btn-group">
@@ -83,66 +119,74 @@
                         </div>
                   </div>
                 </div>
+{!! Form::close() !!}
+
+<div>
+
+                        <h4>Recent Comments</h4>
+
+                        <!-- end of user messages -->
+                        <ul class="messages">
+                          <li>
+                            <img src="{{ URL::to('images/img.jpg') }}" class="avatar" alt="Avatar">
+                            <div class="message_date">
+                              <h3 class="date text-info">24</h3>
+                              <p class="month">May</p>
+                            </div>
+                            <div class="message_wrapper">
+                              <h4 class="heading">Desmond Davison</h4>
+                              <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                              <br>
+                              <p class="url">
+                                <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                                <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
+                              </p>
+                            </div>
+                          </li>
+                          <li>
+                            <img src="{{ URL::to('images/img.jpg') }}" class="avatar" alt="Avatar">
+                            <div class="message_date">
+                              <h3 class="date text-error">21</h3>
+                              <p class="month">May</p>
+                            </div>
+                            <div class="message_wrapper">
+                              <h4 class="heading">Brian Michaels</h4>
+                              <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                              <br>
+                              <p class="url">
+                                <span class="fs1" aria-hidden="true" data-icon=""></span>
+                                <a href="#" data-original-title="">Download</a>
+                              </p>
+                            </div>
+                          </li>
+                          <li>
+                            <img src="{{ URL::to('images/img.jpg') }}" class="avatar" alt="Avatar">
+                            <div class="message_date">
+                              <h3 class="date text-info">24</h3>
+                              <p class="month">May</p>
+                            </div>
+                            <div class="message_wrapper">
+                              <h4 class="heading">Desmond Davison</h4>
+                              <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                              <br>
+                              <p class="url">
+                                <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                                <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
+                              </p>
+                            </div>
+                          </li>
+                        </ul>
+                        <!-- end of user messages -->
+
+
+                      </div>
+
 
 
               </div>
 
               <div class="col-md-6 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Dates & Costs</h2>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <br>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated Start Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                            {!! Form::text('estimated_start_date', $project->estimatedStartDate, array('disabled', 'id' => 'single_cal1', 'class' => 'form-control has-feedback-left')) !!}
-                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                            <span id="inputSuccess2Status1" class="sr-only">(success)</span>
-                        </div>
-                      </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated End Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                            {!! Form::text('estimated_end_date', $project->estimatedEndtDate, array('disabled', 'id' => 'single_cal3', 'class' => 'form-control has-feedback-left')) !!}
-                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                            <span id="inputSuccess_status" class="sr-only">(success)</span>
-                        </div>
-                      </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Real Start Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                            {!! Form::text('real_start_date', $project->realStartDate, array('disabled', 'id' => 'single_cal3', 'class' => 'form-control has-feedback-left')) !!}
-                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                            <span id="inputSuccess2Status2" class="sr-only">(success)</span>
-                        </div>
-                      </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Real End Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                            {!! Form::text('real_end_date', $project->realEndDate, array('disabled', 'id' => 'single_cal3', 'class' => 'form-control has-feedback-left')) !!}
-                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                            <span id="inputSuccess2Status2" class="sr-only">(success)</span>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated Cost</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {!! Form::text('estimated_cost', $project->estimatedCost, array('required' => 'required', 'class' => 'form-control ')) !!}
-                        </div>
-                      </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Real Cost</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input disabled type="number" class="form-control" placeholder="Real Cost" value="N/A">
-                        </div>
-                      </div>
-                  </div>
-                </div>
+                  @include('project.tasks')
               </div>
 
             </div>
@@ -156,17 +200,10 @@
                   @endif
                   <div class="x_content">
                     <br>
-                      <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
-                          <a href="{{ URL::to('project') }}" class="btn btn-primary" type="button">Cancel</a>
-                          {!! Form::submit('Save', array('class' => 'btn btn-success')) !!}
-                        </div>
                       </div>
-                      </div>
-                {!! Form::close() !!}
+
                     </div>
                 </div>
-                @include('project.tasks')
               </div>
             </div>
         </div>

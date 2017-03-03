@@ -13,9 +13,11 @@ use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use App\Providers\ProjectServiceProvider;
 use Auth;
 
 class ProjectController extends BaseController {
+
 
     /**
      * Display a listing of the resource.
@@ -24,8 +26,8 @@ class ProjectController extends BaseController {
      */
     public function index()
     {
-        $projects = Project::all();
-        $view = View::make('project.index')->with('projects',$projects);
+        $service = new ProjectServiceProvider(Auth::user());
+        $view = View::make('project.index')->with('projects', $service->all());
         return $view;
     }
 
@@ -36,9 +38,9 @@ class ProjectController extends BaseController {
      */
     public function create()
     {
-        $users = User::all()->pluck('name', 'id')->prepend('Choose user', '');
-        $pt = ProjectTypes::all()->pluck('label', 'id')->prepend('Choose Project Type', '');
-        return View::make('project.create')->with('users',$users)->with('projectTypes',$pt);
+        $service = new ProjectServiceProvider(Auth::user());
+        $fields = $service->fillCreate();
+        return View::make('project.create')->with('users',$fields['users'])->with('projectTypes',$fields['projectTypes']);
     }
 
     /**
@@ -53,20 +55,10 @@ class ProjectController extends BaseController {
             'project_manager' => 'required',
             'default_responsible' => 'required',
         );
+
         $validator = Validator::make(Input::all(), $rules);
-
-        $project = new Project;
-        $project->accounts_id = 1;
-        $project->project_types_id = Input::get('project_type');
-        $project->name = Input::get('project_name');
-        $project->default_responsible = Input::get('default_responsible');
-        $project->created_by = Auth::user()->id;
-        $project->save();
-
-        $up = New UserProject;
-        $up->users_id = Input::get('project_manager');
-        $up->projects_id = $project->id;
-        $up->save();
+        $service = new ProjectServiceProvider(Auth::user());
+        $service->store(Input::all());
 
         return Redirect::to('project');
     }
@@ -90,25 +82,13 @@ class ProjectController extends BaseController {
      */
     public function edit($id)
     {
-        $project = Project::find($id);
-        // TODO : Refactor this
-        $projectManager = DB::table('user_projects')->where('projects_id', '=', $project->id)->first();
-        if($projectManager == null) $projectManager = '';
-        else $projectManager = $projectManager->users_id;
+        $service = new ProjectServiceProvider(Auth::user());
+        $fields = $service->edit($id);
 
-        $users = User::all()->pluck('name', 'id')->prepend('Choose user', '');
-        $projectTypes = ProjectTypes::all();
-        $taskTypes = array();
-        foreach($projectTypes as $type){
-            $taskTypes[$type->id] = $type->posibleTaskTypes()->get()->toArray();
-        }
-        //dd($taskTypes);
-        $typesSelect = $projectTypes->pluck('label', 'id')->prepend('Choose Project Type', '');
-
-        return View::make('project.edit')->with('users',$users)
-                                            ->with('projectTypes',$typesSelect)
-                                                ->with('project_manager', $projectManager)
-                                                    ->with('project', $project)->with('taskTypes', $taskTypes);
+        return View::make('project.edit')->with('users', $fields['users'])
+                                            ->with('projectTypes', $fields['typesSelect'])
+                                                ->with('project_manager', $fields['projectManager'])
+                                                    ->with('project', $fields['project'])->with('taskTypes', $fields['taskTypes']);
     }
 
     /**
@@ -119,6 +99,7 @@ class ProjectController extends BaseController {
      */
     public function update($id)
     {
+        dd('update');
         $rules = array(
             'project_name' => 'required',
             'project_manager' => 'required',
@@ -126,18 +107,8 @@ class ProjectController extends BaseController {
         );
         $validator = Validator::make(Input::all(), $rules);
 
-        $project = Project::find($id);
-        $project->accounts_id = 1;
-        $project->project_types_id = Input::get('project_type');
-        $project->name = Input::get('project_name');
-        $project->default_responsible = Input::get('default_responsible');
-        $project->update();
-
-        $pm = UserProject::where('projects_id', '=', $id)->first();
-        if($pm == null) $pm = new UserProject;
-        $pm->projects_id = $id;
-        $pm->users_id = Input::get('project_manager');
-        $pm->save();
+        $service = new ProjectServiceProvider(Auth::user());
+        $fields = $service->update($id, Input::all());
 
         return Redirect::to('project');
     }
@@ -150,8 +121,10 @@ class ProjectController extends BaseController {
      */
     public function destroy($id)
     {
-        $project = Project::find($id);
-        $project->delete();
+        dd('delete');
+        $service = new ProjectServiceProvider(Auth::user());
+        $service->delete($id);
+
         return Redirect::to('project');
     }
 

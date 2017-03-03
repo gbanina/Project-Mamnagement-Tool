@@ -7,6 +7,7 @@ use View;
 Use Redirect;
 use App\Models\Priority;
 use Session;
+use App\Providers\Admin\TaskPriorityServiceProvider;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -14,6 +15,12 @@ use Illuminate\Http\Request;
 
 class PriorityController extends BaseController {
 
+    protected $service;
+
+    public function __construct()
+    {
+        $this->service = new TaskPriorityServiceProvider();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,8 +28,7 @@ class PriorityController extends BaseController {
      */
     public function index()
     {
-        $priority = Priority::all();
-        $view = View::make('admin.priority.index')->with('priorities', $priority);
+        $view = View::make('admin.priority.index')->with('priorities', $this->service->all());
         return $view;
     }
 
@@ -47,11 +53,7 @@ class PriorityController extends BaseController {
             'priority-name' => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
-
-        $priority = new Priority();
-        $priority->accounts_id = 1;
-        $priority->title =Input::get('title');
-        $priority->save();
+        $priority = $this->service->store(Input::all());
         $request->session()->flash('alert-success', 'Priority : '.$priority->label.' was successful created!');
 
         return Redirect::to('admin/priority');
@@ -76,9 +78,7 @@ class PriorityController extends BaseController {
      */
     public function edit($id)
     {
-        $priority = Priority::find($id);
-
-        $view = View::make('admin.priority.edit')->with('priority', $priority);
+        $view = View::make('admin.priority.edit')->with('priority', $this->service->getPriority($id));
         return $view;
     }
 
@@ -94,10 +94,7 @@ class PriorityController extends BaseController {
             'priority-name' => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
-
-        $priority = Priority::find($id);
-        $priority->label =Input::get('priority-name');
-        $priority->save();
+        $priority = $this->service->update($id, Input::all());
 
         $request->session()->flash('alert-success', 'Priority : '.$priority->label.' was successful updated!');
         return Redirect::to('admin/priority');
@@ -111,8 +108,7 @@ class PriorityController extends BaseController {
      */
     public function destroy($id, Request $request)
     {
-        $priority = Priority::find($id);
-        $priority->delete();
+        $this->service->destroy($id);
         $request->session()->flash('alert-success', 'Priority was successful deleted!');
 
         return Redirect::to('admin/priority');

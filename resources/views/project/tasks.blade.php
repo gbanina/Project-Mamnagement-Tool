@@ -3,15 +3,14 @@
                       <div id="task_type_buttons">
                       </div>
                     </p>
-                    <p>Task listings for the project : {{$project->name}}</p>
                     <!-- start project list -->
                     <table class="table table-striped projects">
                       <thead>
                         <tr>
                           <th style="width: 1%">#</th>
-                          <th style="width: 20%">Task Name</th>
-                          <th>Team Members</th>
-                          <th style="width: 20%">Edit</th>
+                          <th style="width: 19%">Task Name</th>
+                          <th style="width: 20%">Team Members</th>
+                          <th style="width: 40%">Edit</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -25,9 +24,6 @@
                           </td>
                           <td>
                             <ul class="list-inline">
-                              <li>
-                                <img src="../../images/user.png" class="avatar" alt="Avatar">
-                              </li>
                               <li>
                                 <img src="../../images/user.png" class="avatar" alt="Avatar">
                               </li>

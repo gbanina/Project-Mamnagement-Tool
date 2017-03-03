@@ -12,6 +12,17 @@
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
+
+                  @foreach(Auth::user()->accounts as $acc)
+                      <li>
+                        <a href="{{ URL::to('switch/'.$acc->id) }}"> {{$acc->name}}
+                          @if($acc->id == Auth::user()->currentacc->id)
+                            <span class="fa fa-check"></span>
+                          @endif
+                        </a>
+                      </li>
+                  @endforeach
+                    <li style="border-bottom: 2px solid #E6E9ED;padding: 1px 5px 6px;"></li>
                     <li><a href="{{ URL::to('profile') }}"> Profile</a></li>
                     <li><a href="{{ URL::to('settings') }}"> Settings</a></li>
                     <li><a href="{{ URL::to('help') }}">Help</a></li>

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use DB;
 use View;
-Use Redirect;
+use Auth;
+use Redirect;
+use App\Providers\Admin\ProjectTypeServiceProvider;
 use App\Models\ProjectTypes;
 use App\Models\TaskType;
 use Session;
@@ -15,6 +17,12 @@ use Illuminate\Http\Request;
 
 class ProjectTypeController extends BaseController {
 
+    protected $service;
+
+    public function __construct()
+    {
+        $this->service = new ProjectTypeServiceProvider();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,8 +30,7 @@ class ProjectTypeController extends BaseController {
      */
     public function index()
     {
-        $pt = ProjectTypes::all();
-        $view = View::make('admin.project-type.index')->with('projectTypes', $pt);
+        $view = View::make('admin.project-type.index')->with('projectTypes', $this->service->all());
         return $view;
     }
 
@@ -34,10 +41,9 @@ class ProjectTypeController extends BaseController {
      */
     public function create()
     {
-        $tt = TaskType::all();
         $view = View::make('admin.project-type.create')
                         ->with('hasTaskType', array())
-                            ->with('taskTypes', $tt);
+                            ->with('taskTypes', $this->service->getTaskTypes());
         return $view;
     }
 
@@ -52,12 +58,7 @@ class ProjectTypeController extends BaseController {
             'type-name' => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
-
-        $pt = new ProjectTypes();
-        $pt->accounts_id = 1;
-        $pt->label =Input::get('type-name');
-        $pt->save();
-        $pt->updateTaskTypes(Input::get('task_type'));
+        $this->service->store(Input::all());
         $request->session()->flash('alert-success', 'Project Type was successfuly created!');
 
         return Redirect::to('admin/project-type');
@@ -82,11 +83,10 @@ class ProjectTypeController extends BaseController {
      */
     public function edit($id)
     {
-        $pt = ProjectTypes::find($id);
-        $tt = TaskType::all();
-        $hasTaskType = $pt->hasTaskType();
-        $view = View::make('admin.project-type.edit')->with('projectType', $pt)
-                    ->with('taskTypes', $tt)->with('hasTaskType', $hasTaskType);
+        $fields = $this->service->edit($id);
+
+        $view = View::make('admin.project-type.edit')->with('projectType', $fields['projectTypes'])
+                    ->with('taskTypes', $fields['taskTypes'])->with('hasTaskType', $fields['hasTaskType']);
         return $view;
     }
 
@@ -102,10 +102,8 @@ class ProjectTypeController extends BaseController {
             'type-label' => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
-        $pt = ProjectTypes::find($id);
-        $pt->label = Input::get('type-name');
-        $pt->updateTaskTypes(Input::get('task_type'));
-        $pt->update();
+        $this->service->update($id, Input::all());
+
         $request->session()->flash('alert-success', 'Project Type was successfuly updated!');
 
         return Redirect::to('admin/project-type');

@@ -72,7 +72,7 @@ class RegisterController extends Controller
         ]);
 
         $acc->user_id = $user->id;
-        $acc->accounts_id = 1;
+        $acc->account_id = 1;
         $acc->save();
 
         return $user;

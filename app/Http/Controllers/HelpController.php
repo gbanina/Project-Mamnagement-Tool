@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use DB;
 use View;
 Use Redirect;
-use App\Bill;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;

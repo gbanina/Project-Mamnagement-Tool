@@ -17,13 +17,13 @@ class CreateTableProjectTypes extends Migration
          Schema::create('project_types', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('accounts_id')->unsigned();
+            $table->integer('account_id')->unsigned();
             $table->string('label', 45);
             $table->timestamps();
             $table->softDeletes();
 
 
-            $table->foreign('accounts_id', 'fk_project_types_owners1_idx')
+            $table->foreign('account_id', 'fk_project_types_owners1_idx')
                 ->references('id')->on('accounts')
                 ->onDelete('no action')
                 ->onUpdate('no action');

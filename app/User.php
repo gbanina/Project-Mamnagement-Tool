@@ -34,16 +34,23 @@ class User extends Authenticatable
     /**
      * Get the organisational entities for the user.
      */
-    public function organisations()
+    public function accounts()
     {
         return $this->belongsToMany('App\Models\Account', 'user_accounts');
     }
+
+    public function currentacc()
+    {
+        return $this->belongsTo('App\Models\Account', 'current_acc');
+    }
+
     public function getCurrentTeamAttribute()
     {
-        //$all = $this->belongsToMany('App\Models\Account', 'user_accounts');
-        //return $all->where('account_id','=',1)->first();
         return $this->belongsToMany('App\Models\Account', 'user_accounts');
     }
 
+    public function switchAccount($user, $acc){
+        $this->current_acc = $acc;
+        $this->update();
+    }
 }
-

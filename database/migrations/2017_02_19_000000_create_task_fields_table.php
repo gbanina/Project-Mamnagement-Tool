@@ -16,13 +16,13 @@ public function up()
         Schema::create('task_fields', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('accounts_id')->unsigned();
+            $table->integer('account_id')->unsigned();
             $table->enum('type', ['NUMBER', 'INPUT', 'TEXTAREA', 'DATE', 'USER', 'FILE'])->nullable();
             $table->string('label', 45)->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('accounts_id', 'fk_task_fields_accounts1_idx')
+            $table->foreign('account_id', 'fk_task_fields_accounts1_idx')
                 ->references('id')->on('accounts')
                 ->onDelete('no action')
                 ->onUpdate('no action');

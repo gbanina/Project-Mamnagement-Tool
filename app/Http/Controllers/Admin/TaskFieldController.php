@@ -7,6 +7,7 @@ use View;
 Use Redirect;
 use App\Models\TaskField;
 use App\Helpers\PMTypesHelper;
+use App\Providers\Admin\TaskFieldServiceProvider;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
@@ -15,17 +16,19 @@ use Illuminate\Http\Request;
 
 class TaskFieldController extends BaseController {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
+    protected $service;
+
+    public function __construct()
+    {
+        $this->service = new TaskFieldServiceProvider();
+    }
+
     public function index()
     {
-        $tf = TaskField::all();
-        $typeSelect = PMTypesHelper::fieldTypeSelect();
         $view = View::make('admin.field.index')
-            ->with('fields', $tf)->with('typeSelect', $typeSelect);;
+            ->with('fields', $this->service->all())
+            ->with('typeSelect', PMTypesHelper::fieldTypeSelect());
+
         return $view;
     }
 
@@ -36,8 +39,8 @@ class TaskFieldController extends BaseController {
      */
     public function create()
     {
-        $typeSelect = PMTypesHelper::fieldTypeSelect();
-        return View::make('admin.field.create')->with('typeSelect', $typeSelect);
+        return View::make('admin.field.create')
+                ->with('typeSelect', PMTypesHelper::fieldTypeSelect());
     }
 
     /**
@@ -51,12 +54,8 @@ class TaskFieldController extends BaseController {
             'field-name' => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
+        $this->service->store(Input::all());
 
-        $tt = new TaskField();
-        $tt->accounts_id = 1;
-        $tt->label = Input::get('field-name');
-        $tt->type = Input::get('field-type');
-        $tt->save();
         $request->session()->flash('alert-success', 'Field was successfuly created!');
         return Redirect::to('admin/field');
     }
@@ -80,10 +79,10 @@ class TaskFieldController extends BaseController {
      */
     public function edit($id)
     {
-        $tt = TaskField::find($id);
-        $typeSelect = PMTypesHelper::fieldTypeSelect();
         $view = View::make('admin.field.edit')
-                ->with('field', $tt)->with('typeSelect', $typeSelect);
+                ->with('field', $this->service->getTaskField($id))
+                    ->with('typeSelect', PMTypesHelper::fieldTypeSelect());
+
         return $view;
     }
 
@@ -100,10 +99,7 @@ class TaskFieldController extends BaseController {
             'field-type' => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
-        $tf = TaskField::find($id);
-        $tf->label = Input::get('field-name');
-        $tf->type = Input::get('field-type');
-        $tf->save();
+        $this->service->update($id, Input::all());
         $request->session()->flash('alert-success', 'Task Field was successfuly updated!');
         return Redirect::to('admin/field');
     }
@@ -116,8 +112,7 @@ class TaskFieldController extends BaseController {
      */
     public function destroy($id, Request $request)
     {
-        $type = TaskField::find($id);
-        $type->delete();
+        $this->service->destroy($id);
         $request->session()->flash('alert-success', 'Task Field was successfuly deleted!');
 
         return Redirect::to('admin/field');

@@ -7,12 +7,20 @@ use View;
 Use Redirect;
 use App\Models\Status;
 use Session;
+use App\Providers\Admin\TaskStatusServiceProvider;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class StatusController extends BaseController {
+
+    protected $service;
+
+    public function __construct()
+    {
+        $this->service = new TaskStatusServiceProvider();
+    }
 
     /**
      * Display a listing of the resource.
@@ -21,8 +29,7 @@ class StatusController extends BaseController {
      */
     public function index()
     {
-        $statuses = Status::all();
-        $view = View::make('admin.status.index')->with('statuses', $statuses);
+        $view = View::make('admin.status.index')->with('statuses', $this->service->all());
         return $view;
     }
 
@@ -47,12 +54,9 @@ class StatusController extends BaseController {
             'status-name' => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
+        $status = $this->service->store(Input::all());
 
-        $status = new Status();
-        $status->accounts_id = 1;
-        $status->name =Input::get('status-name');
-        $status->save();
-        $request->session()->flash('alert-success', 'Status : '.$status->name.' was successful created!');
+        $request->session()->flash('alert-success', 'Status : '. $status->name .' was successful created!');
 
         return Redirect::to('admin/status');
     }
@@ -76,9 +80,7 @@ class StatusController extends BaseController {
      */
     public function edit($id)
     {
-        $status = Status::find($id);
-
-        $view = View::make('admin.status.edit')->with('status', $status);
+        $view = View::make('admin.status.edit')->with('status', $this->service->getStatus($id));
         return $view;
     }
 
@@ -94,10 +96,7 @@ class StatusController extends BaseController {
             'status-name' => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
-
-        $status = Status::find($id);
-        $status->name =Input::get('status-name');
-        $status->save();
+        $status = $this->service->update($id, Input::all());
 
         $request->session()->flash('alert-success', 'Status : '.$status->name.' was successful updated!');
         return Redirect::to('admin/status');
@@ -111,8 +110,7 @@ class StatusController extends BaseController {
      */
     public function destroy($id, Request $request)
     {
-        $status = Status::find($id);
-        $status->delete();
+        $this->service->destroy($id);
         $request->session()->flash('alert-success', 'Status was successful deleted!');
 
         return Redirect::to('admin/status');

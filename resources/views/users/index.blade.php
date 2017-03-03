@@ -4,7 +4,7 @@
 
 <div class="x_panel">
                   <div class="x_title">
-                    <h2>All Users <small>organisation</small></h2>
+                    <h2>All Users <small>{{Auth::user()->currentacc->name}}</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -38,10 +38,10 @@
                       <tbody>
                       @foreach ($users as $user)
                         <tr>
-                          <th scope="row">{{$user->id}}</th>
-                          <td>{{$user->name}}</td>
-                          <td>{{$user->email}}</td>
-                          <td>{{$user->created_at}}</td>
+                          <th scope="row">{{$user->user->id}}</th>
+                          <td>{{$user->user->name}}</td>
+                          <td>{{$user->user->email}}</td>
+                          <td>{{$user->user->created_at}}</td>
                           <td>dummy</td>
                           <td>edit icon</td>
                         </tr>

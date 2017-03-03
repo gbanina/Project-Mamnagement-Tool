@@ -17,13 +17,13 @@ class CreateTableRole extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('accounts_id')->unsigned();
+            $table->integer('account_id')->unsigned();
             $table->string('name', 45)->nullable();
             $table->unique(["id"], 'unique_roles');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('accounts_id', 'fk_role_owner_idx')
+            $table->foreign('account_id', 'fk_role_owner_idx')
                 ->references('id')->on('accounts')
                 ->onDelete('no action')
                 ->onUpdate('no action');

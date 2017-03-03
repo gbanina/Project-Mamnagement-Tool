@@ -23,7 +23,7 @@ class BoardController extends BaseController {
      */
     public function index()
     {
-        $boards = Dashboard::where('account_id', 1)->orderBy('id', 'desc')->get();
+        $boards = Dashboard::where('account_id', Auth::user()->current_acc)->orderBy('id', 'desc')->get();
         $view = View::make('board.index')->with('boards', $boards);
         return $view;
     }
@@ -35,7 +35,7 @@ class BoardController extends BaseController {
      */
     public function create(Request $request)
     {
-        $projects = Project::all()->pluck('name', 'id')->prepend('Choose project', '');
+        $projects = Project::where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose project', '');
         return View::make('board.create')->with('projects', $projects);
     }
 
@@ -54,7 +54,7 @@ class BoardController extends BaseController {
         $validator = Validator::make(Input::all(), $rules);
 
         $board = new Dashboard();
-        $board->account_id = 1;
+        $board->account_id = Auth::user()->current_acc;
         $board->project_id = Input::get('project_id');
         $board->user_id = Auth::user()->id;
         $board->title =Input::get('title');

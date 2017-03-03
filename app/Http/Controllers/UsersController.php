@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Auth;
 use View;
 Use Redirect;
 use App\User;
+use App\Models\UserAccounts;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
@@ -21,7 +23,7 @@ class UsersController extends BaseController {
     public function index()
     {
         $view = View::make('users.index');
-        $users = User::all();
+        $users = UserAccounts::where('account_id', Auth::user()->current_acc)->with('user')->get();
         return $view->with('users', $users);
     }
 

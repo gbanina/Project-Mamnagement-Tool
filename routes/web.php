@@ -42,5 +42,8 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('admin/status', 'Admin\StatusController');
     Route::resource('admin/priority', 'Admin\PriorityController');
     Route::resource('admin/field', 'Admin\TaskFieldController');
+
     Route::resource('board', 'BoardController');
+
+    Route::get('switch/{id}', 'AccountChaingeController@switchTo');
 });

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use DB;
+use Auth;
 use View;
-Use Redirect;
+use Redirect;
 use App\Models\Role;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
@@ -20,7 +21,7 @@ class RoleController extends BaseController {
      */
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::where('account_id', Auth::user()->current_acc)->get();
         $view = View::make('admin.role.index')->with('roles', $roles);
         return $view;
     }
@@ -48,7 +49,7 @@ class RoleController extends BaseController {
         $validator = Validator::make(Input::all(), $rules);
 
         $role = new Role();
-        $role->accounts_id = 1;
+        $role->account_id = Auth::user()->current_acc;
         $role->name =Input::get('role-name');
         $role->save();
 

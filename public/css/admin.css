@@ -1,3 +1,7 @@
 .form-horizontal .data-label {
     padding-top: 8px;
 }
+
+ul.stats-overview li {
+    width: 16.2% !important;
+}

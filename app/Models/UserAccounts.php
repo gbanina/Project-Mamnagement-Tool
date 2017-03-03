@@ -7,4 +7,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserAccounts extends Model {
     public $timestamps = false;
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function account()
+    {
+        return $this->belongsTo('App\Models\Account');
+    }
 }

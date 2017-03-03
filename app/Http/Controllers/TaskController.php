@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use App\Helpers\PMTypesHelper;
 use Illuminate\Http\Request;
+use App\Providers\TaskServiceProvider;
 
 class TaskController extends BaseController {
 
@@ -29,6 +30,8 @@ class TaskController extends BaseController {
      */
     public function index()
     {
+        $sp = new TaskServiceProvider($this);
+        dd($sp->prepareTasks());
         $view = View::make('task.index')->with('tasks', Task::all());
         return $view;
     }
