@@ -5,7 +5,7 @@
 <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Projects <small>Listing design</small></h3>
+                <h3>Projects</h3>
               </div>
 
               <div class="title_right">
@@ -46,7 +46,7 @@
                   </div>
                   <div class="x_content" style="display: block;">
 
-                    <p>Simple table with project listing with progress and editing options</p>
+                    <p>Listing all projects for {{Auth::user()->currentacc->name}}</p>
 
                     <!-- start project list -->
                     <table class="table table-striped projects">
@@ -63,7 +63,7 @@
                       <tbody>
                         @foreach ($projects as $project)
                           <tr>
-                          <td>#</td>
+                          <td>{{$project->internal_id}}</td>
                           <td>
                             <a>{{$project->name}}</a>
                             <br>

@@ -17,6 +17,7 @@ class CreateTableProjects extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->integer('internal_id')->unsigned();
             $table->integer('account_id')->unsigned();
             $table->integer('project_types_id')->unsigned();
             $table->string('name', 45);

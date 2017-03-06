@@ -8,6 +8,12 @@
                 {!! Form::text('additional[' . $id . ']', $field['value'], array('class' => 'form-control ','placeholder'=>$field['label'])) !!}
             @elseif($field['type'] === 'TEXTAREA')
                 {{ Form::textarea('additional[' . $id . ']', $field['value'], ['rows'=> '8', 'class' => 'resizable_textarea form-control']) }}
+            @elseif($field['type'] === 'DATE')
+                Not Implemented yet
+            @elseif($field['type'] === 'ENUM')
+                Not Implemented yet
+            @elseif($field['type'] === 'CHECKBOX')
+                Not Implemented yet
             @elseif($field['type'] === 'FILE')
                 Not Implemented yet
             @elseif($field['type'] === 'USER')

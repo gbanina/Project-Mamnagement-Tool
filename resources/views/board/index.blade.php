@@ -1,6 +1,7 @@
 @extends('base')
 
 @section('content')
+<div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
@@ -26,21 +27,22 @@
                   <div class="dashboard-widget-content">
                     <ul class="list-unstyled timeline widget">
                     @foreach($boards as $board)
-
                       <li>
                         <div class="block">
                           <div class="block_content">
+                          <img src="{{ URL::to('images/' . $board->user->avatar) }}" style="margin-right: 10px" class="avatar" alt="Avatar">
                             <h2 class="title">
-                                  <a>{{$board->title}}</a> on <a href="{{ URL::to('project/'.$board->project->id.'/edit') }}">{{$board->project->name}}</a>
+                                  {{$board->user->name}} {{$board->title}}
                                   @if($board->user->id == Auth::user()->id)
                                     &nbsp;&nbsp;<a href="{{ URL::to('board/' . $board->id . '/edit') }}"><i class="fa fa-edit"></i></span></a>
                                   @endif
                             </h2>
                             <div class="byline">
-                              <span>{{$board->timeElapsed}}</span> by <a>{{$board->user->name}}</a>
+                              <span>{{$board->timeElapsed}}</span> in <a href="{{ URL::to('project/'.$board->project->id.'/edit') }}">{{$board->project->name}}</a>
                             </div>
                             <p class="excerpt">{{$board->content}} <a>Read&nbsp;More</a>
                             </p>
+
                           </div>
                         </div>
                       </li>
@@ -50,4 +52,5 @@
                 </div>
               </div>
             </div>
+</div>
 @endsection

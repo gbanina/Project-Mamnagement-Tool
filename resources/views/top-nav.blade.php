@@ -23,6 +23,7 @@
                       </li>
                   @endforeach
                     <li style="border-bottom: 2px solid #E6E9ED;padding: 1px 5px 6px;"></li>
+                    <li><a href="{{ URL::to('account') }}">My Accounts</a></li>
                     <li><a href="{{ URL::to('profile') }}"> Profile</a></li>
                     <li><a href="{{ URL::to('settings') }}"> Settings</a></li>
                     <li><a href="{{ URL::to('help') }}">Help</a></li>

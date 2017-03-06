@@ -61,7 +61,7 @@
                       <tbody>
                         @foreach ($tasks as $task)
                         <tr>
-                          <td>{{$task->id}}</td>
+                          <td>{{$task->internal_id}}</td>
                           <td>
                             <a>{{$task->name}}</a>
                             <br>

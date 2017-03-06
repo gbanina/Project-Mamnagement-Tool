@@ -16,6 +16,8 @@ class CreateTableAccounts extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->integer('internal_project_id')->default(1000);
+            $table->integer('internal_task_id')->default(1000);
             $table->string('name', 45);
             $table->enum('licence', ['SINGLE', 'PREMIUM', 'ENTERPRISE'])->nullable();
             $table->date('expires')->nullable();

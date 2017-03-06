@@ -17,7 +17,7 @@ public function up()
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('account_id')->unsigned();
-            $table->enum('type', ['NUMBER', 'INPUT', 'TEXTAREA', 'DATE', 'USER', 'FILE'])->nullable();
+            $table->enum('type', ['NUMBER', 'INPUT', 'TEXTAREA', 'DATE','ENUM','CHECKBOX', 'USER', 'FILE'])->nullable();
             $table->string('label', 45)->nullable();
             $table->timestamps();
             $table->softDeletes();

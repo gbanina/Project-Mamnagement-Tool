@@ -25,10 +25,10 @@ class WorkController extends BaseController {
     {
         $work = Work::where('account_id', Auth::user()->current_acc)->where('user_id', Auth::user()->id);
         $tasks = Task::where('account_id', Auth::user()
-                        ->current_acc)->where('  responsible_id', Auth::user()->id)
+                        ->current_acc)->where('responsible_id', Auth::user()->id)
                             ->pluck('name', 'id')->prepend('Choose task', '');
 
-        $view = View::make('work.index')->with('works', $work->get())->with('tasks', $tasks->get());
+        $view = View::make('work.index')->with('works', $work->get())->with('tasks', $tasks);
         return $view;
     }
 
@@ -39,14 +39,22 @@ class WorkController extends BaseController {
      */
     public function store(Request $request)
     {
+        $rules = array(
+            'task_id' => 'required',
+            'cost' => 'number',
+        );
+
+        $validator = Validator::make(Input::all(), $rules);
+
         $work = new Work;
         $work->account_id = Auth::user()->current_acc;
         $work->user_id = Auth::user()->id;
         $work->task_id = Input::get('task_id');
         $work->cost = Input::get('cost');
+        $work->save();
 
-        $request->session()->flash('alert-success', 'Work : '.''.' was successful created!');
-        return Redirect::to('work.index');
+        $request->session()->flash('alert-success', 'Work for '.$work->task->name.' was successful created!');
+        return Redirect::to('work');
     }
 
     /**
@@ -57,7 +65,9 @@ class WorkController extends BaseController {
      */
     public function destroy($id, Request $request)
     {
-        $request->session()->flash('alert-success', 'work : '.''.' was successful deleted!');
+        $work = Work::find($id);
+        $work->delete();
+        $request->session()->flash('alert-success', 'Work was successful deleted!');
         return Redirect::to('work');
     }
 

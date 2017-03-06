@@ -27,33 +27,37 @@ class Project extends Model {
 
     public function getTasksAttribute()
     {
-        $tasks = DB::table('tasks')->where('projects_id', '=', $this->id);
+        $tasks = $this->hasMany('App\Models\Task', 'projects_id');
         return $tasks->get();
     }
 
     public function getEstimatedStartDateAttribute()
     {
-        $item = DB::table('tasks')->where('projects_id', '=', $this->id)->min('estimated_start_date');
+        $item = $this->hasMany('App\Models\Task', 'projects_id')->min('estimated_start_date');
         return PMTypesHelper::dateToHuman($item);
     }
     public function getEstimatedEndDateAttribute()
     {
-        $item = DB::table('tasks')->where('projects_id', '=', $this->id)->max('estimated_end_date');
+        $item = $this->hasMany('App\Models\Task', 'projects_id')->max('estimated_end_date');
         return PMTypesHelper::dateToHuman($item);
     }
     public function getRealStartDateAttribute()
     {
-        $item = DB::table('tasks')->where('projects_id', '=', $this->id)->max('real_start_date');
+        $item = $this->hasMany('App\Models\Task', 'projects_id')->max('real_start_date');
         return PMTypesHelper::dateToHuman($item);
     }
     public function getRealEndDateAttribute()
     {
-        $item = DB::table('tasks')->where('projects_id', '=', $this->id)->max('real_end_date');
+        $item = $this->hasMany('App\Models\Task', 'projects_id')->max('real_end_date');
         return PMTypesHelper::dateToHuman($item);
     }
     public function getEstimatedCostAttribute()
     {
-        $item = DB::table('tasks')->where('projects_id', '=', $this->id)->sum('estimated_cost');
-        return $item;
+        return $this->hasMany('App\Models\Task', 'projects_id')->sum('estimated_cost');
+    }
+    public function getRealCostAttribute()
+    {
+        $tasks = $this->hasMany('App\Models\Task', 'projects_id')->get();
+        return $tasks->sum('realCost');
     }
 }

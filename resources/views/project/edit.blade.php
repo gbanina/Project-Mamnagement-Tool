@@ -56,7 +56,7 @@
                         </li>
                         <li class="hidden-phone">
                           <span class="name"> Real cost</span>
-                          <span class="value text-success"> 0 </span>
+                          <span class="value text-success"> {{$project->realCost}}h </span>
                         </li>
                       </ul>
 
@@ -71,6 +71,12 @@
 
                     <br>
 
+                    <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Project ID</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          {!! Form::text('id', $project->internal_id, array('disabled', 'class' => 'form-control ')) !!}
+                        </div>
+                      </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Project Name</label>
@@ -88,7 +94,8 @@
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Type</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('project_type', $projectTypes, $project->project_types_id, array('onchange' => 'refreshTaskTypes()', 'id' => 'project_type', 'class' => 'form-control', 'required')) }}
+                          {{ Form::select('project_type', $projectTypes, $project->project_types_id, array('onchange' => 'refreshTaskTypes()','disabled', 'id' => 'project_type', 'class' => 'form-control')) }}
+                          {{ Form::hidden('project_type', $project->project_types_id) }}
                         </div>
                       </div>
                       <div class="form-group">

@@ -34,6 +34,16 @@ class Task extends Model {
         return $type;
     }
 
+    public function createdBy()
+    {
+        return $this->belongsTo('App\User', 'created_by');
+    }
+
+    public function getCreatedAtAttribute()
+    {
+        return PMTypesHelper::dateToHuman($this->attributes['created_at']);
+    }
+
     public function attributes()
     {
         return $this->hasMany('App\Models\TaskAttribute');
@@ -50,5 +60,25 @@ class Task extends Model {
     public function getCreationDateAttribute()
     {
         return $this->attributes['created_at'];
+    }
+    public function getRealCostAttribute()
+    {
+        $cost = $this->hasMany('App\Models\Work');
+        return $cost->sum('cost');
+    }
+    public function getRealStartDateAttribute()
+    {
+        $cost = $this->hasMany('App\Models\Work');
+        return PMTypesHelper::dateToHuman($cost->min('created_at'));
+    }
+    public function getRealEndDateAttribute()
+    {
+        $cost = $this->hasMany('App\Models\Work');
+        return PMTypesHelper::dateToHuman($cost->max('created_at'));
+    }
+
+    public function work()
+    {
+        return $this->hasMany('App\Models\Work');
     }
 }

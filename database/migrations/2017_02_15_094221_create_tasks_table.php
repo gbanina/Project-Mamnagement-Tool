@@ -17,6 +17,7 @@ class CreateTasksTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('projects_id')->unsigned();
+            $table->integer('internal_id')->unsigned();
             $table->string('name', 45)->nullable();
             $table->text('description')->nullable();
             $table->integer('status_id')->unsigned();

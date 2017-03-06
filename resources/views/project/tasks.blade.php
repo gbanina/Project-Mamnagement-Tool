@@ -10,13 +10,13 @@
                           <th style="width: 1%">#</th>
                           <th style="width: 19%">Task Name</th>
                           <th style="width: 20%">Team Members</th>
-                          <th style="width: 40%">Edit</th>
+                          <th style="width: 30%">Edit</th>
                         </tr>
                       </thead>
                       <tbody>
                         @foreach ($project->tasks as $task)
                         <tr>
-                          <td>{{$task->id}}</td>
+                          <td>{{$task->internal_id}}</td>
                           <td>
                             <a>{{$task->name}}</a>
                             <br>
@@ -24,9 +24,6 @@
                           </td>
                           <td>
                             <ul class="list-inline">
-                              <li>
-                                <img src="../../images/user.png" class="avatar" alt="Avatar">
-                              </li>
                               <li>
                                 <img src="../../images/user.png" class="avatar" alt="Avatar">
                               </li>

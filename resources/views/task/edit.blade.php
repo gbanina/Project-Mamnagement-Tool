@@ -1,8 +1,6 @@
 @extends('base')
 
 @section('content')
-        <div class="">
-            <div class="clearfix"></div>
 
             @if (count($errors) > 0)
               <div class="row">
@@ -15,12 +13,12 @@
                   </div>
                 </div>
             @endif
-
+            <div class="clearfix"></div>
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
               <div class="x_title">
-                <h2>Edit Task</h2>
+                <h2><strong>{{$task->type}}</strong> in <strong>{{$task->project->name}}</strong> (Edit)</h2>
                 <ul class="nav navbar-right panel_toolbox">
                   <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                   </li>
@@ -38,28 +36,58 @@
                 </ul>
                 <div class="clearfix"></div>
               </div>
+              <ul class="stats-overview">
+                        <li>
+                          <span class="name"> Task Type </span>
+                          <span class="value text-success"> {{$task->taskType->name}}</span>
+                        </li>
+                        <li>
+                          <span class="name"> Created by </span>
+                          <span class="value text-success"> {{$task->createdBy->name}} </span>
+                        </li>
+                        <li class="hidden-phone">
+                          <span class="name"> Creation Date</span>
+                          <span class="value text-success"> {{$task->createdAt}} </span>
+                        </li>
+                        <li>
+                          <span class="name"> Real Start Date </span>
+                          <span class="value text-success"> {{$task->realStartDate}} </span>
+                        </li>
+                        <li>
+                          <span class="name"> Real End Date </span>
+                          <span class="value text-success"> {{$task->realEndDate}} </span>
+                        </li>
+                        <li class="hidden-phone">
+                          <span class="name"> Real cost</span>
+                          <span class="value text-success"> {{$task->realCost}} </span>
+                        </li>
+                      </ul>
               <div class="x_content">
 
                 <div class="row">
                 {!! Form::model($task, array('route' => array('task.update', $task->id), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}
                   <div class="col-md-6 col-sm-12 col-xs-12 form-group">
+
+                    <!--
                     <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Project</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           {{ Form::select('project_id', $projects, $task->projects_id, array('disabled', 'class' => 'form-control' , 'required')) }}
+                          {{ Form::hidden('type_id', $task->task_types_id) }}
+                        </div>
+                      </div>
+                      -->
+                      <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Task ID</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          {!! Form::text('id', $task->internal_id, array('disabled', 'class' => 'form-control ')) !!}
+                          {{ Form::hidden('type_id', $task->task_types_id) }}
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Name</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           {!! Form::text('name', $task->name, array('required' => 'required', 'class' => 'form-control ','placeholder'=>'Task Name')) !!}
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Type</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('type_id', $types, $task->task_types_id, array('disabled', 'class' => 'form-control', 'required')) }}
-                          {{ Form::hidden('type_id', $task->task_types_id) }}
                         </div>
                       </div>
                       <div class="form-group">
@@ -90,30 +118,6 @@
 
                   <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                       <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Created by</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('created_by', $users, $task->created_by, array('disabled', 'class' => 'form-control')) }}
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Creation Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input disabled class="form-control " placeholder="N/A" name="project_name" type="text" value="{{$task->creationDate}}">
-                        </div>
-                      </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Real Start Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input disabled class="form-control " placeholder="N/A" name="project_name" type="text" value="">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Real End Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          <input disabled class="form-control " placeholder="N/A" name="project_name" type="text" value="">
-                        </div>
-                      </div>
-                      <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated Start Date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                             {!! Form::text('estimated_start_date', $task->estimatedStartDate, array('id' => 'single_cal3', 'class' => 'form-control has-feedback-left')) !!}
@@ -129,29 +133,26 @@
                             <span id="inputSuccess2Status3" class="sr-only">(success)</span>
                         </div>
                       </div>
-                      <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                        <label class="control-label col-md-6 col-sm-6 col-xs-12">Real cost</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input disabled class="form-control " placeholder="N/A" name="project_name" type="text" value="">
-                        </div>
-                      </div>
-                      <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                        <label class="control-label col-md-6 col-sm-6 col-xs-12">Estimated cost</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated Cost</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
                           {!! Form::number('estimated_cost', $task->estimated_cost, array( 'class' => 'form-control ')) !!}
                         </div>
                       </div>
                       @include('task.additional-fields')
+                      @include('task.work')
+
                   </div>
-                  <div class="clearfix"></div>
+
+                  <a href="{{ URL::to('project/'.$task->projects_id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
                   {!! Form::submit('Submit', array('class' => 'btn btn-success')) !!}
                   {!! Form::close() !!}
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+          </div>
+
 @endsection
 
 @section('js_include')
