@@ -122,7 +122,7 @@
                         <div class="btn-group">
                           <button class="btn btn-default" type="button">Permissions</button>
                           <button class="btn btn-default" type="button">Versions</button>
-                          <button class="btn btn-default" type="button">Cmponents</button>
+                          <button class="btn btn-default" type="button">Components</button>
                         </div>
                   </div>
                 </div>
