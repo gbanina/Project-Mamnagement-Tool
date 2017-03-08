@@ -54,7 +54,11 @@ class WorkController extends BaseController {
         $work->save();
 
         $request->session()->flash('alert-success', 'Work for '.$work->task->name.' was successful created!');
-        return Redirect::to('work');
+
+        if( null == Input::get('return_to') )
+            abort(403, 'Unauthorized action.');
+
+        return Redirect::to(Input::get('return_to'));
     }
 
     /**

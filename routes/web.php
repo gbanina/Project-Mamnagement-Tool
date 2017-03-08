@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     if (Auth::guest())
-        return view('landing');
+        return Redirect::to('board');
     else
         return Redirect::to('board');
 });

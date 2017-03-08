@@ -20,7 +20,7 @@
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
               <div class="x_title">
-                <h2>Add New <strong>{{$typeName}}</strong> to <strong>{{$projectName}}</strong></h2>
+                <h2>Add New Task to <strong>{{$projectName}}</strong></h2>
                 <ul class="nav navbar-right panel_toolbox">
                   <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                   </li>
@@ -39,12 +39,10 @@
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">
-
                 <div class="row">
                 {!! Form::open(array('url' => 'task', 'class' => 'form-horizontal form-label-left')) !!}
                   <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                   {{ Form::hidden('project_id', $projectId) }}
-                  {{ Form::hidden('type_id', $typeId) }}
                   <!--
                     <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Project</label>
@@ -53,18 +51,18 @@
                           {{ Form::hidden('project_id', $projectId) }}
                         </div>
                       </div>
+                      -->
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Type</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('type_id', $types, $typeId, array('disabled', 'class' => 'form-control', 'required')) }}
-                          {{ Form::hidden('type_id', $typeId) }}
+                          {{ Form::select('type_id', $types, '', array('class' => 'form-control', 'required')) }}
                         </div>
                       </div>
-                      -->
+
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Name</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {!! Form::text('name', '', array('required' => 'required', 'class' => 'form-control ','placeholder'=> $typeName .' Name')) !!}
+                          {!! Form::text('name', '', array('required' => 'required', 'class' => 'form-control ','placeholder'=>'Name')) !!}
                         </div>
                       </div>
                       <div class="form-group">

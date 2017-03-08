@@ -81,7 +81,7 @@
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Task ID</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           {!! Form::text('id', $task->internal_id, array('disabled', 'class' => 'form-control ')) !!}
-                          {{ Form::hidden('type_id', $task->task_types_id) }}
+                          {{ Form::hidden('return_to', 'task/' . $task->id) }}
                         </div>
                       </div>
                       <div class="form-group">
@@ -140,13 +140,19 @@
                         </div>
                       </div>
                       @include('task.additional-fields')
-                      @include('task.work')
 
                   </div>
 
                   <a href="{{ URL::to('project/'.$task->projects_id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
                   {!! Form::submit('Submit', array('class' => 'btn btn-success')) !!}
                   {!! Form::close() !!}
+
+                  <div class="col-md-6 col-sm-12 col-xs-12 form-group">
+                  </div>
+                  comments go here!
+                  <div class="col-md-6 col-sm-12 col-xs-12 form-group">
+                    @include('task.work')
+                  </div>
                 </div>
               </div>
             </div>

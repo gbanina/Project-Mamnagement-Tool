@@ -1,6 +1,7 @@
                   <div class="x_content" style="display: block;">
                     <p>
                       <div id="task_type_buttons">
+                        <a href="{{ URL::to('task/create') }}?p={{$project->id}}" class="btn btn-default" type="button">Add new Task</a>
                       </div>
                     </p>
                     <!-- start project list -->

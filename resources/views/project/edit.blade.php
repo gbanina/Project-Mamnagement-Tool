@@ -218,27 +218,6 @@
 @endsection
 
 @section('js_include')
-    <script>
-      function refreshTaskTypes(){
-        var projectTypeID = $( "#project_type" ).val();
-        var taskTypes = [];
-        taskTypes[0] = '';
-        $( "#task_type_buttons" ).html('');
-        $( "#task_type_div" ).html('');
-        @foreach($taskTypes as $id=>$pType)
-          taskTypes[{{$id}}] = [
-          @foreach($pType as $tType)
-             ['{{$tType['name']}}', '{{$tType['id']}}'],
-          @endforeach
-          ];
-        @endforeach
-        for (var i in taskTypes[projectTypeID]) {
-          $( "#task_type_div" ).append(taskTypes[projectTypeID][i][0] + ', ');
-          $( "#task_type_buttons" ).append('<a href="{{ URL::to('task/create') }}?type='+taskTypes[projectTypeID][i][1]+'&p={{$project->id}}" class="btn btn-default" type="button">Add new '+taskTypes[projectTypeID][i][0]+'</a>');
-        }
-      }
-      refreshTaskTypes();
-    </script>
     <script src="{{ URL::to('js/moment.min.js') }}"></script>
     <script src="{{ URL::to('js/daterangepicker.js') }}"></script>
 @endsection

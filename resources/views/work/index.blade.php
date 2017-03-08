@@ -35,8 +35,11 @@
                           <tbody>
                             <tr>
 
-                              <td>{{ Form::select('task_id', $tasks, '', array('class' => 'form-control')) }}</td>
-                              <td><input type="number" step="any"  name="cost" required class="form-control"/></td>
+                              <td>{{ Form::select('task_id', $tasks, '', array('required'=> 'required', 'class' => 'form-control')) }}</td>
+                              <td>
+                                <input type="number" step="any"  name="cost" required class="form-control"/>
+                                {{ Form::hidden('return_to', 'work') }}
+                              </td>
                               <td>{!! Form::submit('Add', array('class' => 'btn btn-success')) !!}</td>
                             </tr>
                           </tbody>
