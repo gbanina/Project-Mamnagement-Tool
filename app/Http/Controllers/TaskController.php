@@ -14,6 +14,7 @@ use App\Models\Project;
 use App\Models\Task;
 use App\Models\TaskAttribute;
 use App\Models\Dashboard;
+use App\Models\Comment;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
@@ -135,6 +136,8 @@ class TaskController extends BaseController {
         $types = TaskType::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose type', '');
         $task = Task::find($id);
 
+        $comments = Comment::where('entity_id', $id)->where('entity_type', 'TASK')->orderBy('id', 'desc')->get();
+
         /* Required for work table */
         $tasks = Task::where('account_id', Auth::user()
                         ->current_acc)->where('responsible_id', Auth::user()->id)
@@ -154,7 +157,7 @@ class TaskController extends BaseController {
                         ->with('users',$users)->with('status',$status)
                             ->with('priorities',$priorities)->with('types',$types)
                                 ->with('task',$task)->with('fields',$fields)
-                                    ->with('tasks', $tasks);
+                                    ->with('tasks', $tasks)->with('comments', $comments);
     }
 
     /**

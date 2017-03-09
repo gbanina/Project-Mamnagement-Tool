@@ -9,6 +9,7 @@ use App\User;
 use App\Models\Project;
 use App\Models\ProjectTypes;
 use App\Models\UserProject;
+use App\Models\Comment;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
@@ -84,11 +85,14 @@ class ProjectController extends BaseController {
     {
         $service = new ProjectServiceProvider(Auth::user());
         $fields = $service->edit($id);
+        $comments = Comment::where('entity_id', $id)->where('entity_type', 'PROJECT')->orderBy('id', 'desc')->get();
+
 
         return View::make('project.edit')->with('users', $fields['users'])
                                             ->with('projectTypes', $fields['typesSelect'])
                                                 ->with('project_manager', $fields['projectManager'])
-                                                    ->with('project', $fields['project'])->with('taskTypes', $fields['taskTypes']);
+                                                    ->with('project', $fields['project'])->with('comments', $comments)
+                                                        ->with('taskTypes', $fields['taskTypes']);
     }
 
     /**

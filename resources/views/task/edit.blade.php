@@ -63,7 +63,7 @@
                         </li>
                       </ul>
               <div class="x_content">
-
+                @component('component.alert')@endcomponent
                 <div class="row">
                 {!! Form::model($task, array('route' => array('task.update', $task->id), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}
                   <div class="col-md-6 col-sm-12 col-xs-12 form-group">
@@ -140,16 +140,14 @@
                         </div>
                       </div>
                       @include('task.additional-fields')
-
                   </div>
-
                   <a href="{{ URL::to('project/'.$task->projects_id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
                   {!! Form::submit('Submit', array('class' => 'btn btn-success')) !!}
                   {!! Form::close() !!}
-
                   <div class="col-md-6 col-sm-12 col-xs-12 form-group">
+                    @component('component.comments', ['id' => $task->id, 'type' => 'TASK', 'comments' => $comments])
+                    @endcomponent
                   </div>
-                  comments go here!
                   <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                     @include('task.work')
                   </div>
@@ -157,7 +155,7 @@
               </div>
             </div>
           </div>
-          </div>
+        </div>
 
 @endsection
 

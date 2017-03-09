@@ -47,5 +47,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('work', 'Work\WorkController');
     Route::resource('account', 'AccountController');
 
+    Route::resource('comment', 'CommentController');
+
     Route::get('switch/{id}', 'AccountChaingeController@switchTo');
 });
