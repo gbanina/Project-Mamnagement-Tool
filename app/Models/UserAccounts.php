@@ -17,4 +17,9 @@ class UserAccounts extends Model {
     {
         return $this->belongsTo('App\Models\Account');
     }
+
+    public function role()
+    {
+        return $this->belongsTo('App\Models\Role');
+    }
 }

@@ -23,28 +23,39 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <a href="{{ URL::to('/admin/role/create') }}" class="btn btn-default">Add new Role</a>
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Name</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      @foreach ($roles as $role)
-                        <tr>
-                          <th scope="row">{{$role->id}}</th>
-                          <td>{{$role->name}}</td>
-                          <td>
-                            <a class="fa fa-edit" href="{{ URL::to('/admin/role/'.$role->id.'/edit') }}"></a>
-                            <a class="fa fa-remove" href="#"></a>
-                          </td>
-                        </tr>
-                      @endforeach
-                      </tbody>
-                    </table>
+                      <div class="col-md-8 col-sm-8 col-xs-12 form-group">
+                        <a href="{{ URL::to('/admin/role/create') }}" class="btn btn-default">Add new Role</a>
+                        <table class="table table-striped projects">
+                          <thead>
+                            <tr>
+                              <th style="width: 1%">#</th>
+                              <th style="width: 30%">Role Name</th>
+                              <th style="width: 20%"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach ($roles as $role)
+                            <tr>
+                              <td>{{$role->id}}</td>
+                              <td>
+                                <a>{{$role->name}}</a>
+                                <br>
+                                <small>Created {{$role->created_at}}</small>
+                              </td>
+                              <td>
+                                <li style="display: inline-block;">
+                                <a href="{{ URL::to('/admin/role/'.$role->id.'/edit') }}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
+                                <a href="{{ URL::to('/admin/role/'.$role->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                                {{ Form::open(['route' => ['role.destroy', $role->id], 'method' => 'delete', 'style'=>'display: inline']) }}
+                                <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+                                {{ Form::close() }}
+                                </li>
+                              </td>
+                            </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
                   </div>
                 </div>
 @endsection

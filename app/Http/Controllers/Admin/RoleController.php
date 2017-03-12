@@ -109,7 +109,9 @@ class RoleController extends BaseController {
      */
     public function destroy($id)
     {
-
+        $role = Role::find($id);
+        $role->delete();
+        return Redirect::to('admin/role');
     }
 
 }

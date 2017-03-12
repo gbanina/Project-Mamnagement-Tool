@@ -42,7 +42,6 @@
                     <ul class="nav child_menu">
                       <li><a href="{{ URL::to('users') }}">All Users</a></li>
                       <li><a href="{{ URL::to('users/create') }}">Add New User</a></li>
-                      <li><a href="{{ URL::to('admin/role') }}">User Role</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-key"></i> Admin <span class="fa fa-chevron-down"></span></a>
@@ -52,6 +51,7 @@
                       <li><a href="{{ URL::to('admin/field') }}">Additional Fields</a></li>
                       <li><a href="{{ URL::to('admin/status') }}">Task Status</a></li>
                       <li><a href="{{ URL::to('admin/priority') }}">Task Priority</a></li>
+                      <li><a href="{{ URL::to('admin/role') }}">User Role</a></li>
                     </ul>
                   </li>
                 </ul>

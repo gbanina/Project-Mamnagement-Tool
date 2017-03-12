@@ -39,10 +39,21 @@
                       <div class="tab-content">
                         @foreach(Auth::user()->accounts as $acc)
                         <div class="tab-pane @if($acc->id == Auth::user()->current_acc) active @endif" id="{{$acc->id}}">
-                          <p class="lead">{{$acc->name}}</p>
-                          <p>Name : {{$acc->name}}</p>
-                          <p>Expires : {{$acc->expires}}</p>
-                          <p>Licence : {{$acc->licence}}</p>
+                          <ul class="stats-overview">
+                            <li>
+                              <span class="name"> Account Name </span>
+                              <span class="value text-success"> {{$acc->name}}</span>
+                            </li>
+                            <li>
+                              <span class="name"> Expires </span>
+                              <span class="value text-success"> {{$acc->expires}} </span>
+                            </li>
+                            <li class="hidden-phone">
+                              <span class="name"> Licence</span>
+                              <span class="value text-success"> {{$acc->licence}} </span>
+                            </li>
+                          </ul>
+                          <a href="{{ URL::to('/account/create?acc='.$acc->id) }}" class="btn btn-default">Add new user</a>
                           @include('account.users')
                         </div>
                         @endforeach

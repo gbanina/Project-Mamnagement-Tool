@@ -8,6 +8,8 @@ use Redirect;
 use Session;
 use Auth;
 use App\User;
+use App\Models\Role;
+use App\Models\Account;
 use App\Models\UserAccounts;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
@@ -24,7 +26,9 @@ class AccountController extends BaseController {
     public function index()
     {
         $view = View::make('account.index');
-        $users = UserAccounts::where('account_id', Auth::user()->current_acc)->with('user')->get();
+        foreach(Auth::user()->accounts as $acc)
+            $users[$acc->id] = UserAccounts::where('account_id', $acc->id)->with('user')->get();
+
         return $view->with('users', $users);
     }
 
@@ -35,7 +39,10 @@ class AccountController extends BaseController {
      */
     public function create(Request $request)
     {
-        return View::make('account.create');
+        $accountId = $request->input('acc');
+        $account = Account::find($accountId);
+
+        return View::make('account.create')->with('account', $account);
     }
 
     /**
@@ -45,8 +52,14 @@ class AccountController extends BaseController {
      */
     public function store(Request $request)
     {
+        $rules = array(
+            'email' => 'required',
+        );
+        $validator = Validator::make(Input::all(), $rules);
 
-        $request->session()->flash('alert-success', 'Account : '.''.' was successful created!');
+
+
+        $request->session()->flash('alert-success', 'invitation has been sent to !');
         return Redirect::to('account.index');
     }
 
@@ -69,7 +82,12 @@ class AccountController extends BaseController {
      */
     public function edit($id)
     {
+        $account = UserAccounts::find($id);
+        $roles = Role::where('account_id', $account->account_id)->pluck('name', 'id');
+        $types = array(/*'OWNER' => 'Owner', */'ADMIN' => 'Admin', 'MEMBER' => 'Member');
 
+        return View::make('account.edit')->with('account', $account)
+                        ->with('roles', $roles)->with('types', $types);
     }
 
     /**
@@ -80,7 +98,18 @@ class AccountController extends BaseController {
      */
     public function update($id, Request $request)
     {
-        $request->session()->flash('alert-success', 'Account : '.''.' was successful updated!');
+        $rules = array(
+            'role_id' => 'required',
+            'type' => 'required',
+        );
+        $validator = Validator::make(Input::all(), $rules);
+
+        $account = UserAccounts::find($id);
+        $account->role_id = Input::get('role_id');
+        $account->type = Input::get('type');
+        $account->save();
+
+        $request->session()->flash('alert-success', 'Account : was successful updated!');
         return Redirect::to('account');
     }
 
@@ -92,7 +121,7 @@ class AccountController extends BaseController {
      */
     public function destroy($id, Request $request)
     {
-        $request->session()->flash('alert-success', 'Account : '.''.' was successful deleted!');
+        $request->session()->flash('alert-success', 'Account : was successful deleted!');
         return Redirect::to('account');
     }
 
