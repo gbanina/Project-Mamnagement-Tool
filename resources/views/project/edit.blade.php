@@ -120,7 +120,7 @@
 
                       <div class="ln_solid"></div>
                         <div class="btn-group">
-                          <button class="btn btn-default" type="button">Permissions</button>
+                          <a href="{{ URL::to('project-rights/'.$project->id) }}" class="btn btn-default" type="button">Permissions</a>
                           <button class="btn btn-default" type="button">Versions</button>
                           <button class="btn btn-default" type="button">Components</button>
                         </div>

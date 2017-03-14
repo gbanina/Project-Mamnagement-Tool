@@ -25,7 +25,7 @@ class TaskType extends Model {
 
     public function fields()
     {
-        return $this->belongsToMany('App\Models\TaskField', 'task_type_fields', 'task_types_id', 'task_fields_id')->get();
+        return $this->belongsToMany('App\Models\TaskField', 'task_type_fields', 'task_types_id', 'task_fields_id');
     }
 
     public function hasTaskField()

@@ -145,7 +145,7 @@ class TaskController extends BaseController {
 
         $fields = array();
         // Todo : refactor this
-        foreach($task->taskType()->first()->fields() as $field){
+        foreach($task->taskType()->first()->fields()->get() as $field){
             $att = TaskAttribute::where('task_id', $id)->where('task_fields_id', $field->id)->first();
             $val = '';
             if($att != null) $val = $att->value;
