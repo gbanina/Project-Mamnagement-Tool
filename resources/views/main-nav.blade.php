@@ -1,5 +1,8 @@
             <div class="navbar nav_title" style="border: 0;">
-              <a href="{{ URL::to('/') }}" class="site_title"><i class="fa fa-paw"></i> <span>TeamBiosis</span></a>
+              <a href="{{ URL::to('/') }}" class="site_title">
+                <img src="{{ URL::to('assets/fav/apple-icon-60x60.png')}}" style="width:30px;height:30px;">
+                <span>eambiosis</span>
+              </a>
             </div>
             <div class="clearfix"></div>
 
