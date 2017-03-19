@@ -9,10 +9,10 @@
                       <thead>
                         <tr>
                           <th style="width: 1%">#</th>
-                          <th style="width: 19%">Task Name</th>
-                          <th style="width: 19%">Task Type</th>
+                          <th style="width: 33%">Task Name</th>
+                          <th style="width: 15%">Task Type</th>
                           <th style="width: 20%">Responsible</th>
-                          <th style="width: 30%">Edit</th>
+                          <th style="width: 20%">Edit</th>
                         </tr>
                       </thead>
                       <tbody>

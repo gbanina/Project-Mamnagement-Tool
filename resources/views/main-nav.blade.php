@@ -47,6 +47,7 @@
                       <li><a href="{{ URL::to('users/create') }}">Add New User</a></li>
                     </ul>
                   </li>
+                  @if(Auth::user()->isAdmin())
                   <li><a><i class="fa fa-key"></i> Admin <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ URL::to('admin/project-type') }}">Project Types</a></li>
@@ -57,6 +58,7 @@
                       <li><a href="{{ URL::to('admin/role') }}">User Role</a></li>
                     </ul>
                   </li>
+                  @endif
                 </ul>
               </div>
             </div>

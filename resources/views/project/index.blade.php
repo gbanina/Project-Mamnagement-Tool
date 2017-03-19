@@ -33,12 +33,12 @@
                     <table class="table table-striped projects">
                       <thead>
                         <tr>
-                          <th style="width: 1%">#</th>
-                          <th style="width: 20%">Project Name</th>
-                          <th>Team Members</th>
-                          <th>Project Progress</th>
-                          <th>Type</th>
-                          <th style="width: 20%">Edit</th>
+                          <th style="width: 1%">ID</th>
+                          <th >Project Name</th>
+                          <th style="width: 20%">Team Members</th>
+                          <th style="width: 20%">Project Progress</th>
+                          <th style="width: 10%">Type</th>
+                          <th style="width: 15%">Edit</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -46,9 +46,11 @@
                           <tr>
                           <td>{{$project->internal_id}}</td>
                           <td>
-                            <a>{{$project->name}}</a>
-                            <br>
-                            <small>Created {{$project->created_at}}</small>
+                            <a href="{{ URL::to('project/'.$project->id.'/edit') }}">
+                              {{$project->name}}
+                              <br>
+                              <small>Created {{$project->created_at}}</small>
+                            </a>
                           </td>
                           <td>
                             <ul class="list-inline">
