@@ -10,6 +10,7 @@ use App\User;
 use App\Models\Status;
 use App\Models\Priority;
 use App\Models\TaskType;
+use App\Models\FieldRight;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\TaskAttribute;
@@ -30,10 +31,12 @@ class TaskController extends BaseController {
      *
      * @return Response
      */
+
     public function index()
     {
         $sp = new TaskServiceProvider($this);
-        $view = View::make('task.index')->with('tasks', Task::all());
+        $tasks = Task::all()->where('account_id', Auth::user()->current_acc)->where('permission','!=', 'NONE');
+        $view = View::make('task.index')->with('tasks', $tasks);
         return $view;
     }
 
@@ -45,20 +48,22 @@ class TaskController extends BaseController {
     public function create(Request $request)
     {
         $projectId = $request->input('p');
+        $project = Project::find($projectId);
+        $projectName = $project->name;
+        if($project->getPermissionAttribute() != 'NONE' && $project->getPermissionAttribute() != 'READ'){
+            $projects = Project::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose project', '');
+            $users = User::all()->pluck('name', 'id')->prepend('Choose user', '');
+            $status = Status::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose status', '');
+            $priorities = Priority::all()->where('account_id', Auth::user()->current_acc)->pluck('label', 'id')->prepend('Choose priority', '');
+            $types = TaskType::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose type', '');
 
-        $projectName = Project::find($projectId)->name;
-
-        $projects = Project::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose project', '');
-        $users = User::all()->pluck('name', 'id')->prepend('Choose user', '');
-        $status = Status::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose status', '');
-        $priorities = Priority::all()->where('account_id', Auth::user()->current_acc)->pluck('label', 'id')->prepend('Choose priority', '');
-        $types = TaskType::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose type', '');
-
-        return View::make('task.create')->with('projects', $projects)->with('projectId', $projectId)
-                                            ->with('users',$users)->with('status',$status)
-                                                    ->with('priorities',$priorities)
-                                                        ->with('types',$types)
-                                                            ->with('projectName',$projectName);
+            return View::make('task.create')->with('projects', $projects)->with('projectId', $projectId)
+                                                ->with('users',$users)->with('status',$status)
+                                                        ->with('priorities',$priorities)
+                                                            ->with('types',$types)
+                                                                ->with('projectName',$projectName);
+        }
+        return Redirect::to('task');
     }
 
     /**
@@ -105,6 +110,7 @@ class TaskController extends BaseController {
         $board->project_id = $task->projects_id;
         $board->title = "created a new " . $task->type; //getTypeAttribute
         $board->content = $task->internal_id . ':' . $task->name . ' - ' . $task->description;
+        $board->editable = 'N';
         $board->save();
 
         return Redirect::to('task/' . $task->id . '/edit');
@@ -145,19 +151,41 @@ class TaskController extends BaseController {
 
         $fields = array();
         // Todo : refactor this
+        $roleId = Auth::user()->userAccount()->role_id;
+        $projectId = $task->getProjectAttribute()->id;
+        $taskTypeId = $task->taskType()->first()->id;
+
         foreach($task->taskType()->first()->fields()->get() as $field){
             $att = TaskAttribute::where('task_id', $id)->where('task_fields_id', $field->id)->first();
             $val = '';
             if($att != null) $val = $att->value;
+
+            if(Auth::user()->isAdmin()){
+                $permission = 'DEL';
+            }
+            else{
+                $fr = FieldRight::where('role_id', $roleId)->where('project_id', $projectId)
+                    ->where('task_type_id', $taskTypeId)->where('task_field_id', $field->id);
+                $permission = $fr->first()->permission;
+            }
+            if($permission == 'NONE') continue;
+            $disabled = '';
+            if($permission == 'READ') $disabled = 'DISABLED';
             $fields[$field->id] = array('type' => $field->type,
                                             'label' => $field->label,
-                                                'value' => $val);
+                                                'value' => $val,
+                                                    'disabled' => $disabled,
+                                                        'permission' => $permission);
+
         }
+        $global_css = '';
+        if($task->permission == 'READ') $global_css = 'disabled';
         return View::make('task.edit')->with('projects',$projects)
                         ->with('users',$users)->with('status',$status)
                             ->with('priorities',$priorities)->with('types',$types)
                                 ->with('task',$task)->with('fields',$fields)
-                                    ->with('tasks', $tasks)->with('comments', $comments);
+                                    ->with('tasks', $tasks)->with('comments', $comments)
+                                        ->with('global_css', $global_css);
     }
 
     /**
@@ -181,25 +209,27 @@ class TaskController extends BaseController {
         }
 
         $task = Task::find($id);
-        $task->name = Input::get('name');
-        /* project and type cannot chainge here */
-        //$task->projects_id = Input::get('project_id');
-        //$task->task_types_id = Input::get('type_id');
-        $task->responsible_id = Input::get('responsible_id');
-        $task->status_id = Input::get('status_id');
-        $task->priority_id = Input::get('priority_id');
-        $task->description = Input::get('description');
-        $task->archived = 'NO';
+        if($task->permission != 'NONE' && $task->permission != 'READ'){
+            $task->name = Input::get('name');
+            /* project and type cannot chainge here */
+            //$task->projects_id = Input::get('project_id');
+            //$task->task_types_id = Input::get('type_id');
+            $task->responsible_id = Input::get('responsible_id');
+            $task->status_id = Input::get('status_id');
+            $task->priority_id = Input::get('priority_id');
+            $task->description = Input::get('description');
+            $task->archived = 'NO';
 
-        $task->estimated_start_date = PMTypesHelper::dateToSQL(Input::get('estimated_start_date'));
-        $task->estimated_end_date = PMTypesHelper::dateToSQL(Input::get('estimated_end_date'));
-        $task->estimated_cost = Input::get('estimated_cost');
+            $task->estimated_start_date = PMTypesHelper::dateToSQL(Input::get('estimated_start_date'));
+            $task->estimated_end_date = PMTypesHelper::dateToSQL(Input::get('estimated_end_date'));
+            $task->estimated_cost = Input::get('estimated_cost');
 
-        $task->update();
-        TaskAttribute::where('task_id', $task->id)->delete();
-        if(Input::get('additional') !== null){
-            foreach (Input::get('additional') as $key=>$att){
-                TaskAttribute::create(['task_id' => $task->id, 'task_fields_id' => $key, 'value' => $att]);
+            $task->update();
+            TaskAttribute::where('task_id', $task->id)->delete();
+            if(Input::get('additional') !== null){
+                foreach (Input::get('additional') as $key=>$att){
+                    TaskAttribute::create(['task_id' => $task->id, 'task_fields_id' => $key, 'value' => $att]);
+                }
             }
         }
         return Redirect::to('task');

@@ -10,19 +10,20 @@
               <div class="col-md-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>{{$project->name}} <small><a href="{{ URL::to('project') }}">Projects</a> > Project Rights</small></h2>
+                    <h2>{{$project->name}} <small><a href="{{ URL::to('project') }}">Projects</a> | Project Rights</small></h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content" style="display: block;">
                     {!! Form::open(array('url' => 'project-rights/' . $project->id)) !!}
                       {!! Form::submit('Save', array('class' => 'btn btn-success')) !!}
+                      <a href="{{ URL::to('project/'.$project->id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
 
                       <table class="table table-striped">
                         <thead>
                           <tr>
                               <th style="width: 15%;"></th>
                             @foreach($roles as $role)
-                              <th>{{$role->name}}</th>
+                              <th>{{$role->name}} <a href="{{ URL::to('morph/' . $role->id) }}"><i class="fa fa-eye"></i></a></th>
                             @endforeach
                           </tr>
                            <tr>
@@ -113,6 +114,7 @@
                         @endforeach <!-- taskType -->
                       </table>
                       {!! Form::submit('Save', array('class' => 'btn btn-success')) !!}
+                      <a href="{{ URL::to('project/'.$project->id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
                     {!! Form::close() !!}
                   </div>
                 </div>

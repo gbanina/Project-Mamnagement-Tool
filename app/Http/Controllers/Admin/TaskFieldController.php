@@ -20,6 +20,7 @@ class TaskFieldController extends BaseController {
 
     public function __construct()
     {
+        $this->middleware('admin_access');
         $this->service = new TaskFieldServiceProvider();
     }
 

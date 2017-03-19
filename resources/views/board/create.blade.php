@@ -9,21 +9,6 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Add News <small>Dashboard</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
                     <div class="clearfix"></div>
                   </div>
                   @if($errors->count() != 0):
@@ -37,7 +22,7 @@
                       <div class="form-group">
                         <label class="control-label col-md-2 col-sm-2 col-xs-12">Project</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('project_id', $projects, '', array('class' => 'form-control')) }}
+                          {{ Form::select('project_id', $projects, '', array('required' => 'required', 'class' => 'form-control')) }}
                         </div>
                       </div>
                       <div class="form-group">

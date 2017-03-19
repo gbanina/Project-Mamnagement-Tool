@@ -21,6 +21,7 @@ class CreateDashboardsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('title')->nullable();
             $table->text('content')->nullable();
+            $table->enum('editable', ['Y', 'N']);
             $table->timestamps();
             $table->softDeletes();
 

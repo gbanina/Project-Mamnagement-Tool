@@ -51,4 +51,6 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('comment', 'CommentController');
 
     Route::get('switch/{id}', 'AccountChaingeController@switchTo');
+    Route::get('morph/{roleId}', 'MorphController@switchTo');
+    Route::get('morph-return', 'MorphController@returnFromMorph');
 });

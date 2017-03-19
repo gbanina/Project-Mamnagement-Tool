@@ -6,21 +6,6 @@
               <div class="x_panel">
                 <div class="x_title">
                   <h2>Recent Activities <small><a href="{{ URL::to('board/create') }}" class="btn btn-default" type="button">Add News</a></small></h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                  </ul>
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -33,7 +18,7 @@
                           <img src="{{ URL::to('images/' . $board->user->avatar) }}" style="margin-right: 10px" class="avatar" alt="Avatar">
                             <h2 class="title">
                                   {{$board->user->name}} {{$board->title}}
-                                  @if($board->user->id == Auth::user()->id)
+                                  @if($board->user->id == Auth::user()->id && $board->editable == 'Y')
                                     &nbsp;&nbsp;<a href="{{ URL::to('board/' . $board->id . '/edit') }}"><i class="fa fa-edit"></i></span></a>
                                   @endif
                             </h2>

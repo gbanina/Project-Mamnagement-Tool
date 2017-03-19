@@ -22,7 +22,8 @@ class ProjectServiceProvider extends ServiceProvider
 
     public function all()
     {
-        return Project::all()->where('account_id', $this->user->current_acc);
+        return Project::all()->where('account_id', $this->user->current_acc)
+                                ->where('permission','!=', 'NONE');
     }
     public function fillCreate()
     {
@@ -78,6 +79,10 @@ class ProjectServiceProvider extends ServiceProvider
         $result['projectTypes'] = $projectTypes;
         $result['taskTypes'] = $taskTypes;
         $result['typesSelect'] = $typesSelect;
+        $result['global_css'] = '';
+
+        if($project->getPermissionAttribute() == 'READ')
+            $result['global_css'] = 'DISABLED';
 
         return $result;
     }

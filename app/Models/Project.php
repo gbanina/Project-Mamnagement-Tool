@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use DB;
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Helpers\PMTypesHelper;
@@ -21,8 +22,30 @@ class Project extends Model {
         return $type->label;
     }
 
-    public function projectType(){
+    public function getPermissionAttribute()
+    {
+        if(Auth::user()->isAdmin())
+        {
+            return 'DEL';
+        }
+        $roleId = Auth::user()->currentRole()->first()->id;
+        $projectRight = $this->projectRight()->where('role_id', $roleId)->first();
+
+        if($projectRight == null){
+            return 'NONE';
+        }
+
+        return $projectRight->permission;
+    }
+
+    public function projectType()
+    {
         return $this->belongsTo('App\Models\ProjectTypes', 'project_types_id');
+    }
+
+    public function projectRight()
+    {
+        return $this->hasMany('App\Models\ProjectRight');
     }
 
     public function getTasksAttribute()

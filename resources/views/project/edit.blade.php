@@ -7,25 +7,9 @@
 
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Edit Project <small>Projects</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    <h2>Project : {{$project->type}} <small>(Edit)</small></h2>
                     <div class="clearfix"></div>
                   </div>
-
        <div class="">
 
             <div class="clearfix"></div>
@@ -34,6 +18,10 @@
             <div class="row">
 
               <ul class="stats-overview">
+                        <li>
+                          <span class="name"> Project ID </span>
+                          <span class="value text-success"> {{$project->internal_id}} </span>
+                        </li>
                         <li>
                           <span class="name"> Estimated Start Date </span>
                           <span class="value text-success"> {{$project->estimatedStartDate}} </span>
@@ -72,36 +60,31 @@
                     <br>
 
                     <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Project ID</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {!! Form::text('id', $project->internal_id, array('disabled', 'class' => 'form-control ')) !!}
-                        </div>
-                      </div>
-
-                    <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Project Name</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {!! Form::text('project_name', $project->name, array('required' => 'required', 'class' => 'form-control ','placeholder'=>'Project Name')) !!}
+                          {!! Form::text('project_name', $project->name, array($global_css, 'required' => 'required', 'class' => 'form-control ','placeholder'=>'Project Name')) !!}
                         </div>
                       </div>
 
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Project Manager</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                        {{ Form::select('project_manager', $users, $project_manager, array('class' => 'form-control')) }}
+                        {{ Form::select('project_manager', $users, $project_manager, array($global_css, 'class' => 'form-control')) }}
                         </div>
                       </div>
+                      <!--
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Type</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('project_type', $projectTypes, $project->project_types_id, array('onchange' => 'refreshTaskTypes()','disabled', 'id' => 'project_type', 'class' => 'form-control')) }}
+                          {{ Form::select('project_type', $projectTypes, $project->project_types_id, array($global_css, 'onchange' => 'refreshTaskTypes()','disabled', 'id' => 'project_type', 'class' => 'form-control')) }}
                           {{ Form::hidden('project_type', $project->project_types_id) }}
                         </div>
                       </div>
+                      -->
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Default Responsible</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                            {{ Form::select('default_responsible', $users, $project->default_responsible, array('class' => 'form-control', 'required')) }}
+                            {{ Form::select('default_responsible', $users, $project->default_responsible, array($global_css, 'class' => 'form-control', 'required')) }}
                         </div>
                       </div>
                       <div class="form-group">
@@ -114,7 +97,7 @@
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
                           <a href="{{ URL::to('project') }}" class="btn btn-primary" type="button">Cancel</a>
-                          {!! Form::submit('Save', array('class' => 'btn btn-success')) !!}
+                          {!! Form::submit('Save', array($global_css, 'class' => 'btn btn-success')) !!}
                         </div>
                       </div>
 
@@ -128,16 +111,12 @@
                 </div>
 {!! Form::close() !!}
 
-                    @component('component.comments', ['id' => $project->id, 'type' => 'PROJECT', 'comments' => $comments])
-                    @endcomponent
-
-
-
-
+                @include('project.tasks')
               </div>
 
               <div class="col-md-6 col-xs-12">
-                  @include('project.tasks')
+                  @component('component.comments', ['id' => $project->id, 'type' => 'PROJECT', 'comments' => $comments])
+                  @endcomponent
               </div>
 
             </div>

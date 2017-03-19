@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Validator;
 
 class RoleController extends BaseController {
 
+    public function __construct()
+    {
+        $this->middleware('admin_access');
+    }
     /**
      * Display a listing of the resource.
      *

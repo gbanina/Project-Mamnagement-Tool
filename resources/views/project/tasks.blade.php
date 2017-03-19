@@ -10,7 +10,8 @@
                         <tr>
                           <th style="width: 1%">#</th>
                           <th style="width: 19%">Task Name</th>
-                          <th style="width: 20%">Team Members</th>
+                          <th style="width: 19%">Task Type</th>
+                          <th style="width: 20%">Responsible</th>
                           <th style="width: 30%">Edit</th>
                         </tr>
                       </thead>
@@ -24,9 +25,12 @@
                             <small>Created {{$task->created_at}}</small>
                           </td>
                           <td>
+                            <button type="button" class="btn btn-success btn-xs">{{ $task->type }}</button>
+                          </td>
+                          <td>
                             <ul class="list-inline">
                               <li>
-                                <img src="../../images/user.png" class="avatar" alt="Avatar">
+                                <img src="{{ URL::to('images/' . $task->responsible->avatar) }}" class="avatar" alt="Avatar">
                               </li>
                               <li>
                                 <img src="../../images/user.png" class="avatar" alt="Avatar">
@@ -35,11 +39,12 @@
                           </td>
                           <td>
                             <li style="display: inline-block;">
-                            <a href="{{ URL::to('task/'.$task->id.'/edit') }}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
                             <a href="{{ URL::to('task/'.$task->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                            {{ Form::open(['route' => ['task.destroy', $task->id], 'method' => 'delete', 'style'=>'display: inline']) }}
-                            <button type="submit" class="btn btn-danger btn-xs">Delete</button>
-                            {{ Form::close() }}
+                            @if($task->permission == 'DEL')
+                              {{ Form::open(['route' => ['task.destroy', $task->id], 'method' => 'delete', 'style'=>'display: inline']) }}
+                              <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+                              {{ Form::close() }}
+                            @endif
                             </li>
                           </td>
                         </tr>

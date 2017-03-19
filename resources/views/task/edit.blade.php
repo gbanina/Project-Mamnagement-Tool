@@ -19,24 +19,13 @@
                 <div class="x_panel">
               <div class="x_title">
                 <h2><strong>{{$task->type}}</strong> in <strong>{{$task->project->name}}</strong> (Edit)</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                  </li>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Settings 1</a>
-                      </li>
-                      <li><a href="#">Settings 2</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><a class="close-link"><i class="fa fa-close"></i></a>
-                  </li>
-                </ul>
                 <div class="clearfix"></div>
               </div>
               <ul class="stats-overview">
+                        <li>
+                          <span class="name"> Task ID </span>
+                          <span class="value text-success"> {{$task->internal_id}}</span>
+                        </li>
                         <li>
                           <span class="name"> Task Type </span>
                           <span class="value text-success"> {{$task->taskType->name}}</span>
@@ -78,40 +67,33 @@
                       </div>
                       -->
                       <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Task ID</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {!! Form::text('id', $task->internal_id, array('disabled', 'class' => 'form-control ')) !!}
-                          {{ Form::hidden('return_to', 'task/' . $task->id) }}
-                        </div>
-                      </div>
-                      <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Name</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {!! Form::text('name', $task->name, array('required' => 'required', 'class' => 'form-control ','placeholder'=>'Task Name')) !!}
+                          {!! Form::text('name', $task->name, array($global_css, 'required' => 'required', 'class' => 'form-control ','placeholder'=>'Task Name')) !!}
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Responsible</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('responsible_id', $users, $task->responsible_id, array('class' => 'form-control', 'required')) }}
+                          {{ Form::select('responsible_id', $users, $task->responsible_id, array($global_css, 'class' => 'form-control', 'required')) }}
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Status</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('status_id', $status, $task->status_id, array('class' => 'form-control', 'required')) }}
+                          {{ Form::select('status_id', $status, $task->status_id, array($global_css, 'class' => 'form-control', 'required')) }}
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Priority</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('priority_id', $priorities, $task->priority_id, array('class' => 'form-control', 'required')) }}
+                          {{ Form::select('priority_id', $priorities, $task->priority_id, array($global_css, 'class' => 'form-control', 'required')) }}
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Description</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::textarea('description', $task->description, ['rows'=> '8', 'class' => 'resizable_textarea form-control']) }}
+                          {{ Form::textarea('description', $task->description, [$global_css, 'rows'=> '8', 'class' => 'resizable_textarea form-control']) }}
                         </div>
                       </div>
                   </div>
@@ -120,7 +102,7 @@
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated Start Date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                            {!! Form::text('estimated_start_date', $task->estimatedStartDate, array('id' => 'single_cal3', 'class' => 'form-control has-feedback-left')) !!}
+                            {!! Form::text('estimated_start_date', $task->estimatedStartDate, array($global_css, 'id' => 'single_cal3', 'class' => 'form-control has-feedback-left')) !!}
                             <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="inputSuccess2Status2" class="sr-only">(success)</span>
                         </div>
@@ -128,7 +110,7 @@
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated End Date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {!! Form::text('estimated_end_date', $task->estimatedEndDate, array('id' => 'single_cal4', 'class' => 'form-control has-feedback-left')) !!}
+                          {!! Form::text('estimated_end_date', $task->estimatedEndDate, array($global_css, 'id' => 'single_cal4', 'class' => 'form-control has-feedback-left')) !!}
                             <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                             <span id="inputSuccess2Status3" class="sr-only">(success)</span>
                         </div>
@@ -136,13 +118,13 @@
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated Cost</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {!! Form::number('estimated_cost', $task->estimated_cost, array( 'class' => 'form-control ')) !!}
+                          {!! Form::number('estimated_cost', $task->estimated_cost, array( $global_css, 'class' => 'form-control ')) !!}
                         </div>
                       </div>
                       @include('task.additional-fields')
                   </div>
                   <a href="{{ URL::to('project/'.$task->projects_id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
-                  {!! Form::submit('Submit', array('class' => 'btn btn-success')) !!}
+                  {!! Form::submit('Submit', array($global_css, 'class' => 'btn btn-success')) !!}
                   {!! Form::close() !!}
                   <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                     @component('component.comments', ['id' => $task->id, 'type' => 'TASK', 'comments' => $comments])

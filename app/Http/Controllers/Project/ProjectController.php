@@ -92,7 +92,8 @@ class ProjectController extends BaseController {
                                             ->with('projectTypes', $fields['typesSelect'])
                                                 ->with('project_manager', $fields['projectManager'])
                                                     ->with('project', $fields['project'])->with('comments', $comments)
-                                                        ->with('taskTypes', $fields['taskTypes']);
+                                                        ->with('taskTypes', $fields['taskTypes'])
+                                                            ->with('global_css', $fields['global_css']);
     }
 
     /**

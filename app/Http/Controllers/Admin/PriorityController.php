@@ -19,6 +19,7 @@ class PriorityController extends BaseController {
 
     public function __construct()
     {
+        $this->middleware('admin_access');
         $this->service = new TaskPriorityServiceProvider();
     }
     /**

@@ -15,7 +15,7 @@ class AddRoleTypeToUserAcc extends Migration
     {
         Schema::table('user_accounts', function (Blueprint $table) {
             $table->integer('role_id')->unsigned()->default(1);
-            $table->enum('type', ['OWNER', 'ADMIN', 'MEMBER'])->default('MEMBER');
+            $table->enum('type', ['OWNER', 'ADMIN', 'MEMBER', 'MORPH'])->default('MEMBER');
 
             $table->foreign('role_id', 'fk_user_accounts_role1_idx')
                 ->references('id')->on('roles')

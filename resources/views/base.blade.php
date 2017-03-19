@@ -35,13 +35,10 @@
     <link href="{{ URL::to('css/nprogress.css')}}" rel="stylesheet">
     <!-- iCheck -->
     <link href="{{ URL::to('css/green.css')}}" rel="stylesheet">
-
     <!-- Custom Theme Style -->
     <link href="{{ URL::to('css/custom.min.css')}}" rel="stylesheet">
-
     <!-- Custom Tweeks -->
     <link href="{{ URL::to('css/admin.css')}}" rel="stylesheet">
-
         <!-- jQuery -->
     <script src="{{ URL::to('js/jquery.min.js')}}"></script>
     <!-- Bootstrap -->
@@ -59,6 +56,13 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+            @if(Auth::user()->currentRole == 'MORPH')
+            <div class="row">
+                <div class="alert alert-danger fade in" role="alert">
+                    You are currently assimilated role of {{Auth::user()->userAccount()->role()->first()->name}}. Click <a href="{{ URL::to('morph-return') }}">here</a> to return to your original role.
+                </div>
+            </div>
+            @endif
           @yield('content')
         </div>
         <!-- /page content -->

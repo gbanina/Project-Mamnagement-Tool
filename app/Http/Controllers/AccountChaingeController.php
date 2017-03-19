@@ -23,6 +23,6 @@ class AccountChaingeController extends BaseController {
         //switch account
         $user->switchAccount($user->id, $id);
         //redirect
-        return Redirect::to('board');
+        return Redirect::to('board'); // Redirect::back(); ?
     }
 }

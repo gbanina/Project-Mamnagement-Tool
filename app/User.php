@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\UserAccounts;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -14,22 +15,16 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $fillable = ['name', 'email', 'password'];
 
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
-  protected $casts = [
-        'currentTeam' => 'array',
-    ];
+    protected $casts = ['currentTeam' => 'array'];
 
     /**
      * Get the organisational entities for the user.
@@ -42,6 +37,32 @@ class User extends Authenticatable
     public function currentacc()
     {
         return $this->belongsTo('App\Models\Account', 'current_acc');
+    }
+
+    public function userAccount()
+    {
+        return $this->belongsTo('App\Models\UserAccounts', 'current_acc')->first();
+    }
+    public function getCurrentRoleAttribute()
+    {
+        return $this->belongsTo('App\Models\UserAccounts', 'current_acc')->first()->type;
+    }
+
+    public function currentRole()
+    {
+        $userAcc = $this->belongsTo('App\Models\UserAccounts', 'current_acc')->first();
+        return $userAcc->role();
+    }
+
+    public function isAdmin()
+    {
+        $accountType = $this->getCurrentRoleAttribute();
+
+        if ($accountType == 'OWNER' || $accountType == 'ADMIN') {
+            return true;
+        }
+
+        return false;
     }
 
     public function getCurrentTeamAttribute()

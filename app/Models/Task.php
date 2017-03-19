@@ -12,6 +12,10 @@ use DB;
 class Task extends Model {
     use SoftDeletes;
 
+    public function getPermissionAttribute()
+    {
+        return $this->getProjectAttribute()->getPermissionAttribute();
+    }
     public function possibleTypes()
     {
         return $this->project->projectType->posibleTaskTypes()->get();
@@ -37,6 +41,11 @@ class Task extends Model {
     public function createdBy()
     {
         return $this->belongsTo('App\User', 'created_by');
+    }
+
+    public function responsible()
+    {
+        return $this->belongsTo('App\User', 'responsible_id');
     }
 
     public function getCreatedAtAttribute()

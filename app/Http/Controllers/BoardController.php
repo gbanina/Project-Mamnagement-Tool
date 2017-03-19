@@ -23,6 +23,7 @@ class BoardController extends BaseController {
      */
     public function index()
     {
+        // TODO : Filter by readable projects
         $boards = Dashboard::where('account_id', Auth::user()->current_acc)->orderBy('id', 'desc')->get();
         $view = View::make('board.index')->with('boards', $boards);
         return $view;
@@ -59,6 +60,7 @@ class BoardController extends BaseController {
         $board->user_id = Auth::user()->id;
         $board->title =Input::get('title');
         $board->content =Input::get('content');
+        $board->editable = 'Y';
 
         $board->save();
 
@@ -87,6 +89,7 @@ class BoardController extends BaseController {
     {
         $projects = Project::all()->pluck('name', 'id')->prepend('Choose project', '');
         $board = Dashboard::find($id);
+        if($board->editable != 'Y' || $board->user->id != Auth::user()->id) return Redirect::back();
         return View::make('board.edit')->with('projects', $projects)->with('board', $board);
     }
 
