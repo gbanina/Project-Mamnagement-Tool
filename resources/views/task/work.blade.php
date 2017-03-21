@@ -48,6 +48,7 @@
                                     <th>User</th>
                                     <th>Date</th>
                                     <th>Time</th>
+                                    <th></th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -56,6 +57,12 @@
                                     <td>{{$work->user->name}}</td>
                                     <td>{{$work->created_at}}</td>
                                     <td>{{$work->cost}}h</td>
+                                    <td>
+                                        <a href="{{ URL::to('work/'.$work->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                                        {{ Form::open(['route' => ['work.destroy', $work->id], 'method' => 'delete', 'style'=>'display: inline']) }}
+                                        <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+                                        {{ Form::close() }}
+                                    </td>
                                   </tr>
                                   @endforeach
                                 </tbody>

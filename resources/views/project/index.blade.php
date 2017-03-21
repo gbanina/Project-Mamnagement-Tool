@@ -28,6 +28,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content" style="display: block;">
+                    <a href="{{ URL::to('project/create') }}" class="btn btn-default">Add new Project</a>
                     <p>Listing all projects for {{Auth::user()->currentacc->name}}</p>
                     <!-- start project list -->
                     <table class="table table-striped projects">

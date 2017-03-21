@@ -39,7 +39,9 @@
     <link href="{{ URL::to('css/custom.min.css')}}" rel="stylesheet">
     <!-- Custom Tweeks -->
     <link href="{{ URL::to('css/admin.css')}}" rel="stylesheet">
-        <!-- jQuery -->
+    <!-- Datapicker -->
+    <link href="{{ URL::to('css/daterangepicker.css')}}" rel="stylesheet">
+    <!-- jQuery -->
     <script src="{{ URL::to('js/jquery.min.js')}}"></script>
     <!-- Bootstrap -->
     <script src="{{ URL::to('js/bootstrap.min.js')}}"></script>
@@ -88,8 +90,8 @@
     <!-- iCheck -->
     <script src="{{ URL::to('js/icheck.min.js')}}"></script>
     <!-- Custom Theme Scripts -->
-    <script src="{{ URL::to('js/custom.min.js')}}"></script>
-
+    <!--<script src="{{ URL::to('js/custom.min.js')}}"></script>-->
+    <script src="{{ URL::to('js/custom.js')}}"></script>
     @yield('js_include')
 
   </body>

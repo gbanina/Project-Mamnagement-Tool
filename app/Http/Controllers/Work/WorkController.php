@@ -21,14 +21,19 @@ class WorkController extends BaseController {
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $work = Work::where('account_id', Auth::user()->current_acc)->where('user_id', Auth::user()->id);
+        $work = Work::where('account_id', Auth::user()->current_acc)
+                        ->where('user_id', Auth::user()->id)->where('created_at', '>', date('Y-m-d 00:00:00',strtotime('last monday')));
         $tasks = Task::where('account_id', Auth::user()
                         ->current_acc)->where('responsible_id', Auth::user()->id)
                             ->pluck('name', 'id')->prepend('Choose task', '');
 
-        $view = View::make('work.index')->with('works', $work->get())->with('tasks', $tasks);
+        /* If you try to edit work from work.index, return to it */
+        $request->session()->put('url.intended', 'work');
+
+        $view = View::make('work.index')->with('works', $work->get())
+                ->with('tasks', $tasks)->with('cost', $work->sum('cost'));
         return $view;
     }
 
@@ -62,6 +67,38 @@ class WorkController extends BaseController {
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id, Request $request)
+    {
+        $work = Work::find($id);
+        $tasks = Task::where('account_id', Auth::user()
+                        ->current_acc)->where('responsible_id', Auth::user()->id)
+                            ->pluck('name', 'id')->prepend('Choose task', '');
+
+        return View::make('work.edit')->with('tasks', $tasks)->with('work', $work);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id, Request $request)
+    {
+        $work = Work::find($id);
+        $work->task_id = Input::get('task_id');
+        $work->cost = Input::get('cost');
+        $work->save();
+        $request->session()->flash('alert-success', 'Work : ID:'.$work->task_id.' was successful updated!');
+        return Redirect::to($request->session()->get('url.intended'));
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -72,7 +109,7 @@ class WorkController extends BaseController {
         $work = Work::find($id);
         $work->delete();
         $request->session()->flash('alert-success', 'Work was successful deleted!');
-        return Redirect::to('work');
-    }
 
+        return Redirect::back();
+    }
 }

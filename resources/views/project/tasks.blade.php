@@ -20,9 +20,11 @@
                         <tr>
                           <td>{{$task->internal_id}}</td>
                           <td>
-                            <a>{{$task->name}}</a>
-                            <br>
-                            <small>Created {{$task->created_at}}</small>
+                            <a href="{{ URL::to('task/'.$task->id.'/edit') }}">
+                              {{$task->name}}
+                              <br>
+                              <small>Created {{$task->created_at}}</small>
+                            </a>
                           </td>
                           <td>
                             <button type="button" class="btn btn-success btn-xs">{{ $task->type }}</button>

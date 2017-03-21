@@ -7,7 +7,7 @@
 
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Project : {{$project->type}} <small>(Edit)</small></h2>
+                    <h2>Project : <strong>{{$project->type}}</strong> <small>(Edit)</small></h2>
                     <div class="clearfix"></div>
                   </div>
        <div class="">

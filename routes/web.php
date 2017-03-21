@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('admin/status', 'Admin\StatusController');
     Route::resource('admin/priority', 'Admin\PriorityController');
     Route::resource('admin/field', 'Admin\TaskFieldController');
+    Route::resource('admin/right', 'Admin\RightController');
 
     Route::resource('board', 'BoardController');
     Route::resource('work', 'Work\WorkController');

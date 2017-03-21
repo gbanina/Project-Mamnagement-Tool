@@ -102,17 +102,16 @@
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated Start Date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                            {!! Form::text('estimated_start_date', $task->estimatedStartDate, array($global_css, 'id' => 'single_cal3', 'class' => 'form-control has-feedback-left')) !!}
+                            {!! Form::text('estimated_start_date', $task->estimatedStartDate, array($global_css, 'class' => 'form-control has-feedback-left datepicket_component')) !!}
                             <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                            <span id="inputSuccess2Status2" class="sr-only">(success)</span>
+
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated End Date</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                          {!! Form::text('estimated_end_date', $task->estimatedEndDate, array($global_css, 'id' => 'single_cal4', 'class' => 'form-control has-feedback-left')) !!}
+                          {!! Form::text('estimated_end_date', $task->estimatedEndDate, array($global_css, 'class' => 'form-control has-feedback-left datepicket_component')) !!}
                             <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                            <span id="inputSuccess2Status3" class="sr-only">(success)</span>
                         </div>
                       </div>
                       <div class="form-group">

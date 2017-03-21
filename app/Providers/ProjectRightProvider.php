@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Auth;
 use App\Models\Role;
+use App\Models\Project;
 use App\Models\ProjectRight;
 use App\Models\FieldRight;
 use Illuminate\Support\ServiceProvider;
@@ -12,7 +13,10 @@ class ProjectRightProvider extends ServiceProvider
 {
     public function __construct()
     { }
-
+    public function getProjects()
+    {
+        return Project::where('account_id', Auth::user()->current_acc)->get();
+    }
     public function getFieldRights($projectId)
     {
         $result = array();

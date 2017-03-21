@@ -16,6 +16,7 @@ use App\Models\Task;
 use App\Models\TaskAttribute;
 use App\Models\Dashboard;
 use App\Models\Comment;
+use App\Http\Requests\StoreTask;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
@@ -34,9 +35,12 @@ class TaskController extends BaseController {
 
     public function index()
     {
+        $projects = Project::all()->where('account_id', Auth::user()->current_acc)
+                                ->where('permission','!=', 'NONE')->pluck('name', 'id');
+
         $sp = new TaskServiceProvider($this);
         $tasks = Task::all()->where('account_id', Auth::user()->current_acc)->where('permission','!=', 'NONE');
-        $view = View::make('task.index')->with('tasks', $tasks);
+        $view = View::make('task.index')->with('tasks', $tasks)->with('projects', $projects);
         return $view;
     }
 
@@ -71,20 +75,8 @@ class TaskController extends BaseController {
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreTask $request)
     {
-        $rules = array(
-            'project' => 'required',
-            'name' => 'required',
-        );
-
-        $validator = Validator::make(Input::all(), $rules);
-        if (false && $validator->fails()) {
-            return redirect('task/create')
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-
         $task = new Task;
         $task->account_id = Auth::user()->current_acc;
         $task->name = Input::get('name');
@@ -133,7 +125,7 @@ class TaskController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
         $projects = Project::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose project', '');
         $users = User::all()->pluck('name', 'id')->prepend('Choose user', '');
@@ -148,6 +140,8 @@ class TaskController extends BaseController {
         $tasks = Task::where('account_id', Auth::user()
                         ->current_acc)->where('responsible_id', Auth::user()->id)
                             ->pluck('name', 'id')->prepend('Choose task', '');
+        /* If you try to edit work from work.index, return to it */
+        $request->session()->put('url.intended', 'task/'.$id.'/edit');
 
         $fields = array();
         // Todo : refactor this

@@ -25,6 +25,12 @@
                     <h2>Tasks</h2>
                     <div class="clearfix"></div>
                   </div>
+                  <div class="col-md-2 pull-left">
+                    <a href="#" id="add_new_button" disabled class="btn btn-default">Add new Task</a>
+                  </div>
+                  <div class="col-md-2 pull-left">
+                    {{ Form::select('project_id', $projects, '', array('style' => 'max-width: 250px;','id'=>'project_id', 'class' => 'form-control', 'required')) }}
+                  </div>
                   <div class="x_content" style="display: block;">
                     <p>Task listings for all the projects inyour current organisation</p>
                     <!-- start project list -->
@@ -85,4 +91,13 @@
             </div>
           </div>
 
+@endsection
+
+@section('js_include')
+    <script>
+      $( "#project_id" ).change(function() {
+         $('#add_new_button').removeAttr('disabled');
+         $('#add_new_button').attr('href','{{ URL::to('task\/create') }}' + '?p=' + this.value);
+        });
+    </script>
 @endsection
