@@ -61,7 +61,7 @@
             @if(Auth::user()->currentRole == 'MORPH')
             <div class="row">
                 <div class="alert alert-danger fade in" role="alert">
-                    You are currently assimilated role of {{Auth::user()->userAccount()->role()->first()->name}}. Click <a href="{{ URL::to('morph-return') }}">here</a> to return to your original role.
+                    You have currently assimilated role of <strong>{{Auth::user()->userAccount()->role()->first()->name}}</strong>. Click  <a href="{{ URL::to('morph-return') }}" class="btn btn-round btn-default btn-xs">here</a>to return to your original role.
                 </div>
             </div>
             @endif

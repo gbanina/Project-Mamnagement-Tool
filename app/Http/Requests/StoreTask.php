@@ -26,7 +26,7 @@ class StoreTask extends FormRequest
         return [
             'project_id' => 'required',
             'name' => 'required',
-            'task_types_id' => 'required',
+            'type_id' => 'required',
             'responsible_id' => 'required',
             'status_id' => 'required',
             'priority_id' => 'required',
