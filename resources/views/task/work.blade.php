@@ -24,6 +24,7 @@
                           <thead>
                             <tr>
                               <th>Task</th>
+                              <th>Date</th>
                               <th>Cost</th>
                               <th></th>
                             </tr>
@@ -32,6 +33,9 @@
                             <tr>
 
                               <td>{{ Form::text('task_name', $task->name, array('disabled', 'class' => 'form-control')) }}</td>
+                              <td>
+                                {!! Form::text('date', '', array('class' => 'form-control has-feedback-left datepicket_component')) !!}
+                              </td>
                               <td>
                                 <input type="number" step="any"  name="cost" required class="form-control"/>
                                 {{ Form::hidden('return_to', 'task/' . $task->id . '/edit') }}
@@ -55,7 +59,7 @@
                                 @foreach ($task->work as $work)
                                   <tr>
                                     <td>{{$work->user->name}}</td>
-                                    <td>{{$work->created_at}}</td>
+                                    <td>{{$work->DateReal}}</td>
                                     <td>{{$work->cost}}h</td>
                                     <td>
                                         <a href="{{ URL::to('work/'.$work->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>

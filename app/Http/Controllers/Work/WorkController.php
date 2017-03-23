@@ -9,6 +9,7 @@ use Redirect;
 use Session;
 use App\Models\Work;
 use App\Models\Task;
+use App\Helpers\PMTypesHelper;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -55,6 +56,7 @@ class WorkController extends BaseController {
         $work->account_id = Auth::user()->current_acc;
         $work->user_id = Auth::user()->id;
         $work->task_id = Input::get('task_id');
+        $work->date = PMTypesHelper::dateToSQL(Input::get('date'));
         $work->cost = Input::get('cost');
         $work->save();
 
@@ -93,6 +95,7 @@ class WorkController extends BaseController {
         $work = Work::find($id);
         $work->task_id = Input::get('task_id');
         $work->cost = Input::get('cost');
+        $work->date = PMTypesHelper::dateToSQL(Input::get('date'));
         $work->save();
         $request->session()->flash('alert-success', 'Work : ID:'.$work->task_id.' was successful updated!');
         return Redirect::to($request->session()->get('url.intended'));

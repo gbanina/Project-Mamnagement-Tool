@@ -78,14 +78,13 @@ class Task extends Model {
     public function getRealStartDateAttribute()
     {
         $cost = $this->hasMany('App\Models\Work');
-        return PMTypesHelper::dateToHuman($cost->min('created_at'));
+        return PMTypesHelper::dateToHuman($cost->min('date'));
     }
     public function getRealEndDateAttribute()
     {
         $cost = $this->hasMany('App\Models\Work');
-        return PMTypesHelper::dateToHuman($cost->max('created_at'));
+        return PMTypesHelper::dateToHuman($cost->max('date'));
     }
-
     public function work()
     {
         return $this->hasMany('App\Models\Work');

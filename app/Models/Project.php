@@ -66,13 +66,13 @@ class Project extends Model {
     }
     public function getRealStartDateAttribute()
     {
-        $item = $this->hasMany('App\Models\Task', 'projects_id')->get()->max('RealStartDate');
-        return $item;
+        return $this->hasMany('App\Models\Task', 'projects_id')
+                    ->join('works','works.task_id', 'tasks.id')->min('works.date');
     }
     public function getRealEndDateAttribute()
     {
-        $item = $this->hasMany('App\Models\Task', 'projects_id')->get()->max('RealEndDate');
-        return $item;
+        return $this->hasMany('App\Models\Task', 'projects_id')
+                    ->join('works','works.task_id', 'tasks.id')->max('works.date');
     }
     public function getEstimatedCostAttribute()
     {

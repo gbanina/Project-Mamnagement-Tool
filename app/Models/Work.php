@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\PMTypesHelper;
 use App\Models\Task;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -17,5 +18,8 @@ class Work extends Model {
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+    public function getDateRealAttribute(){
+        return PMTypesHelper::dateToHuman($this->date);
     }
 }

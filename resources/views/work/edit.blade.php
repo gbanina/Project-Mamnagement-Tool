@@ -31,6 +31,14 @@
                         </div>
                       </div>
                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="work-name">Date <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {!! Form::text('date', $work->DateReal, array( 'class' => 'form-control has-feedback-left datepicket_component')) !!}
+                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                      </div>
+                      <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="work-name">Cost <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -51,4 +59,8 @@
           </div>
         </div>
 
+@endsection
+@section('js_include')
+  <script src="{{ URL::to('js/moment.min.js') }}"></script>
+  <script src="{{ URL::to('js/daterangepicker.js') }}"></script>
 @endsection

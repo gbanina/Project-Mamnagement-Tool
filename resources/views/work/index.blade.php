@@ -14,6 +14,7 @@
                           <thead>
                             <tr>
                               <th>Task</th>
+                              <th>Date</th>
                               <th>Cost</th>
                               <th></th>
                             </tr>
@@ -21,6 +22,10 @@
                           <tbody>
                             <tr>
                               <td>{{ Form::select('task_id', $tasks, '', array('required'=> 'required', 'class' => 'form-control')) }}</td>
+                              <td>
+                              {!! Form::text('date', '', array('class' => 'form-control has-feedback-left datepicket_component')) !!}
+
+                              </td>
                               <td>
                                 <input type="number" step="any"  name="cost" required class="form-control"/>
                                 {{ Form::hidden('return_to', 'work') }}
@@ -45,7 +50,7 @@
                       @foreach ($works as $work)
                         <tr>
                           <td><a href="{{ URL::to('work/'.$work->task->id.'/edit') }}">{{$work->task->name}}</a></td>
-                          <td>{{$work->created_at}}</td>
+                          <td>{{$work->DateReal}}</td>
                           <td>{{$work->cost}}h</td>
                           <td>
                               <a href="{{ URL::to('work/'.$work->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
@@ -61,4 +66,9 @@
                 </div>
               </div>
 </div>
+@endsection
+
+@section('js_include')
+  <script src="{{ URL::to('js/moment.min.js') }}"></script>
+  <script src="{{ URL::to('js/daterangepicker.js') }}"></script>
 @endsection
