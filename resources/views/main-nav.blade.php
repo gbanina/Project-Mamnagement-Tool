@@ -56,7 +56,7 @@
                       <li><a href="{{ URL::to('admin/status') }}">Task Status</a></li>
                       <li><a href="{{ URL::to('admin/priority') }}">Task Priority</a></li>
                       <li><a href="{{ URL::to('admin/role') }}">User Role</a></li>
-                      <!--<li><a href="{{ URL::to('admin/right') }}">Rights</a></li>-->
+                      <li><a href="{{ URL::to('admin/right') }}">Rights</a></li>
                     </ul>
                   </li>
                   @endif

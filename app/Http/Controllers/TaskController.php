@@ -16,6 +16,7 @@ use App\Models\Task;
 use App\Models\TaskAttribute;
 use App\Models\Dashboard;
 use App\Models\Comment;
+use App\Models\UserTask;
 use App\Http\Requests\StoreTask;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
@@ -37,7 +38,6 @@ class TaskController extends BaseController {
     {
         $projects = Project::all()->where('account_id', Auth::user()->current_acc)
                                 ->where('permission','!=', 'NONE')->pluck('name', 'id');
-
         $sp = new TaskServiceProvider($this);
         $tasks = Task::all()->where('account_id', Auth::user()->current_acc)->where('permission','!=', 'NONE');
         $view = View::make('task.index')->with('tasks', $tasks)->with('projects', $projects);
@@ -128,11 +128,14 @@ class TaskController extends BaseController {
     public function edit($id, Request $request)
     {
         $projects = Project::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose project', '');
-        $users = User::all()->pluck('name', 'id')->prepend('Choose user', '');
+        //filtriraj po accountu
+        $users = User::all()->pluck('name', 'id');
+        $usersO = User::all();
         $status = Status::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose status', '');
         $priorities = Priority::all()->where('account_id', Auth::user()->current_acc)->pluck('label', 'id')->prepend('Choose priority', '');
         $types = TaskType::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose type', '');
         $task = Task::find($id);
+        $responsibles = UserTask::where('task_id',$id);
 
         $comments = Comment::where('entity_id', $id)->where('entity_type', 'TASK')->orderBy('id', 'desc')->get();
 
@@ -175,11 +178,11 @@ class TaskController extends BaseController {
         $global_css = '';
         if($task->permission == 'READ') $global_css = 'disabled';
         return View::make('task.edit')->with('projects',$projects)
-                        ->with('users',$users)->with('status',$status)
+                        ->with('users',$users)->with('usersO',$usersO)->with('status',$status)
                             ->with('priorities',$priorities)->with('types',$types)
                                 ->with('task',$task)->with('fields',$fields)
                                     ->with('tasks', $tasks)->with('comments', $comments)
-                                        ->with('global_css', $global_css);
+                                        ->with('responsibles', $responsibles->get())->with('global_css', $global_css);
     }
 
     /**
@@ -225,8 +228,14 @@ class TaskController extends BaseController {
                     TaskAttribute::create(['task_id' => $task->id, 'task_fields_id' => $key, 'value' => $att]);
                 }
             }
+            UserTask::where('task_id', $task->id)->delete();
+            if(Input::get('responsible_user') !== null){
+                foreach (Input::get('responsible_user') as $key=>$att){
+                    UserTask::create(['task_id' => $task->id, 'user_id' => $key]);
+                }
+            }
         }
-        return Redirect::to('task');
+        return Redirect::to('project/'.$task->projects_id.'/edit');
     }
 
     /**
