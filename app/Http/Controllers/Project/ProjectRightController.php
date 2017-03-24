@@ -63,7 +63,7 @@ class ProjectRightController extends BaseController {
         $this->service->storeProjectRights($id, Input::get('project_right'));
         $this->service->storeFieldRights($id, Input::get('field_right'));
 
-        $request->session()->flash('alert-success', 'Help : '.''.' was successful created!');
+        $request->session()->flash('alert-success', 'Roles successfuly updated!');
         return Redirect::to('project-rights/' . $id);
     }
 

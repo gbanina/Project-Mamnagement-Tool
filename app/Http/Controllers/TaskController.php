@@ -170,7 +170,12 @@ class TaskController extends BaseController {
             else{
                 $fr = FieldRight::where('role_id', $roleId)->where('project_id', $projectId)
                     ->where('task_type_id', $taskTypeId)->where('task_field_id', $field->id);
-                $permission = $fr->first()->permission;
+                if($fr->first() == null){
+                    $permission = 'NONE';
+                }else{
+                    $permission = $fr->first()->permission;
+                }
+
             }
             if($permission == 'NONE') continue;
             $disabled = '';
