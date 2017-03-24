@@ -56,13 +56,14 @@ class TaskController extends BaseController {
         $projectName = $project->name;
         if($project->getPermissionAttribute() != 'NONE' && $project->getPermissionAttribute() != 'READ'){
             $projects = Project::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose project', '');
+            $usersO = User::all();
             $users = User::all()->pluck('name', 'id')->prepend('Choose user', '');
             $status = Status::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose status', '');
             $priorities = Priority::all()->where('account_id', Auth::user()->current_acc)->pluck('label', 'id')->prepend('Choose priority', '');
             $types = TaskType::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose type', '');
 
             return View::make('task.create')->with('projects', $projects)->with('projectId', $projectId)
-                                                ->with('users',$users)->with('status',$status)
+                                                ->with('users',$users)->with('usersO',$usersO)->with('status',$status)
                                                         ->with('priorities',$priorities)
                                                             ->with('types',$types)
                                                                 ->with('projectName',$projectName);
@@ -104,6 +105,12 @@ class TaskController extends BaseController {
         $board->content = $task->internal_id . ':' . $task->name . ' - ' . $task->description;
         $board->editable = 'N';
         $board->save();
+
+        if(Input::get('responsible_user') !== null){
+            foreach (Input::get('responsible_user') as $key=>$att){
+                UserTask::create(['task_id' => $task->id, 'user_id' => $key]);
+            }
+        }
 
         return Redirect::to('task/' . $task->id . '/edit');
     }

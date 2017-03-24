@@ -65,12 +65,22 @@
                           {!! Form::text('name', '', array('required' => 'required', 'class' => 'form-control ','placeholder'=>'Name')) !!}
                         </div>
                       </div>
-                      <div class="form-group">
+                    <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Responsible</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('responsible_id', $users, null, array('class' => 'form-control', 'required')) }}
+                          <div class="col-md-8 col-sm-8 col-xs-12">
+                            {{ Form::select('responsible_id', $users, '', array('id' => 'responsible_id', 'class' => 'form-control', 'required')) }}
+                            <a id="add_responsible" class="btn btn-default">Add</a>
+                          </div>
                         </div>
-                      </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12"></label>
+                            <div class="col-md-8 col-sm-8 col-xs-12">
+                              <div id="responsible_container">
+
+                              </div>
+                            </div>
+                          </div>
+
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Status</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
@@ -133,4 +143,25 @@
 @section('js_include')
     <script src="{{ URL::to('js/moment.min.js') }}"></script>
     <script src="{{ URL::to('js/daterangepicker.js') }}"></script>
+    <script>
+    var resp = [];
+@foreach($usersO as $user)
+      resp[{{$user->id}}] = '{{$user->name}}';
+    @endforeach
+      $( "#add_responsible" ).click(function() {
+         var id = $('#responsible_id').val();
+         if ( $( '#responsible_item_'+id ).length == '0') {
+            var str = '<div id="responsible_item_'+id+'">';
+             str += resp[id] + '<i class="fa fa-remove"></i>';
+             str +=  '<input name="responsible_user['+id+']" type="hidden" value="'+id+'">';
+             str += '</div>';
+             $( "#responsible_container" ).append( str );
+         }else{
+          alert('User already in the list!');
+         }
+        });
+      function removeUser(id){
+        $( '#responsible_item_'+id ).remove();
+      }
+    </script>
 @endsection
