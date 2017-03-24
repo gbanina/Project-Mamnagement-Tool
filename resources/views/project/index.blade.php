@@ -36,7 +36,7 @@
                         <tr>
                           <th style="width: 1%">ID</th>
                           <th >Project Name</th>
-                          <th style="width: 20%">Team Members</th>
+                          <th style="width: 20%">Responsible Users</th>
                           <th style="width: 20%">Project Progress</th>
                           <th style="width: 10%">Type</th>
                           <th style="width: 15%">Edit</th>
@@ -55,18 +55,11 @@
                           </td>
                           <td>
                             <ul class="list-inline">
+                            @foreach($project->responsibleUsers as $user)
                               <li>
-                                <img src="images/user.png" class="avatar" alt="Avatar">
+                                <img src="{{ URL::to('images/' . $user->avatar) }}" class="avatar" alt="Avatar">
                               </li>
-                              <li>
-                                <img src="images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                              <li>
-                                <img src="images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                              <li>
-                                <img src="images/user.png" class="avatar" alt="Avatar">
-                              </li>
+                              @endforeach
                             </ul>
                           </td>
                           <td class="project_progress">

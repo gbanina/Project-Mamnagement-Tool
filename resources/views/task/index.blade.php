@@ -56,12 +56,11 @@
                           </td>
                           <td>
                             <ul class="list-inline">
+                              @foreach($task->responsibleUsers as $user)
                               <li>
-                                <img src="{{ URL::to('images/' . $task->responsible->avatar) }}" class="avatar" alt="Avatar">
+                                <img src="{{ URL::to('images/' . $user->avatar) }}" class="avatar" alt="Avatar">
                               </li>
-                              <li>
-                                <img src="../../images/user.png" class="avatar" alt="Avatar">
-                              </li>
+                              @endforeach
                             </ul>
                           </td>
                           <td class="project_progress">

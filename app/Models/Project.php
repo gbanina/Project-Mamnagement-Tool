@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Helpers\PMTypesHelper;
 use App\Models\ProjectTaskType;
 use App\Models\ProjectTypes;
+use App\User;
+use App\Models\UserTask;
 
 class Project extends Model {
     use SoftDeletes;
@@ -82,5 +84,11 @@ class Project extends Model {
     {
         $tasks = $this->hasMany('App\Models\Task', 'projects_id')->get();
         return $tasks->sum('realCost');
+    }
+    public function getResponsibleUsersAttribute()
+    {
+        $taskIds = $this->hasMany('App\Models\Task', 'projects_id')->pluck('id');
+        $userIds = UserTask::whereIn('task_id', $taskIds->toArray())->pluck('user_id')->unique();
+        return User::whereIn('id', $userIds->toArray())->limit(4)->get();
     }
 }

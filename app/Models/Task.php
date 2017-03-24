@@ -43,9 +43,9 @@ class Task extends Model {
         return $this->belongsTo('App\User', 'created_by');
     }
 
-    public function responsible()
+    public function responsibleUsers()
     {
-        return $this->belongsTo('App\User', 'responsible_id');
+        return $this->belongsToMany('App\User', 'user_tasks');
     }
 
     public function getCreatedAtAttribute()
