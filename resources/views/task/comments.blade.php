@@ -1,15 +1,9 @@
-
-
 <div class="x_panel">
                   <div class="x_title">
                     <h2>Comments</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-
-                    @component('component.alert')
-                    @endcomponent
-
                     {!! Form::open(array('url' => 'comment', 'class' => 'form-horizontal form-label-left')) !!}
                           {{ Form::textarea('data', '', ['rows'=> '8', 'class' => 'resizable_textarea form-control', 'placeholder'=>'Write a comment']) }}
                           {{ Form::hidden('entity_id', $task->id) }}

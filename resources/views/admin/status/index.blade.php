@@ -6,8 +6,6 @@
                   <div class="x_title">
                     <h2>Status <small>Admin</small></h2>
                     <div class="clearfix"></div>
-                    @component('component.alert')
-                    @endcomponent
                   </div>
                   <a href="{{ URL::to('/admin/status/create') }}" class="btn btn-default">Add new Status</a>
                   <div class="x_content" style="display: block;">

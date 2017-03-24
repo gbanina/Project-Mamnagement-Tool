@@ -35,8 +35,6 @@
                           </tbody>
                         </table>
                     {!! Form::close() !!}
-                    @component('component.alert')
-                    @endcomponent
                     <table class="table">
                       <thead>
                         <tr>

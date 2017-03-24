@@ -52,7 +52,6 @@
                         </li>
                       </ul>
               <div class="x_content">
-                @component('component.alert')@endcomponent
                 <div class="row">
                 {!! Form::model($task, array('route' => array('task.update', $task->id), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}
                   <div class="col-md-6 col-sm-12 col-xs-12 form-group">

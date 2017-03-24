@@ -6,8 +6,6 @@
                   <div class="x_title">
                     <h2>Project Type <small>Admin</small></h2>
                     <div class="clearfix"></div>
-                    @component('component.alert')
-                    @endcomponent
                   </div>
                   <a href="{{ URL::to('/admin/project-type/create') }}" class="btn btn-default">Add new Project Type</a>
                   <div class="x_content" style="display: block;">

@@ -45,6 +45,10 @@
     <script src="{{ URL::to('js/jquery.min.js')}}"></script>
     <!-- Bootstrap -->
     <script src="{{ URL::to('js/bootstrap.min.js')}}"></script>
+    <!-- PNotify -->
+
+    <link href="{{ URL::to('css/pnotify.css')}}" rel="stylesheet">
+
   </head>
 
   <body class="nav-md">
@@ -92,6 +96,37 @@
     <!-- Custom Theme Scripts -->
     <!--<script src="{{ URL::to('js/custom.min.js')}}"></script>-->
     <script src="{{ URL::to('js/custom.js')}}"></script>
+    <!-- PNotify -->
+    <script src="{{ URL::to('js/pnotify.js')}}"></script>
+
+    <script>
+    $( document ).ready(function() {
+    @foreach ([ 'success', 'error', 'notice', 'danger'] as $msg)
+        @if(Session::has('alert-' . $msg))
+        new PNotify({
+            title: '{{ $msg }}'.capitalize(),
+            text: '{{ Session::get('alert-' . $msg) }}',
+            type: '{{ $msg }}',
+            styling: 'bootstrap3'
+        });
+        @endif
+    @endforeach
+    @if (count($errors) > 0)
+        @foreach ($errors->all() as $error)
+            new PNotify({
+                title: 'Error',
+                text: '{{ $error }}',
+                type: 'error',
+                styling: 'bootstrap3'
+            });
+        @endforeach
+    @endif
+    });
+    String.prototype.capitalize = function() {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    }
+    </script>
+
     @yield('js_include')
 
   </body>
