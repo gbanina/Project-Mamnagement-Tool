@@ -80,7 +80,7 @@
 
                               @foreach($roles as $role)
                                 <td>
-                                @if(empty($field_rights[$project->id]))
+                                @if(empty($field_rights[$project->id][$role->id][$taskType->id][$field->id]))
                                   <div class="btn-group" data-toggle="buttons">
                                     <label class="btn btn-default active">
                                       <input type="radio" name="field_right[{{$project->id}}][{{$role->id}}][{{$taskType->id}}][{{$field->id}}]" value="NONE"> 0
