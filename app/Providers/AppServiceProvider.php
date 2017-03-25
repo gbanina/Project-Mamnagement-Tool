@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Blade;
+use Form;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -16,11 +17,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-/*
-        // @rightsBox($data)
-        Blade::directive('rightsBox', function ($data) {
-            return "<p> $result </p>";
-        });*/
+        /*
+        //@deleteButton('string')
+        Blade::directive('deleteButton', function ($args) {
+            $result = $args;
+            return $result;
+        });
+        */
     }
 
     /**

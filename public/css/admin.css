@@ -5,3 +5,7 @@
 ul.stats-overview li {
     width: 13.9% !important;
 }
+
+.fa-wide{
+    padding: 5px;
+}

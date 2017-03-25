@@ -134,6 +134,8 @@ class TaskController extends BaseController {
      */
     public function edit($id, Request $request)
     {
+        // if dont have view rights deny!!!
+
         $projects = Project::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose project', '');
         //filtriraj po accountu
         $users = User::all()->pluck('name', 'id');

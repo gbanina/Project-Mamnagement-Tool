@@ -73,9 +73,9 @@
                             <li style="display: inline-block;">
                               <a href="{{ URL::to('task/'.$task->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                               @if($task->permission == 'DEL')
-                                {{ Form::open(['route' => ['task.destroy', $task->id], 'method' => 'delete', 'style'=>'display: inline']) }}
-                                <button type="submit" class="btn btn-danger btn-xs">Delete</button>
-                                {{ Form::close() }}
+                                @component('component.delete-button', ['route' => 'task.destroy', 'id' => $task->id])
+                                  Delete
+                                @endcomponent
                               @endif
                             </li>
                           </td>

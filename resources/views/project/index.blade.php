@@ -78,9 +78,9 @@
                             <a href="{{ URL::to('project/'.$project->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
 
                             @if($project->permission == 'DEL')
-                              {{ Form::open(['route' => ['project.destroy', $project->id], 'method' => 'delete', 'style'=>'display: inline']) }}
-                              <button type="submit" class="btn btn-danger btn-xs">Delete</button>
-                              {{ Form::close() }}
+                                @component('component.delete-button', ['route' => 'project.destroy', 'id' => $project->id])
+                                  Delete
+                                @endcomponent
                             @endif
                           </td>
                         @endforeach

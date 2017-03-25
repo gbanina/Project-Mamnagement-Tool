@@ -126,8 +126,20 @@
         return this.charAt(0).toUpperCase() + this.slice(1);
     }
     </script>
-
+<script>
+    $('.confirm-delete').click(function(event){
+        var answer  = confirm("Are you sure you want to delete this?");
+        if(answer==true) {
+            return true;
+        }else{
+            event.preventDefault();
+            return false;
+        }
+        //var id = $(this).data('id');
+            //console.log(id);
+            // pass id to appropriate element here
+    });
+</script>
     @yield('js_include')
-
   </body>
 </html>
