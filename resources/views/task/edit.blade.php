@@ -2,26 +2,10 @@
 
 @section('content')
 
-            @if (count($errors) > 0)
-              <div class="row">
-                  <div class="alert alert-danger">
-                      <ul>
-                          @foreach ($errors->all() as $error)
-                              <li>{{ $error }}</li>
-                          @endforeach
-                      </ul>
-                  </div>
-                </div>
-            @endif
-            <div class="clearfix"></div>
+        <div class="clearfix"></div>
             <div class="row">
               <div class="col-md-12 col-xs-12">
-                <div class="x_panel">
-              <div class="x_title">
-                <h2><strong>{{$task->type}}</strong> in <strong>{{$task->project->name}}</strong> (Edit)</h2>
-                <div class="clearfix"></div>
-              </div>
-              <ul class="stats-overview">
+                            <ul class="stats-overview">
                         <li>
                           <span class="name"> Task ID </span>
                           <span class="value text-success"> {{$task->internal_id}}</span>
@@ -51,6 +35,12 @@
                           <span class="value text-success"> {{$task->realCost}} </span>
                         </li>
                       </ul>
+                <div class="x_panel">
+              <div class="x_title">
+                <h2><strong>{{$task->type}}</strong> in <strong><a href="{{ URL::to('project/'.$task->project->id.'/edit') }}">{{$task->project->name}}</a></strong> (Edit)</h2>
+                <div class="clearfix"></div>
+              </div>
+
               <div class="x_content">
                 <div class="row">
                 {!! Form::model($task, array('route' => array('task.update', $task->id), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}

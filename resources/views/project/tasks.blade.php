@@ -1,3 +1,8 @@
+<div class="x_panel">
+    <div class="x_title">
+        <h2>Tasks</h2>
+        <div class="clearfix"></div>
+    </div>
                   <div class="x_content" style="display: block;">
                     <p>
                       <div id="task_type_buttons">
@@ -10,7 +15,7 @@
                         <tr>
                           <th style="width: 1%">#</th>
                           <th style="width: 33%">Task Name</th>
-                          <th style="width: 15%">Task Type</th>
+                          <th style="width: 13%">Task Type</th>
                           <th style="width: 20%">Responsible</th>
                           <th style="width: 20%">Edit</th>
                         </tr>
@@ -55,3 +60,4 @@
                     <!-- end project list -->
 
                   </div>
+</div>

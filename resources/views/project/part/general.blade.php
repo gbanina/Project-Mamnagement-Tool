@@ -39,17 +39,6 @@
 
             </div>
 
-
-            <!-- end design1 -->
-
-                  @if($errors->count() != 0):
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                                <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
-                                {!! var_dump($errors->count()) !!}
-                            </div>
-                        </div>
-                  @endif
                   <div class="x_content">
                     <br>
                       <div class="form-group">
