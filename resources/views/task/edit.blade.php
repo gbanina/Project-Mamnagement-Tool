@@ -111,6 +111,13 @@
                           {{ Form::textarea('description', $task->description, [$global_css, 'rows'=> '8', 'class' => 'resizable_textarea form-control']) }}
                         </div>
                       </div>
+                      <div class="col-md-8 col-sm-8 col-xs-12">
+                        <label class="control-label col-md-6 col-sm-6 col-xs-12"></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <a href="{{ URL::to('project/'.$task->projects_id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
+                          {!! Form::submit('Submit', array($global_css, 'class' => 'btn btn-success')) !!}
+                        </div>
+                      </div>
                   </div>
 
                   <div class="col-md-6 col-sm-12 col-xs-12 form-group">
@@ -137,20 +144,20 @@
                       </div>
                       @include('task.additional-fields')
                   </div>
-                  <a href="{{ URL::to('project/'.$task->projects_id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
-                  {!! Form::submit('Submit', array($global_css, 'class' => 'btn btn-success')) !!}
-                  {!! Form::close() !!}
-                  <div class="col-md-6 col-sm-12 col-xs-12 form-group">
+                {!! Form::close() !!}
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                     @component('component.comments', ['id' => $task->id, 'type' => 'TASK', 'comments' => $comments])
                     @endcomponent
                   </div>
                   <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                     @include('task.work')
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!-- tu -->
         </div>
 
 @endsection
