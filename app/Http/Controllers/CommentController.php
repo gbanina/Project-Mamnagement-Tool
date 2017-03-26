@@ -109,8 +109,11 @@ class CommentController extends BaseController {
      */
     public function destroy($id, Request $request)
     {
-        $request->session()->flash('alert-success', 'comment : '.''.' was successful deleted!');
-        return Redirect::to('comment');
+        $comment = Comment::find($id);
+        $comment->delete();
+
+        $request->session()->flash('alert-success', 'Comment was successful deleted!');
+        return Redirect::back();;
     }
 
 }

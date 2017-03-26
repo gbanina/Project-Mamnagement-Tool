@@ -25,7 +25,8 @@
                               <h4 class="heading">
                                 {{$comment->user->name}}
                                 @if($comment->user->id == Auth::user()->id)
-                                <i class="fa fa-remove fa-wide"></i>
+                                  @component('component.delete-link', ['id' => $comment->id, 'route' => 'comment.destroy'])
+                                  @endcomponent
                                 @endif
                               </h4>
                               <blockquote class="message">{{$comment->data}}</blockquote>
