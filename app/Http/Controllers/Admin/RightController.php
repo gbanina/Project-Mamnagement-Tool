@@ -41,8 +41,10 @@ class RightController extends BaseController {
             $fieldRights[$project->id] = $this->service->getFieldRights($project->id);
         }
 
+        $viewStyle = ' min-width: ' . count($roles) * 216 . 'px';
+
         $view = View::make('admin.right.index')->with('projects',$projects)->with('roles', $roles)
-                        ->with('project_rights', $projectRights)
+                        ->with('project_rights', $projectRights)->with('viewStyle', $viewStyle)
                             ->with('field_rights', $fieldRights);
         return $view;
     }
