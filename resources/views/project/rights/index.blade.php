@@ -7,7 +7,7 @@
             <div class="clearfix"></div>
 
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12" style="{{$viewStyle}}">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>{{$project->name}} <small><a href="{{ URL::to('project') }}">Projects</a> | Project Rights</small></h2>
@@ -21,13 +21,13 @@
                       <table class="table table-striped">
                         <thead>
                           <tr>
-                              <th style="width: 15%;"></th>
+                              <th style="width: 180px;"></th>
                             @foreach($roles as $role)
                               <th>{{$role->name}} <a href="{{ URL::to('morph/' . $role->id) }}"><i class="fa fa-eye"></i></a></th>
                             @endforeach
                           </tr>
                            <tr>
-                              <th style="width: 15%;"></th>
+                              <th style="width: 180px;"></th>
                             @foreach($roles as $role)
                               <th>
                                 @if(empty($field_rights))

@@ -19,13 +19,13 @@
                       <table class="table table-striped">
                         <thead>
                           <tr>
-                              <th style="width: 15%;"></th>
+                              <th style="width: 180px;"></th>
                             @foreach($roles as $role)
                               <th>{{$role->name}} <a href="{{ URL::to('morph/' . $role->id) }}"><i class="fa fa-eye"></i></a></th>
                             @endforeach
                           </tr>
                            <tr>
-                              <th style="width: 15%;"></th>
+                              <th style="width: 180px;"></th>
                             @foreach($roles as $role)
                               <th>
                                 @if(empty($field_rights[$project->id]))

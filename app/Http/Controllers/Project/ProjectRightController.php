@@ -35,9 +35,10 @@ class ProjectRightController extends BaseController {
         $roles = Role::where('account_id', Auth::user()->current_acc)->get();
         $projectRights = $this->service->getProjectRights($id);
         $fieldRights = $this->service->getFieldRights($id);
+        $viewStyle = ' min-width: ' . count($roles) * 216 . 'px';
         $view = View::make('project.rights.index')
                     ->with('project',$project)->with('roles', $roles)
-                        ->with('project_rights', $projectRights)
+                        ->with('project_rights', $projectRights)->with('viewStyle', $viewStyle)
                             ->with('field_rights', $fieldRights);
         return $view;
     }
