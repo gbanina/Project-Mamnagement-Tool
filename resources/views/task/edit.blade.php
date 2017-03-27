@@ -45,16 +45,6 @@
                 <div class="row">
                 {!! Form::model($task, array('route' => array('task.update', $task->id), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}
                   <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-
-                    <!--
-                    <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Project</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('project_id', $projects, $task->projects_id, array('disabled', 'class' => 'form-control' , 'required')) }}
-                          {{ Form::hidden('type_id', $task->task_types_id) }}
-                        </div>
-                      </div>
-                      -->
                       <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Name</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">

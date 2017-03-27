@@ -18,18 +18,18 @@ class ProjectTypes extends Model {
             // ... then we add selected task types to project
             if($array != null){
                 foreach($array as $id){
-                    ProjectTaskType::create(['project_type_id' => $this->id, 'task_types_id' => intval ($id)]);
+                    ProjectTaskType::create(['project_type_id' => $this->id, 'task_type_id' => intval ($id)]);
                 }
             }
         //End Transactions
     }
     public function posibleTaskTypes()
     {
-        return $this->belongsToMany('App\Models\TaskType', 'project_task_types', 'project_type_id', 'task_types_id');
+        return $this->belongsToMany('App\Models\TaskType', 'project_task_types', 'project_type_id', 'task_type_id');
     }
     public function hasTaskType()
     {
         return ProjectTaskType::where('project_type_id', $this->id)
-                                ->pluck(('task_types_id'))->toArray();
+                                ->pluck(('task_type_id'))->toArray();
     }
 }

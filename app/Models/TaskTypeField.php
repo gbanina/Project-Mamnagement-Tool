@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TaskTypeField extends Model {
     public      $timestamps = false;
-    protected   $fillable = ['task_fields_id', 'task_types_id'];
+    protected   $fillable = ['task_fields_id', 'task_type_id'];
 }

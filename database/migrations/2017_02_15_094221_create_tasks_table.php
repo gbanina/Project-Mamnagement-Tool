@@ -22,7 +22,7 @@ class CreateTasksTable extends Migration
             $table->text('description')->nullable();
             $table->integer('status_id')->unsigned();
             $table->integer('priority_id')->unsigned();
-            $table->integer('task_types_id')->unsigned();
+            $table->integer('task_type_id')->unsigned();
             $table->enum('archived', ['YES', 'NO'])->nullable();
             $table->integer('responsible_id')->unsigned();
             $table->date('estimated_start_date')->nullable();
@@ -46,7 +46,7 @@ class CreateTasksTable extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('task_types_id', 'fk_tasks_task_types1_idx')
+            $table->foreign('task_type_id', 'fk_tasks_task_types1_idx')
                 ->references('id')->on('task_types')
                 ->onDelete('no action')
                 ->onUpdate('no action');

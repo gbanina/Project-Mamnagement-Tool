@@ -83,7 +83,7 @@ class TaskController extends BaseController {
         $task->name = Input::get('name');
         $task->projects_id = Input::get('project_id');
         $task->internal_id = Auth::user()->currentacc->nextTaskId();
-        $task->task_types_id = Input::get('type_id');
+        $task->task_type_id = Input::get('type_id');
         $task->responsible_id = Input::get('responsible_id');
         $task->status_id = Input::get('status_id');
         $task->priority_id = Input::get('priority_id');
@@ -222,9 +222,6 @@ class TaskController extends BaseController {
         $task = Task::find($id);
         if($task->permission != 'NONE' && $task->permission != 'READ'){
             $task->name = Input::get('name');
-            /* project and type cannot chainge here */
-            //$task->projects_id = Input::get('project_id');
-            //$task->task_types_id = Input::get('type_id');
             $task->responsible_id = Input::get('responsible_id');
             $task->status_id = Input::get('status_id');
             $task->priority_id = Input::get('priority_id');

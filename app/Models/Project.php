@@ -18,8 +18,6 @@ class Project extends Model {
     public function getTypeAttribute()
     {
         //Todo : refactor this!!!
-        //$type =  $this->hasOne('App\Models\ProjectTypes', 'fk_tasks_task_types1_idx');
-        //$result = TaskType::find($this->task_types_id)->get();
         $type = DB::table('project_types')->find($this->project_type_id);
         return $type->label;
     }

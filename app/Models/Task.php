@@ -23,7 +23,7 @@ class Task extends Model {
 
     public function getTypeAttribute()
     {
-        $type =  $this->belongsTo('App\Models\TaskType', 'task_types_id')->first();
+        $type =  $this->belongsTo('App\Models\TaskType', 'task_type_id')->first();
         return $type->name;
     }
 
@@ -34,7 +34,7 @@ class Task extends Model {
     }
     public function taskType()
     {
-        $type =  $this->belongsTo('App\Models\TaskType', 'task_types_id');
+        $type =  $this->belongsTo('App\Models\TaskType', 'task_type_id');
         return $type;
     }
 
