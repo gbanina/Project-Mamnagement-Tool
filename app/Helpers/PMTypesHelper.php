@@ -1,5 +1,5 @@
 <?php
-/*App\Helpers\PMTypesHelper*/
+
 namespace App\Helpers;
 use DateTime;
 
