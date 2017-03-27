@@ -14,22 +14,22 @@ class ProjectTypes extends Model {
     {
         // Transaction
             // First we remove all tast types from current project type
-                ProjectTaskType::where('project_types_id', $this->id)->delete();
+                ProjectTaskType::where('project_type_id', $this->id)->delete();
             // ... then we add selected task types to project
             if($array != null){
                 foreach($array as $id){
-                    ProjectTaskType::create(['project_types_id' => $this->id, 'task_types_id' => intval ($id)]);
+                    ProjectTaskType::create(['project_type_id' => $this->id, 'task_types_id' => intval ($id)]);
                 }
             }
         //End Transactions
     }
     public function posibleTaskTypes()
     {
-        return $this->belongsToMany('App\Models\TaskType', 'project_task_types', 'project_types_id', 'task_types_id');
+        return $this->belongsToMany('App\Models\TaskType', 'project_task_types', 'project_type_id', 'task_types_id');
     }
     public function hasTaskType()
     {
-        return ProjectTaskType::where('project_types_id', $this->id)
+        return ProjectTaskType::where('project_type_id', $this->id)
                                 ->pluck(('task_types_id'))->toArray();
     }
 }

@@ -20,7 +20,7 @@ class Project extends Model {
         //Todo : refactor this!!!
         //$type =  $this->hasOne('App\Models\ProjectTypes', 'fk_tasks_task_types1_idx');
         //$result = TaskType::find($this->task_types_id)->get();
-        $type = DB::table('project_types')->find($this->project_types_id);
+        $type = DB::table('project_types')->find($this->project_type_id);
         return $type->label;
     }
 
@@ -42,7 +42,7 @@ class Project extends Model {
 
     public function projectType()
     {
-        return $this->belongsTo('App\Models\ProjectTypes', 'project_types_id');
+        return $this->belongsTo('App\Models\ProjectTypes'/*, 'project_type_id'*/);
     }
 
     public function projectRight()

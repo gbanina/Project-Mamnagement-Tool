@@ -19,7 +19,7 @@ class CreateTableProjects extends Migration
             $table->increments('id');
             $table->integer('internal_id')->unsigned();
             $table->integer('account_id')->unsigned();
-            $table->integer('project_types_id')->unsigned();
+            $table->integer('project_type_id')->unsigned();
             $table->string('name', 45);
             $table->integer('default_responsible')->unsigned();
             $table->enum('archived', ['YES', 'NO'])->nullable();
@@ -31,7 +31,7 @@ class CreateTableProjects extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('project_types_id', 'fk_projects_project_types1_idx')
+            $table->foreign('project_type_id', 'fk_projects_project_types1_idx')
                 ->references('id')->on('project_types')
                 ->onDelete('no action')
                 ->onUpdate('no action');

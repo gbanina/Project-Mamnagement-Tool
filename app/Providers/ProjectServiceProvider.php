@@ -39,7 +39,7 @@ class ProjectServiceProvider extends ServiceProvider
     {
         $project = new Project;
         $project->account_id = $this->user->current_acc;
-        $project->project_types_id = $args['project_type'];
+        $project->project_type_id = $args['project_type'];
         $project->internal_id = $this->user->currentacc->nextProjectId();
         $project->name = $args['project_name'];
         $project->default_responsible = $args['default_responsible'];
@@ -91,7 +91,6 @@ class ProjectServiceProvider extends ServiceProvider
     {
         $project = Project::find($id);
         $project->account_id = $this->user->current_acc;
-        $project->project_types_id = $args['project_type'];
         $project->name = $args['project_name'];
         $project->default_responsible = $args['default_responsible'];
         $project->update();

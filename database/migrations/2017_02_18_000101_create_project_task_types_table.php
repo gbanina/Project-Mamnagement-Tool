@@ -16,7 +16,7 @@ class CreateProjectTaskTypesTable extends Migration
         Schema::create('project_task_types', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->integer('task_types_id')->unsigned();
-            $table->integer('project_types_id')->unsigned();
+            $table->integer('project_type_id')->unsigned();
         });
     }
 

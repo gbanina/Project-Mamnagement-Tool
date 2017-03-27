@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProjectTaskType extends Model {
     public      $timestamps = false;
-    protected   $fillable = ['project_types_id', 'task_types_id'];
+    protected   $fillable = ['project_type_id', 'task_types_id'];
 }

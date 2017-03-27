@@ -86,9 +86,9 @@
                                               </div>
                                         </div>
                                       </div>
-
-                                       @include('project.tasks')
                       {!! Form::close() !!}
+
+                        @include('project.tasks')
               </div>
 
               <div class="col-md-6 col-xs-12">
