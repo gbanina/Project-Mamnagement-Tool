@@ -40,8 +40,6 @@
                         </tbody>
                       </table>
                     </div>
-                    <!-- end project list -->
-
                   </div>
                 </div>
 @endsection

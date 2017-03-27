@@ -6,6 +6,7 @@ use DB;
 use View;
 Use Redirect;
 use App\Models\Priority;
+use App\Http\Requests\StorePriority;
 use Session;
 use App\Providers\Admin\TaskPriorityServiceProvider;
 use Illuminate\Routing\Controller as BaseController;
@@ -48,27 +49,12 @@ class PriorityController extends BaseController {
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StorePriority $request)
     {
-        $rules = array(
-            'priority-name' => 'required',
-        );
-        $validator = Validator::make(Input::all(), $rules);
         $priority = $this->service->store(Input::all());
         $request->session()->flash('alert-success', 'Priority : '.$priority->label.' was successful created!');
 
         return Redirect::to('admin/priority');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -89,15 +75,11 @@ class PriorityController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, Request $request)
+    public function update($id, StorePriority $request)
     {
-        $rules = array(
-            'priority-name' => 'required',
-        );
-        $validator = Validator::make(Input::all(), $rules);
         $priority = $this->service->update($id, Input::all());
-
         $request->session()->flash('alert-success', 'Priority : '.$priority->label.' was successful updated!');
+
         return Redirect::to('admin/priority');
     }
 
@@ -107,12 +89,11 @@ class PriorityController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($id, StorePriority $request)
     {
         $this->service->destroy($id);
         $request->session()->flash('alert-success', 'Priority was successful deleted!');
 
         return Redirect::to('admin/priority');
     }
-
 }
