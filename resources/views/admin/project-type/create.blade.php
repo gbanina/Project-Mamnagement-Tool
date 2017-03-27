@@ -2,26 +2,16 @@
 @extends('base')
 
 @section('content')
-       <div class="">
-            <div class="clearfix"></div>
-
-            <div>
+    <div class="">
+        <div class="clearfix"></div>
             <div class="row">
                 {!! Form::open(array('url' => 'admin/project-type', 'class' => 'form-horizontal form-label-left')) !!}
-
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Add New Project Type <small>Admin</small></h2>
                     <div class="clearfix"></div>
                   </div>
-                  @if($errors->count() != 0):
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                                {!! var_dump($errors->count()) !!}
-                            </div>
-                        </div>
-                  @endif
                   <div class="x_content">
                     <br>
                       <div class="form-group">
@@ -39,15 +29,13 @@
                     </div>
                 </div>
               </div>
-                              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="col-md-6 col-sm-6 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
                       <h2>Add Task Types for current project type</h2>
                       <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-
-                      <div class="">
                         <ul class="to_do">
                         @foreach($taskTypes as $type)
                           <li>
@@ -63,8 +51,5 @@
                 </div>
               {!! Form::close() !!}
             </div>
-
-          </div>
         </div>
-
 @endsection

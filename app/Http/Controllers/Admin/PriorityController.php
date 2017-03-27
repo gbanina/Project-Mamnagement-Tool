@@ -89,7 +89,7 @@ class PriorityController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id, StorePriority $request)
+    public function destroy($id, Request $request)
     {
         $this->service->destroy($id);
         $request->session()->flash('alert-success', 'Priority was successful deleted!');

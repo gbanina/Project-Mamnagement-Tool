@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DB;
 use View;
-use Auth;
 use Redirect;
 use App\Providers\Admin\ProjectTypeServiceProvider;
 use App\Models\ProjectTypes;
-use App\Models\TaskType;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreProjectType;
 
 class ProjectTypeController extends BaseController {
 
@@ -53,27 +51,12 @@ class ProjectTypeController extends BaseController {
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreProjectType $request)
     {
-        $rules = array(
-            'type-name' => 'required',
-        );
-        $validator = Validator::make(Input::all(), $rules);
         $this->service->store(Input::all());
         $request->session()->flash('alert-success', 'Project Type was successfuly created!');
 
         return Redirect::to('admin/project-type');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -85,9 +68,9 @@ class ProjectTypeController extends BaseController {
     public function edit($id)
     {
         $fields = $this->service->edit($id);
-
         $view = View::make('admin.project-type.edit')->with('projectType', $fields['projectTypes'])
                     ->with('taskTypes', $fields['taskTypes'])->with('hasTaskType', $fields['hasTaskType']);
+
         return $view;
     }
 
@@ -97,14 +80,9 @@ class ProjectTypeController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, Request $request)
+    public function update($id, StoreProjectType $request)
     {
-        $rules = array(
-            'type-label' => 'required',
-        );
-        $validator = Validator::make(Input::all(), $rules);
         $this->service->update($id, Input::all());
-
         $request->session()->flash('alert-success', 'Project Type was successfuly updated!');
 
         return Redirect::to('admin/project-type');
@@ -124,5 +102,4 @@ class ProjectTypeController extends BaseController {
 
         return Redirect::to('admin/project-type');
     }
-
 }

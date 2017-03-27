@@ -13,16 +13,8 @@
                     <h2>Edit Project Task <small>Admin</small></h2>
                     <div class="clearfix"></div>
                   </div>
-                  @if($errors->count() != 0):
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                                {!! var_dump($errors->count()) !!}
-                            </div>
-                        </div>
-                  @endif
                   <div class="x_content">
                     <br>
-
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type-name">Name <span class="required">*</span>
                         </label>
@@ -35,7 +27,6 @@
                             {!! Form::submit('Save', array('class' => 'btn btn-default')) !!}
                         </div>
                       </div>
-
                     </div>
                 </div>
               </div>
@@ -47,8 +38,6 @@
                       <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-
-                      <div class="">
                         <ul class="to_do">
                         @foreach($taskTypes as $type)
                           <li>
@@ -58,11 +47,8 @@
                           </li>
                           @endforeach
                         </ul>
-                      </div>
-                    </div>
                   </div>
                 </div>
-                <!-- End to do list -->
                 {!! Form::close() !!}
             </div>
 
