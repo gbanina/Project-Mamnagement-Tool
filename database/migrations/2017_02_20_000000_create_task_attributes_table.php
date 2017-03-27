@@ -18,7 +18,7 @@ class CreateTaskAttributesTable extends Migration
             $table->increments('id');
             $table->longText('value')->nullable();
             $table->integer('task_id')->unsigned();
-            $table->integer('task_fields_id')->unsigned();
+            $table->integer('task_field_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 
@@ -27,7 +27,7 @@ class CreateTaskAttributesTable extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('task_fields_id', 'fk_task_attributes_task_fields1_idx')
+            $table->foreign('task_field_id', 'fk_task_attributes_task_fields1_idx')
                 ->references('id')->on('task_fields')
                 ->onDelete('no action')
                 ->onUpdate('no action');

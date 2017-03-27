@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TaskAttribute extends Model {
     use SoftDeletes;
-    protected   $fillable = ['value', 'task_id', 'task_fields_id'];
+    protected   $fillable = ['value', 'task_id', 'task_field_id'];
 }

@@ -17,7 +17,7 @@ class TaskType extends Model {
 
             if($array != null){
                 foreach($array as $id){
-                    TaskTypeField::create(['task_type_id' => $this->id, 'task_fields_id' => intval ($id)]);
+                    TaskTypeField::create(['task_type_id' => $this->id, 'task_field_id' => intval ($id)]);
                 }
             }
         //End Transactions
@@ -25,12 +25,12 @@ class TaskType extends Model {
 
     public function fields()
     {
-        return $this->belongsToMany('App\Models\TaskField', 'task_type_fields', 'task_type_id', 'task_fields_id');
+        return $this->belongsToMany('App\Models\TaskField', 'task_type_fields', 'task_type_id', 'task_field_id');
     }
 
     public function hasTaskField()
     {
         return TaskTypeField::where('task_type_id', $this->id)
-                                ->pluck(('task_fields_id'))->toArray();
+                                ->pluck(('task_field_id'))->toArray();
     }
 }

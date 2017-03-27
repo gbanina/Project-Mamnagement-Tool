@@ -16,9 +16,9 @@ class CreateTaskTypeFieldsTable extends Migration
         Schema::create('task_type_fields', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->integer('task_type_id')->unsigned();
-            $table->integer('task_fields_id')->unsigned();
+            $table->integer('task_field_id')->unsigned();
 
-            $table->foreign('task_fields_id', 'fk_task_type_fields_task_fields1_idx')
+            $table->foreign('task_field_id', 'fk_task_type_fields_task_fields1_idx')
                 ->references('id')->on('task_fields')
                 ->onDelete('no action')
                 ->onUpdate('no action');
