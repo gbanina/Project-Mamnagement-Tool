@@ -94,7 +94,7 @@
                       <div class="col-md-8 col-sm-8 col-xs-12">
                         <label class="control-label col-md-6 col-sm-6 col-xs-12"></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <a href="{{ URL::to('project/'.$task->projects_id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
+                          <a href="{{ URL::to('project/'.$task->project_id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
                           {!! Form::submit('Submit', array($global_css, 'class' => 'btn btn-success')) !!}
                         </div>
                       </div>

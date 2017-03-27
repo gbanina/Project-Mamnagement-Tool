@@ -81,7 +81,7 @@ class TaskController extends BaseController {
         $task = new Task;
         $task->account_id = Auth::user()->current_acc;
         $task->name = Input::get('name');
-        $task->projects_id = Input::get('project_id');
+        $task->project_id = Input::get('project_id');
         $task->internal_id = Auth::user()->currentacc->nextTaskId();
         $task->task_type_id = Input::get('type_id');
         $task->responsible_id = Input::get('responsible_id');
@@ -100,7 +100,7 @@ class TaskController extends BaseController {
         $board = new Dashboard;
         $board->account_id = Auth::user()->current_acc;
         $board->user_id = Auth::user()->id;
-        $board->project_id = $task->projects_id;
+        $board->project_id = $task->project_id;
         $board->title = "created a new " . $task->type; //getTypeAttribute
         $board->content = $task->internal_id . ':' . $task->name . ' - ' . $task->description;
         $board->editable = 'N';
@@ -246,7 +246,7 @@ class TaskController extends BaseController {
                 }
             }
         }
-        return Redirect::to('project/'.$task->projects_id.'/edit');
+        return Redirect::to('project/'.$task->project_id.'/edit');
     }
 
     /**

@@ -50,42 +50,42 @@ class Project extends Model {
 
     public function getTasksAttribute()
     {
-        $tasks = $this->hasMany('App\Models\Task', 'projects_id');
+        $tasks = $this->hasMany('App\Models\Task', 'project_id');
         return $tasks->get();
     }
 
     public function getEstimatedStartDateAttribute()
     {
-        $item = $this->hasMany('App\Models\Task', 'projects_id')->min('estimated_start_date');
+        $item = $this->hasMany('App\Models\Task', 'project_id')->min('estimated_start_date');
         return PMTypesHelper::dateToHuman($item);
     }
     public function getEstimatedEndDateAttribute()
     {
-        $item = $this->hasMany('App\Models\Task', 'projects_id')->max('estimated_end_date');
+        $item = $this->hasMany('App\Models\Task', 'project_id')->max('estimated_end_date');
         return PMTypesHelper::dateToHuman($item);
     }
     public function getRealStartDateAttribute()
     {
-        return $this->hasMany('App\Models\Task', 'projects_id')
+        return $this->hasMany('App\Models\Task', 'project_id')
                     ->join('works','works.task_id', 'tasks.id')->min('works.date');
     }
     public function getRealEndDateAttribute()
     {
-        return $this->hasMany('App\Models\Task', 'projects_id')
+        return $this->hasMany('App\Models\Task', 'project_id')
                     ->join('works','works.task_id', 'tasks.id')->max('works.date');
     }
     public function getEstimatedCostAttribute()
     {
-        return $this->hasMany('App\Models\Task', 'projects_id')->sum('estimated_cost');
+        return $this->hasMany('App\Models\Task', 'project_id')->sum('estimated_cost');
     }
     public function getRealCostAttribute()
     {
-        $tasks = $this->hasMany('App\Models\Task', 'projects_id')->get();
+        $tasks = $this->hasMany('App\Models\Task', 'project_id')->get();
         return $tasks->sum('realCost');
     }
     public function getResponsibleUsersAttribute()
     {
-        $taskIds = $this->hasMany('App\Models\Task', 'projects_id')->pluck('id');
+        $taskIds = $this->hasMany('App\Models\Task', 'project_id')->pluck('id');
         $userIds = UserTask::whereIn('task_id', $taskIds->toArray())->pluck('user_id')->unique();
         return User::whereIn('id', $userIds->toArray())->limit(4)->get();
     }

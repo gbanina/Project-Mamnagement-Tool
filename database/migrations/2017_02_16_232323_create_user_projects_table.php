@@ -16,7 +16,7 @@ class CreateUserProjectsTable extends Migration
         Schema::create('user_projects', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('projects_id');
+            $table->integer('project_id');
             $table->integer('users_id')->unsigned();
 
             $table->foreign('users_id', 'fk_user_project_users1_idx')

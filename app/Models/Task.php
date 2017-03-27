@@ -29,7 +29,7 @@ class Task extends Model {
 
     public function getProjectAttribute()
     {
-        $project =  $this->belongsTo('App\Models\Project', 'projects_id');
+        $project =  $this->belongsTo('App\Models\Project', 'project_id');
         return $project->first();
     }
     public function taskType()

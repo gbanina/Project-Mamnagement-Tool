@@ -16,7 +16,7 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('projects_id')->unsigned();
+            $table->integer('project_id')->unsigned();
             $table->integer('internal_id')->unsigned();
             $table->string('name', 45)->nullable();
             $table->text('description')->nullable();
@@ -31,7 +31,7 @@ class CreateTasksTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('projects_id', 'fk_tasks_projects1_idx')
+            $table->foreign('project_id', 'fk_tasks_projects1_idx')
                 ->references('id')->on('projects')
                 ->onDelete('no action')
                 ->onUpdate('no action');

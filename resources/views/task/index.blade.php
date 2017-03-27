@@ -64,7 +64,7 @@
                             </ul>
                           </td>
                           <td class="project_progress">
-                            <a href="{{ URL::to('project/'. $task->projects_id . '/edit') }}">{{$task->project->name}}</a>
+                            <a href="{{ URL::to('project/'. $task->project_id . '/edit') }}">{{$task->project->name}}</a>
                           </td>
                           <td>
                             <button type="button" class="btn btn-success btn-xs">{{ $task->type }}</button>

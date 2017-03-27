@@ -48,7 +48,7 @@ class ProjectServiceProvider extends ServiceProvider
 
         $up = New UserProject;
         $up->users_id = $args['project_manager'];
-        $up->projects_id = $project->id;
+        $up->project_id = $project->id;
         $up->save();
     }
 
@@ -57,7 +57,7 @@ class ProjectServiceProvider extends ServiceProvider
         $result = array();
 
         $project = Project::find($id);
-        $projectManager = DB::table('user_projects')->where('projects_id', '=', $project->id)->first();
+        $projectManager = DB::table('user_projects')->where('project_id', '=', $project->id)->first();
         if($projectManager == null) $projectManager = '';
         else $projectManager = $projectManager->users_id;
 
@@ -95,9 +95,9 @@ class ProjectServiceProvider extends ServiceProvider
         $project->default_responsible = $args['default_responsible'];
         $project->update();
 
-        $pm = UserProject::where('projects_id', '=', $id)->first();
+        $pm = UserProject::where('project_id', '=', $id)->first();
         if($pm == null) $pm = new UserProject;
-        $pm->projects_id = $id;
+        $pm->project_id = $id;
         $pm->users_id = $args['project_manager'];
         $pm->save();
     }
