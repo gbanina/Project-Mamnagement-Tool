@@ -4,7 +4,6 @@
 @section('content')
        <div class="">
             <div class="clearfix"></div>
-            <div>
             <div class="row">
             {!! Form::model($projectType, array('route' => array('project-type.update', $projectType->id), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}
               <div class="col-md-6 col-sm-6 col-xs-12">

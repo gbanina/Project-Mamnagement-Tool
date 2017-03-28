@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Auth;
 use View;
 use Redirect;
 use App\Models\Role;
