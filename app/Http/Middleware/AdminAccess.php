@@ -21,6 +21,6 @@ class AdminAccess
         if ($accountType == 'OWNER' || $accountType == 'ADMIN') {
             return $next($request);
         }
-        return redirect('home');
+        return redirect('board');
     }
 }

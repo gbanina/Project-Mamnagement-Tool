@@ -8,11 +8,12 @@ use Auth;
 Use Redirect;
 use App\Models\Dashboard;
 use App\Models\Project;
+use App\Providers\ProjectServiceProvider;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreBoard;
 
 class BoardController extends BaseController {
 
@@ -23,8 +24,9 @@ class BoardController extends BaseController {
      */
     public function index()
     {
-        // TODO : Filter by readable projects
-        $boards = Dashboard::where('account_id', Auth::user()->current_acc)->orderBy('id', 'desc')->get();
+        $projectService = new ProjectServiceProvider(Auth::user());
+        $projectIds = $projectService->all()->pluck('id')->toArray();
+        $boards = Dashboard::where('account_id', Auth::user()->current_acc)->whereIn('project_id', $projectIds)->orderBy('id', 'desc')->get();
         $view = View::make('board.index')->with('boards', $boards);
         return $view;
     }
@@ -34,9 +36,10 @@ class BoardController extends BaseController {
      *
      * @return Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        $projects = Project::where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose project', '');
+        $projects = Project::where('account_id', Auth::user()->current_acc)
+                            ->pluck('name', 'id')->prepend('Choose project', '');
         return View::make('board.create')->with('projects', $projects);
     }
 
@@ -45,15 +48,8 @@ class BoardController extends BaseController {
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreBoard $request)
     {
-        $rules = array(
-            'priority-name' => 'required',
-            'project_id' => 'required',
-            'content' => 'required',
-        );
-        $validator = Validator::make(Input::all(), $rules);
-
         $board = new Dashboard();
         $board->account_id = Auth::user()->current_acc;
         $board->project_id = Input::get('project_id');
@@ -64,19 +60,8 @@ class BoardController extends BaseController {
 
         $board->save();
 
-        $request->session()->flash('alert-success', 'News successful created!');
+        $request->session()->flash('alert-success', 'Board successful created!');
         return Redirect::to('board');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -99,15 +84,8 @@ class BoardController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, Request $request)
+    public function update($id, StoreBoard $request)
     {
-        $rules = array(
-            'priority-name' => 'required',
-            'project_id' => 'required',
-            'content' => 'required',
-        );
-        $validator = Validator::make(Input::all(), $rules);
-
         $board = Dashboard::find($id);
         $board->project_id = Input::get('project_id');
         $board->user_id = Auth::user()->id;
@@ -115,7 +93,7 @@ class BoardController extends BaseController {
         $board->content =Input::get('content');
         $board->save();
 
-        $request->session()->flash('alert-success', 'News successful updated!');
+        $request->session()->flash('alert-success', 'Board successful updated!');
         return Redirect::to('board');
     }
 
@@ -127,8 +105,7 @@ class BoardController extends BaseController {
      */
     public function destroy($id, Request $request)
     {
-        $request->session()->flash('alert-success', 'dashboard : '.''.' was successful deleted!');
+        $request->session()->flash('alert-success', 'Board was successful deleted!');
         return Redirect::to('board');
     }
-
 }

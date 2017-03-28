@@ -11,13 +11,6 @@
                     <h2>Edit News <small>Dashboard</small></h2>
                     <div class="clearfix"></div>
                   </div>
-                  @if($errors->count() != 0):
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                                {!! var_dump($errors->count()) !!}
-                            </div>
-                        </div>
-                  @endif
                   <div class="x_content">
                       <div class="form-group">
                         <label class="control-label col-md-2 col-sm-2 col-xs-12">Project</label>

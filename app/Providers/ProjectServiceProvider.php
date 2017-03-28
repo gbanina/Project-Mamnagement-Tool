@@ -47,7 +47,7 @@ class ProjectServiceProvider extends ServiceProvider
         $project->save();
 
         $up = New UserProject;
-        $up->users_id = $args['project_manager'];
+        $up->user_id = $args['project_manager'];
         $up->project_id = $project->id;
         $up->save();
     }
@@ -59,7 +59,7 @@ class ProjectServiceProvider extends ServiceProvider
         $project = Project::find($id);
         $projectManager = DB::table('user_projects')->where('project_id', '=', $project->id)->first();
         if($projectManager == null) $projectManager = '';
-        else $projectManager = $projectManager->users_id;
+        else $projectManager = $projectManager->user_id;
 
         $users = UserAccounts::where('account_id', $this->user->current_acc)
                             ->with('user')->get()

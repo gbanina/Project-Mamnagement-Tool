@@ -11,6 +11,7 @@ use App\Models\Status;
 use App\Models\Priority;
 use App\Models\TaskType;
 use App\Models\FieldRight;
+use App\Models\ProjectTaskType;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\TaskAttribute;
@@ -60,7 +61,7 @@ class TaskController extends BaseController {
             $users = User::all()->pluck('name', 'id')->prepend('Choose user', '');
             $status = Status::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose status', '');
             $priorities = Priority::all()->where('account_id', Auth::user()->current_acc)->pluck('label', 'id')->prepend('Choose priority', '');
-            $types = TaskType::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose type', '');
+            $types = $project->projectType->posibleTaskTypes()->pluck('name', 'id')->prepend('Choose type', '');
 
             return View::make('task.create')->with('projects', $projects)->with('projectId', $projectId)
                                                 ->with('users',$users)->with('usersO',$usersO)->with('status',$status)
@@ -135,7 +136,6 @@ class TaskController extends BaseController {
     public function edit($id, Request $request)
     {
         // if dont have view rights deny!!!
-
         $projects = Project::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose project', '');
         //filtriraj po accountu
         $users = User::all()->pluck('name', 'id');
