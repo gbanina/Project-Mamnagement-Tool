@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use App\Models\UserAccounts;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -41,16 +42,21 @@ class User extends Authenticatable
 
     public function userAccount()
     {
-        return $this->belongsTo('App\Models\UserAccounts', 'current_acc')->first();
+        return UserAccounts::where('account_id', $this->current_acc)
+                        ->where('user_id', Auth::user()->id)->first();
+
+        //return $this->belongsTo('App\Models\UserAccounts', 'current_acc')->first();
     }
     public function getCurrentRoleAttribute()
     {
-        return $this->belongsTo('App\Models\UserAccounts', 'current_acc')->first()->type;
+        return UserAccounts::where('account_id', $this->current_acc)
+                        ->where('user_id', Auth::user()->id)->first()->type;
     }
-
     public function currentRole()
     {
-        $userAcc = $this->belongsTo('App\Models\UserAccounts', 'current_acc')->first();
+        $userAcc = UserAccounts::where('account_id', $this->current_acc)
+                        ->where('user_id', Auth::user()->id)->first();
+
         return $userAcc->role();
     }
 

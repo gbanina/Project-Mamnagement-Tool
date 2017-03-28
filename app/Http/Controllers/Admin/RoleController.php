@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DB;
-use Auth;
 use View;
 use Redirect;
 use App\Models\Role;
+use App\Http\Requests\StoreRole;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Validator;
 
 class RoleController extends BaseController {
 
@@ -45,30 +43,14 @@ class RoleController extends BaseController {
      *
      * @return Response
      */
-    public function store()
+    public function store(StoreRole $request)
     {
-        $rules = array(
-            'role-name' => 'required',
-        );
-        $validator = Validator::make(Input::all(), $rules);
-
         $role = new Role();
         $role->account_id = Auth::user()->current_acc;
         $role->name =Input::get('role-name');
         $role->save();
 
         return Redirect::to('admin/role');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -91,13 +73,8 @@ class RoleController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update($id, StoreRole $request)
     {
-        $rules = array(
-            'role-name' => 'required',
-        );
-        $validator = Validator::make(Input::all(), $rules);
-
         $role = Role::find($id);
         $role->name =Input::get('role-name');
         $role->save();
@@ -117,5 +94,4 @@ class RoleController extends BaseController {
         $role->delete();
         return Redirect::to('admin/role');
     }
-
 }
