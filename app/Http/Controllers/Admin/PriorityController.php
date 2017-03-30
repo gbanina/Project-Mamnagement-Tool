@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DB;
 use View;
 Use Redirect;
 use App\Models\Priority;
@@ -11,7 +10,6 @@ use Session;
 use App\Providers\Admin\TaskPriorityServiceProvider;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class PriorityController extends BaseController {

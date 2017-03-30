@@ -67,7 +67,12 @@ class UsersController extends BaseController {
      */
     public function edit($id)
     {
+        $account = UserAccounts::find($id);
+        $roles = Role::where('account_id', $account->account_id)->pluck('name', 'id');
+        $types = array(/*'OWNER' => 'Owner', */'ADMIN' => 'Admin', 'MEMBER' => 'Member');
 
+        return View::make('users.edit')->with('account', $account)
+                        ->with('roles', $roles)->with('types', $types);
     }
 
     /**
@@ -76,9 +81,15 @@ class UsersController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update($id, Request $request)
     {
+        $account = UserAccounts::find($id);
+        $account->role_id = Input::get('role_id');
+        $account->type = Input::get('type');
+        $account->save();
 
+        $request->session()->flash('alert-success', 'User account was successful updated!');
+        return Redirect::to('user');
     }
 
     /**

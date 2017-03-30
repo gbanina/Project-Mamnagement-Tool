@@ -8,31 +8,40 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
+                    <a href="{{ URL::to('users/create') }}" class="btn btn-default" type="button">Add New User</a>
+                      <table class="table table-striped projects">
+                        <thead>
+                          <tr>
                           <th>#</th>
                           <th>Name</th>
                           <th>Email</th>
+                          <th>Type</th>
+                          <th>Role</th>
                           <th>Created</th>
-                          <th>Team</th>
                           <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      @foreach ($users as $user)
-                        <tr>
-                          <th scope="row">{{$user->user->id}}</th>
-                          <td>{{$user->user->name}}</td>
-                          <td>{{$user->user->email}}</td>
-                          <td>{{$user->user->created_at}}</td>
-                          <td>dummy</td>
-                          <td>edit icon</td>
-                        </tr>
-                      @endforeach
-                      </tbody>
-                    </table>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach ($users as $usrAcc)
+                          <tr>
+                          <th scope="row">{{$usrAcc->user->id}}</th>
+                          <td>{{$usrAcc->user->name}}</td>
+                          <td>{{$usrAcc->user->email}}</td>
+                          <td>{{$usrAcc->type}}</td>
+                          <td>{{$usrAcc->role->name}}</td>
+                          <td>{{$usrAcc->user->created_at}}</td>
+                            <td>
+                              <li style="display: inline-block;">
+                              <a href="{{ URL::to('account/'.$usrAcc->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                              {{ Form::open(['route' => ['account.destroy', $usrAcc->id], 'method' => 'delete', 'style'=>'display: inline']) }}
+                              <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+                              {{ Form::close() }}
+                              </li>
+                            </td>
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
 
                   </div>
                 </div>

@@ -98,12 +98,6 @@ class AccountController extends BaseController {
      */
     public function update($id, Request $request)
     {
-        $rules = array(
-            'role_id' => 'required',
-            'type' => 'required',
-        );
-        $validator = Validator::make(Input::all(), $rules);
-
         $account = UserAccounts::find($id);
         $account->role_id = Input::get('role_id');
         $account->type = Input::get('type');

@@ -10,40 +10,38 @@ use App\Models\Project;
 use App\Models\ProjectTypes;
 use App\Models\UserProject;
 use App\Models\UserAccounts;
+use App\Models\Comment;
 
 class ProjectServiceProvider extends ServiceProvider
 {
-    protected $user;
 
-    public function __construct($user)
-    {
-        $this->user = $user;
+    public function __construct($user){
     }
 
     public function all()
     {
-        return Project::all()->where('account_id', $this->user->current_acc)
+        return Project::all()->where('account_id', Auth::user()->current_acc)
                                 ->where('permission','!=', 'NONE');
     }
     public function fillCreate()
     {
         $resutl = array();
-        $result['users'] = UserAccounts::where('account_id', $this->user->current_acc)
+        $result['users'] = UserAccounts::where('account_id', Auth::user()->current_acc)
                             ->with('user')->get()
                             ->pluck('user.name', 'user_id')->prepend('Choose user', '');
-        $result['projectTypes'] = ProjectTypes::where('account_id', $this->user->current_acc)->pluck('label', 'id')->prepend('Choose Project Type', '');
+        $result['projectTypes'] = ProjectTypes::where('account_id', Auth::user()->current_acc)->pluck('label', 'id')->prepend('Choose Project Type', '');
 
         return $result;
     }
     public function store($args)
     {
         $project = new Project;
-        $project->account_id = $this->user->current_acc;
+        $project->account_id = Auth::user()->current_acc;
         $project->project_type_id = $args['project_type'];
-        $project->internal_id = $this->user->currentacc->nextProjectId();
+        $project->internal_id = Auth::user()->currentacc->nextProjectId();
         $project->name = $args['project_name'];
         $project->default_responsible = $args['default_responsible'];
-        $project->created_by = $this->user->id;
+        $project->created_by = Auth::user()->id;
         $project->save();
 
         $up = New UserProject;
@@ -61,11 +59,11 @@ class ProjectServiceProvider extends ServiceProvider
         if($projectManager == null) $projectManager = '';
         else $projectManager = $projectManager->user_id;
 
-        $users = UserAccounts::where('account_id', $this->user->current_acc)
+        $users = UserAccounts::where('account_id', Auth::user()->current_acc)
                             ->with('user')->get()
                             ->pluck('user.name', 'user_id');
 
-        $projectTypes = ProjectTypes::where('account_id', $this->user->current_acc);
+        $projectTypes = ProjectTypes::where('account_id', Auth::user()->current_acc);
         $taskTypes = array();
         foreach($projectTypes->get() as $type){
             $taskTypes[$type->id] = $type->posibleTaskTypes()->get()->toArray();
@@ -80,6 +78,7 @@ class ProjectServiceProvider extends ServiceProvider
         $result['taskTypes'] = $taskTypes;
         $result['typesSelect'] = $typesSelect;
         $result['global_css'] = '';
+        $result['comments'] = $this->comments($id);
 
         if($project->getPermissionAttribute() == 'READ')
             $result['global_css'] = 'DISABLED';
@@ -90,7 +89,7 @@ class ProjectServiceProvider extends ServiceProvider
     public function update($id, $args)
     {
         $project = Project::find($id);
-        $project->account_id = $this->user->current_acc;
+        $project->account_id = Auth::user()->current_acc;
         $project->name = $args['project_name'];
         $project->default_responsible = $args['default_responsible'];
         $project->update();
@@ -98,7 +97,7 @@ class ProjectServiceProvider extends ServiceProvider
         $pm = UserProject::where('project_id', '=', $id)->first();
         if($pm == null) $pm = new UserProject;
         $pm->project_id = $id;
-        $pm->users_id = $args['project_manager'];
+        $pm->user_id = $args['project_manager'];
         $pm->save();
     }
 
@@ -106,5 +105,10 @@ class ProjectServiceProvider extends ServiceProvider
     {
         $project = Project::find($id);
         $project->delete();
+    }
+
+    public function comments($projectId)
+    {
+        return Comment::where('entity_id', $projectId)->where('entity_type', 'PROJECT')->orderBy('id', 'desc')->get();
     }
 }

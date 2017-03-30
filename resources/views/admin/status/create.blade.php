@@ -12,13 +12,6 @@
                     <h2>Add New Status <small>Admin</small></h2>
                     <div class="clearfix"></div>
                   </div>
-                  @if($errors->count() != 0):
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                                {!! var_dump($errors->count()) !!}
-                            </div>
-                        </div>
-                  @endif
                   <div class="x_content">
                     <br>
                 {!! Form::open(array('url' => 'admin/status', 'class' => 'form-horizontal form-label-left')) !!}

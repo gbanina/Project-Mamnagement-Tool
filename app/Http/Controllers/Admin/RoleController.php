@@ -7,15 +7,20 @@ use View;
 use Redirect;
 use App\Models\Role;
 use App\Http\Requests\StoreRole;
+use App\Providers\Admin\RoleServiceProvider;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 
 class RoleController extends BaseController {
+
+    protected $service;
 
     public function __construct()
     {
         $this->middleware('admin_access');
+        $this->service = new RoleServiceProvider();
     }
     /**
      * Display a listing of the resource.
@@ -24,9 +29,7 @@ class RoleController extends BaseController {
      */
     public function index()
     {
-        $roles = Role::where('account_id', Auth::user()->current_acc)->get();
-        $view = View::make('admin.role.index')->with('roles', $roles);
-        return $view;
+       return View::make('admin.role.index')->with('roles', $this->service->all());
     }
 
     /**
@@ -46,11 +49,8 @@ class RoleController extends BaseController {
      */
     public function store(StoreRole $request)
     {
-        $role = new Role();
-        $role->account_id = Auth::user()->current_acc;
-        $role->name =Input::get('role-name');
-        $role->save();
-
+        $this->service->store(Input::get('role-name'));
+        $request->session()->flash('alert-success', 'New role successfuly created!');
         return Redirect::to('admin/role');
     }
 
@@ -62,9 +62,7 @@ class RoleController extends BaseController {
      */
     public function edit($id)
     {
-        $role = Role::find($id);
-
-        $view = View::make('admin.role.edit')->with('role', $role);
+        $view = View::make('admin.role.edit')->with('role', $this->service->find($id));
         return $view;
     }
 
@@ -76,10 +74,8 @@ class RoleController extends BaseController {
      */
     public function update($id, StoreRole $request)
     {
-        $role = Role::find($id);
-        $role->name =Input::get('role-name');
-        $role->save();
-
+        $this->service->update($id, Input::get('role-name'));
+        $request->session()->flash('alert-success', 'Role successfuly updated!');
         return Redirect::to('admin/role');
     }
 
@@ -89,10 +85,10 @@ class RoleController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        $role = Role::find($id);
-        $role->delete();
+        $this->service->delete($id);
+        $request->session()->flash('alert-success', 'Role successfuly deleted!');
         return Redirect::to('admin/role');
     }
 }

@@ -2,24 +2,23 @@
 
 namespace App\Http\Controllers\Project;
 
-use DB;
 use View;
 Use Redirect;
-use App\User;
-use App\Models\Project;
-use App\Models\ProjectTypes;
-use App\Models\UserProject;
-use App\Models\Comment;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Validator;
 use App\Providers\ProjectServiceProvider;
 use Auth;
+use Illuminate\Http\Request;
 
 class ProjectController extends BaseController {
 
+    protected $service;
 
+    public function __construct()
+    {
+        $this->service = new ProjectServiceProvider(Auth::user());
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,8 +26,7 @@ class ProjectController extends BaseController {
      */
     public function index()
     {
-        $service = new ProjectServiceProvider(Auth::user());
-        $view = View::make('project.index')->with('projects', $service->all());
+        $view = View::make('project.index')->with('projects', $this->service->all());
         return $view;
     }
 
@@ -39,8 +37,7 @@ class ProjectController extends BaseController {
      */
     public function create()
     {
-        $service = new ProjectServiceProvider(Auth::user());
-        $fields = $service->fillCreate();
+        $fields = $this->service->fillCreate();
         return View::make('project.create')->with('users',$fields['users'])->with('projectTypes',$fields['projectTypes']);
     }
 
@@ -49,30 +46,12 @@ class ProjectController extends BaseController {
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        $rules = array(
-            'project_name' => 'required',
-            'project_manager' => 'required',
-            'default_responsible' => 'required',
-        );
-
-        $validator = Validator::make(Input::all(), $rules);
-        $service = new ProjectServiceProvider(Auth::user());
-        $service->store(Input::all());
+        $this->service->store(Input::all());
+        $request->session()->flash('alert-success', 'Project was successful created!');
 
         return Redirect::to('project');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -83,15 +62,11 @@ class ProjectController extends BaseController {
      */
     public function edit($id)
     {
-        $service = new ProjectServiceProvider(Auth::user());
-        $fields = $service->edit($id);
-        $comments = Comment::where('entity_id', $id)->where('entity_type', 'PROJECT')->orderBy('id', 'desc')->get();
-
-
+        $fields = $this->service->edit($id);
         return View::make('project.edit')->with('users', $fields['users'])
                                             ->with('projectTypes', $fields['typesSelect'])
                                                 ->with('project_manager', $fields['projectManager'])
-                                                    ->with('project', $fields['project'])->with('comments', $comments)
+                                                    ->with('project', $fields['project'])->with('comments', $fields['comments'])
                                                         ->with('taskTypes', $fields['taskTypes'])
                                                             ->with('global_css', $fields['global_css']);
     }
@@ -102,17 +77,10 @@ class ProjectController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update($id, Request $request)
     {
-        $rules = array(
-            'project_name' => 'required',
-            'project_manager' => 'required',
-            'default_responsible' => 'required',
-        );
-        $validator = Validator::make(Input::all(), $rules);
-
-        $service = new ProjectServiceProvider(Auth::user());
-        $fields = $service->update($id, Input::all());
+        $fields = $this->service->update($id, Input::all());
+        $request->session()->flash('alert-success', 'Project was successfuly updated!');
 
         return Redirect::to('project');
     }
@@ -123,12 +91,10 @@ class ProjectController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        $service = new ProjectServiceProvider(Auth::user());
-        $service->delete($id);
-
+        $this->service->delete($id);
+        $request->session()->flash('alert-success', 'Project was successfuly deleted!');
         return Redirect::to('project');
     }
-
 }

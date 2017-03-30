@@ -44,7 +44,8 @@
                   <li><a><i class="fa fa-users"></i> Users <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ URL::to('users') }}">All Users</a></li>
-                      <li><a href="{{ URL::to('users/create') }}">Add New User</a></li>
+                      <li><a href="{{ URL::to('admin/role') }}">User Role</a></li>
+                      <li><a href="{{ URL::to('admin/right') }}">User Rights</a></li>
                     </ul>
                   </li>
                   @if(Auth::user()->isAdmin())
@@ -55,8 +56,6 @@
                       <li><a href="{{ URL::to('admin/field') }}">Additional Fields</a></li>
                       <li><a href="{{ URL::to('admin/status') }}">Task Status</a></li>
                       <li><a href="{{ URL::to('admin/priority') }}">Task Priority</a></li>
-                      <li><a href="{{ URL::to('admin/role') }}">User Role</a></li>
-                      <li><a href="{{ URL::to('admin/right') }}">Rights</a></li>
                     </ul>
                   </li>
                   @endif

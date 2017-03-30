@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DB;
 use View;
 Use Redirect;
 use App\Models\TaskType;
@@ -13,6 +12,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTaskType;
 
 class TaskTypeController extends BaseController {
 
@@ -31,8 +31,7 @@ class TaskTypeController extends BaseController {
      */
     public function index()
     {
-        $view = View::make('admin.task-type.index')->with('taskTypes', $this->service->all());
-        return $view;
+        return View::make('admin.task-type.index')->with('taskTypes', $this->service->all());
     }
 
     /**
@@ -51,26 +50,11 @@ class TaskTypeController extends BaseController {
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreTaskType $request)
     {
-        $rules = array(
-            'type-name' => 'required',
-        );
-        $validator = Validator::make(Input::all(), $rules);
         $this->service->store(Input::all());
         $request->session()->flash('alert-success', 'Task Type was successfuly created!');
         return Redirect::to('admin/task-type');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -82,12 +66,8 @@ class TaskTypeController extends BaseController {
     public function edit($id)
     {
         $fields = $this->service->edit($id);
-
-        $view = View::make('admin.task-type.edit')
-                        ->with('taskType', $fields['taskType'])
-                            ->with('taskFields', $fields['taskFields'])
-                                ->with('hasTaskField', $fields['taskType']->hasTaskField());
-        return $view;
+        return View::make('admin.task-type.edit')->with('taskType', $fields['taskType'])
+                    ->with('taskFields', $fields['taskFields'])->with('hasTaskField', $fields['taskType']->hasTaskField());
     }
 
     /**
@@ -96,14 +76,9 @@ class TaskTypeController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, Request $request)
+    public function update($id, StoreTaskType $request)
     {
-        $rules = array(
-            'type-name' => 'required',
-        );
-        $validator = Validator::make(Input::all(), $rules);
         $this->service->update($id, Input::all());
-
         $request->session()->flash('alert-success', 'Task Type was successfuly updated!');
         return Redirect::to('admin/task-type');
     }
@@ -118,8 +93,6 @@ class TaskTypeController extends BaseController {
     {
         $this->service->destroy($id);
         $request->session()->flash('alert-success', 'Task Type was successfuly deleted!');
-
         return Redirect::to('admin/task-type');
     }
-
 }

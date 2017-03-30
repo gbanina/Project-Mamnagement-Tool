@@ -30,32 +30,32 @@
                               <th>
                                 @if(empty($field_rights[$project->id]))
                                 <div class="btn-group" data-toggle="buttons">
-                                  <label class="btn btn-default active">
-                                    <input type="radio" name="project_right[{{$project->id}}][{{$role->id}}]" value="NONE" id="{{$project->id}}_{{$role->id}}_1"> 0
+                                  <label class="btn btn-default active" onclick="chaingeChildRight('right_{{$project->id}}_{{$role->id}}','NONE')">
+                                    <input type="radio" name="project_right[{{$project->id}}][{{$role->id}}]" value="NONE" checked id="{{$project->id}}_{{$role->id}}_1"> 0
                                   </label>
-                                  <label class="btn btn-default">
-                                    <input type="radio" name="project_right[{{$project->id}}][{{$role->id}}]" value="READ" id="{{$project->id}}_{{$role->id}}_1"> R
+                                  <label class="btn btn-default" onclick="chaingeChildRight('right_{{$project->id}}_{{$role->id}}','READ')">
+                                    <input type="radio" name="project_right[{{$project->id}}][{{$role->id}}]" value="READ" id="{{$project->id}}_{{$role->id}}_2"> R
                                   </label>
-                                  <label class="btn btn-default">
-                                    <input type="radio" name="project_right[{{$project->id}}][{{$role->id}}]" value="WRITE" id="{{$project->id}}_{{$role->id}}_1"> W
+                                  <label class="btn btn-default" onclick="chaingeChildRight('right_{{$project->id}}_{{$role->id}}','WRITE')">
+                                    <input type="radio" name="project_right[{{$project->id}}][{{$role->id}}]" value="WRITE" id="{{$project->id}}_{{$role->id}}_3"> W
                                   </label>
-                                  <label class="btn btn-default">
-                                    <input type="radio" name="project_right[{{$project->id}}][{{$role->id}}]" value="DEL" id="{{$project->id}}_{{$role->id}}_1"> D
+                                  <label class="btn btn-default" onclick="chaingeChildRight('right_{{$project->id}}_{{$role->id}}','WRITE')">
+                                    <input type="radio" name="project_right[{{$project->id}}][{{$role->id}}]" value="DEL" id="{{$project->id}}_{{$role->id}}_4"> D
                                   </label>
                                 </div>
                                 @else
                                 <div class="btn-group" data-toggle="buttons">
-                                  <label class="btn btn-default @if($project_rights[$project->id][$role->id] == 'NONE') active @endif">
-                                    <input type="radio" name="project_right[{{$project->id}}][{{$role->id}}]" value="NONE" id="{{$project->id}}_{{$role->id}}_1"> 0
+                                  <label onclick="chaingeChildRight('right_{{$project->id}}_{{$role->id}}','NONE')" class="btn btn-default @if($project_rights[$project->id][$role->id] == 'NONE') active @endif">
+                                    <input type="radio" name="project_right[{{$project->id}}][{{$role->id}}]" value="NONE" id="{{$project->id}}_{{$role->id}}_2" @if($project_rights[$project->id][$role->id] == 'NONE') checked @endif> 0
                                   </label>
-                                  <label class="btn btn-default @if($project_rights[$project->id][$role->id] == 'READ') active @endif">
-                                    <input type="radio" name="project_right[{{$project->id}}][{{$role->id}}]" value="READ" id="{{$project->id}}_{{$role->id}}_1"> R
+                                  <label onclick="chaingeChildRight('right_{{$project->id}}_{{$role->id}}','READ')" class="btn btn-default @if($project_rights[$project->id][$role->id] == 'READ') active @endif">
+                                    <input type="radio" name="project_right[{{$project->id}}][{{$role->id}}]" value="READ" id="{{$project->id}}_{{$role->id}}_3" @if($project_rights[$project->id][$role->id] == 'READ') checked @endif> R
                                   </label>
-                                  <label class="btn btn-default @if($project_rights[$project->id][$role->id] == 'WRITE') active @endif">
-                                    <input type="radio" name="project_right[{{$project->id}}][{{$role->id}}]" value="WRITE" id="{{$project->id}}_{{$role->id}}_1"> W
+                                  <label onclick="chaingeChildRight('right_{{$project->id}}_{{$role->id}}','WRITE')" class="btn btn-default @if($project_rights[$project->id][$role->id] == 'WRITE') active @endif">
+                                    <input type="radio" name="project_right[{{$project->id}}][{{$role->id}}]" value="WRITE" id="{{$project->id}}_{{$role->id}}_4" @if($project_rights[$project->id][$role->id] == 'WRITE') checked @endif> W
                                   </label>
-                                  <label class="btn btn-default @if($project_rights[$project->id][$role->id] == 'DEL') active @endif">
-                                    <input type="radio" name="project_right[{{$project->id}}][{{$role->id}}]" value="DEL" id="{{$project->id}}_{{$role->id}}_1"> D
+                                  <label onclick="chaingeChildRight('right_{{$project->id}}_{{$role->id}}','WRITE')" class="btn btn-default @if($project_rights[$project->id][$role->id] == 'DEL') active @endif">
+                                    <input type="radio" name="project_right[{{$project->id}}][{{$role->id}}]" value="DEL" id="{{$project->id}}_{{$role->id}}_5" @if($project_rights[$project->id][$role->id] == 'DEL') checked @endif> D
                                   </label>
                                 </div>
                                 @endif
@@ -79,9 +79,9 @@
                               @foreach($roles as $role)
                                 <td>
                                 @if(empty($field_rights[$project->id][$role->id][$taskType->id][$field->id]))
-                                  <div class="btn-group" data-toggle="buttons">
+                                  <div class="btn-group right_{{$project->id}}_{{$role->id}}" data-toggle="buttons">
                                     <label class="btn btn-default active">
-                                      <input type="radio" name="field_right[{{$project->id}}][{{$role->id}}][{{$taskType->id}}][{{$field->id}}]" value="NONE"> 0
+                                      <input type="radio" name="field_right[{{$project->id}}][{{$role->id}}][{{$taskType->id}}][{{$field->id}}]" value="NONE" checked> 0
                                     </label>
                                     <label class="btn btn-default">
                                       <input type="radio" name="field_right[{{$project->id}}][{{$role->id}}][{{$taskType->id}}][{{$field->id}}]" value="READ"> R
@@ -91,14 +91,14 @@
                                     </label>
                                   </div>
                                 @else
-                                  <div class="btn-group" data-toggle="buttons">
+                                  <div class="btn-group right_{{$project->id}}_{{$role->id}}" data-toggle="buttons">
                                     <label class="btn btn-default @if($field_rights[$project->id][$role->id][$taskType->id][$field->id] == 'NONE') active @endif">
-                                      <input type="radio" name="field_right[{{$project->id}}][{{$role->id}}][{{$taskType->id}}][{{$field->id}}]" value="NONE"> 0
+                                      <input type="radio" name="field_right[{{$project->id}}][{{$role->id}}][{{$taskType->id}}][{{$field->id}}]" value="NONE" @if($field_rights[$project->id][$role->id][$taskType->id][$field->id] == 'NONE') checked @endif> 0
                                     </label>
-                                    <label class="btn btn-default @if($field_rights[$project->id][$role->id][$taskType->id][$field->id] == 'READ') active @endif">
+                                    <label class="btn btn-default @if($field_rights[$project->id][$role->id][$taskType->id][$field->id] == 'READ') active @endif" @if($field_rights[$project->id][$role->id][$taskType->id][$field->id] == 'READ') checked @endif>
                                       <input type="radio" name="field_right[{{$project->id}}][{{$role->id}}][{{$taskType->id}}][{{$field->id}}]" value="READ"> R
                                     </label>
-                                    <label class="btn btn-default @if($field_rights[$project->id][$role->id][$taskType->id][$field->id] == 'WRITE') active @endif">
+                                    <label class="btn btn-default @if($field_rights[$project->id][$role->id][$taskType->id][$field->id] == 'WRITE') active @endif" @if($field_rights[$project->id][$role->id][$taskType->id][$field->id] == 'WRITE') checked @endif>
                                       <input type="radio" name="field_right[{{$project->id}}][{{$role->id}}][{{$taskType->id}}][{{$field->id}}]" value="WRITE"> W
                                     </label>
                                   </div>
@@ -119,6 +119,12 @@
             </div>
           </div>
           <script>
-            $(".active").click();
+            //$(".active").click();
+
+            function chaingeChildRight(cls, val){
+              //alert('"#'+cls+" :input[value='" + val + "']" + '"');
+              $('.'+cls+" :input[value='" + val + "']").click();
+            }
+
           </script>
 @endsection

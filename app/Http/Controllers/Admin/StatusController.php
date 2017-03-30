@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DB;
 use View;
 Use Redirect;
 use App\Models\Status;
 use Session;
+use App\Http\Requests\StoreStatus;
 use App\Providers\Admin\TaskStatusServiceProvider;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
@@ -49,28 +49,11 @@ class StatusController extends BaseController {
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreStatus $request)
     {
-        $rules = array(
-            'status-name' => 'required',
-        );
-        $validator = Validator::make(Input::all(), $rules);
         $status = $this->service->store(Input::all());
-
         $request->session()->flash('alert-success', 'Status : '. $status->name .' was successful created!');
-
         return Redirect::to('admin/status');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -91,14 +74,9 @@ class StatusController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, Request $request)
+    public function update($id, StoreStatus $request)
     {
-        $rules = array(
-            'status-name' => 'required',
-        );
-        $validator = Validator::make(Input::all(), $rules);
         $status = $this->service->update($id, Input::all());
-
         $request->session()->flash('alert-success', 'Status : '.$status->name.' was successful updated!');
         return Redirect::to('admin/status');
     }
@@ -113,8 +91,6 @@ class StatusController extends BaseController {
     {
         $this->service->destroy($id);
         $request->session()->flash('alert-success', 'Status was successful deleted!');
-
         return Redirect::to('admin/status');
     }
-
 }
