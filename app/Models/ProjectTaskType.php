@@ -12,6 +12,5 @@ class ProjectTaskType extends Model {
     public function taskTypes()
     {
         return $this->belongsTo('App\Models\TaskType');
-        //return $this->hasMany('App\Models\TaskType');
     }
 }

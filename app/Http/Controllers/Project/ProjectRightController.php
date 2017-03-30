@@ -31,15 +31,11 @@ class ProjectRightController extends BaseController {
      */
     public function index($id)
     {
-        $project = Project::find($id);
-        $roles = Role::where('account_id', Auth::user()->current_acc)->get();
-        $projectRights = $this->service->getProjectRights($id);
-        $fieldRights = $this->service->getFieldRights($id);
-        $viewStyle = ' min-width: ' . count($roles) * 216 . 'px';
+        $fields = $this->service->projectRightsIndex($id);
         $view = View::make('project.rights.index')
-                    ->with('project',$project)->with('roles', $roles)
-                        ->with('project_rights', $projectRights)->with('viewStyle', $viewStyle)
-                            ->with('field_rights', $fieldRights);
+                    ->with('project',$fields['project'])->with('roles', $fields['roles'])
+                        ->with('project_rights', $fields['projectRights'])->with('viewStyle', $fields['viewStyle'])
+                            ->with('field_rights', $fields['fieldRights']);
         return $view;
     }
 
@@ -60,58 +56,8 @@ class ProjectRightController extends BaseController {
      */
     public function store($id, Request $request)
     {
-        //dd(Input::get('project_right'));
-        $this->service->storeProjectRights($id, Input::get('project_right'));
-        $this->service->storeFieldRights($id, Input::get('field_right'));
-
-        $request->session()->flash('alert-success', 'Roles successfuly updated!');
+        $this->service->projectRightsStore($id, Input::all());
+        $request->session()->flash('alert-success', 'Rights successfuly updated!');
         return Redirect::to('project-rights/' . $id);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id, Request $request)
-    {
-        $request->session()->flash('alert-success', 'Help : '.''.' was successful updated!');
-        return Redirect::to('help');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id, Request $request)
-    {
-        $request->session()->flash('alert-success', 'Help : '.''.' was successful deleted!');
-        return Redirect::to('help');
-    }
-
 }

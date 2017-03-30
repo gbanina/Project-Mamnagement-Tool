@@ -44,6 +44,25 @@ class ProjectRightProvider extends ServiceProvider
     {
         return Project::where('account_id', Auth::user()->current_acc)->get();
     }
+
+    public function projectRightsIndex($id)
+    {
+        $result = array();
+
+        $result['project'] = Project::find($id);
+        $result['roles'] = Role::where('account_id', Auth::user()->current_acc)->get();
+        $result['projectRights'] = $this->getProjectRights($id);
+        $result['fieldRights'] = $this->getFieldRights($id);
+        $result['viewStyle'] = ' min-width: ' . count($result['roles']) * 216 . 'px';
+
+        return $result;
+    }
+    public function projectRightsStore($id, $args)
+    {
+        $this->storeProjectRights($id, $args['project_right']);
+        $this->storeFieldRights($id, $args['field_right']);
+    }
+
     public function getFieldRights($projectId)
     {
         $result = array();

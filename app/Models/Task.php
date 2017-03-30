@@ -7,7 +7,6 @@ use App\Models\TaskAttribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Helpers\PMTypesHelper;
-use DB;
 
 class Task extends Model {
     use SoftDeletes;
