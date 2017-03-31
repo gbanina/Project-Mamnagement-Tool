@@ -51,16 +51,16 @@ class ProjectRightProvider extends ServiceProvider
 
         $result['project'] = Project::find($id);
         $result['roles'] = Role::where('account_id', Auth::user()->current_acc)->get();
-        $result['projectRights'] = $this->getProjectRights($id);
-        $result['fieldRights'] = $this->getFieldRights($id);
+        $result['projectRights'][$id] = $this->getProjectRights($id);
+        $result['fieldRights'][$id] = $this->getFieldRights($id);
         $result['viewStyle'] = ' min-width: ' . count($result['roles']) * 216 . 'px';
 
         return $result;
     }
     public function projectRightsStore($id, $args)
     {
-        $this->storeProjectRights($id, $args['project_right']);
-        $this->storeFieldRights($id, $args['field_right']);
+        $this->storeProjectRights($id, $args['project_right'][$id]);
+        $this->storeFieldRights($id, $args['field_right'][$id]);
     }
 
     public function getFieldRights($projectId)
