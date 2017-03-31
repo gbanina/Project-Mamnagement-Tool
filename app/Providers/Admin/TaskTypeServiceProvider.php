@@ -6,6 +6,7 @@ use Auth;
 use Illuminate\Support\ServiceProvider;
 use App\Models\TaskType;
 use App\Models\TaskField;
+use App\Providers\Admin\ProjectTypeServiceProvider;
 
 class TaskTypeServiceProvider extends ServiceProvider
 {
@@ -19,7 +20,11 @@ class TaskTypeServiceProvider extends ServiceProvider
 
     public function create()
     {
-        return TaskField::where('account_id', Auth::user()->current_acc);
+        $result = array();
+        $projectTypeService = new ProjectTypeServiceProvider();
+        $result['projectTypes'] = $projectTypeService->all();
+        $result['taskFields'] = TaskField::where('account_id', Auth::user()->current_acc)->get();
+        return $result;
     }
 
     public function store($arg)
@@ -31,14 +36,19 @@ class TaskTypeServiceProvider extends ServiceProvider
         if(isset($arg['task_field'])){
             $taskType->updateTaskFields($arg['task_field']);
         }
+        if(isset($arg['project_type'])){
+            $taskType->updateProjectTypes($arg['project_type']);
+        }
     }
 
     public function edit($id)
     {
+        $projectTypeService = new ProjectTypeServiceProvider();
         $result = array();
 
         $result['taskType'] = TaskType::find($id);
         $result['taskFields'] = TaskField::where('account_id', Auth::user()->current_acc)->get();
+        $result['projectTypes'] = $projectTypeService->all();
 
         return $result;
     }
@@ -50,6 +60,9 @@ class TaskTypeServiceProvider extends ServiceProvider
         $taskType->save();
         if(isset($args['task_field'])){
             $taskType->updateTaskFields($args['task_field']);
+        }
+        if(isset($args['project_type'])){
+            $taskType->updateProjectTypes($args['project_type']);
         }
     }
 

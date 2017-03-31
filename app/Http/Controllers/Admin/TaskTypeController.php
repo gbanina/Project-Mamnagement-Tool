@@ -41,8 +41,10 @@ class TaskTypeController extends BaseController {
      */
     public function create()
     {
+        $fields = $this->service->create();
         return View::make('admin.task-type.create')
-            ->with('taskFields', $this->service->create())->with('hasTaskField', array());
+            ->with('taskFields', $fields['taskFields'])->with('hasTaskField', array())
+            ->with('projectTypes', $fields['projectTypes'])->with('hasProjectType', array());
     }
 
     /**
@@ -67,7 +69,8 @@ class TaskTypeController extends BaseController {
     {
         $fields = $this->service->edit($id);
         return View::make('admin.task-type.edit')->with('taskType', $fields['taskType'])
-                    ->with('taskFields', $fields['taskFields'])->with('hasTaskField', $fields['taskType']->hasTaskField());
+                    ->with('taskFields', $fields['taskFields'])->with('hasTaskField', $fields['taskType']->hasTaskField())
+                    ->with('projectTypes', $fields['projectTypes'])->with('hasProjectType', $fields['taskType']->hasProjectType());
     }
 
     /**

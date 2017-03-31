@@ -32,7 +32,8 @@
                     </div>
                 </div>
               </div>
-                              <div class="col-md-6 col-sm-6 col-xs-12">
+
+              <div class="col-md-6 col-sm-6 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
                       <h2>Add Additional Field For Current Task Type</h2>
@@ -54,6 +55,30 @@
                     </div>
                   </div>
                 </div>
+
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="x_panel">
+                    <div class="x_title">
+                      <h2>This task type belongs to project types :</h2>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+
+                      <div class="">
+                        <ul class="to_do">
+                        @foreach($projectTypes as $type)
+                          <li>
+                            <p>
+                              {{ Form::checkbox('project_type['.$type->id.']' , $type->id, in_array ($type->id, $hasProjectType), ['class' => 'flat']) }} {{$type->label}}
+                              </p>
+                          </li>
+                          @endforeach
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               {!! Form::close() !!}
             </div>
 

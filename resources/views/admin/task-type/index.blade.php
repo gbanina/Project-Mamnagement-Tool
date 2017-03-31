@@ -1,15 +1,15 @@
 @extends('base')
 
 @section('content')
-<div class="col-md-6 col-sm-6 col-xs-12 form-group">
+<div class="col-md-6 col-sm-6 col-xs-12">
 <div class="x_panel">
                   <div class="x_title">
                     <h2>Task Types <small>Admin</small></h2>
                     <div class="clearfix"></div>
                   </div>
-                  <a href="{{ URL::to('/admin/task-type/create') }}" class="btn btn-default">Add new Task Type</a>
-                  <div class="x_content" style="display: block;">
 
+                  <div class="x_content" style="display: block;">
+                     <a href="{{ URL::to('/admin/task-type/create') }}" class="btn btn-default">Add new Task Type</a>
                       <table class="table table-striped projects">
                         <thead>
                           <tr>
@@ -44,4 +44,5 @@
 
                   </div>
                 </div>
+
 @endsection
