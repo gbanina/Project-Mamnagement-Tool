@@ -140,6 +140,25 @@
             // pass id to appropriate element here
     });
 </script>
+
+<script>
+
+
+$( document ).ready(function() {
+    $( ".form-horizontal :input" ).change(function() {
+        window.onbeforeunload = function() {
+            return true;
+        };
+    });
+});
+
+$( ".form-horizontal" ).submit(function( event ) {
+  window.onbeforeunload = null;
+});
+
+
+</script>
+
     @yield('js_include')
   </body>
 </html>
