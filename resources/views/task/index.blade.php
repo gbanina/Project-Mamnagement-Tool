@@ -26,14 +26,13 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="col-md-2 pull-left">
-                    <a href="#" id="add_new_button" disabled class="btn btn-default">Add new Task</a>
+                    <a href="#" id="add_new_button" class="btn btn-default">Add new Task</a>
                   </div>
                   <div class="col-md-2 pull-left">
                     {{ Form::select('project_id', $projects, '', array('style' => 'max-width: 250px;','id'=>'project_id', 'class' => 'form-control', 'required')) }}
                   </div>
                   <div class="x_content" style="display: block;">
                     <p>Task listings for all the projects inyour current organisation</p>
-                    <!-- start project list -->
                     <table class="table table-striped projects">
                       <thead>
                         <tr>
@@ -83,7 +82,6 @@
                         @endforeach
                       </tbody>
                     </table>
-                    <!-- end project list -->
                   </div>
                 </div>
               </div>
@@ -95,8 +93,14 @@
 @section('js_include')
     <script>
       $( "#project_id" ).change(function() {
-         $('#add_new_button').removeAttr('disabled');
-         $('#add_new_button').attr('href','{{ URL::to('task\/create') }}' + '?p=' + this.value);
-        });
+        chainge_project_overview_add(this.value);
+      });
+      function chainge_project_overview_add(id){
+        if(id != 0 && id =! '0')
+          $('#add_new_button').attr('href','{{ URL::to('task\/create') }}' + '?p=' + id);
+      }
+      $( document ).ready(function() {
+          chainge_project_overview_add({{$firstProject}});
+      });
     </script>
 @endsection

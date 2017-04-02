@@ -39,9 +39,12 @@ class TaskController extends BaseController {
     {
         $projects = Project::all()->where('account_id', Auth::user()->current_acc)
                                 ->where('permission','!=', 'NONE')->pluck('name', 'id');
+        $firstProject = 0;
+        if(count($projects->keys()) > 0)
+            $firstProject = $projects->keys()[0];
         $sp = new TaskServiceProvider($this);
         $tasks = Task::all()->where('account_id', Auth::user()->current_acc)->where('permission','!=', 'NONE');
-        $view = View::make('task.index')->with('tasks', $tasks)->with('projects', $projects);
+        $view = View::make('task.index')->with('tasks', $tasks)->with('projects', $projects)->with('firstProject', $firstProject);
         return $view;
     }
 
