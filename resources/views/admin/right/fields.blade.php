@@ -3,10 +3,10 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th style="border-bottom:none; border-top: none;">{{$taskType->name}}</th>
+            <th style="border-bottom:none; border-top: none;"><a onClick="$('#hidden_{{$project->id}}_{{$role->id}}_{{$taskType->id}}').toggle()">{{$taskType->name}} <i class="fa fa-chevron-down"></i></a></th>
         </tr>
     </thead>
-    <tbody class="hidden-project-right-fields2">
+    <tbody id="hidden_{{$project->id}}_{{$role->id}}_{{$taskType->id}}" class="hidden-project-right-fields">
                           @foreach($taskType->fields as $field)
                           <tr>
                             <td style="width: 220px">{{$field->label}}</td>

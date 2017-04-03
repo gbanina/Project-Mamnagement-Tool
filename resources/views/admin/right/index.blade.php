@@ -25,5 +25,7 @@
           function chaingeChildRight(cls, val){
               $('.'+cls+" :input[value='" + val + "']").click();
             }
+
+             $(".hidden-project-right-fields").hide();
           </script>
 @endsection
