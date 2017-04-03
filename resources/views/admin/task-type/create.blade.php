@@ -4,8 +4,6 @@
 @section('content')
        <div class="">
             <div class="clearfix"></div>
-
-            <div>
             <div class="row">
                 {!! Form::open(array('url' => 'admin/task-type', 'class' => 'form-horizontal form-label-left')) !!}
 
@@ -81,8 +79,6 @@
 
               {!! Form::close() !!}
             </div>
-
-          </div>
         </div>
 
 @endsection

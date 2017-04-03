@@ -39,8 +39,8 @@ class TaskFieldController extends BaseController {
      */
     public function create()
     {
-        return View::make('admin.field.create')
-                ->with('typeSelect', PMTypesHelper::fieldTypeSelect());
+        return View::make('admin.field.create')->with('taskTypes', $this->service->getTaskTypes())
+                ->with('belongsToTaskType', array())->with('typeSelect', PMTypesHelper::fieldTypeSelect());
     }
 
     /**
@@ -64,11 +64,10 @@ class TaskFieldController extends BaseController {
      */
     public function edit($id)
     {
-        $view = View::make('admin.field.edit')
+        return View::make('admin.field.edit')->with('taskTypes', $this->service->getTaskTypes())
                 ->with('field', $this->service->getTaskField($id))
-                    ->with('typeSelect', PMTypesHelper::fieldTypeSelect());
-
-        return $view;
+                    ->with('belongsToTaskType', $this->service->belongsToTaskType($id))
+                        ->with('typeSelect', PMTypesHelper::fieldTypeSelect());
     }
 
     /**

@@ -12,4 +12,18 @@ class TaskField extends Model {
     {
         return $this->hasMany('App\Models\FieldRight', 'task_type_id');
     }
+    // Move to Service provider?
+    public function updateTaskTypes($array){
+        // Transaction
+            TaskTypeField::where('task_field_id', $this->id)->delete();
+            if($array != null){
+                foreach($array as $id){
+                    TaskTypeField::create(['task_field_id' => $this->id, 'task_type_id' => intval ($id)]);
+                }
+            }
+        //End Transactions
+    }
+    public function belongsToTaskType(){
+        return TaskTypeField::where('task_field_id', $this->id);
+    }
 }
