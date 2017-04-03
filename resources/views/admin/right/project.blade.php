@@ -1,5 +1,5 @@
 <div class="x_panel" style="height: auto;">
-      <div class="x_title">
+      <div class="x_title" style="border-bottom: none;padding: 0px;">
               <table class="table table-striped">
                         <thead>
                           <tr>
