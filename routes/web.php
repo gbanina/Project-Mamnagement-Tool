@@ -38,6 +38,8 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('admin/role', 'Admin\RoleController');
     Route::resource('admin/task-type', 'Admin\TaskTypeController');
     Route::resource('admin/project-type', 'Admin\ProjectTypeController');
+    Route::resource('admin/task-view', 'Admin\TaskViewController');
+
     Route::resource('admin/status', 'Admin\StatusController');
     Route::resource('admin/priority', 'Admin\PriorityController');
     Route::resource('admin/field', 'Admin\TaskFieldController');
