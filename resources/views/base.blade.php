@@ -38,7 +38,7 @@
     <!-- Custom Theme Style -->
     <link href="{{ URL::to('css/custom.min.css')}}" rel="stylesheet">
     <!-- Custom Tweeks -->
-    <link href="{{ URL::to('css/admin.css')}}" rel="stylesheet">
+    <link href="{{ URL::to('css/admin.css?ver=' . time() )}}" rel="stylesheet">
     <!-- Datapicker -->
     <link href="{{ URL::to('css/daterangepicker.css')}}" rel="stylesheet">
     <!-- jQuery -->
