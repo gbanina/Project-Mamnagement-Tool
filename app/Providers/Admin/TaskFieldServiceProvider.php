@@ -28,7 +28,8 @@ class TaskFieldServiceProvider extends ServiceProvider
         $taskField->label = $args['field-name'];
         $taskField->type = $args['field-type'];
         $taskField->save();
-        $taskField->updateTaskTypes($args['task_type']);
+        if(isset ($args['task_type']))
+            $taskField->updateTaskTypes($args['task_type']);
     }
 
     public function getTaskField($id)
@@ -46,7 +47,8 @@ class TaskFieldServiceProvider extends ServiceProvider
         $taskField->label = $args['field-name'];
         $taskField->type = $args['field-type'];
         $taskField->save();
-        $taskField->updateTaskTypes($args['task_type']);
+        if(isset ($args['task_type']))
+            $taskField->updateTaskTypes($args['task_type']);
     }
 
     public function destroy($id)

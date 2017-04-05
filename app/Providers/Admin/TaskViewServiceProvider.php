@@ -3,10 +3,11 @@
 namespace App\Providers\Admin;
 
 use Auth;
-use Illuminate\Support\ServiceProvider;
 use App\Models\TaskType;
 use App\Models\TaskField;
+use Illuminate\Support\ServiceProvider;
 use App\Providers\Admin\ProjectTypeServiceProvider;
+use App\Providers\Admin\UserServiceProvider;
 
 class TaskViewServiceProvider extends ServiceProvider
 {
@@ -47,11 +48,13 @@ class TaskViewServiceProvider extends ServiceProvider
     public function edit($id)
     {
         $projectTypeService = new ProjectTypeServiceProvider();
+        $userService = new UserServiceProvider();
         $result = array();
 
         $result['taskType'] = TaskType::find($id);
         $result['taskFields'] = TaskField::where('account_id', Auth::user()->current_acc)->get();
         $result['projectTypes'] = $projectTypeService->all();
+        $result['users'] = $userService->selectList();
 
         return $result;
     }

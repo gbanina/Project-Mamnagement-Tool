@@ -72,7 +72,9 @@ class TaskViewController extends BaseController {
     public function edit($id)
     {
         $fields = $this->service->edit($id);
-        return View::make('admin.task-view.edit')->with('taskType', $fields['taskType'])->with('taskFields', $fields['taskFields']);
+        return View::make('admin.task-view.edit')
+            ->with('taskType', $fields['taskType'])->with('taskFields', $fields['taskFields'])
+                ->with('users', $fields['users']);
     }
 
     /**
