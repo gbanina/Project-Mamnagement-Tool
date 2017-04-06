@@ -45,7 +45,6 @@
 		};
 	}
 
-
 	Sortable.create(byId('foo'), {
 		group: "words",
 		animation: 150,
@@ -78,16 +77,15 @@
 		onEnd: function(evt){ console.log('onEnd.foo:', evt.item);}
 	});
 
-	Sortable.create(byId('possible'), {
+	Sortable.create(byId('add_zone'), {
 		group: "words",
 		animation: 150,
-		onAdd: function (evt){ console.log('onAdd.possible:', evt.item); },
-		onUpdate: function (evt){ console.log('onUpdate.possible:', evt.item); },
-		onRemove: function (evt){ console.log('onRemove.possible:', evt.item); },
-		onStart:function(evt){ console.log('onStart.possible:', evt.item);},
-		onEnd: function(evt){ console.log('onEnd.possible:', evt.item);}
+		onAdd: function (evt){ console.log('onAdd.bar:', evt.from); add_new_element(evt.item); },
+		onUpdate: function (evt){ console.log('onUpdate.bar:', evt.item); },
+		onRemove: function (evt){ console.log('onRemove.bar:', evt.item); },
+		onStart:function(evt){ console.log('onStart.foo:', evt.item);},
+		onEnd: function(evt){ console.log('onEnd.foo:', evt.item);}
 	});
-
 })();
 
 

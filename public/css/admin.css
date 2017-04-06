@@ -24,3 +24,13 @@ ul.stats-overview li {
 .possible-list .col-sm-4 {
     width: 100%
 }
+
+.btn-transparent {
+    opacity: 0.7;
+}
+.btn-round {
+    border-radius: 25px;
+}
+.link-large {
+    font-size: 18px;
+}
