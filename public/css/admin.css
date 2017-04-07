@@ -34,3 +34,32 @@ ul.stats-overview li {
 .link-large {
     font-size: 18px;
 }
+
+.view-first .mask {
+    opacity: 0;
+    background-color: rgba(248, 247, 247, 0.4);
+    transition: all .4s ease-in-out;
+}
+
+.view .tools {
+    /*color: #fff;
+    text-align: center;
+    font-size: 17px;
+    padding: 3px;
+    background: rgba(0,0,0,.35);*/
+    margin: 0px 0 0;
+}
+.view-first:hover .mask {
+    z-index: 1;
+}
+
+.view .content, .view .mask {
+    width: 120px;
+    top: 0;
+    left:auto;
+    right: 0;
+}
+
+.view {
+    box-shadow: none;
+}

@@ -14,21 +14,15 @@
                   </div>
                   <div class="x_content">
 
-                  <div id="red_1">
-                      <div id="row_buttons_1" class="text-center row-buttons" style="display: none;padding-bottom: 15px;">
-                          <div class="btn-group btn-transparent" data-toggle="buttons">
-                            <label onClick="one_column_row(1)" class="btn btn-default">
-                              <input type="radio" name="options" id="row_option_one_1"> One Column
-                            </label>
-                            <label onClick="two_column_row(1)"class="btn btn-default active">
-                              <input type="radio" name="options" id="row_option_two_1"> Two Columns
-                            </label>
-                            <label onClick="three_column_row(1)" class="btn btn-default">
-                              <input type="radio" name="options" id="row_option_three_1"> Three Columns
-                            </label>
+                  <div id="red_1" class="view view-first">
+                          <div id="row_buttons_1" class="mask">
+                              <div class="tools tools-bottom">
+                                <a onClick="one_column_row(1)"><i class="fa fa-reorder"></i></a>
+                                <a onClick="two_column_row(1)"><i class="fa fa-th-large"></i></a>
+                                <a onClick="three_column_row(1)"><i class="fa fa-th"></i></a>
+                                <a onClick="delete_row(1)"><i class="fa fa-times"></i></a>
+                              </div>
                           </div>
-                          <a onClick="delete_row(1)" id="add_new_button" class="btn btn-default btn-transparent btn-round pull-right"><i class="fa fa-times"></i></a>
-                      </div>
 
                       <div id="rows_1">
                           <div id="row_1" class="col-md-6 col-sm-12 col-xs-12 form-group">
@@ -142,7 +136,7 @@ var row_count = 1;
       }
 );
   }
-  enable_buttons(1);
+  //enable_buttons(1);
 
   function add_new_element(item){
     row_count++;
@@ -183,21 +177,15 @@ var row_count = 1;
 
 function add_empty_row(id, item){
   var html = '';
-    html += '                  <div id="red_'+id+'">';
-    html += '                  <div id="row_buttons_'+id+'" class="text-center row-buttons" style="display: none;padding-bottom: 15px;">';
-    html += '                      <div class="btn-group btn-transparent" data-toggle="buttons">';
-    html += '                        <label onClick="one_column_row('+id+')" class="btn btn-default">';
-    html += '                          <input type="radio" name="options" id="option1"> One Column';
-    html += '                        </label>';
-    html += '                        <label onClick="two_column_row('+id+')" class="btn btn-default active">';
-    html += '                          <input type="radio" name="options" id="option2"> Two Columns';
-    html += '                        </label>';
-    html += '                        <label onClick="three_column_row('+id+')" class="btn btn-default">';
-    html += '                          <input type="radio" name="options" id="option3"> Three Columns';
-    html += '                        </label>';
+    html += '                  <div id="red_'+id+'" class="view view-first">';
+    html += '                          <div id="row_buttons_'+id+'" class="mask">';
+    html += '                          <div class="tools tools-bottom">';
+    html += '                            <a onClick="one_column_row('+id+')"><i class="fa fa-reorder"></i></a>';
+    html += '                            <a onClick="two_column_row('+id+')"><i class="fa fa-th-large"></i></a>';
+    html += '                            <a onClick="three_column_row('+id+')"><i class="fa fa-th"></i></a>';
+    html += '                            <a onClick="delete_row('+id+')"><i class="fa fa-times"></i></a>';
+    html += '                          </div>';
     html += '                      </div>';
-    html += '                      <a id="add_new_button" onClick="delete_row('+id+')" class="btn btn-default btn-transparent btn-round pull-right"><i class="fa fa-times"></i></a>';
-    html += '                  </div>';
     html += '                <div id="rows_'+id+'">';
     html += '                  <div id="row_1" class="col-md-12 col-sm-12 col-xs-12 form-group">';
     html += '                  <ul id="drop_zone_'+id+'" class="drag-n-drop-ul red_'+id+'_list">';
