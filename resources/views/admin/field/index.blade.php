@@ -28,14 +28,16 @@
                               <small>Created {{$field->created_at}}</small>
                             </td>
                             <td>
-                              {{$typeSelect[$field->type]}}
+                              {{/*$typeSelect[$field->type]*/$field->type}}
                             </td>
                             <td>
                               <li style="display: inline-block;">
                               <a href="{{ URL::to('admin/field/'.$field->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                                @component('component.delete-button', ['route' => 'field.destroy', 'id' => $field->id])
-                                  Delete
-                                @endcomponent
+                                @if($field->predefined == 0)
+                                  @component('component.delete-button', ['route' => 'field.destroy', 'id' => $field->id])
+                                    Delete
+                                  @endcomponent
+                                @endif
                               </li>
                             </td>
                           </tr>

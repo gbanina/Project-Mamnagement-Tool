@@ -7,6 +7,7 @@ Use Redirect;
 use App\Models\TaskType;
 use App\Models\TaskField;
 use App\Providers\Admin\TaskTypeServiceProvider;
+use App\Providers\Admin\TaskViewServiceProvider;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
@@ -17,11 +18,13 @@ use App\Http\Requests\StoreTaskType;
 class TaskTypeController extends BaseController {
 
     protected $service;
+    protected $viewService;
 
     public function __construct()
     {
         $this->middleware('admin_access');
-        $this->service = new TaskTypeServiceProvider();
+        $this->service      = new TaskTypeServiceProvider();
+        $this->viewService  = new TaskViewServiceProvider();
     }
 
     /**
@@ -42,9 +45,11 @@ class TaskTypeController extends BaseController {
     public function create()
     {
         $fields = $this->service->create();
+        $taskViews = $this->viewService->all()->pluck('name', 'id')->prepend('Choose type', '');
         return View::make('admin.task-type.create')
             ->with('taskFields', $fields['taskFields'])->with('hasTaskField', array())
-            ->with('projectTypes', $fields['projectTypes'])->with('hasProjectType', array());
+            ->with('projectTypes', $fields['projectTypes'])->with('hasProjectType', array())
+                ->with('taskViews', $taskViews);
     }
 
     /**
@@ -68,9 +73,11 @@ class TaskTypeController extends BaseController {
     public function edit($id)
     {
         $fields = $this->service->edit($id);
+        $taskViews = $this->viewService->all()->pluck('name', 'id')->prepend('Choose type', '');
         return View::make('admin.task-type.edit')->with('taskType', $fields['taskType'])
                     ->with('taskFields', $fields['taskFields'])->with('hasTaskField', $fields['taskType']->hasTaskField())
-                    ->with('projectTypes', $fields['projectTypes'])->with('hasProjectType', $fields['taskType']->hasProjectType());
+                        ->with('projectTypes', $fields['projectTypes'])->with('hasProjectType', $fields['taskType']->hasProjectType())
+                            ->with('taskViews', $taskViews);
     }
 
     /**

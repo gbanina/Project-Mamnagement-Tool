@@ -5,6 +5,7 @@ namespace App\Providers\Admin;
 use Auth;
 use App\Models\TaskType;
 use App\Models\TaskField;
+use App\Models\TaskTypeField;
 use Illuminate\Support\ServiceProvider;
 use App\Providers\Admin\ProjectTypeServiceProvider;
 use App\Providers\Admin\UserServiceProvider;
@@ -16,7 +17,7 @@ class TaskViewServiceProvider extends ServiceProvider
 
     public function all()
     {
-        return TaskType::all()->where('account_id', Auth::user()->current_acc);
+        return TaskType::all()->where('account_id', Auth::user()->current_acc)->where('type', 'TASK_VIEW');
     }
 
     public function create()
@@ -30,19 +31,21 @@ class TaskViewServiceProvider extends ServiceProvider
         */
     }
 
-    public function store($arg)
+    public function store($name/*, $arg*/)
     {
-        /*
+
         $taskType = new TaskType();
         $taskType->account_id = Auth::user()->current_acc;
-        $taskType->name = $arg['type-name'];
+        $taskType->name = $name;
+        $taskType->type = 'TASK_VIEW';
         $taskType->save();
-        if(isset($arg['task_field'])){
-            $taskType->updateTaskFields($arg['task_field']);
+
+        /*
+        if(isset($arg)){
+            $taskType->updateTaskFields($arg);
         }
-        if(isset($arg['project_type'])){
-            $taskType->updateProjectTypes($arg['project_type']);
-        }*/
+        */
+        return $taskType;
     }
 
     public function edit($id)
@@ -50,27 +53,76 @@ class TaskViewServiceProvider extends ServiceProvider
         $projectTypeService = new ProjectTypeServiceProvider();
         $userService = new UserServiceProvider();
         $result = array();
+        $fields = array();
+        $usedField = array();
 
         $result['taskType'] = TaskType::find($id);
-        $result['taskFields'] = TaskField::where('account_id', Auth::user()->current_acc)->get();
+
+        $result['taskTypeFields'] = TaskTypeField::where('task_type_id', $id)->get();
+        foreach($result['taskTypeFields'] as $field){
+            $fields[$field->row][$field->col][$field->index] = TaskField::find($field->task_field_id);
+            $usedField[] = $field->task_field_id;
+        }
+        $result['taskFields'] = TaskField::where('account_id', Auth::user()->current_acc)
+                                ->whereNotIn('id', $usedField)->get();
+
+        $result['fields'] = $fields;
         $result['projectTypes'] = $projectTypeService->all();
         $result['users'] = $userService->selectList();
+
+        $result['usersO']  = $userService->all();
+        $result['users']  = $userService->selectList();
+        $result['status']  = array('Choose status', '');
+        $result['priorities']  = array('Choose priority', '');
+        $result['types']  = array('Choose type', '');
 
         return $result;
     }
 
-    public function update($id, $args)
+    public function update($id, $args, $published)
     {
-        /*
         $taskType = TaskType::find($id);
-        $taskType->name = $args['type-name'];
+        $taskType->status = "IN_PROGRESS";
+        if($published == 'on')
+            $taskType->status = "PUBLISHED";
         $taskType->save();
-        if(isset($args['task_field'])){
-            $taskType->updateTaskFields($args['task_field']);
+
+        if(isset($args)){
+            $taskType->updateTaskFields($args);
         }
-        if(isset($args['project_type'])){
-            $taskType->updateProjectTypes($args['project_type']);
-        }*/
+    }
+
+    public function copy($sourceId, $destinationId)
+    {
+        $sourceType = TaskType::find($sourceId);
+        $destinationType = TaskType::find($destinationId);
+
+        TaskTypeField::where('task_type_id', $destinationType->id)->delete();
+
+        foreach(TaskTypeField::where('task_type_id', $sourceType->id)->get() as $field) {
+            $newField = $field->replicate();
+            $newField->task_type_id = $destinationType->id;
+            $newField->save();
+        }
+    }
+
+    public function duplicate($sourceId)
+    {
+        $sourceType = TaskType::find($sourceId);
+
+        $destinationType = new TaskType();
+        $destinationType->account_id = Auth::user()->current_acc;
+        $destinationType->name = 'Copy of ' . $sourceType->name;
+        $destinationType->type = 'TASK_VIEW';
+        $destinationType->save();
+
+        foreach(TaskTypeField::where('task_type_id', $sourceType->id)->get() as $field) {
+            $newField = $field->replicate();
+            $newField->task_type_id = $destinationType->id;
+            $newField->save();
+        }
+
+        return $destinationType;
     }
 
     public function destroy($id)

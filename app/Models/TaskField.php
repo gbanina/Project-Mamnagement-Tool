@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TaskField extends Model {
     use SoftDeletes;
+    protected   $fillable = ['type', 'predefined', 'label', 'account_id'];
 
     public function permission()
     {

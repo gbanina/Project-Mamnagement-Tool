@@ -20,6 +20,10 @@ ul.stats-overview li {
 .possible-list .possibly-hide{
     display: none;
 }
+.possibly-hide{
+    text-align: left;
+}
+
 
 .possible-list .col-sm-4 {
     width: 100%
@@ -62,4 +66,14 @@ ul.stats-overview li {
 
 .view {
     box-shadow: none;
+}
+
+.possible-list {
+    font-size: 12px;
+    line-height: 0.6;
+}
+
+.header-buttons {
+    padding-left: 15px;
+    display: inline;
 }

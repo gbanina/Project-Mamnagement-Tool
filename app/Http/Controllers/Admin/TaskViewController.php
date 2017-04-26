@@ -9,6 +9,8 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Providers\Admin\TaskViewServiceProvider;
+use Illuminate\Support\Facades\Log;
+use App\Providers\PredefinedDataServiceProvider;
 
 class TaskViewController extends BaseController {
 
@@ -26,6 +28,8 @@ class TaskViewController extends BaseController {
      */
     public function index()
     {
+        //$pre = new PredefinedDataServiceProvider();
+        //$pre->generateTaskFields();
         $view = View::make('admin.task-view.index')->with('taskTypes', $this->service->all());
         return $view;
     }
@@ -47,9 +51,20 @@ class TaskViewController extends BaseController {
      */
     public function store(Request $request)
     {
+        /*
+        Log::info('start request log ++++++++++++++++++++++++++++');
 
-        $request->session()->flash('alert-success', 'View was successful created!');
-        return Redirect::to('admin/view');
+        $array = Input::get('data');
+
+        foreach($array as $id=>$value){
+            Log::info('x - ' . $id . ' - ' . $value['row']);
+        }
+        Log::info('end request log ++++++++++++++++++++++++++++');
+        */
+
+        $taskType = $this->service->store( Input::get('view-name') );
+        $request->session()->flash('alert-success', 'View was successfuly created!');
+        return Redirect::to('admin/task-view/' . $taskType->id . '/edit');
     }
 
     /**
@@ -74,7 +89,13 @@ class TaskViewController extends BaseController {
         $fields = $this->service->edit($id);
         return View::make('admin.task-view.edit')
             ->with('taskType', $fields['taskType'])->with('taskFields', $fields['taskFields'])
-                ->with('users', $fields['users']);
+                ->with('users', $fields['users'])->with('taskTypeFields', $fields['taskTypeFields'])
+                    ->with('fields', $fields['fields'])->with('viewId', $id)
+                        ->with('usersO', $fields['usersO'])
+                            ->with('status', $fields['status'])
+                                ->with('priorities', $fields['priorities'])
+                                    ->with('types', $fields['types']);
+
     }
 
     /**
@@ -85,8 +106,20 @@ class TaskViewController extends BaseController {
      */
     public function update($id, Request $request)
     {
-        $request->session()->flash('alert-success', 'View was successful updated!');
-        return Redirect::to('admin/view');
+        $this->service->update($id, Input::get('data'), Input::get('published'));
+        return $request->all();
+    }
+
+    public function copy($sourceId, $destinationId)
+    {
+
+    }
+
+    public function duplicate($sourceId, Request $request)
+    {
+        $fields = $this->service->duplicate($sourceId);
+        $request->session()->flash('alert-success', 'View was successfuly duplicated!');
+        return Redirect::to('admin/task-view/');
     }
 
     /**

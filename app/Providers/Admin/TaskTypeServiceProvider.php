@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\TaskType;
 use App\Models\TaskField;
 use App\Providers\Admin\ProjectTypeServiceProvider;
+use App\Providers\Admin\TaskViewServiceProvider;
 
 class TaskTypeServiceProvider extends ServiceProvider
 {
@@ -15,8 +16,14 @@ class TaskTypeServiceProvider extends ServiceProvider
 
     public function all()
     {
-        return TaskType::all()->where('account_id', Auth::user()->current_acc);
+        return TaskType::all()->where('account_id', Auth::user()->current_acc)->where('type', 'TASK_TYPE');
     }
+
+    public function allViews()
+    {
+        return TaskType::all()->where('account_id', Auth::user()->current_acc)->where('type', 'TASK_VIEW');
+    }
+
 
     public function create()
     {
@@ -32,10 +39,17 @@ class TaskTypeServiceProvider extends ServiceProvider
         $taskType = new TaskType();
         $taskType->account_id = Auth::user()->current_acc;
         $taskType->name = $arg['type-name'];
+        $taskType->type = 'TASK_TYPE';
         $taskType->save();
-        if(isset($arg['task_field'])){
-            $taskType->updateTaskFields($arg['task_field']);
-        }
+
+        $viewService = new TaskViewServiceProvider();
+        $viewService->copy($arg['type_id'], $taskType->id);
+        // not using this anymore
+        //if(isset($arg['task_field'])){
+        //    $taskType->updateTaskFields($arg['task_field']);
+        //}
+
+
         if(isset($arg['project_type'])){
             $taskType->updateProjectTypes($arg['project_type']);
         }
@@ -55,12 +69,18 @@ class TaskTypeServiceProvider extends ServiceProvider
 
     public function update($id, $args)
     {
+        $viewService = new TaskViewServiceProvider();
+
         $taskType = TaskType::find($id);
         $taskType->name = $args['type-name'];
         $taskType->save();
+        /*
         if(isset($args['task_field'])){
             $taskType->updateTaskFields($args['task_field']);
         }
+        */
+        $viewService->copy($args['type_id'], $taskType->id);
+
         if(isset($args['project_type'])){
             $taskType->updateProjectTypes($args['project_type']);
         }

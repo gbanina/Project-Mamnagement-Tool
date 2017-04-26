@@ -27,9 +27,9 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('task', 'TaskController');
     Route::resource('users', 'UsersController');
 
-    Route::resource('type', 'Task\TypeController');
-    Route::resource('status', 'Task\StatusController');
-    Route::resource('prioritry', 'Task\PriorityController');
+    //Route::resource('type', 'Task\TypeController');
+    //Route::resource('status', 'Task\StatusController');
+    //Route::resource('prioritry', 'Task\PriorityController');
 
     Route::resource('help', 'HelpController');
     Route::resource('settings', 'SettingsController');
@@ -39,6 +39,9 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('admin/task-type', 'Admin\TaskTypeController');
     Route::resource('admin/project-type', 'Admin\ProjectTypeController');
     Route::resource('admin/task-view', 'Admin\TaskViewController');
+
+    Route::get('admin/task-view/copy/{cpSource}/{cpDestination}', 'Admin\TaskViewController@copy');
+    Route::get('admin/task-view/duplicate/{dpcId}', 'Admin\TaskViewController@duplicate');
 
     Route::resource('admin/status', 'Admin\StatusController');
     Route::resource('admin/priority', 'Admin\PriorityController');

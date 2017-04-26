@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\TaskTypeField;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Log;
 
 class TaskType extends Model {
     use SoftDeletes;
@@ -17,8 +18,21 @@ class TaskType extends Model {
             // ... then we add selected task types to project
 
             if($array != null){
-                foreach($array as $id){
-                    TaskTypeField::create(['task_type_id' => $this->id, 'task_field_id' => intval ($id)]);
+                foreach($array as $id=>$value){
+                    Log::info($value);
+                    $taskTypeField = new TaskTypeField;
+                    $taskTypeField->task_type_id = $this->id;
+                    $taskTypeField->task_field_id = $value['id'];;
+                    $taskTypeField->row = $value['row'];
+                    $taskTypeField->col = $value['col'];
+                    $taskTypeField->index = $value['index'];
+                    $taskTypeField->required = 0;//$value['required'];
+                    $taskTypeField->save();
+                    /*
+                    TaskTypeField::create(['task_type_id' => $this->id, 'task_field_id' => intval ($id),
+                        'row' => $value['row'], 'col' => $value['col'], 'index' => $value['index'],
+                            'required' => $value['required']]);
+                            */
                 }
             }
         //End Transactions
