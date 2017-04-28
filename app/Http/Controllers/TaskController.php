@@ -10,6 +10,8 @@ use App\User;
 use App\Models\Status;
 use App\Models\Priority;
 use App\Models\TaskType;
+use App\Models\TaskField;
+use App\Models\TaskTypeField;
 use App\Models\FieldRight;
 use App\Models\ProjectTaskType;
 use App\Models\Project;
@@ -164,17 +166,18 @@ class TaskController extends BaseController {
         $projectId = $task->getProjectAttribute()->id;
         $taskTypeId = $task->taskType()->first()->id;
 
-        foreach($task->taskType()->first()->fields()->get() as $field){
-            $att = TaskAttribute::where('task_id', $id)->where('task_field_id', $field->id)->first();
+        $taskTypeFields = TaskTypeField::where('task_type_id', $task->taskType()->first()->id);
+
+        foreach($taskTypeFields->get() as $taskTypeField){
+            $att = TaskAttribute::where('task_id', $id)->where('task_field_id', $taskTypeField->task_field_id)->first();
             $val = '';
             if($att != null) $val = $att->value;
-
             if(Auth::user()->isAdmin()){
                 $permission = 'DEL';
             }
             else{
                 $fr = FieldRight::where('role_id', $roleId)->where('project_id', $projectId)
-                    ->where('task_type_id', $taskTypeId)->where('task_field_id', $field->id);
+                    ->where('task_type_id', $taskTypeId)->where('task_field_id', $taskTypeField->task_field_id);
                 if($fr->first() == null){
                     $permission = 'NONE';
                 }else{
@@ -185,13 +188,16 @@ class TaskController extends BaseController {
             if($permission == 'NONE') continue;
             $disabled = '';
             if($permission == 'READ') $disabled = 'DISABLED';
-            $fields[$field->id] = array('type' => $field->type,
-                                            'label' => $field->label,
-                                                'value' => $val,
-                                                    'disabled' => $disabled,
-                                                        'permission' => $permission);
-
+            $field = TaskField::find($taskTypeField->task_field_id);
+            $fields[$taskTypeField->row][$taskTypeField->col][$taskTypeField->index] =
+                                        array('field' => $field,
+                                            'type' => $field->type, // Todo : ???
+                                                'label' => $field->label, // Todo : ???
+                                                    'value' => $val,
+                                                        'disabled' => $disabled,
+                                                            'permission' => $permission);
         }
+
         $global_css = '';
         if($task->permission == 'READ') $global_css = 'disabled';
         return View::make('task.edit')->with('projects',$projects)
@@ -223,17 +229,26 @@ class TaskController extends BaseController {
         }
 
         $task = Task::find($id);
-        if($task->permission != 'NONE' && $task->permission != 'READ'){
-            $task->name = Input::get('name');
-            $task->responsible_id = Input::get('responsible_id');
-            $task->status_id = Input::get('status_id');
-            $task->priority_id = Input::get('priority_id');
-            $task->description = Input::get('description');
-            $task->archived = 'NO';
 
-            $task->estimated_start_date = PMTypesHelper::dateToSQL(Input::get('estimated_start_date'));
-            $task->estimated_end_date = PMTypesHelper::dateToSQL(Input::get('estimated_end_date'));
-            $task->estimated_cost = Input::get('estimated_cost');
+        if($task->permission != 'NONE' && $task->permission != 'READ'){
+            if(Input::get('name') !== null)
+                $task->name = Input::get('name');
+            if(Input::get('responsible_id') !== null)
+                $task->responsible_id = Input::get('responsible_id');
+            if(Input::get('status_id') !== null)
+                $task->status_id = Input::get('status_id');
+            if(Input::get('priority_id') !== null)
+                $task->priority_id = Input::get('priority_id');
+            if(Input::get('description') !== null)
+                $task->description = Input::get('description');
+            // Todo ???
+                $task->archived = 'NO';
+            if(Input::get('estimated_start_date') !== null)
+                $task->estimated_start_date = PMTypesHelper::dateToSQL(Input::get('estimated_start_date'));
+            if(Input::get('estimated_end_date') !== null)
+                $task->estimated_end_date = PMTypesHelper::dateToSQL(Input::get('estimated_end_date'));
+            if(Input::get('estimated_cost') !== null)
+                $task->estimated_cost = Input::get('estimated_cost');
 
             $task->update();
             TaskAttribute::where('task_id', $task->id)->delete();

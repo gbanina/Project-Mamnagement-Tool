@@ -40,94 +40,52 @@
                 <h2><strong>{{$task->type}}</strong> in <strong><a href="{{ URL::to('project/'.$task->project->id.'/edit') }}">{{$task->project->name}}</a></strong> (Edit)</h2>
                 <div class="clearfix"></div>
               </div>
-
+              {!! Form::model($task, array('route' => array('task.update', $task->id), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}
               <div class="x_content">
-                <div class="row">
-                {!! Form::model($task, array('route' => array('task.update', $task->id), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}
-                  <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Name</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {!! Form::text('name', $task->name, array($global_css, 'required' => 'required', 'class' => 'form-control ','placeholder'=>'Task Name')) !!}
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Responsible</label>
-                          <div class="col-md-8 col-sm-8 col-xs-12">
-                            {{ Form::select('responsible_id', $users, '', array($global_css,'id' => 'responsible_id', 'class' => 'form-control', 'required')) }}
-                            <a id="add_responsible" class="btn btn-default">Add</a>
-                          </div>
-                        </div>
-                          <div class="form-group">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12"></label>
-                            <div class="col-md-8 col-sm-8 col-xs-12">
-                              <div id="responsible_container">
-                                @foreach($responsibles as $key=>$responsible)
-                                <div id="responsible_item_{{$responsible->user->id}}">
-                                  {{$responsible->user->name}} <a href="#" onClick="removeUser({{$responsible->user->id}})"><i class="fa fa-remove"></i></a>
-                                  {{ Form::hidden('responsible_user[' . $responsible->user->id. ']', $responsible->user->id) }}
-                                </div>
+
+              <!-- Generate custom form here -->
+
+                  <div class="x_content usable-fields">
+                    @foreach($fields as $rowId => $row)
+                      <div id="row_{{$rowId}}" class="view view-first">
+                        <div id="cols_{{$rowId}}">
+                          @foreach($row as $colId => $col)
+                            <div id="col_{{$colId}}_{{$rowId}}" class="col-md-{{(12 / count($row))}} col-sm-12 col-xs-12 form-group">
+                                @foreach($col as $field)
+                                      <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4 col-xs-12">{{$field['field']->label}}</label>
+                                        <div class="col-md-8 col-sm-8 col-xs-12 possibly-hide">
+                                          @component('component.additional-field-edit', ['task' => $task,
+                                                                                    'field' => $field,
+                                                                                    'id' => $field['field']->id,
+                                                                                    'global_css' => '',
+                                                                                    'users' => $users,
+                                                                                    'usersO' => $usersO,
+                                                                                    'status' => $status,
+                                                                                    'priorities' => $priorities,
+                                                                                    'types' => $types,
+                                                                                    'responsibles' => $responsibles])
+                                          @endcomponent
+                                        </div>
+                                      </div>
                                 @endforeach
-                              </div>
                             </div>
-                          </div>
-
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Status</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('status_id', $status, $task->status_id, array($global_css, 'class' => 'form-control', 'required')) }}
-                        </div>
-
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Priority</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('priority_id', $priorities, $task->priority_id, array($global_css, 'class' => 'form-control', 'required')) }}
+                          @endforeach
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Description</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::textarea('description', $task->description, [$global_css, 'rows'=> '8', 'class' => 'resizable_textarea form-control']) }}
-                        </div>
-                      </div>
-                      <div class="col-md-8 col-sm-8 col-xs-12">
-                        <label class="control-label col-md-6 col-sm-6 col-xs-12"></label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                    @endforeach
+                    <div class="col-md-8 col-sm-8 col-xs-12">
                           <a href="{{ URL::to('project/'.$task->project_id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
                           {!! Form::submit('Submit', array($global_css, 'class' => 'btn btn-success')) !!}
-                        </div>
-                      </div>
+                    </div>
                   </div>
 
-                  <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated Start Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                            {!! Form::text('estimated_start_date', $task->estimatedStartDate, array($global_css, 'class' => 'form-control has-feedback-left datepicket_component')) !!}
-                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
 
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated End Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {!! Form::text('estimated_end_date', $task->estimatedEndDate, array($global_css, 'class' => 'form-control has-feedback-left datepicket_component')) !!}
-                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated Cost</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {!! Form::number('estimated_cost', $task->estimated_cost, array( $global_css, 'class' => 'form-control ')) !!}
-                        </div>
-                      </div>
-                      @include('task.additional-fields')
-                  </div>
-                {!! Form::close() !!}
+              <!-- Generate custom form here -->
 
-                </div>
+
               </div>
+              {!! Form::close() !!}
             </div>
           </div>
           <div class="col-md-6 col-sm-12 col-xs-12 form-group">

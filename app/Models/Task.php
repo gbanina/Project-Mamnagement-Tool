@@ -88,4 +88,8 @@ class Task extends Model {
     {
         return $this->hasMany('App\Models\Work');
     }
+    public function responsibles()
+    {
+        return $this->belongsToMany('App\Models\UserTask', 'task_id')->get()->toArray();//UserTask::where('task_id', $this->id);
+    }
 }

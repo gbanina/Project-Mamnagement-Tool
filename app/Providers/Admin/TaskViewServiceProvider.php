@@ -48,16 +48,11 @@ class TaskViewServiceProvider extends ServiceProvider
         return $taskType;
     }
 
-    public function edit($id)
+    public function taskTypeFields($id)
     {
-        $projectTypeService = new ProjectTypeServiceProvider();
-        $userService = new UserServiceProvider();
         $result = array();
         $fields = array();
         $usedField = array();
-
-        $result['taskType'] = TaskType::find($id);
-
         $result['taskTypeFields'] = TaskTypeField::where('task_type_id', $id)->get();
         foreach($result['taskTypeFields'] as $field){
             $fields[$field->row][$field->col][$field->index] = TaskField::find($field->task_field_id);
@@ -65,8 +60,24 @@ class TaskViewServiceProvider extends ServiceProvider
         }
         $result['taskFields'] = TaskField::where('account_id', Auth::user()->current_acc)
                                 ->whereNotIn('id', $usedField)->get();
-
         $result['fields'] = $fields;
+
+        return $result;
+    }
+
+    public function edit($id)
+    {
+        $projectTypeService = new ProjectTypeServiceProvider();
+        $userService = new UserServiceProvider();
+        $result = array();
+
+        $result['taskType'] = TaskType::find($id);
+        $taskTypeFields = $this->taskTypeFields($id);
+
+        $result['taskTypeFields'] = $taskTypeFields['taskTypeFields'];
+        $result['taskFields'] = $taskTypeFields['taskFields'];
+        $result['fields'] = $taskTypeFields['fields'];
+
         $result['projectTypes'] = $projectTypeService->all();
         $result['users'] = $userService->selectList();
 
