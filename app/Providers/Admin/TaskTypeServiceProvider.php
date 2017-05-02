@@ -69,7 +69,7 @@ class TaskTypeServiceProvider extends ServiceProvider
 
         $taskType = TaskType::find($id);
         $taskType->name = $args['type-name'];
-        $taskType->parent = $arg['type-view'];
+        $taskType->parent = $args['type-view'];
         $taskType->save();
 
         $viewService->copy($args['type-view'], $taskType->id);
