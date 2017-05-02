@@ -21,13 +21,13 @@
                 {{ Form::select('additional[' . $id . ']', $users, $field['value'], array($global_css, $field['disabled'], 'class' => 'form-control')) }}
 
             <!-- default elements -->
-            @elseif($field['type'] === 'TYPE')
-                {{ Form::select('type_id', $types, '', array('class' => 'form-control', 'required')) }}
-            @elseif($field['type'] === 'NAME')
+             @elseif($field['type'] === 'NAME')
                 {!! Form::text('name', $field['value'], array('required' => 'required', 'class' => 'form-control ','placeholder'=>'Name')) !!}
             @elseif($field['type'] === 'RESPONSIBLE')
                 {{ Form::select('responsible_id', $users, '', array('id' => 'responsible_id', 'class' => 'form-control', 'required')) }}
-                <a id="add_responsible" class="btn btn-default">Add</a>
+                    <a id="add_responsible" class="btn btn-default">Add</a>
+                              <div id="responsible_container">
+                              </div>
                     <script>
                         var resp = [];
                     @foreach($usersO as $user)

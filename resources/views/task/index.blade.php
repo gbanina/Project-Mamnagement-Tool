@@ -96,7 +96,7 @@
         chainge_project_overview_add(this.value);
       });
       function chainge_project_overview_add(id){
-        if(id != 0 && id =! '0')
+        if(id != 0 && id != '0')
           $('#add_new_button').attr('href','{{ URL::to('task\/create') }}' + '?p=' + id);
       }
       $( document ).ready(function() {

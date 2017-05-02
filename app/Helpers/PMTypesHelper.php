@@ -7,7 +7,10 @@ class PMTypesHelper{
 
     public static function dateToSQL($date){
         $arr = explode('/', $date);
-        return $arr[2] . '-' . $arr[0] . '-' . $arr[1];
+        $result = NULL;
+        if($arr != '' && $arr != null && count ($arr) > 2)
+            $result = $arr[2] . '-' . $arr[0] . '-' . $arr[1];
+        return $result;
     }
 
     public static function dateToHuman($date){

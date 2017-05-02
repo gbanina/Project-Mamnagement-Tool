@@ -26,7 +26,9 @@ class TaskType extends Model {
                     $taskTypeField->row = $value['row'];
                     $taskTypeField->col = $value['col'];
                     $taskTypeField->index = $value['index'];
-                    $taskTypeField->required = 0;//$value['required'];
+                    $taskTypeField->required = 0;
+                    if($value['required'] == 'true')
+                        $taskTypeField->required = 1;
                     $taskTypeField->save();
                     /*
                     TaskTypeField::create(['task_type_id' => $this->id, 'task_field_id' => intval ($id),

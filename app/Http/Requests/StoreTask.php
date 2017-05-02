@@ -25,12 +25,12 @@ class StoreTask extends FormRequest
     {
         return [
             'project_id' => 'required',
-            'name' => 'required',
+            //'name' => 'required',
             'type_id' => 'required',
-            'responsible_id' => 'required',
-            'status_id' => 'required',
-            'priority_id' => 'required',
-            'estimated_start_date' => 'before_or_equal:estimated_end_date',
+            //'responsible_id' => 'required',
+            //'status_id' => 'required',
+            //'priority_id' => 'required',
+            //'estimated_start_date' => 'before_or_equal:estimated_end_date',
         ];
     }
 }

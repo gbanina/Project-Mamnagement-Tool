@@ -7,104 +7,65 @@
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
+
               <div class="x_title">
-                <h2>Add New Task to <strong>{{$projectName}}</strong></h2>
+
+                  <div class="header-buttons">
+                  <h2>Add New Task to <strong>{{$projectName}}</strong>
+                      {{ Form::select('type_id', $types, $typeId, array('id' => 'type_id', 'style' => 'display:inline;width: 200px;','class' => 'form-control')) }}
+                      </h2>
+                  </div>
+
                 <div class="clearfix"></div>
               </div>
+             {!! Form::open(array('url' => 'task', 'class' => 'form-horizontal form-label-left')) !!}
+
               <div class="x_content">
-                <div class="row">
-                {!! Form::open(array('url' => 'task', 'class' => 'form-horizontal form-label-left')) !!}
-                  <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                  {{ Form::hidden('project_id', $projectId) }}
-                  <!--
-                    <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Project</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('project_id', $projects, $projectId, array('disabled', 'class' => 'form-control' , 'required')) }}
-                          {{ Form::hidden('project_id', $projectId) }}
-                        </div>
-                      </div>
-                      -->
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Type</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('type_id', $types, '', array('class' => 'form-control', 'required')) }}
-                        </div>
-                      </div>
 
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Name</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {!! Form::text('name', '', array('required' => 'required', 'class' => 'form-control ','placeholder'=>'Name')) !!}
-                        </div>
-                      </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Responsible</label>
-                          <div class="col-md-8 col-sm-8 col-xs-12">
-                            {{ Form::select('responsible_id', $users, '', array('id' => 'responsible_id', 'class' => 'form-control', 'required')) }}
-                            <a id="add_responsible" class="btn btn-default">Add</a>
-                          </div>
-                        </div>
-                          <div class="form-group">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12"></label>
-                            <div class="col-md-8 col-sm-8 col-xs-12">
-                              <div id="responsible_container">
+              <!-- Generate custom form here -->
 
-                              </div>
+                  <div class="x_content usable-fields">
+                    @foreach($fields as $rowId => $row)
+                      <div id="row_{{$rowId}}" class="view view-first">
+                        <div id="cols_{{$rowId}}">
+                          @foreach($row as $colId => $col)
+                            <div id="col_{{$colId}}_{{$rowId}}" class="col-md-{{(12 / count($row))}} col-sm-12 col-xs-12 form-group">
+                                @foreach($col as $field)
+                                      <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4 col-xs-12">{{$field['field']->label}}</label>
+                                        <div class="col-md-8 col-sm-8 col-xs-12 possibly-hide">
+                                       {{ Form::hidden('project_id', $projectId) }}
+                                       {{ Form::hidden('type_id', $typeId) }}
+                                          @component('component.additional-field', [
+                                                                                    'field' => $field,
+                                                                                    'id' => $field['field']->id,
+                                                                                    'global_css' => '',
+                                                                                    'users' => $users,
+                                                                                    'usersO' => $usersO,
+                                                                                    'status' => $status,
+                                                                                    'priorities' => $priorities,
+                                                                                    'types' => $types])
+                                          @endcomponent
+                                        </div>
+                                      </div>
+                                @endforeach
                             </div>
-                          </div>
-
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Status</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('status_id', $status, null, array('class' => 'form-control', 'required')) }}
+                          @endforeach
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Priority</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::select('priority_id', $priorities, null, array('class' => 'form-control', 'required')) }}
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Description</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {{ Form::textarea('description', null, ['rows'=> '8', 'class' => 'resizable_textarea form-control']) }}
-                        </div>
-                      </div>
+                    @endforeach
+                    <div class="col-md-8 col-sm-8 col-xs-12">
+                          <a href="{{ URL::to('project/'. $projectId.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
+                          {!! Form::submit('Submit', array($global_css, 'class' => 'btn btn-success')) !!}
+                    </div>
                   </div>
 
-                  <div class="col-md-6 col-sm-12 col-xs-12 form-group">
 
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated Start Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                            {!! Form::text('estimated_start_date', '', array('id' => 'single_cal3', 'class' => 'form-control has-feedback-left')) !!}
-                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                            <span id="inputSuccess2Status2" class="sr-only">(success)</span>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated End Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {!! Form::text('estimated_end_date', '', array('id' => 'single_cal4', 'class' => 'form-control has-feedback-left')) !!}
-                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                            <span id="inputSuccess2Status3" class="sr-only">(success)</span>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Estimated Cost</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                          {!! Form::number('estimated_cost', '', array( 'class' => 'form-control ')) !!}
-                        </div>
-                      </div>
-                  </div>
-                  <div class="clearfix"></div>
-                  {!! Form::submit('Submit', array('class' => 'btn btn-success')) !!}
-                  {!! Form::close() !!}
-                </div>
+              <!-- Generate custom form here -->
+
 
               </div>
+              {!! Form::close() !!}
             </div>
               </div>
 
@@ -117,24 +78,11 @@
     <script src="{{ URL::to('js/moment.min.js') }}"></script>
     <script src="{{ URL::to('js/daterangepicker.js') }}"></script>
     <script>
-    var resp = [];
-@foreach($usersO as $user)
-      resp[{{$user->id}}] = '{{$user->name}}';
-    @endforeach
-      $( "#add_responsible" ).click(function() {
-         var id = $('#responsible_id').val();
-         if ( $( '#responsible_item_'+id ).length == '0') {
-            var str = '<div id="responsible_item_'+id+'">';
-             str += resp[id] + '<i class="fa fa-remove"></i>';
-             str +=  '<input name="responsible_user['+id+']" type="hidden" value="'+id+'">';
-             str += '</div>';
-             $( "#responsible_container" ).append( str );
-         }else{
-          alert('User already in the list!');
-         }
+
+    $( document ).ready(function() {
+        $( "#type_id" ).change(function() {
+          window.location.href = "{{ URL::to('task/create?p='.$projectId) }}\&type_id=" + $( "#type_id" ).val();
         });
-      function removeUser(id){
-        $( '#responsible_item_'+id ).remove();
-      }
+    });
     </script>
 @endsection

@@ -21,8 +21,7 @@
                 {{ Form::select('additional[' . $id . ']', $users, $field['value'], array($global_css, $field['disabled'], 'class' => 'form-control')) }}
 
             <!-- default elements -->
-            @elseif($field['type'] === 'TYPE')
-                {{ Form::select('type_id', $types, $task->task_type_id, array('class' => 'form-control', 'required')) }}
+
             @elseif($field['type'] === 'NAME')
                 {!! Form::text('name', $task->name, array('required' => 'required', 'class' => 'form-control ','placeholder'=>'Name')) !!}
             @elseif($field['type'] === 'RESPONSIBLE')

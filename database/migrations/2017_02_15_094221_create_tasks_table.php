@@ -50,12 +50,12 @@ class CreateTasksTable extends Migration
                 ->references('id')->on('task_types')
                 ->onDelete('no action')
                 ->onUpdate('no action');
-
+            /*
             $table->foreign('responsible_id', 'fk_tasks_users1_idx')
                 ->references('id')->on('users')
                 ->onDelete('no action')
                 ->onUpdate('no action');
-        });
+        });*/
     }
 
     /**

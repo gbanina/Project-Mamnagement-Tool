@@ -56,12 +56,12 @@
                             <div id="col_{{$colId}}_{{$rowId}}" class="col-md-{{(12 / count($row))}} col-sm-12 col-xs-12 form-group">
                               <ul id="drop_zone_{{$colId}}_{{$rowId}}" class="drag-n-drop-ul row_{{$rowId}}_list">
                                 @foreach($col as $field)
-                                    <li id="list-element-{{$field->id}}">
+                                    <li id="list-element-{{$field['field']->id}}">
                                       <div class="form-group">
-                                        <label class="control-label col-md-4 col-sm-4 col-xs-12">{{$field->label}}</label>
+                                        <label class="control-label col-md-4 col-sm-4 col-xs-12">{{$field['field']->label}}</label>
                                         <div class="col-md-8 col-sm-8 col-xs-12 possibly-hide">
-                                          @component('component.additional-field', ['field' => $field,
-                                                                                    'id' => $field->id,
+                                          @component('component.additional-field', ['field' => $field['field'],
+                                                                                    'id' => $field['field']->id,
                                                                                     'global_css' => '',
                                                                                     'users' => $users,
                                                                                     'usersO' => $usersO,
@@ -71,7 +71,7 @@
                                           @endcomponent
                                           <div class="checkbox">
                                             <label>
-                                              <input type="checkbox" value="" class="additional-field-value-container" name="{{$field->id}}"> Required?
+                                              <input type="checkbox" <?php if($field['typeField']->required != 0) echo ' checked '; ?> class="additional-field-value-container" name="{{$field['field']->id}}"> Required?
                                             </label>
                                           </div>
                                         </div>

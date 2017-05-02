@@ -55,7 +55,8 @@ class TaskViewServiceProvider extends ServiceProvider
         $usedField = array();
         $result['taskTypeFields'] = TaskTypeField::where('task_type_id', $id)->get();
         foreach($result['taskTypeFields'] as $field){
-            $fields[$field->row][$field->col][$field->index] = TaskField::find($field->task_field_id);
+            $fields[$field->row][$field->col][$field->index]
+                = array('field' => TaskField::find($field->task_field_id), 'typeField' => $field);
             $usedField[] = $field->task_field_id;
         }
         $result['taskFields'] = TaskField::where('account_id', Auth::user()->current_acc)
