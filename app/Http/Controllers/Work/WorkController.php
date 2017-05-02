@@ -27,7 +27,7 @@ class WorkController extends BaseController {
         $work = Work::where('account_id', Auth::user()->current_acc)
                         ->where('user_id', Auth::user()->id)->where('created_at', '>', date('Y-m-d 00:00:00',strtotime('last monday')));
         $tasks = Task::where('account_id', Auth::user()
-                        ->current_acc)->where('responsible_id', Auth::user()->id)
+                        ->current_acc)->where('created_by', Auth::user()->id) // todo : created_by zamjeniti s responsible tablicom!!!
                             ->pluck('name', 'id')->prepend('Choose task', '');
 
         /* If you try to edit work from work.index, return to it */
