@@ -91,12 +91,13 @@ class TaskViewServiceProvider extends ServiceProvider
         return $result;
     }
 
-    public function update($id, $args, $published)
+    public function update($id, $args, $name, $published)
     {
         $taskType = TaskType::find($id);
         $taskType->status = "IN_PROGRESS";
         if($published == 'on')
             $taskType->status = "PUBLISHED";
+        $taskType->name = $name;
         $taskType->save();
 
         if(isset($args)){

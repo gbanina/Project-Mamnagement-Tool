@@ -12,8 +12,9 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>
-                      Edit <strong>{{$taskType->name}}</strong> View
-                      <small>Admin</small>
+                      Edit <strong>
+                        {!! Form::text('view_name', $taskType->name, array('id' => 'view_name','class' => 'form-control editable-title')) !!}
+                      </strong>
                       <div class="header-buttons">
                         <a onClick="saveForm()" class="btn btn-default btn-sm" type="button">Save</a>
                         <a href="{{ URL::to('admin/task-view')}}" class="btn btn-primary btn-sm" type="button">Cancel</a>
@@ -164,6 +165,10 @@ function saveForm()
           });
       }
     }
+
+    //if($("#form_published").val() == 'on')
+      //$('#form_published').attr("disabled", true);
+
     console.log(result);
     $.ajax({
             headers: {
@@ -172,10 +177,14 @@ function saveForm()
             type: "PUT", //POST
             //url: "{{ URL::to('admin/task-view')}}", // ide na store metodu
             url: "{{ URL::to('admin/task-view/'. $viewId)}}", // ide na update metodu
-            data: {data: result, published: $("#form_published").val()},
+            data: {data: result, view_name: $("#view_name").val(), published: $("#form_published").val()},
             success: function( msg ) {
-                //$("#ajaxResponse").append("<div>"+msg+"</div>");
-                console.log( msg );
+              new PNotify({
+                  title: 'Success',
+                  text: 'Your view has been saved successfully!',
+                  type: 'alert-success',
+                  styling: 'bootstrap3'
+              });
             }
 
         });

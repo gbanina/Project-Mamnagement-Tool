@@ -23,9 +23,9 @@
             <!-- default elements -->
 
             @elseif($field['type'] === 'NAME')
-                {!! Form::text('name', $task->name, array('required' => 'required', 'class' => 'form-control ','placeholder'=>'Name')) !!}
+                {!! Form::text('name', $task->name, array('required' => 'required', $field['disabled'],'class' => 'form-control ','placeholder'=>'Name')) !!}
             @elseif($field['type'] === 'RESPONSIBLE')
-                {{ Form::select('responsible_id', $users, '', array('id' => 'responsible_id', 'class' => 'form-control', 'required')) }}
+                {{ Form::select('responsible_id', $users, '', array('id' => 'responsible_id', $field['disabled'],'class' => 'form-control', 'required')) }}
                 <a id="add_responsible" class="btn btn-default">Add</a>
                               <div id="responsible_container">
 
@@ -60,19 +60,19 @@
                           }
                         </script>
            @elseif($field['type'] === 'STATUS')
-                {{ Form::select('status_id', $status, $task->status_id, array('class' => 'form-control', 'required')) }}
+                {{ Form::select('status_id', $status, $task->status_id, array($field['disabled'],'class' => 'form-control', 'required')) }}
            @elseif($field['type'] === 'PRIORITY')
-                {{ Form::select('priority_id', $priorities, $task->priority_id, array('class' => 'form-control', 'required')) }}
+                {{ Form::select('priority_id', $priorities, $task->priority_id, array($field['disabled'],'class' => 'form-control', 'required')) }}
            @elseif($field['type'] === 'ESTIMATED_START_DATE')
-                {!! Form::text('estimated_start_date', $task->estimatedStartDate, array('id' => 'single_cal3', 'class' => 'form-control has-feedback-left')) !!}
+                {!! Form::text('estimated_start_date', $task->estimatedStartDate, array($field['disabled'],'id' => 'single_cal3', 'class' => 'form-control has-feedback-left')) !!}
                 <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                 <span id="inputSuccess2Status2" class="sr-only">(success)</span>
             @elseif($field['type'] === 'ESTIMATED_END_DATE')
-                    {!! Form::text('estimated_end_date', $task->estimatedEndDate, array('id' => 'single_cal4', 'class' => 'form-control has-feedback-left')) !!}
+                    {!! Form::text('estimated_end_date', $task->estimatedEndDate, array($field['disabled'], 'id' => 'single_cal4', 'class' => 'form-control has-feedback-left')) !!}
                     <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                     <span id="inputSuccess2Status3" class="sr-only">(success)</span>
             @elseif($field['type'] === 'ESTIMATED_COST')
-                {!! Form::number('estimated_cost', $task->estimated_cost, array( 'class' => 'form-control ')) !!}
+                {!! Form::number('estimated_cost', $task->estimated_cost, array($field['disabled'], 'class' => 'form-control ')) !!}
             @else
                 Error reading data!!!
             @endif

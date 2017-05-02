@@ -81,3 +81,19 @@ ul.stats-overview li {
 #responsible_container{
     padding: 12px
 }
+
+.editable-title{
+    display:inline;
+    width: 200px;
+    border: none;
+    box-shadow: none;
+    font-size: 18px;
+    font-weight: 400;
+    color: #73879C;
+    padding: 0px;
+    font-weight: 600;
+}
+
+.editable-title:focus {
+    background-color: rgba(115, 135, 156, 0.15);
+}

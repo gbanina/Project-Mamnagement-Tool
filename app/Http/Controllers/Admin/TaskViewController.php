@@ -106,7 +106,7 @@ class TaskViewController extends BaseController {
      */
     public function update($id, Request $request)
     {
-        $this->service->update($id, Input::get('data'), Input::get('published'));
+        $this->service->update($id, Input::get('data'), Input::get('view_name'), Input::get('published'));
         return $request->all();
     }
 

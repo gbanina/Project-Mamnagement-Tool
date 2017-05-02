@@ -38,17 +38,13 @@ class TaskTypeServiceProvider extends ServiceProvider
     {
         $taskType = new TaskType();
         $taskType->account_id = Auth::user()->current_acc;
+        $taskType->parent = $arg['type-view'];
         $taskType->name = $arg['type-name'];
         $taskType->type = 'TASK_TYPE';
         $taskType->save();
 
         $viewService = new TaskViewServiceProvider();
-        $viewService->copy($arg['type_id'], $taskType->id);
-        // not using this anymore
-        //if(isset($arg['task_field'])){
-        //    $taskType->updateTaskFields($arg['task_field']);
-        //}
-
+        $viewService->copy($arg['type-view'], $taskType->id);
 
         if(isset($arg['project_type'])){
             $taskType->updateProjectTypes($arg['project_type']);
@@ -73,13 +69,10 @@ class TaskTypeServiceProvider extends ServiceProvider
 
         $taskType = TaskType::find($id);
         $taskType->name = $args['type-name'];
+        $taskType->parent = $arg['type-view'];
         $taskType->save();
-        /*
-        if(isset($args['task_field'])){
-            $taskType->updateTaskFields($args['task_field']);
-        }
-        */
-        $viewService->copy($args['type_id'], $taskType->id);
+
+        $viewService->copy($args['type-view'], $taskType->id);
 
         if(isset($args['project_type'])){
             $taskType->updateProjectTypes($args['project_type']);
