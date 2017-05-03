@@ -80,4 +80,9 @@ class User extends Authenticatable
         $this->current_acc = $acc;
         $this->update();
     }
+
+    public function myTasks()
+    {
+        return $this->belongsToMany('App\Models\Task', 'user_tasks');
+    }
 }
