@@ -19,6 +19,10 @@ class TaskViewServiceProvider extends ServiceProvider
     {
         return TaskType::all()->where('account_id', Auth::user()->current_acc)->where('type', 'TASK_VIEW');
     }
+    public function published()
+    {
+        return TaskType::all()->where('account_id', Auth::user()->current_acc)->where('type', 'TASK_VIEW')->where('status', 'PUBLISHED');
+    }
 
     public function create()
     {
