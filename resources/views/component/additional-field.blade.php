@@ -28,10 +28,12 @@
                     <a id="add_responsible" class="btn btn-default">Add</a>
                               <div id="responsible_container">
                               </div>
+
+
                     <script>
                         var resp = [];
                     @foreach($usersO as $user)
-                          resp[{{$user->id}}] = '{{$user->name}}';
+                          resp[{{$user->user->id}}] = '{{$user->user->name}}';
                         @endforeach
                           $( "#add_responsible" ).click(function() {
                              var id = $('#responsible_id').val();

@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Helpers\PMTypesHelper;
 use Illuminate\Http\Request;
 use App\Providers\TaskServiceProvider;
+use App\Providers\Admin\UserServiceProvider;
 
 class TaskController extends BaseController {
 
@@ -58,6 +59,7 @@ class TaskController extends BaseController {
      */
     public function create(Request $request)
     {
+        $userService = new UserServiceProvider;
         $fields = array();
         $projectId = $request->input('p');
         $typeId = $request->input('type_id');
@@ -65,7 +67,7 @@ class TaskController extends BaseController {
         $projectName = $project->name;
         if($project->getPermissionAttribute() != 'NONE' && $project->getPermissionAttribute() != 'READ'){
             $projects = Project::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose project', '');
-            $usersO = UserAccounts::where('account_id', Auth::user()->current_acc)->get();
+            $usersO = $userService->all();//UserAccounts::where('account_id', Auth::user()->current_acc)->get();
             $users = UserAccounts::where('account_id', Auth::user()->current_acc)
                             ->with('user')->get()->pluck('user.name', 'user_id');
             $status = Status::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose status', '');
@@ -191,11 +193,13 @@ class TaskController extends BaseController {
      */
     public function edit($id, Request $request)
     {
+         $userService = new UserServiceProvider;
         // if dont have view rights deny!!!
         $projects = Project::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose project', '');
         //filtriraj po accountu
-        $users = User::all()->pluck('name', 'id');
-        $usersO = User::all();
+        $users = UserAccounts::where('account_id', Auth::user()->current_acc)
+                            ->with('user')->get()->pluck('user.name', 'user_id');
+        $usersO = $userService->all();
         $status = Status::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose status', '');
         $priorities = Priority::all()->where('account_id', Auth::user()->current_acc)->pluck('label', 'id')->prepend('Choose priority', '');
         $types = TaskType::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose type', '');

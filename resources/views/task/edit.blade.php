@@ -103,25 +103,4 @@
 @section('js_include')
     <script src="{{ URL::to('js/moment.min.js') }}"></script>
     <script src="{{ URL::to('js/daterangepicker.js') }}"></script>
-    <script>
-    var resp = [];
-@foreach($usersO as $user)
-      resp[{{$user->id}}] = '{{$user->name}}';
-    @endforeach
-      $( "#add_responsible" ).click(function() {
-         var id = $('#responsible_id').val();
-         if ( $( '#responsible_item_'+id ).length == '0') {
-            var str = '<div id="responsible_item_'+id+'">';
-             str += resp[id] + '<i class="fa fa-remove"></i>';
-             str +=  '<input name="responsible_user['+id+']" type="hidden" value="'+id+'">';
-             str += '</div>';
-             $( "#responsible_container" ).append( str );
-         }else{
-          alert('User already in the list!');
-         }
-        });
-      function removeUser(id){
-        $( '#responsible_item_'+id ).remove();
-      }
-    </script>
 @endsection

@@ -40,11 +40,11 @@
                     <script>
                         var resp = [];
                     @foreach($usersO as $user)
-                          resp[{{$user->id}}] = '{{$user->name}}';
+                          resp[{{$user->user->id}}] = '{{$user->user->name}}';
                         @endforeach
                           $( "#add_responsible" ).click(function() {
                              var id = $('#responsible_id').val();
-                             alert($( '#responsible_item_'+id ).length == '0');
+                             //alert(id);
                              if ( $( '#responsible_item_'+id ).length == '0' || $( '#responsible_item_'+id ).length == 0) {
                                 var str = '<div id="responsible_item_'+id+'">';
                                  str += resp[id] + '<i class="fa fa-remove"></i>';
