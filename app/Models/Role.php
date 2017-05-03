@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model {
     use SoftDeletes;
+    protected   $fillable = ['account_id', 'name'];
 
     // Todo ne valja logika, tu fali project_id !!!
     public function getProjectRightAttribute($project)

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserAccounts extends Model {
     public $timestamps = false;
-
+    protected   $fillable = ['user_id', 'account_id', 'role_id', 'type'];
     public function user()
     {
         return $this->belongsTo('App\User');

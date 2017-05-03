@@ -14,6 +14,8 @@ use App\Models\UserTask;
 
 class Project extends Model {
     use SoftDeletes;
+    protected   $fillable = ['account_id', 'internal_id', 'project_type_id',
+                                'created_by', 'name', 'default_responsible'];
 
     public function getTypeAttribute()
     {

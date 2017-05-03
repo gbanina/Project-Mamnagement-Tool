@@ -7,6 +7,7 @@ use App\Models\UserAccounts;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Providers\PredefinedDataServiceProvider;
 
 class RegisterController extends Controller
 {
@@ -63,17 +64,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $acc = new UserAccounts;
-
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
 
-        $acc->user_id = $user->id;
-        $acc->account_id = 1;
-        $acc->save();
+        $populateDataService = new PredefinedDataServiceProvider($user->id, $user->name);
 
         return $user;
     }

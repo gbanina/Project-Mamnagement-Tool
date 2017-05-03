@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class TaskType extends Model {
     use SoftDeletes;
+    protected   $fillable = ['account_id', 'status', 'type', 'name', 'parent'];
 
     // Move to Service provider?
     public function updateTaskFields($array){

@@ -15,6 +15,7 @@ use App\Models\TaskTypeField;
 use App\Models\FieldRight;
 use App\Models\ProjectTaskType;
 use App\Models\Project;
+use App\Models\UserAccounts;
 use App\Models\Task;
 use App\Models\TaskAttribute;
 use App\Models\Dashboard;
@@ -64,8 +65,9 @@ class TaskController extends BaseController {
         $projectName = $project->name;
         if($project->getPermissionAttribute() != 'NONE' && $project->getPermissionAttribute() != 'READ'){
             $projects = Project::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose project', '');
-            $usersO = User::all();
-            $users = User::all()->pluck('name', 'id')->prepend('Choose user', '');
+            $usersO = UserAccounts::where('account_id', Auth::user()->current_acc)->get();
+            $users = UserAccounts::where('account_id', Auth::user()->current_acc)
+                            ->with('user')->get()->pluck('user.name', 'user_id');
             $status = Status::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose status', '');
             $priorities = Priority::all()->where('account_id', Auth::user()->current_acc)->pluck('label', 'id')->prepend('Choose priority', '');
             $types = $project->projectType->posibleTaskTypes()->pluck('name', 'id')->prepend('Choose type', '');
@@ -203,9 +205,7 @@ class TaskController extends BaseController {
         $comments = Comment::where('entity_id', $id)->where('entity_type', 'TASK')->orderBy('id', 'desc')->get();
 
         /* Required for work table */
-        $tasks = Task::where('account_id', Auth::user() // Todo : make join to responsible table
-                        ->current_acc)//->where('responsible_id', Auth::user()->id)
-                            ->pluck('name', 'id')->prepend('Choose task', '');
+        $tasks = Auth::user()->myTasks()->pluck('name', 'id')->prepend('Choose task', '');
         /* If you try to edit work from work.index, return to it */
         $request->session()->put('url.intended', 'task/'.$id.'/edit');
 

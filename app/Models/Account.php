@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Account extends Model {
     use SoftDeletes;
+    protected   $fillable = ['name', 'internal_project_id',
+                            'internal_task_id', 'licence', 'expires'];
 
     public function nextTaskId()
     {

@@ -20,7 +20,7 @@ class CreateTableProjects extends Migration
             $table->integer('internal_id')->unsigned();
             $table->integer('account_id')->unsigned();
             $table->integer('project_type_id')->unsigned();
-            $table->string('name', 45);
+            $table->string('name', 500);
             $table->integer('default_responsible')->unsigned();
             $table->enum('archived', ['YES', 'NO'])->nullable();
             $table->timestamps();
