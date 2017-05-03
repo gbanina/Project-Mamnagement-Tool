@@ -4,10 +4,10 @@
 <div class="col-md-8 col-sm-8 col-xs-12 form-group">
     <div class="x_panel">
                   <div class="x_title">
-                    <h2>Additional Fields <small>Admin</small></h2>
+                    <h2>Available Fields <small>Admin</small></h2>
                     <div class="clearfix"></div>
                   </div>
-                  <a href="{{ URL::to('/admin/field/create') }}" class="btn btn-default">Add new Additional Field</a>
+                  <a href="{{ URL::to('/admin/field/create') }}" class="btn btn-default">Add new Available Field</a>
                   <div class="x_content" style="display: block;">
                       <table class="table table-striped projects">
                         <thead>
@@ -32,8 +32,8 @@
                             </td>
                             <td>
                               <li style="display: inline-block;">
-                              <a href="{{ URL::to('admin/field/'.$field->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                                 @if($field->predefined == 0)
+                                  <a href="{{ URL::to('admin/field/'.$field->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                                   @component('component.delete-button', ['route' => 'field.destroy', 'id' => $field->id])
                                     Delete
                                   @endcomponent

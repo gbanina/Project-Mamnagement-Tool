@@ -27,9 +27,9 @@ class TaskFieldServiceProvider extends ServiceProvider
         $taskField->account_id = Auth::user()->current_acc;
         $taskField->label = $args['field-name'];
         $taskField->type = $args['field-type'];
+        $taskField->predefined = 0;
+
         $taskField->save();
-        if(isset ($args['task_type']))
-            $taskField->updateTaskTypes($args['task_type']);
     }
 
     public function getTaskField($id)
@@ -47,8 +47,6 @@ class TaskFieldServiceProvider extends ServiceProvider
         $taskField->label = $args['field-name'];
         $taskField->type = $args['field-type'];
         $taskField->save();
-        if(isset ($args['task_type']))
-            $taskField->updateTaskTypes($args['task_type']);
     }
 
     public function destroy($id)

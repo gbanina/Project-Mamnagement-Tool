@@ -109,7 +109,7 @@
               <div id="possible_container" class="col-md-2 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Possible fields</h2>
+                    <h2>Available fields</h2>
                     <div class="clearfix"></div>
                   </div>
                     <div class="x_content">

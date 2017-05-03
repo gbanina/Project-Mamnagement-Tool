@@ -9,7 +9,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>Add New Additional Field <small>Admin</small></h2>
+                      <h2>Add New Available Field <small>Admin</small></h2>
                       <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
@@ -36,25 +36,6 @@
                       </div>
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <div class="x_panel">
-                    <div class="x_title">
-                      <h2>Add This Additional Field to Task Types</h2>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <ul class="to_do">
-                        @foreach($taskTypes as $type)
-                          <li>
-                            <p>
-                              {{ Form::checkbox('task_type['.$type->id.']' , $type->id, in_array ($type->id, $belongsToTaskType), ['class' => 'flat']) }} {{$type->name}}
-                              </p>
-                          </li>
-                          @endforeach
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
                 {!! Form::close() !!}
               </div>
 

@@ -19,7 +19,7 @@ class ProjectTypeServiceProvider extends ServiceProvider
 
     public function getTaskTypes()
     {
-        return TaskType::all()->where('account_id', Auth::user()->current_acc);
+        return TaskType::all()->where('account_id', Auth::user()->current_acc)->where('type', 'TASK_TYPE');
     }
 
     public function store($arg)
@@ -38,7 +38,7 @@ class ProjectTypeServiceProvider extends ServiceProvider
         $result = array();
 
         $result['projectTypes'] = ProjectTypes::find($id);
-        $result['taskTypes'] = TaskType::all()->where('account_id', Auth::user()->current_acc);
+        $result['taskTypes'] = TaskType::all()->where('account_id', Auth::user()->current_acc)->where('type', 'TASK_TYPE');
         $result['hasTaskType'] = $result['projectTypes']->hasTaskType();
 
         return $result;
