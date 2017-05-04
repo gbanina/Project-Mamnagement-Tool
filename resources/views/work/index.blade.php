@@ -2,39 +2,15 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-8 col-sm-8 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>My work for this week <small>{{$cost}}h</small></h2>
+                    <h2>My tasks</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    {!! Form::open(array('url' => 'work', 'class' => 'form-horizontal form-label-left')) !!}
-                        <table class="table">
-                          <thead>
-                            <tr>
-                              <th>Task</th>
-                              <th>Date</th>
-                              <th>Cost</th>
-                              <th></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>{{ Form::select('task_id', $tasks, '', array('required'=> 'required', 'class' => 'form-control')) }}</td>
-                              <td>
-                              {!! Form::text('date', '', array('class' => 'form-control has-feedback-left datepicket_component')) !!}
-
-                              </td>
-                              <td>
-                                <input type="number" step="any"  name="cost" required class="form-control"/>
-                                {{ Form::hidden('return_to', 'work') }}
-                              </td>
-                              <td>{!! Form::submit('Add', array('class' => 'btn btn-success')) !!}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                    {!! Form::close() !!}
+                    @include('work.tasks')
+                    <h2>My work for this week <small>{{$cost}}h</small></h2>
                     <table class="table">
                       <thead>
                         <tr>

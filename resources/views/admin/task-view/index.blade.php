@@ -46,7 +46,7 @@
                               <li style="display: inline-block;">
                               <a href="{{ URL::to('admin/task-view/duplicate/'. $type->id) }}" class="btn btn-success btn-xs"><i class="fa fa-copy"></i> Duplicate </a>
                               <a href="{{ URL::to('admin/task-view/'.$type->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                                @component('component.delete-button', ['route' => 'task-type.destroy', 'id' => $type->id])
+                                @component('component.delete-button', ['route' => 'task-view.destroy', 'id' => $type->id])
                                   Delete
                                 @endcomponent
                               </li>

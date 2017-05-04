@@ -26,6 +26,8 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('project-rights/{project_id}/', 'Project\ProjectRightController');
     Route::resource('task', 'TaskController');
     Route::get('task-close/{closeId}', 'TaskController@close');
+    Route::get('task-reopen/{reopenId}', 'TaskController@reopen');
+
     Route::resource('users', 'UsersController');
 
     Route::resource('help', 'HelpController');

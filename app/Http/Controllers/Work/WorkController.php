@@ -26,7 +26,7 @@ class WorkController extends BaseController {
     {
         $work = Work::where('account_id', Auth::user()->current_acc)
                         ->where('user_id', Auth::user()->id)->where('created_at', '>', date('Y-m-d 00:00:00',strtotime('last monday')));
-        $tasks = Auth::user()->myTasks()->pluck('name', 'id')->prepend('Choose task', '');
+        $tasks = Auth::user()->myTasks()->get();
 
         /* If you try to edit work from work.index, return to it */
         $request->session()->put('url.intended', 'work');
@@ -60,10 +60,7 @@ class WorkController extends BaseController {
 
         $request->session()->flash('alert-success', 'Work for '.$work->task->name.' was successful created!');
 
-        if( null == Input::get('return_to') )
-            abort(403, 'Unauthorized action.');
-
-        return Redirect::to(Input::get('return_to'));
+        return Redirect::back();//Redirect::to(Input::get('return_to'));
     }
 
     /**

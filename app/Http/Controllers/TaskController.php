@@ -315,7 +315,15 @@ class TaskController extends BaseController {
         $task->closed = '1';
         $task->update();
         $request->session()->flash('alert-success', 'Task : '.$task->name.' was successful closed!');
-        return Redirect::back();//Redirect::to('task');
+        return Redirect::back();
+    }
+    public function reopen($id, Request $request)
+    {
+        $task = Task::find($id);
+        $task->closed = '0';
+        $task->update();
+        $request->session()->flash('alert-success', 'Task : '.$task->name.' was successful closed!');
+        return Redirect::back();
     }
     /**
      * Remove the specified resource from storage.
