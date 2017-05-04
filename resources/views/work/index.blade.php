@@ -22,6 +22,7 @@
                       </thead>
                       <tbody>
                       @foreach ($works as $work)
+                        @if($work->task != null)
                         <tr>
                           <td><a href="{{ URL::to('work/'.$work->task->id.'/edit') }}">{{$work->task->name}}</a></td>
                           <td>{{$work->DateReal}}</td>
@@ -33,6 +34,7 @@
                                   @endcomponent
                           </td>
                         </tr>
+                        @endif
                         @endforeach
                       </tbody>
                     </table>
