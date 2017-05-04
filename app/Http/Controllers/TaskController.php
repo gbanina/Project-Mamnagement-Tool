@@ -47,7 +47,8 @@ class TaskController extends BaseController {
         if(count($projects->keys()) > 0)
             $firstProject = $projects->keys()[0];
         $sp = new TaskServiceProvider($this);
-        $tasks = Task::all()->where('account_id', Auth::user()->current_acc)->where('permission','!=', 'NONE');
+        $tasks = Task::all()->where('account_id', Auth::user()->current_acc)
+                    ->where('permission','!=', 'NONE')->where('closed', '0');
         $view = View::make('task.index')->with('tasks', $tasks)->with('projects', $projects)->with('firstProject', $firstProject);
         return $view;
     }
@@ -157,6 +158,8 @@ class TaskController extends BaseController {
         $board->account_id = Auth::user()->current_acc;
         $board->user_id = Auth::user()->id;
         $board->project_id = $task->project_id;
+        $board->task_id = $task->id;
+
         $board->title = "created a new " . $task->type; //getTypeAttribute
         $board->content = $task->internal_id . ':' . $task->name . ' - ' . $task->description;
         $board->editable = 'N';
@@ -172,17 +175,6 @@ class TaskController extends BaseController {
                 }
             }
         return Redirect::to('task/' . $task->id . '/edit');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -317,7 +309,14 @@ class TaskController extends BaseController {
         }
         return Redirect::to('project/'.$task->project_id.'/edit');
     }
-
+    public function close($id, Request $request)
+    {
+        $task = Task::find($id);
+        $task->closed = '1';
+        $task->update();
+        $request->session()->flash('alert-success', 'Task : '.$task->name.' was successful closed!');
+        return Redirect::back();//Redirect::to('task');
+    }
     /**
      * Remove the specified resource from storage.
      *

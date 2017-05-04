@@ -25,11 +25,8 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('project', 'Project\ProjectController');
     Route::resource('project-rights/{project_id}/', 'Project\ProjectRightController');
     Route::resource('task', 'TaskController');
+    Route::get('task-close/{closeId}', 'TaskController@close');
     Route::resource('users', 'UsersController');
-
-    //Route::resource('type', 'Task\TypeController');
-    //Route::resource('status', 'Task\StatusController');
-    //Route::resource('prioritry', 'Task\PriorityController');
 
     Route::resource('help', 'HelpController');
     Route::resource('settings', 'SettingsController');

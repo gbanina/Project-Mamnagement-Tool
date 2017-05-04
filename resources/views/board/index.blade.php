@@ -17,7 +17,13 @@
                           <div class="block_content">
                           <img src="{{ URL::to('images/' . $board->user->avatar) }}" style="margin-right: 10px" class="avatar" alt="Avatar">
                             <h2 class="title">
-                                  {{$board->user->name}} {{$board->title}}
+                                  {{$board->user->name}}
+                                  @if($board->task_id == null)
+                                    {{$board->title}}
+                                  @else
+                                    ovaj ima link
+                                    <a href="{{ URL::to('task/' . $board->task_id . '/edit') }}">{{$board->title}}</a>
+                                  @endif
                                   @if($board->user->id == Auth::user()->id && $board->editable == 'Y')
                                     &nbsp;&nbsp;<a href="{{ URL::to('board/' . $board->id . '/edit') }}"><i class="fa fa-edit"></i></span></a>
                                   @endif

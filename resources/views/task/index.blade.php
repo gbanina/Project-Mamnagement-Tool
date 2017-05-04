@@ -66,11 +66,12 @@
                             <a href="{{ URL::to('project/'. $task->project_id . '/edit') }}">{{$task->project->name}}</a>
                           </td>
                           <td>
-                            <button type="button" class="btn btn-success btn-xs">{{ $task->type }}</button>
+                            <button type="button" class="btn btn-default btn-xs">{{ $task->type }}</button>
                           </td>
                           <td>
                             <li style="display: inline-block;">
                               <a href="{{ URL::to('task/'.$task->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                              <a href="{{ URL::to('task-close/'.$task->id) }}" class="btn btn-success btn-xs"> Close </a>
                               @if($task->permission == 'DEL')
                                 @component('component.delete-button', ['route' => 'task.destroy', 'id' => $task->id])
                                   Delete

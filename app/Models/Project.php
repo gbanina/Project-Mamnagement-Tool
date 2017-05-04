@@ -52,7 +52,7 @@ class Project extends Model {
 
     public function getTasksAttribute()
     {
-        $tasks = $this->hasMany('App\Models\Task', 'project_id');
+        $tasks = $this->hasMany('App\Models\Task', 'project_id')->where('closed', '0');
         return $tasks->get();
     }
 

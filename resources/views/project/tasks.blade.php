@@ -14,10 +14,10 @@
                       <thead>
                         <tr>
                           <th style="width: 1%">#</th>
-                          <th style="width: 33%">Task Name</th>
-                          <th style="width: 13%">Task Type</th>
+                          <th style="width: 26%">Name</th>
+                          <th style="width: 13%">Type</th>
                           <th style="width: 20%">Responsible</th>
-                          <th style="width: 20%">Edit</th>
+                          <th style="width: 30%">Edit</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -32,7 +32,7 @@
                             </a>
                           </td>
                           <td>
-                            <button type="button" class="btn btn-success btn-xs">{{ $task->type }}</button>
+                            <button type="button" class="btn btn-default btn-xs">{{ $task->type }}</button>
                           </td>
                           <td>
                             <ul class="list-inline">
@@ -46,6 +46,7 @@
                           <td>
                             <li style="display: inline-block;">
                             <a href="{{ URL::to('task/'.$task->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                            <a href="{{ URL::to('task-close/'.$task->id) }}" class="btn btn-success btn-xs"> Close </a>
                             @if($task->permission == 'DEL')
                                 @component('component.delete-button', ['route' => 'task.destroy', 'id' => $task->id])
                                   Delete
