@@ -18,7 +18,7 @@
                           <th>Type</th>
                           <th>Status</th>
                           <th>Responsible</th>
-                          <th style="width: 57%">Edit</th>
+                          <th>Edit</th>
                         </tr>
                       </thead>
                       <tbody>

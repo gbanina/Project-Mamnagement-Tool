@@ -26,12 +26,14 @@ class WorkController extends BaseController {
     {
         $work = Work::where('account_id', Auth::user()->current_acc)
                         ->where('user_id', Auth::user()->id)->where('created_at', '>', date('Y-m-d 00:00:00',strtotime('last monday')));
-        $tasks = Auth::user()->myTasks()->get();
+        $tasks = Auth::user()->myTasks();
+        $tasksCount = $tasks->count();
+        $tasks = $tasks->get();
 
         /* If you try to edit work from work.index, return to it */
         $request->session()->put('url.intended', 'work');
 
-        $view = View::make('work.index')->with('works', $work->get())
+        $view = View::make('work.index')->with('works', $work->get())->with('tasksCount', $tasksCount)
                 ->with('tasks', $tasks)->with('cost', $work->sum('cost'));
         return $view;
     }

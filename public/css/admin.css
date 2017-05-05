@@ -97,3 +97,11 @@ ul.stats-overview li {
 .editable-title:focus {
     background-color: rgba(115, 135, 156, 0.15);
 }
+
+.possible-list li{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    min-height: 18px;
+}
