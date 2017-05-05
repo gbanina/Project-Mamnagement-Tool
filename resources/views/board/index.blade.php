@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
                   <h2>Recent Activities <small><a href="{{ URL::to('board/create') }}" class="btn btn-default" type="button">Add News</a></small></h2>
@@ -21,7 +21,6 @@
                                   @if($board->task_id == null)
                                     {{$board->title}}
                                   @else
-                                    ovaj ima link
                                     <a href="{{ URL::to('task/' . $board->task_id . '/edit') }}">{{$board->title}}</a>
                                   @endif
                                   @if($board->user->id == Auth::user()->id && $board->editable == 'Y')
@@ -31,9 +30,8 @@
                             <div class="byline">
                               <span>{{$board->timeElapsed}}</span> in <a href="{{ URL::to('project/'.$board->project->id.'/edit') }}">{{$board->project->name}}</a>
                             </div>
-                            <p class="excerpt">{{$board->content}} <a>Read&nbsp;More</a>
+                            <p class="excerpt">{{$board->content}}
                             </p>
-
                           </div>
                         </div>
                       </li>

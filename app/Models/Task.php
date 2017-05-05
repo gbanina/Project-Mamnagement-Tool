@@ -25,6 +25,12 @@ class Task extends Model {
         $type =  $this->belongsTo('App\Models\TaskType', 'task_type_id')->first();
         return $type->name;
     }
+    public function getStatusAttribute()
+    {
+        $status = $this->belongsTo('App\Models\Status', 'status_id')->first();
+        if($status == null) return 'N/A';
+        return $status->name;
+    }
 
     public function getProjectAttribute()
     {

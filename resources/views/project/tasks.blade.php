@@ -15,9 +15,10 @@
                         <tr>
                           <th style="width: 1%">#</th>
                           <th style="width: 26%">Name</th>
-                          <th style="width: 13%">Type</th>
-                          <th style="width: 20%">Responsible</th>
-                          <th style="width: 30%">Edit</th>
+                          <th>Type</th>
+                          <th>Status</th>
+                          <th>Responsible</th>
+                          <th style="width: 57%">Edit</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -33,6 +34,9 @@
                           </td>
                           <td>
                             <button type="button" class="btn btn-default btn-xs">{{ $task->type }}</button>
+                          </td>
+                          <td>
+                          {{ $task->status }}
                           </td>
                           <td>
                             <ul class="list-inline">

@@ -41,6 +41,7 @@
                           <th>Team Members</th>
                           <th>Project</th>
                           <th>Type</th>
+                          <th>Status</th>
                           <th style="width: 20%">Edit</th>
                         </tr>
                       </thead>
@@ -67,6 +68,9 @@
                           </td>
                           <td>
                             <button type="button" class="btn btn-default btn-xs">{{ $task->type }}</button>
+                          </td>
+                          <td>
+                          {{ $task->status }}
                           </td>
                           <td>
                             <li style="display: inline-block;">
