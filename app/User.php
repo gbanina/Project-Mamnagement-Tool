@@ -83,6 +83,6 @@ class User extends Authenticatable
 
     public function myTasks()
     {
-        return $this->belongsToMany('App\Models\Task', 'user_tasks');
+        return $this->belongsToMany('App\Models\Task', 'user_tasks')->where('closed', '0');
     }
 }
