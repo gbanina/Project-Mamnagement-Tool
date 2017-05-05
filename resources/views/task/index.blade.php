@@ -50,7 +50,7 @@
                         <tr>
                           <td>{{$task->internal_id}}</td>
                           <td>
-                            <a>{{$task->name}}</a>
+                            <a href="{{ URL::to('task/'.$task->id.'/edit') }}">{{$task->name}}</a>
                             <br>
                             <small>Created {{$task->created_at}}</small>
                           </td>
