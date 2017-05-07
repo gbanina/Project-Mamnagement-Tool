@@ -144,9 +144,7 @@ class TaskViewServiceProvider extends ServiceProvider
 
     public function destroy($id)
     {
-        /*
         $type = TaskType::find($id);
         $type->delete();
-        */
     }
 }

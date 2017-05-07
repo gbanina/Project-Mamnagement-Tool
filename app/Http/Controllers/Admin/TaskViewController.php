@@ -130,6 +130,7 @@ class TaskViewController extends BaseController {
      */
     public function destroy($id, Request $request)
     {
+        $this->service->destroy($id);
         $request->session()->flash('alert-success', 'View was successful deleted!');
         return Redirect::to('admin/task-view/');
     }
