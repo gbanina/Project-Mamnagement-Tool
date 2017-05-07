@@ -169,11 +169,14 @@ class TaskController extends BaseController {
                     TaskAttribute::create(['task_id' => $task->id, 'task_field_id' => $key, 'value' => $att]);
                 }
             }
-        if(Input::get('responsible_user') !== null){
+        if(Input::get('responsible_id') !== null){
+                UserTask::create(['task_id' => $task->id, 'user_id' => Input::get('responsible_id')]);
+            }
+        /*if(Input::get('responsible_user') !== null){
                 foreach (Input::get('responsible_user') as $key=>$att){
                     UserTask::create(['task_id' => $task->id, 'user_id' => $key]);
                 }
-            }
+            }*/
         return Redirect::to('task/' . $task->id . '/edit');
     }
 
@@ -301,11 +304,15 @@ class TaskController extends BaseController {
                 }
             }
             UserTask::where('task_id', $task->id)->delete();
+            if(Input::get('responsible_id') !== null){
+                UserTask::create(['task_id' => $task->id, 'user_id' => Input::get('responsible_id')]);
+            }
+            /* no multiple responsibles for now.
             if(Input::get('responsible_user') !== null){
                 foreach (Input::get('responsible_user') as $key=>$att){
                     UserTask::create(['task_id' => $task->id, 'user_id' => $key]);
                 }
-            }
+            }*/
         }
         return Redirect::to('project/'.$task->project_id.'/edit');
     }

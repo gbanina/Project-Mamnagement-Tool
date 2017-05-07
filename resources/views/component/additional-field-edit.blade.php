@@ -24,18 +24,18 @@
 
             @elseif($field['type'] === 'NAME')
                 {!! Form::text('name', $task->name, array('required' => 'required', $field['disabled'],'class' => 'form-control ','placeholder'=>'Name')) !!}
-            @elseif($field['type'] === 'RESPONSIBLE')
+             @elseif($field['type'] === 'RESPONSIBLE')
+                {{ Form::select('responsible_id', $users, '', array('id' => 'responsible_id', 'class' => 'form-control', 'required')) }}
+            @elseif($field['type'] === 'RESPONSIBLES')
                 {{ Form::select('responsible_id', $users, '', array('id' => 'responsible_id', $field['disabled'],'class' => 'form-control', 'required')) }}
                 <a id="add_responsible" class="btn btn-default">Add</a>
                               <div id="responsible_container">
-
                                 @foreach($responsibles as $responsible)
-
-                                <div id="responsible_item_{{$responsible->user->id}}">
-                                  {{$responsible->user->name}} <a href="#" onClick="removeUser({{$responsible->user->id}})"><i class="fa fa-remove"></i></a>
-                                  {{ Form::hidden('responsible_user[' . $responsible->user->id. ']', $responsible->user->id) }}
-                                </div>
-                                @endforeach
+                                    <div id="responsible_item_{{$responsible->user->id}}">
+                                      {{$responsible->user->name}} <a href="#" onClick="removeUser({{$responsible->user->id}})"><i class="fa fa-remove"></i></a>
+                                      {{ Form::hidden('responsible_user[' . $responsible->user->id. ']', $responsible->user->id) }}
+                                    </div>
+                                 @endforeach
                               </div>
                     <script>
                         var resp = [];

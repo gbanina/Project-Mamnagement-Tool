@@ -52,7 +52,14 @@ class Task extends Model {
     {
         return $this->belongsToMany('App\User', 'user_tasks');
     }
+    public function getResponsibleIdAttribute()
+    {
+        $responsibles = $this->belongsToMany('App\User', 'user_tasks');
+        if($responsibles != null)
+            return $responsibles->first()->user_id;
 
+        return null;
+    }
     public function getCreatedAtAttribute()
     {
         return PMTypesHelper::dateToHuman($this->attributes['created_at']);

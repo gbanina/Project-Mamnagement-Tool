@@ -12,6 +12,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CommentController extends BaseController {
 
@@ -43,13 +44,7 @@ class CommentController extends BaseController {
      */
     public function store(Request $request)
     {
-        $rules = array(
-            'entity_type' => 'required',
-            'entity_id' => 'required',
-            'data' => 'required',
-        );
-        $validator = Validator::make(Input::all(), $rules);
-
+        Log::info('testing...');
         $comment = new Comment();
         $comment->entity_id = Input::get('entity_id');
         $comment->entity_type =Input::get('entity_type');
@@ -59,12 +54,12 @@ class CommentController extends BaseController {
 
         $comment->save();
 
-        $request->session()->flash('alert-success', 'comment : '.''.' was successful created!');
+        //$request->session()->flash('alert-success', 'comment : '.''.' was successful created!');
 
         //if( null == Input::get('return_to') )
             //abort(403, 'Unauthorized action.');
 
-        return Redirect::back();//Redirect::to(Input::get('return_to'));
+        return $request->all();//Redirect::back();//Redirect::to(Input::get('return_to'));
     }
 
     /**
