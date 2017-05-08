@@ -71,6 +71,8 @@
                     {!! Form::text('estimated_end_date', $task->estimatedEndDate, array($field['disabled'], 'id' => 'single_cal4', 'class' => 'form-control has-feedback-left')) !!}
                     <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                     <span id="inputSuccess2Status3" class="sr-only">(success)</span>
+            @elseif($field['type'] === 'DESCRIPTION')
+              {!! Form::textarea('description', $task->description, array($field['disabled'], 'class' => 'form-control ')) !!}
             @elseif($field['type'] === 'ESTIMATED_COST')
                 {!! Form::number('estimated_cost', $task->estimated_cost, array($field['disabled'], 'class' => 'form-control ')) !!}
             @elseif($field['type'] === 'WORK')
