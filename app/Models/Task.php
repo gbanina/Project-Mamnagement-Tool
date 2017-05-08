@@ -56,7 +56,7 @@ class Task extends Model {
     {
         $responsibles = $this->belongsToMany('App\User', 'user_tasks');
         if($responsibles != null)
-            return $responsibles->first()->user_id;
+            return $responsibles->first()->id;
 
         return null;
     }

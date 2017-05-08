@@ -25,7 +25,7 @@
             @elseif($field['type'] === 'NAME')
                 {!! Form::text('name', $task->name, array('required' => 'required', $field['disabled'],'class' => 'form-control ','placeholder'=>'Name')) !!}
              @elseif($field['type'] === 'RESPONSIBLE')
-                {{ Form::select('responsible_id', $users, '', array('id' => 'responsible_id', 'class' => 'form-control', 'required')) }}
+                {{ Form::select('responsible_id', $users, $task->responsibleId, array('id' => 'responsible_id', 'class' => 'form-control', 'required')) }}
             @elseif($field['type'] === 'RESPONSIBLES')
                 {{ Form::select('responsible_id', $users, '', array('id' => 'responsible_id', $field['disabled'],'class' => 'form-control', 'required')) }}
                 <a id="add_responsible" class="btn btn-default">Add</a>

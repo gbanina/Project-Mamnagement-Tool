@@ -92,10 +92,6 @@
                         </div>
                       </div>
                     @endforeach
-                    <div class="col-md-8 col-sm-8 col-xs-12">
-                          <a href="{{ URL::to('project/'.$task->project_id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
-                          {!! Form::submit('Submit', array($global_css, 'class' => 'btn btn-success')) !!}
-                    </div>
                   </div>
               <!-- Generate custom form here -->
               </div>
