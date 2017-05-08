@@ -7,21 +7,21 @@
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
+{!! Form::open(array('url' => 'task', 'class' => 'form-horizontal form-label-left')) !!}
               <div class="x_title">
                   <div class="header-buttons">
                   <h2>Add New Task to <strong>{{$projectName}}</strong>
                       {{ Form::select('type_id', $types, $typeId, array('id' => 'type_id', 'style' => 'display:inline;width: 200px;','class' => 'form-control')) }}
-                      </h2>
+                  </h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                       <a href="{{ URL::to('project/'. $projectId.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
+                       {!! Form::submit('Submit', array($global_css, 'class' => 'btn btn-success')) !!}
+                  </ul>
                   </div>
                 <div class="clearfix"></div>
               </div>
-
-          {!! Form::open(array('url' => 'task', 'class' => 'form-horizontal form-label-left')) !!}
               <div class="x_content">
                 {{ Form::hidden('project_id', $projectId) }}
-                {{ Form::hidden('type_id', $typeId) }}
-              <!-- Generate custom form here -->
-
                   <div class="x_content usable-fields">
                     @foreach($fields as $rowId => $row)
                       <div id="row_{{$rowId}}" class="view view-first">
@@ -52,19 +52,10 @@
                         </div>
                       </div>
                     @endforeach
-                    <div class="col-md-8 col-sm-8 col-xs-12">
-                          <a href="{{ URL::to('project/'. $projectId.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
-                          {!! Form::submit('Submit', array($global_css, 'class' => 'btn btn-success')) !!}
-                    </div>
                   </div>
-
-
-              <!-- Generate custom form here -->
-
-
-              </div>
-              {!! Form::close() !!}
-            </div>
+                  </div>
+                  {!! Form::close() !!}
+                </div>
               </div>
 
             </div>
