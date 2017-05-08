@@ -4,6 +4,7 @@
                         <tr>
                           <th style="width: 5%">#</th>
                           <th style="width: 35%">Name</th>
+                          <th style="width: 5%">Status</th>
                           <th style="width: 5%">Type</th>
                           <th style="width: 20%">Edit</th>
                           <th style="width: 10%">Date</th>
@@ -21,6 +22,9 @@
                               <br>
                               <small>Created {{$task->created_at}}</small>
                             </a>
+                          </td>
+                          <td>
+                            {{ $task->status }}
                           </td>
                           <td>
                             <button type="button" class="btn btn-default btn-xs">{{ $task->type }}</button>

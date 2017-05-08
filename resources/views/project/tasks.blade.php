@@ -42,7 +42,7 @@
                             <ul class="list-inline">
                               @foreach($task->responsibleUsers as $user)
                               <li>
-                                <img src="{{ URL::to('images/' . $user->avatar) }}" class="avatar" alt="Avatar">
+                                {{ $user->name }}
                               </li>
                               @endforeach
                             </ul>

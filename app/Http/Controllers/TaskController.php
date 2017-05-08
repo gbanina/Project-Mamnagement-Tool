@@ -314,7 +314,7 @@ class TaskController extends BaseController {
                 }
             }*/
         }
-        return Redirect::to('project/'.$task->project_id.'/edit');
+        return Redirect::back();//Redirect::to('project/'.$task->project_id.'/edit');
     }
     public function close($id, Request $request)
     {
@@ -342,6 +342,6 @@ class TaskController extends BaseController {
     {
         $task = Task::find($id);
         $task->delete();
-        return Redirect::to('task');
+        return Redirect::back();
     }
 }
