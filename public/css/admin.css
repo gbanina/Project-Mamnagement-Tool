@@ -105,3 +105,10 @@ ul.stats-overview li {
     max-width: 200px;
     min-height: 18px;
 }
+.usable-fields .possibly-hide-label{
+    display: none;
+}
+
+ul.messages li .message_wrapper h4.heading {
+    max-height: 25px;
+}

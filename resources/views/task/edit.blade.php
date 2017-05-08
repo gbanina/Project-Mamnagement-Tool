@@ -53,20 +53,33 @@
                             <div id="col_{{$colId}}_{{$rowId}}" class="col-md-{{(12 / count($row))}} col-sm-12 col-xs-12 form-group">
                                 @foreach($col as $field)
                                       <div class="form-group">
+                                        @if($field['field']->type != 'COMMENTS' && $field['field']->type != 'WORK')
                                         <label class="control-label col-md-4 col-sm-4 col-xs-12">{{$field['field']->label}}</label>
-                                        <div class="col-md-8 col-sm-8 col-xs-12 possibly-hide">
-                                          @component('component.additional-field-edit', ['task' => $task,
-                                                                                    'field' => $field,
-                                                                                    'id' => $field['field']->id,
-                                                                                    'global_css' => '',
-                                                                                    'users' => $users,
-                                                                                    'usersO' => $usersO,
-                                                                                    'status' => $status,
-                                                                                    'priorities' => $priorities,
-                                                                                    'types' => $types,
-                                                                                    'responsibles' => $responsibles])
-                                          @endcomponent
-                                        </div>
+                                          <div class="col-md-8 col-sm-8 col-xs-12 possibly-hide">
+                                            @component('component.additional-field-edit', ['task' => $task, 'field' => $field['field'],
+                                                                                      'id' => $field['field']->id,
+                                                                                      'global_css' => '',
+                                                                                      'users' => $users,
+                                                                                      'usersO' => $usersO,
+                                                                                      'status' => $status,
+                                                                                      'priorities' => $priorities,
+                                                                                      'types' => $types])
+                                            @endcomponent
+                                          </div>
+                                        @else
+                                          <div class="col-md-12 col-sm-12 col-xs-12 possibly-hide">
+                                            @component('component.additional-field-edit', ['task' => $task, 'field' => $field['field'],
+                                                'id' => $field['field']->id,
+                                                'global_css' => '',
+                                                'users' => $users,
+                                                'usersO' => $usersO,
+                                                'status' => $status,
+                                                'priorities' => $priorities,
+                                                'comments' => $comments,
+                                                'types' => $types])
+                                            @endcomponent
+                                          </div>
+                                        @endif
                                       </div>
                                 @endforeach
                             </div>
@@ -79,22 +92,11 @@
                           {!! Form::submit('Submit', array($global_css, 'class' => 'btn btn-success')) !!}
                     </div>
                   </div>
-
-
               <!-- Generate custom form here -->
-
-
               </div>
               {!! Form::close() !!}
             </div>
           </div>
-          <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                    @component('component.comments', ['id' => $task->id, 'type' => 'TASK', 'comments' => $comments])
-                    @endcomponent
-                  </div>
-                  <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                    @include('task.work')
-                  </div>
           <!-- tu -->
         </div>
 

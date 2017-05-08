@@ -321,7 +321,7 @@ class TaskController extends BaseController {
         $task = Task::find($id);
         $task->closed = '1';
         $task->update();
-        $request->session()->flash('alert-success', 'Task : '.$task->name.' was successful closed!');
+        $request->session()->flash('alert-success', 'Task : '.$task->name.' was successfully closed!');
         return Redirect::back();
     }
     public function reopen($id, Request $request)
@@ -329,7 +329,7 @@ class TaskController extends BaseController {
         $task = Task::find($id);
         $task->closed = '0';
         $task->update();
-        $request->session()->flash('alert-success', 'Task : '.$task->name.' was successful closed!');
+        $request->session()->flash('alert-success', 'Task : '.$task->name.' was successfully closed!');
         return Redirect::back();
     }
     /**

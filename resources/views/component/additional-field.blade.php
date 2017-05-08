@@ -67,6 +67,10 @@
                     <span id="inputSuccess2Status3" class="sr-only">(success)</span>
             @elseif($field['type'] === 'ESTIMATED_COST')
                 {!! Form::number('estimated_cost', '', array( 'class' => 'form-control ')) !!}
+            @elseif($field['type'] === 'WORK')
+                @include('task.dummy-work')
+            @elseif($field['type'] === 'COMMENTS')
+                @component('component.comments', ['id' => '', 'type' => 'TASK', 'comments' => array()]) @endcomponent
             @else
                 Error reading data!!!
             @endif

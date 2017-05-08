@@ -45,13 +45,6 @@ class WorkController extends BaseController {
      */
     public function store(Request $request)
     {
-        $rules = array(
-            'task_id' => 'required',
-            'cost' => 'number',
-        );
-
-        $validator = Validator::make(Input::all(), $rules);
-
         $work = new Work;
         $work->account_id = Auth::user()->current_acc;
         $work->user_id = Auth::user()->id;
@@ -62,7 +55,7 @@ class WorkController extends BaseController {
 
         $request->session()->flash('alert-success', 'Work for '.$work->task->name.' was successful created!');
 
-        return Redirect::back();//Redirect::to(Input::get('return_to'));
+        return $work->id;//Redirect::back();
     }
 
     /**

@@ -5,6 +5,7 @@
                   </div>
                   <div class="x_content">
                     {!! Form::open(array('url' => 'work', 'class' => 'form-horizontal form-label-left')) !!}
+                        <meta name="csrf-token" content="{{ csrf_token() }}">
                         <table class="table">
                           <thead>
                             <tr>
@@ -18,14 +19,14 @@
                             <tr>
                               <td>{{ Form::text('task_name', $task->name, array('disabled', 'class' => 'form-control')) }}</td>
                               <td>
-                                {!! Form::text('date', '', array('class' => 'form-control has-feedback-left datepicket_component')) !!}
+                                {!! Form::text('date', '', array('id' => 'date', 'class' => 'form-control has-feedback-left datepicket_component')) !!}
                               </td>
                               <td>
-                                <input type="number" step="any"  name="cost" required class="form-control"/>
+                                <input type="number" step="any" id="cost" name="cost" required class="form-control"/>
                                 {{ Form::hidden('return_to', 'task/' . $task->id . '/edit') }}
-                                {{ Form::hidden('task_id', $task->id) }}
+                                {{ Form::hidden('task_id', $task->id, ['id' => 'task_id']) }}
                               </td>
-                              <td>{!! Form::submit('Add', array('class' => 'btn btn-success')) !!}</td>
+                              <td><a onClick="add_work()" class="btn btn-success" type="button">Save</a></td>
                             </tr>
                           </tbody>
                         </table>
@@ -39,7 +40,7 @@
                                     <th></th>
                                   </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="work_costs">
                                 @foreach ($task->work as $work)
                                   <tr>
                                     <td>{{$work->user->name}}</td>
@@ -58,3 +59,38 @@
 
                   </div>
                 </div>
+<script>
+function add_work()
+{
+      $.ajax({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "POST", //PUT
+            url: "{{ URL::to('work')}}", // ide na update metodu
+            data: {date: $("#date").val(), task_id: $("#task_id").val(), cost: $("#cost").val()},
+            success: function( msg ) {
+              new PNotify({
+                  title: 'Success',
+                  text: 'Your work has been saved successfully!',
+                  type: 'alert-success',
+                  styling: 'bootstrap3'
+              });
+              $content = work_append_content(msg);
+              $( "#work_costs" ).append( $content );
+            }
+
+        });
+}
+function work_append_content(id)
+{
+  var result = '';
+  result += '      <tr>';
+  result += '         <td>{{Auth::user()->name}}</td>';
+  result += '         <td>'+$('#date').val()+'</td>';
+  result += '         <td>'+$('#cost').val()+'</td>';
+  result += '         <td><a href="{{ URL::to('work') }}/'+id+'/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a><button type="submit" class="btn btn-danger btn-xs">Delete</button></td>';
+  result += '      <tr>';
+  return result;
+}
+</script>
