@@ -207,8 +207,7 @@ function saveForm()
 
     //if($("#form_published").val() == 'on')
       //$('#form_published').attr("disabled", true);
-
-    console.log(result);
+if(Object.keys(result).length != 0){
     $.ajax({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -227,6 +226,10 @@ function saveForm()
             }
 
         });
+  }// if 0
+  else{
+    alert('You can not save empty form!')
+  }
 }
 
 $(window).scroll(function() {
