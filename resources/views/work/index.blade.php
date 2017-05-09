@@ -24,7 +24,7 @@
                       @foreach ($works as $work)
                         @if($work->task != null)
                         <tr>
-                          <td><a href="{{ URL::to('work/'.$work->task->id.'/edit') }}">{{$work->task->name}}</a></td>
+                          <td class="overview-names"><a title="{{$work->task->name}}" href="{{ URL::to('work/'.$work->task->id.'/edit') }}">{{$work->task->name}}</a></td>
                           <td>{{$work->DateReal}}</td>
                           <td>{{$work->cost}}h</td>
                           <td>

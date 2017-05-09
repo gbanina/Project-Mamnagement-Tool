@@ -46,8 +46,8 @@
                         @foreach ($projects as $project)
                           <tr>
                           <td>{{$project->internal_id}}</td>
-                          <td>
-                            <a href="{{ URL::to('project/'.$project->id.'/edit') }}">
+                          <td class="overview-names">
+                            <a title="{{$project->name}}" href="{{ URL::to('project/'.$project->id.'/edit') }}">
                               {{$project->name}}
                               <br>
                               <small>Created {{$project->created_at}}</small>

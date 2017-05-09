@@ -112,3 +112,12 @@ ul.stats-overview li {
 ul.messages li .message_wrapper h4.heading {
     max-height: 25px;
 }
+
+.overview-names {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    min-height: 18px;
+}
+

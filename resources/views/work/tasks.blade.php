@@ -16,8 +16,8 @@
                         @foreach ($tasks as $task)
                         <tr>
                           <td>{{$task->internal_id}}</td>
-                          <td>
-                            <a href="{{ URL::to('task/'.$task->id.'/edit') }}">
+                          <td class="overview-names">
+                            <a title="{{$task->name}}" href="{{ URL::to('task/'.$task->id.'/edit') }}">
                               {{$task->name}}
                               <br>
                               <small>Created {{$task->created_at}}</small>
