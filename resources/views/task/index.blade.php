@@ -158,39 +158,39 @@
       var table = $('#advanced-table').DataTable({
         stateSave: true,
         select: true,
-        //colReorder: true
+        colReorder: true
     });
-    var search_id = table.columns( 0 ).search();
+    var search_id = table.columns( table.colReorder.transpose( 0 ) ).search();
     $('#id-filter').val(search_id[0]);
     $('#id-filter').on( 'keyup change', function () {
-        table.columns( 0 ).search( this.value ).draw();
+        table.columns( table.colReorder.transpose( 0 ) ).search( this.value ).draw();
     });
-    var search_name = table.columns( 1 ).search();
+    var search_name = table.columns( table.colReorder.transpose( 1 ) ).search();
     $('#name-filter').val(search_name[0]);
     $('#name-filter').on( 'keyup change', function () {
-        table.columns( 1 ).search( this.value ).draw();
+        table.columns( table.colReorder.transpose( 1 ) ).search( this.value ).draw();
     });
-    var search_members = table.columns( 2 ).search();
+    var search_members = table.columns( table.colReorder.transpose( 2 ) ).search();
     $('#members-filter').val(search_members[0]);
     $('#members-filter').on( 'keyup change', function () {
-        table.columns( 2 ).search( this.value ).draw();
+        table.columns( table.colReorder.transpose( 2 ) ).search( this.value ).draw();
     });
-    var search_projects = table.columns( 3 ).search();
+    var search_projects = table.columns( table.colReorder.transpose( 3 ) ).search();
     $('#project-filter').val(search_projects[0]);
     $('#project-filter').on( 'keyup change', function () {
-        table.columns( 3 ).search( this.value ).draw();
+        table.columns( table.colReorder.transpose( 3 ) ).search( this.value ).draw();
     });
-    var search_type = table.columns( 4 ).search();
+    var search_type = table.columns( table.colReorder.transpose( 4 ) ).search();
     $('#type_id-filter').val(search_type[0]);
     $('#type_id-filter').on( 'change', function () {
-        table.columns( 4 ).search( this.value ).draw();
+        table.columns( table.colReorder.transpose( 4 ) ).search( this.value ).draw();
     });
-    var search_status = table.columns( 5 ).search();
+    var search_status = table.columns( table.colReorder.transpose( 5 ) ).search();
     $('#status_id-filter').val(search_status[0]);
     $('#status_id-filter').on( 'change', function () {
-        table.columns( 5 ).search( this.value ).draw();
+        table.columns( table.colReorder.transpose( 5 ) ).search( this.value ).draw();
     });
-    var search_closed = table.columns( 6 ).search();
+    var search_closed = table.columns( table.colReorder.transpose( 6 ) ).search();
     $('#closed-filter').val(search_closed[0]);
     $('#closed-filter').on( 'change', function () {
         table.columns( 6 ).search( this.value ).draw();
