@@ -14,7 +14,7 @@
                       {{ Form::select('type_id', $types, $typeId, array('id' => 'type_id', 'style' => 'display:inline;width: 200px;','class' => 'form-control')) }}
                   </h2>
                   <ul class="nav navbar-right panel_toolbox">
-                       <a href="{{ URL::to('project/'. $projectId.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
+                       <a href="#" onclick="goBack()" class="btn btn-primary" type="button">Cancel</a>
                        {!! Form::submit('Submit', array($global_css, 'class' => 'btn btn-success')) !!}
                   </ul>
                   </div>

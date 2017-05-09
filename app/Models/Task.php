@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Helpers\PMTypesHelper;
 
 class Task extends Model {
+
     use SoftDeletes;
 
     public function getPermissionAttribute()
@@ -64,7 +65,10 @@ class Task extends Model {
     {
         return PMTypesHelper::dateToHuman($this->attributes['created_at']);
     }
-
+    public function getCloseAttribute()
+    {
+        return PMTypesHelper::closedToHuman($this->closed);
+    }
     public function attributes()
     {
         return $this->hasMany('App\Models\TaskAttribute');

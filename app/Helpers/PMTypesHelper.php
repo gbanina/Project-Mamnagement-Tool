@@ -5,6 +5,10 @@ use DateTime;
 
 class PMTypesHelper{
 
+    public static function closedToHuman($bit){
+        $values = array(0 => 'No', 1 => 'Yes');
+        return $values[$bit];
+    }
     public static function dateToSQL($date){
         $arr = explode('/', $date);
         $result = NULL;

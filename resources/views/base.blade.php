@@ -49,7 +49,10 @@
     <link href="{{ URL::to('css/pnotify.css')}}" rel="stylesheet">
     <!-- Switchery -->
     <link href="{{ URL::to('css/switchery.min.css')}}" rel="stylesheet">
-
+    <!-- Datatables -->
+    <link href="{{ URL::to('css/vendor/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Custom functions -->
+    <script src="{{ URL::to('js/functions.js')}}"></script>
   </head>
 
   <body class="nav-md">
