@@ -10,7 +10,7 @@
                   {{ Form::hidden('entity_type', $type, ['id' => 'entity_type']) }}
                   <meta name="csrf-token" content="{{ csrf_token() }}">
                   <br>
-                  <a onClick="add_comment()" class="btn btn-success" type="button">Save</a>
+                  <a onClick="add_comment()" class="btn btn-default" type="button">Add</a>
               {!! Form::close() !!}
               <div class="ln_solid"></div>
               <br>

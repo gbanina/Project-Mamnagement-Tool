@@ -38,9 +38,19 @@
                 <div class="x_panel">
                 {!! Form::model($task, array('route' => array('task.update', $task->id), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}
               <div class="x_title">
-                <h2><strong>{{$task->type}}</strong> in <strong><a href="{{ URL::to('project/'.$task->project->id.'/edit') }}">{{$task->project->name}}</a></strong> (Edit)</h2>
+                <h2>
+                  <strong>{{$task->type}}</strong> in
+                  <strong><a href="{{ URL::to('project/'.$task->project->id.'/edit') }}">{{$task->project->name}}</a></strong>
+                  <div class="header-buttons">
+                    @if($task->close == 'No')
+                      <a href="{{ URL::to('task-close/'.$task->id) }}" class="btn btn-sm btn-primary" type="button">Close</a>
+                    @else
+                      <a href="{{ URL::to('task-reopen/'.$task->id) }}" class="btn btn-sm btn-primary" type="button">Reopen</a>
+                    @endif
+                  </div>
+                </h2>
                 <ul class="nav navbar-right panel_toolbox">
-                          <a href="{{ URL::to('project/'.$task->project_id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
+                          <a href="#" onClick="goBack()" class="btn btn-default" type="button">Cancel</a>
                           {!! Form::submit('Submit', array($global_css, 'class' => 'btn btn-success')) !!}
                 </ul>
                 <div class="clearfix"></div>

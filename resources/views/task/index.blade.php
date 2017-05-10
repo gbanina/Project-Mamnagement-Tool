@@ -75,16 +75,26 @@
                           <th>Type</th>
                           <th>Status</th>
                           <th style="width: 5%">Closed</th>
-                          <th style="width: 17%">Edit</th>
+                          <th style="width: 100px">Edit</th>
                         </tr>
 
                       </thead>
                       <tbody>
                         @foreach ($tasks as $task)
                         <tr>
-                          <td>{{$task->internal_id}}</td>
+                          <td>
+                            @if($task->close == 'No')
+                              <a href="{{ URL::to('task/'.$task->id.'/edit') }}">{{$task->internal_id}}</a>
+                            @else
+                              <a  href="#">{{$task->internal_id}}</a>
+                            @endif
+                          </td>
                           <td class="overview-names">
-                            <a title="{{$task->name}}" href="{{ URL::to('task/'.$task->id.'/edit') }}">{{$task->name}}</a>
+                            @if($task->close == 'No')
+                              <a title="{{$task->name}}" href="{{ URL::to('task/'.$task->id.'/edit') }}">{{$task->name}}</a>
+                            @else
+                              <a title="{{$task->name}}" href="#">{{$task->name}}</a>
+                            @endif
                             <br>
                             <small>Created {{$task->created_at}}</small>
                           </td>
@@ -111,10 +121,10 @@
                           </td>
                           <td>
                             <li style="display: inline-block;">
-                              <a href="{{ URL::to('task/'.$task->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                               @if($task->close == 'Yes')
                               <a href="{{ URL::to('task-reopen/'.$task->id) }}" class="btn btn-primary btn-xs"> Reopen </a>
                               @else
+                              <!--<a href="{{ URL::to('task/'.$task->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>-->
                               <a href="{{ URL::to('task-close/'.$task->id) }}" class="btn btn-success btn-xs"> Close </a>
                               @endif
                               @if($task->permission == 'DEL')
@@ -140,7 +150,6 @@
     <script src="{{ URL::to('js/table/jquery.dataTables.min.js')}}"></script>
     <script src="{{ URL::to('js/table/dataTables.select.min.js')}}"></script>
     <script src="https://cdn.datatables.net/colreorder/1.3.3/js/dataTables.colReorder.min.js"></script>
-
 
     <script>
       $( "#project_id" ).change(function() {

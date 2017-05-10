@@ -26,7 +26,7 @@
                                 {{ Form::hidden('return_to', 'task/' . $task->id . '/edit') }}
                                 {{ Form::hidden('task_id', $task->id, ['id' => 'task_id']) }}
                               </td>
-                              <td><a onClick="add_work()" class="btn btn-success" type="button">Save</a></td>
+                              <td><a onClick="add_work()" class="btn btn-default" type="button">Add</a></td>
                             </tr>
                           </tbody>
                         </table>
