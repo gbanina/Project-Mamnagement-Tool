@@ -18,10 +18,6 @@
                     @foreach($comments as $comment)
                           <li>
                             <img src="{{ URL::to('images/' . $comment->user->avatar ) }}" class="avatar" alt="Avatar">
-                            <div class="message_date">
-                              <h3 class="date text-info"></h3>
-                              <p class="month">{{$comment->timeElapsed}}</p>
-                            </div>
                             <div class="message_wrapper">
                               <h4 class="heading">
                                 {{$comment->user->name}}
@@ -29,15 +25,9 @@
                                   @component('component.delete-link', ['id' => $comment->id, 'route' => 'comment.destroy'])
                                   @endcomponent
                                 @endif
+
                               </h4>
-                              <blockquote class="message">{{$comment->data}}</blockquote>
-                              <br>
-                              <!--
-                              <p class="url">
-                                <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
-                                <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
-                              </p>
-                              -->
+                              <blockquote class="message">{{$comment->data}}<small>{{$comment->timeElapsed}}</small></blockquote>
                             </div>
                           </li>
                     @endforeach
@@ -72,15 +62,11 @@ function comment_append_content()
     var result = '';
     result += '                      <li>';
     result += '                        <img src="{{ URL::to('images/' . Auth::user()->avatar ) }}" class="avatar" alt="Avatar">';
-    result += '                        <div class="message_date">';
-    result += '                          <h3 class="date text-info"></h3>';
-    result += '                          <p class="month">Now</p>';
-    result += '                        </div>';
     result += '                        <div class="message_wrapper">';
     result += '                          <h4 class="heading">';
     result += '                           {{Auth::user()->name}}';
     result += '                         </h4>';
-    result += '                          <blockquote class="message">'+$("#comment_data").val()+'</blockquote>';
+    result += '                          <blockquote class="message">'+$("#comment_data").val()+'<small>Now</small></blockquote>';
     result += '                          <br>';
     result += '                        </div>';
     result += '                      </li>';
