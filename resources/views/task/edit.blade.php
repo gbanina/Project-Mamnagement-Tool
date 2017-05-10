@@ -36,7 +36,7 @@
                         </li>
                       </ul>
                 <div class="x_panel">
-                {!! Form::model($task, array('route' => array('task.update', $task->id), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}
+                {!! Form::model($task, array('route' => array('task.update', $task->id), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
               <div class="x_title">
                 <h2>
                   <strong>{{$task->type}}</strong> in
@@ -73,7 +73,7 @@
                                           <div class="col-md-8 col-sm-8 col-xs-12 possibly-hide">
                                             @component('component.additional-field-edit', ['task' => $task, 'field' => $field['field'],
                                                                                       'id' => $field['field']->id,
-                                                                                      'global_css' => '',
+                                                                                      'global_css' => $global_css,
                                                                                       'users' => $users,
                                                                                       'usersO' => $usersO,
                                                                                       'status' => $status,
@@ -85,7 +85,7 @@
                                           <div class="col-md-12 col-sm-12 col-xs-12 possibly-hide">
                                             @component('component.additional-field-edit', ['task' => $task, 'field' => $field['field'],
                                                 'id' => $field['field']->id,
-                                                'global_css' => '',
+                                                'global_css' => $global_css,
                                                 'users' => $users,
                                                 'usersO' => $usersO,
                                                 'status' => $status,

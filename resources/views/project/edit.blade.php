@@ -35,7 +35,7 @@
                         </ul>
               </div>
               <div class="col-md-6 col-sm-12 col-xs-12">
-                      {!! Form::model($project, array('route' => array('project.update', $project->id), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}
+                      {!! Form::model($project, array('route' => array('project.update', $project->id), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
                                       <div class="x_panel">
                                         <div class="x_title">
                                           <h2>Project : <strong>{{$project->type}}</strong> <small>(Edit)</small></h2>

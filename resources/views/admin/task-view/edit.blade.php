@@ -5,7 +5,7 @@
 
        <div class="">
             <div class="clearfix"></div>
-            {!! Form::model($taskType, array('route' => array('task-view.update', 1), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}
+            {!! Form::model($taskType, array('route' => array('task-view.update', 1), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
             <meta name="csrf-token" content="{{ csrf_token() }}">
             <div class="row">
               <div class="col-md-10 col-sm-12 col-xs-12">

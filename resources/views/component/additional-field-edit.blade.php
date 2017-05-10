@@ -11,9 +11,9 @@
                 Not Implemented yet
             @elseif($field['type'] === 'CHECKBOX')
                 @if($field['value'] == 'yes')
-                {{ Form::checkbox('additional[' . $id . ']' , 'yes', true, ['class' => 'flat', $field['disabled']]) }}
+                {{ Form::checkbox('additional[' . $id . ']' , 'yes', true, [$global_css, 'class' => 'flat', $field['disabled']]) }}
                 @else
-                {{ Form::checkbox('additional[' . $id . ']' , 'yes', false, ['class' => 'flat', $field['disabled']]) }}
+                {{ Form::checkbox('additional[' . $id . ']' , 'yes', false, [$global_css, 'class' => 'flat', $field['disabled']]) }}
                 @endif
             @elseif($field['type'] === 'FILE')
                 Not Implemented yet
@@ -23,11 +23,11 @@
             <!-- default elements -->
 
             @elseif($field['type'] === 'NAME')
-                {!! Form::text('name', $task->name, array('required' => 'required', $field['disabled'],'class' => 'form-control ','placeholder'=>'Name')) !!}
+                {!! Form::text('name', $task->name, array($global_css, 'required' => 'required', $field['disabled'],'class' => 'form-control ','placeholder'=>'Name')) !!}
              @elseif($field['type'] === 'RESPONSIBLE')
-                {{ Form::select('responsible_id', $users, $task->responsibleId, array('id' => 'responsible_id', 'class' => 'form-control', 'required')) }}
+                {{ Form::select('responsible_id', $users, $task->responsibleId, array($global_css, 'id' => 'responsible_id', 'class' => 'form-control', 'required')) }}
             @elseif($field['type'] === 'RESPONSIBLES')
-                {{ Form::select('responsible_id', $users, '', array('id' => 'responsible_id', $field['disabled'],'class' => 'form-control', 'required')) }}
+                {{ Form::select('responsible_id', $users, '', array($global_css, 'id' => 'responsible_id', $field['disabled'],'class' => 'form-control', 'required')) }}
                 <a id="add_responsible" class="btn btn-default">Add</a>
                               <div id="responsible_container">
                                 @foreach($responsibles as $responsible)
@@ -60,21 +60,21 @@
                           }
                         </script>
            @elseif($field['type'] === 'STATUS')
-                {{ Form::select('status_id', $status, $task->status_id, array($field['disabled'],'class' => 'form-control', 'required')) }}
+                {{ Form::select('status_id', $status, $task->status_id, array($global_css, $field['disabled'],'class' => 'form-control', 'required')) }}
            @elseif($field['type'] === 'PRIORITY')
-                {{ Form::select('priority_id', $priorities, $task->priority_id, array($field['disabled'],'class' => 'form-control', 'required')) }}
+                {{ Form::select('priority_id', $priorities, $task->priority_id, array($global_css, $field['disabled'],'class' => 'form-control', 'required')) }}
            @elseif($field['type'] === 'ESTIMATED_START_DATE')
-                {!! Form::text('estimated_start_date', $task->estimatedStartDate, array($field['disabled'],'id' => 'single_cal3', 'class' => 'form-control has-feedback-left')) !!}
+                {!! Form::text('estimated_start_date', $task->estimatedStartDate, array($global_css, $field['disabled'],'id' => 'single_cal3', 'class' => 'form-control has-feedback-left')) !!}
                 <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                 <span id="inputSuccess2Status2" class="sr-only">(success)</span>
             @elseif($field['type'] === 'ESTIMATED_END_DATE')
-                    {!! Form::text('estimated_end_date', $task->estimatedEndDate, array($field['disabled'], 'id' => 'single_cal4', 'class' => 'form-control has-feedback-left')) !!}
+                    {!! Form::text('estimated_end_date', $task->estimatedEndDate, array($global_css, $field['disabled'], 'id' => 'single_cal4', 'class' => 'form-control has-feedback-left')) !!}
                     <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                     <span id="inputSuccess2Status3" class="sr-only">(success)</span>
             @elseif($field['type'] === 'DESCRIPTION')
-              {!! Form::textarea('description', $task->description, array($field['disabled'], 'class' => 'form-control ')) !!}
+              {!! Form::textarea('description', $task->description, array($global_css, $field['disabled'], 'class' => 'form-control ')) !!}
             @elseif($field['type'] === 'ESTIMATED_COST')
-                {!! Form::number('estimated_cost', $task->estimated_cost, array($field['disabled'], 'class' => 'form-control ')) !!}
+                {!! Form::number('estimated_cost', $task->estimated_cost, array($global_css, $field['disabled'], 'class' => 'form-control ')) !!}
             @elseif($field['type'] === 'WORK')
                 @include('task.work')
             @elseif($field['type'] === 'COMMENTS')

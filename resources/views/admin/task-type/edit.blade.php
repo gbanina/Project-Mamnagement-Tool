@@ -6,7 +6,7 @@
             <div class="clearfix"></div>
             <div>
             <div class="row">
-            {!! Form::model($taskType, array('route' => array('task-type.update', $taskType->id), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}
+            {!! Form::model($taskType, array('route' => array('task-type.update', $taskType->id), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">

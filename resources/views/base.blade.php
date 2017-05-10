@@ -156,7 +156,7 @@ $( document ).ready(function() {
     });
 });
 
-$( ".form-horizontal" ).submit(function( event ) {
+$( ".exit-alert" ).submit(function( event ) {
   window.onbeforeunload = null;
 });
 

@@ -23,7 +23,7 @@
                   @endif
                   <div class="x_content">
                     <br>
-                {!! Form::model($account, array('route' => array('account.update', $account->id), 'method' => 'PUT', 'class' => 'form-horizontal form-label-left')) !!}
+                {!! Form::model($account, array('route' => array('account.update', $account->id), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status-name">Name <span class="required">*</span>
                         </label>

@@ -7,14 +7,14 @@
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
-{!! Form::open(array('url' => 'task', 'class' => 'form-horizontal-no-alert form-label-left')) !!}
+{!! Form::open(array('url' => 'task', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
               <div class="x_title">
                   <div class="header-buttons">
                   <h2>Add New Task to <strong>{{$projectName}}</strong>
                       {{ Form::select('type_id', $types, $typeId, array('id' => 'type_id', 'style' => 'display:inline;width: 200px;','class' => 'form-control')) }}
                   </h2>
                   <ul class="nav navbar-right panel_toolbox">
-                       <a href="#" onclick="goBack()" class="btn btn-primary" type="button">Cancel</a>
+                       <a href="#" onclick="goBack()" class="btn btn-default" type="button">Cancel</a>
                        {!! Form::submit('Submit', array($global_css, 'class' => 'btn btn-success')) !!}
                   </ul>
                   </div>

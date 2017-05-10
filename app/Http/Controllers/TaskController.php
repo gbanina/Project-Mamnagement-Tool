@@ -249,6 +249,8 @@ class TaskController extends BaseController {
 
         $global_css = '';
         if($task->permission == 'READ') $global_css = 'disabled';
+        if($task->closed == 1) $global_css = 'disabled';
+
         return View::make('task.edit')->with('projects',$projects)
                         ->with('users',$users)->with('usersO',$usersO)->with('status',$status)
                             ->with('priorities',$priorities)->with('types',$types)
