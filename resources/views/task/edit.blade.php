@@ -71,7 +71,7 @@
                                         @if($field['field']->type != 'COMMENTS' && $field['field']->type != 'WORK')
                                         <label class="control-label col-md-4 col-sm-4 col-xs-12">{{$field['field']->label}}</label>
                                           <div class="col-md-8 col-sm-8 col-xs-12 possibly-hide">
-                                            @component('component.additional-field-edit', ['task' => $task, 'field' => $field['field'],
+                                            @component('component.additional-field-edit', ['task' => $task, 'field' => $field,
                                                                                       'id' => $field['field']->id,
                                                                                       'global_css' => $global_css,
                                                                                       'users' => $users,

@@ -267,18 +267,6 @@ class TaskController extends BaseController {
      */
     public function update($id, Request $request)
     {
-        $rules = array(
-            'project' => 'required',
-            'name' => 'required',
-        );
-
-        $validator = Validator::make(Input::all(), $rules);
-        if (false && $validator->fails()) {
-            return redirect('task/create')
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-
         $task = Task::find($id);
 
         if($task->permission != 'NONE' && $task->permission != 'READ'){
@@ -300,22 +288,10 @@ class TaskController extends BaseController {
                 $task->estimated_cost = Input::get('estimated_cost');
 
             $task->update();
-            TaskAttribute::where('task_id', $task->id)->delete();
-            if(Input::get('additional') !== null){
-                foreach (Input::get('additional') as $key=>$att){
-                    TaskAttribute::create(['task_id' => $task->id, 'task_field_id' => $key, 'value' => $att]);
-                }
-            }
-            UserTask::where('task_id', $task->id)->delete();
-            if(Input::get('responsible_id') !== null){
-                UserTask::create(['task_id' => $task->id, 'user_id' => Input::get('responsible_id')]);
-            }
-            /* no multiple responsibles for now.
-            if(Input::get('responsible_user') !== null){
-                foreach (Input::get('responsible_user') as $key=>$att){
-                    UserTask::create(['task_id' => $task->id, 'user_id' => $key]);
-                }
-            }*/
+
+            $service = new TaskServiceProvider();
+            $service->setResponsible($task->id, Input::get('responsible_id'));
+            $service->setAdditional($task->id, Input::get('additional'));
         }
         return Redirect::back();//Redirect::to('project/'.$task->project_id.'/edit');
     }
