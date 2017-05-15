@@ -149,7 +149,7 @@
 
 
 $( document ).ready(function() {
-    $( ".form-horizontal :input" ).change(function() {
+    $( ".exit-alert :input" ).change(function() {
         window.onbeforeunload = function() {
             return true;
         };

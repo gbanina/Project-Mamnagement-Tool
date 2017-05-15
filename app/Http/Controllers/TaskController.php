@@ -30,6 +30,7 @@ use App\Helpers\PMTypesHelper;
 use Illuminate\Http\Request;
 use App\Providers\TaskServiceProvider;
 use App\Providers\Admin\UserServiceProvider;
+use App\Providers\BoardServiceProvider;
 
 class TaskController extends BaseController {
 
@@ -38,6 +39,12 @@ class TaskController extends BaseController {
      *
      * @return Response
      */
+    protected $boardService;
+
+    public function __construct()
+    {
+        $this->boardService = new BoardServiceProvider();
+    }
 
     public function index()
     {
@@ -154,17 +161,7 @@ class TaskController extends BaseController {
         $task->estimated_cost = Input::get('estimated_cost');
 
         $task->save();
-
-        $board = new Dashboard;
-        $board->account_id = Auth::user()->current_acc;
-        $board->user_id = Auth::user()->id;
-        $board->project_id = $task->project_id;
-        $board->task_id = $task->id;
-
-        $board->title = "created a new " . $task->type; //getTypeAttribute
-        $board->content = $task->internal_id . ':' . $task->name . ' - ' . $task->description;
-        $board->editable = 'N';
-        $board->save();
+        $this->boardService->taskCreate($task);
 
         if(Input::get('additional') !== null){
                 foreach (Input::get('additional') as $key=>$att){
@@ -186,7 +183,12 @@ class TaskController extends BaseController {
      */
     public function edit($id, Request $request)
     {
-         $userService = new UserServiceProvider;
+        $task = Task::find($id);
+        if ($task == null) {
+            abort(403, 'Task has been deleted.');
+        }
+
+        $userService = new UserServiceProvider;
         // if dont have view rights deny!!!
         $projects = Project::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose project', '');
         //filtriraj po accountu
@@ -196,7 +198,7 @@ class TaskController extends BaseController {
         $status = Status::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose status', '');
         $priorities = Priority::all()->where('account_id', Auth::user()->current_acc)->pluck('label', 'id')->prepend('Choose priority', '');
         $types = TaskType::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose type', '');
-        $task = Task::find($id);
+
         $responsibles = UserTask::where('task_id',$id);
 
         $comments = Comment::where('entity_id', $id)->where('entity_type', 'TASK')->orderBy('id', 'desc')->get();
@@ -272,6 +274,7 @@ class TaskController extends BaseController {
             $service->setDefaultFields($task->id, Input::all());
             $service->setResponsible($task->id, Input::get('responsible_id'));
             $service->setAdditional($task->id, Input::get('additional'));
+            $this->boardService->taskEdit($task);
         }
         return Redirect::back();
     }
@@ -280,6 +283,7 @@ class TaskController extends BaseController {
         $task = Task::find($id);
         $task->closed = '1';
         $task->update();
+        $this->boardService->taskClose($task);
         $request->session()->flash('alert-success', 'Task : '.$task->name.' was successfully closed!');
         return Redirect::back();
     }
@@ -288,6 +292,7 @@ class TaskController extends BaseController {
         $task = Task::find($id);
         $task->closed = '0';
         $task->update();
+        $this->boardService->taskReopen($task);
         $request->session()->flash('alert-success', 'Task : '.$task->name.' was successfully closed!');
         return Redirect::back();
     }
@@ -300,7 +305,13 @@ class TaskController extends BaseController {
     public function destroy($id, Request $request)
     {
         $task = Task::find($id);
+
+        $boardService = new BoardServiceProvider();
+        $boardService->taskDelete($task);
+        $request->session()->flash('alert-success', 'Task : '.$task->name.' was successfully deleted!');
+
         $task->delete();
+
         return Redirect::back();
     }
 }
