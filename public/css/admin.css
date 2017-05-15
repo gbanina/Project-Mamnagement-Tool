@@ -155,3 +155,17 @@ display: none;
     margin-left: 0;
     margin-bottom: 10px;
 }
+
+ul.messages li .message_wrapper blockquote.note{
+    font-size: 12px;
+    border-left: none;
+}
+
+ul.messages li .message_wrapper.wrapper_note{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.wrapper_note .note small{
+    display: inline;
+}

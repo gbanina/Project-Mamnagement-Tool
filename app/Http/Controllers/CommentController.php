@@ -44,7 +44,6 @@ class CommentController extends BaseController {
      */
     public function store(Request $request)
     {
-        Log::info('testing...');
         $comment = new Comment();
         $comment->entity_id = Input::get('entity_id');
         $comment->entity_type =Input::get('entity_type');

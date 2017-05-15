@@ -165,19 +165,16 @@ class TaskController extends BaseController {
         $board->content = $task->internal_id . ':' . $task->name . ' - ' . $task->description;
         $board->editable = 'N';
         $board->save();
+
         if(Input::get('additional') !== null){
                 foreach (Input::get('additional') as $key=>$att){
                     TaskAttribute::create(['task_id' => $task->id, 'task_field_id' => $key, 'value' => $att]);
                 }
             }
+
         if(Input::get('responsible_id') !== null){
                 UserTask::create(['task_id' => $task->id, 'user_id' => Input::get('responsible_id')]);
             }
-        /*if(Input::get('responsible_user') !== null){
-                foreach (Input::get('responsible_user') as $key=>$att){
-                    UserTask::create(['task_id' => $task->id, 'user_id' => $key]);
-                }
-            }*/
         return Redirect::to('task/' . $task->id . '/edit');
     }
 
@@ -270,30 +267,13 @@ class TaskController extends BaseController {
         $task = Task::find($id);
 
         if($task->permission != 'NONE' && $task->permission != 'READ'){
-            if(Input::get('name') !== null)
-                $task->name = Input::get('name');
-            if(Input::get('status_id') !== null)
-                $task->status_id = Input::get('status_id');
-            if(Input::get('priority_id') !== null)
-                $task->priority_id = Input::get('priority_id');
-            if(Input::get('description') !== null)
-                $task->description = Input::get('description');
-            // Todo ???
-                $task->archived = 'NO';
-            if(Input::get('estimated_start_date') !== null)
-                $task->estimated_start_date = PMTypesHelper::dateToSQL(Input::get('estimated_start_date'));
-            if(Input::get('estimated_end_date') !== null)
-                $task->estimated_end_date = PMTypesHelper::dateToSQL(Input::get('estimated_end_date'));
-            if(Input::get('estimated_cost') !== null)
-                $task->estimated_cost = Input::get('estimated_cost');
-
-            $task->update();
-
             $service = new TaskServiceProvider();
+
+            $service->setDefaultFields($task->id, Input::all());
             $service->setResponsible($task->id, Input::get('responsible_id'));
             $service->setAdditional($task->id, Input::get('additional'));
         }
-        return Redirect::back();//Redirect::to('project/'.$task->project_id.'/edit');
+        return Redirect::back();
     }
     public function close($id, Request $request)
     {

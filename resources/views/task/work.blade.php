@@ -9,7 +9,7 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th>Task</th>
+                              <!--<th>Task</th>-->
                               <th>Date</th>
                               <th>Cost</th>
                               <th></th>
@@ -17,7 +17,7 @@
                           </thead>
                           <tbody>
                             <tr>
-                              <td>{{ Form::text('task_name', $task->name, array('disabled', 'class' => 'form-control')) }}</td>
+                              <!--<td>{{ Form::text('task_name', $task->name, array('disabled', 'class' => 'form-control')) }}</td>-->
                               <td>
                                 {!! Form::text('date', '', array('id' => 'date', 'class' => 'form-control has-feedback-left datepicket_component')) !!}
                               </td>

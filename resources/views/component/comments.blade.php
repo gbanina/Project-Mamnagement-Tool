@@ -16,20 +16,28 @@
               <br>
                 <ul class="messages">
                     @foreach($comments as $comment)
+                      @if($comment->type == 'COMMENT')
                           <li>
                             <img src="{{ URL::to('images/' . $comment->user->avatar ) }}" class="avatar" alt="Avatar">
                             <div class="message_wrapper">
                               <h4 class="heading">
-                                {{$comment->user->name}}
+                                {{$comment->user->name}} <small>({{$comment->timeElapsed}})</small>
                                 @if($comment->user->id == Auth::user()->id)
                                   @component('component.delete-link', ['id' => $comment->id, 'route' => 'comment.destroy'])
                                   @endcomponent
                                 @endif
 
                               </h4>
-                              <blockquote class="message">{{$comment->data}}<small>{{$comment->timeElapsed}}</small></blockquote>
+                              <blockquote class="message">{{$comment->data}}</blockquote>
                             </div>
                           </li>
+                      @else
+                      <li>
+                        <div class="message_wrapper wrapper_note">
+                          <blockquote class="note">{{$comment->data}}<small>{{$comment->timeElapsed}}</small></blockquote>
+                        </div>
+                      </li>
+                      @endif
                     @endforeach
                 </ul>
     </div>
