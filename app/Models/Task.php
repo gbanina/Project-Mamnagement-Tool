@@ -14,7 +14,11 @@ class Task extends Model {
 
     public function getPermissionAttribute()
     {
-        return $this->getProjectAttribute()->getPermissionAttribute();
+        $attribute = $this->getProjectAttribute();
+        if($attribute == null)
+            return 'NONE';
+
+        return $attribute->getPermissionAttribute();
     }
     public function possibleTypes()
     {
