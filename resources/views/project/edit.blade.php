@@ -94,7 +94,7 @@
               </div>
 
               <div class="col-md-6 col-xs-12">
-                  @component('component.comments', ['id' => $project->id, 'type' => 'PROJECT', 'comments' => $comments])
+                  @component('component.comments', ['id' => $project->id, 'type' => 'PROJECT', 'comments' => $comments, 'global_css' => ''])
                   @endcomponent
               </div>
             </div>
