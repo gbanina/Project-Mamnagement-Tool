@@ -84,9 +84,17 @@ class TaskServiceProvider extends ServiceProvider
                     if($attirbute->value != $att){
                         $attirbute->value = $att;
                         $attirbute->save();
-                        $taskField = TaskField::find($key);
+                        $taskField = TaskField::where('id', $key)->first(); //TaskField::find() not working?
+                        $fieldName = $taskField->label;
 
-                        $commentsService->createAttribute($taskId, $taskField->first()->label, $att);
+                        if($taskField->type == 'TEXTAREA'){
+                            $commentsService->createAttribute($taskId, $fieldName);
+                        }else if($taskField->type == 'USER'){
+                            $commentsService->createAttribute($taskId, $fieldName, User::find(intval($att))->name);
+                        }else{
+                            $commentsService->createAttribute($taskId, $fieldName, $att);
+                        }
+
                     }
                  }
             }

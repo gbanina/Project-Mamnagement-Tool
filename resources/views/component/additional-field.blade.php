@@ -10,6 +10,7 @@
             @elseif($field['type'] === 'ENUM')
                 Not Implemented yet
             @elseif($field['type'] === 'CHECKBOX')
+                {{ Form::hidden('additional[' . $id . ']', 'no') }}
                 @if($field['value'] == 'yes')
                 {{ Form::checkbox('additional[' . $id . ']' , 'yes', true, ['class' => 'flat', $field['disabled']]) }}
                 @else
