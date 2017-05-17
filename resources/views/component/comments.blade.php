@@ -5,12 +5,14 @@
     </div>
     <div class="x_content">
           {!! Form::open(array('url' => 'comment', 'class' => 'form-horizontal form-label-left')) !!}
-              {{ Form::textarea('data', '', ['rows'=> '8','id'=>'comment_data', 'class' => 'resizable_textarea form-control', 'placeholder'=>'Write a comment']) }}
+              {{ Form::textarea('data', '', ['rows'=> '8','id'=>'comment_data', $global_css, 'class' => 'resizable_textarea form-control', 'placeholder'=>'Write a comment']) }}
                   {{ Form::hidden('entity_id', $id, ['id' => 'entity_id']) }}
                   {{ Form::hidden('entity_type', $type, ['id' => 'entity_type']) }}
                   <meta name="csrf-token" content="{{ csrf_token() }}">
                   <br>
-                  <a onClick="add_comment()" class="btn btn-default" type="button">Add</a>
+                  @if($global_css != 'disabled')
+                    <a onClick="add_comment()" {{$global_css}} class="btn btn-default" type="button">Add</a>
+                  @endif
               {!! Form::close() !!}
               <div class="ln_solid"></div>
               <br>

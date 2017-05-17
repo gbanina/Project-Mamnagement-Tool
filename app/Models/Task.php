@@ -77,7 +77,10 @@ class Task extends Model {
     {
         return $this->hasMany('App\Models\TaskAttribute');
     }
-
+    public function files()
+    {
+        return $this->hasMany('App\Models\File');
+    }
     public function getEstimatedStartDateAttribute()
     {
         return PMTypesHelper::dateToHuman($this->attributes['estimated_start_date']);

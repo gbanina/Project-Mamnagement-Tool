@@ -79,7 +79,7 @@
             @elseif($field['type'] === 'WORK')
                 @include('task.work')
             @elseif($field['type'] === 'COMMENTS')
-                @component('component.comments', ['id' => $task->id, 'type' => 'TASK', 'comments' => $comments]) @endcomponent
+                @component('component.comments', ['id' => $task->id, 'type' => 'TASK', 'comments' => $comments, 'global_css' => $global_css]) @endcomponent
             @else
                 Error reading data!!!
             @endif

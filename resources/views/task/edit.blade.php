@@ -105,6 +105,9 @@
                   </div>
               <!-- Generate custom form here -->
               </div>
+              <div class="files">
+                @include('task.file')
+              </div>
               {!! Form::close() !!}
             </div>
           </div>

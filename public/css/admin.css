@@ -169,3 +169,7 @@ ul.messages li .message_wrapper.wrapper_note{
 .wrapper_note .note small{
     display: inline;
 }
+
+.files form{
+    display:none;
+}

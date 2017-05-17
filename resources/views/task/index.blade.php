@@ -83,18 +83,10 @@
                         @foreach ($tasks as $task)
                         <tr>
                           <td>
-                            @if($task->close == 'No')
                               <a href="{{ URL::to('task/'.$task->id.'/edit') }}">{{$task->internal_id}}</a>
-                            @else
-                              <a  href="#">{{$task->internal_id}}</a>
-                            @endif
                           </td>
                           <td class="overview-names">
-                            @if($task->close == 'No')
                               <a title="{{$task->name}}" href="{{ URL::to('task/'.$task->id.'/edit') }}">{{$task->name}}</a>
-                            @else
-                              <a title="{{$task->name}}" href="#">{{$task->name}}</a>
-                            @endif
                             <br>
                             <small>Created {{$task->created_at}}</small>
                           </td>

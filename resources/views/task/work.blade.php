@@ -19,14 +19,18 @@
                             <tr>
                               <!--<td>{{ Form::text('task_name', $task->name, array('disabled', 'class' => 'form-control')) }}</td>-->
                               <td>
-                                {!! Form::text('date', '', array('id' => 'date', 'class' => 'form-control has-feedback-left datepicket_component')) !!}
+                                {!! Form::text('date', '', array('id' => 'date',$global_css, 'class' => 'form-control has-feedback-left datepicket_component')) !!}
                               </td>
                               <td>
-                                <input type="number" step="any" id="cost" name="cost" required class="form-control"/>
+                                <input type="number" step="any" id="cost" name="cost" {{$global_css}} required class="form-control"/>
                                 {{ Form::hidden('return_to', 'task/' . $task->id . '/edit') }}
                                 {{ Form::hidden('task_id', $task->id, ['id' => 'task_id']) }}
                               </td>
-                              <td><a onClick="add_work()" class="btn btn-default" type="button">Add</a></td>
+                              <td>
+                                @if($task->close == 'No')
+                                  <a onClick="add_work()" class="btn btn-default" type="button">Add</a>
+                                @endif
+                              </td>
                             </tr>
                           </tbody>
                         </table>

@@ -56,4 +56,6 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('switch/{id}', 'AccountChaingeController@switchTo');
     Route::get('morph/{roleId}', 'MorphController@switchTo');
     Route::get('morph-return', 'MorphController@returnFromMorph');
+
+    Route::post('file-upload/{uploadTaskId}', 'FileController@upload');
 });
