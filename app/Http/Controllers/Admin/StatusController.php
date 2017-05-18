@@ -80,7 +80,17 @@ class StatusController extends BaseController {
         $request->session()->flash('alert-success', 'Status : '.$status->name.' was successful updated!');
         return Redirect::to('admin/status');
     }
+    public function reorder(Request $request) {
 
+        //predifine indexes?
+        $this->service->predifineIndexes();
+
+        $status = Status::find(Input::get('id'));
+        $status->index = Input::get('position');
+        $status->save();
+
+        return $status;
+    }
     /**
      * Remove the specified resource from storage.
      *

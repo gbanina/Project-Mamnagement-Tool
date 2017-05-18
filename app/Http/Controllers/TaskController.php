@@ -79,9 +79,9 @@ class TaskController extends BaseController {
             $usersO = $userService->all();//UserAccounts::where('account_id', Auth::user()->current_acc)->get();
             $users = UserAccounts::where('account_id', Auth::user()->current_acc)
                             ->with('user')->get()->pluck('user.name', 'user_id');
-            $status = Status::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose status', '');
-            $priorities = Priority::all()->where('account_id', Auth::user()->current_acc)->pluck('label', 'id')->prepend('Choose priority', '');
-            $types = $project->projectType->posibleTaskTypes()->pluck('name', 'id')->prepend('Choose type', '');
+            $status = Status::orderBy('index', 'asc')->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose status', '');
+            $priorities = Priority::orderBy('index', 'asc')->where('account_id', Auth::user()->current_acc)->pluck('label', 'id')->prepend('Choose priority', '');
+             $types = $project->projectType->posibleTaskTypes()->pluck('name', 'id')->prepend('Choose type', '');
 
         $taskTypeFields = TaskTypeField::where('task_type_id', $typeId);
 
@@ -195,8 +195,8 @@ class TaskController extends BaseController {
         $users = UserAccounts::where('account_id', Auth::user()->current_acc)
                             ->with('user')->get()->pluck('user.name', 'user_id');
         $usersO = $userService->all();
-        $status = Status::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose status', '');
-        $priorities = Priority::all()->where('account_id', Auth::user()->current_acc)->pluck('label', 'id')->prepend('Choose priority', '');
+        $status = Status::orderBy('index', 'asc')->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose status', '');
+        $priorities = Priority::orderBy('index', 'asc')->where('account_id', Auth::user()->current_acc)->pluck('label', 'id')->prepend('Choose priority', '');
         $types = TaskType::all()->where('account_id', Auth::user()->current_acc)->pluck('name', 'id')->prepend('Choose type', '');
 
         $responsibles = UserTask::where('task_id',$id);

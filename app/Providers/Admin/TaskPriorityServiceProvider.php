@@ -13,7 +13,7 @@ class TaskPriorityServiceProvider extends ServiceProvider
 
     public function all()
     {
-        return Priority::where('account_id', Auth::user()->current_acc)->get();
+        return Priority::orderBy('index', 'asc')->where('account_id', Auth::user()->current_acc)->get();
     }
 
     public function store($args)
@@ -40,6 +40,15 @@ class TaskPriorityServiceProvider extends ServiceProvider
         return $priority;
     }
 
+    public function predifineIndexes(){
+        $all = Priority::orderBy('index', 'asc')->where('account_id', Auth::user()->current_acc)->get(); //orderBy('index', 'desc')
+        $i = 0;
+        foreach($all as $priority) {
+            $priority->index = $i;
+            $priority->save();
+            $i++;
+        }
+    }
     public function destroy($id)
     {
         $priority = Priority::find($id);

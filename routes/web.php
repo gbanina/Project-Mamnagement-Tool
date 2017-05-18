@@ -47,6 +47,10 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('admin/field', 'Admin\TaskFieldController');
     Route::resource('admin/right', 'Admin\RightController');
 
+    Route::post('admin/status-reorder', 'Admin\StatusController@reorder');
+    Route::post('admin/priority-reorder', 'Admin\PriorityController@reorder');
+    Route::post('admin/task-type-reorder', 'Admin\TaskTypeController@reorder');
+
     Route::resource('board', 'BoardController');
     Route::resource('work', 'Work\WorkController');
     Route::resource('account', 'AccountController');

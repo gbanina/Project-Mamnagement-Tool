@@ -80,7 +80,17 @@ class PriorityController extends BaseController {
 
         return Redirect::to('admin/priority');
     }
+    public function reorder(Request $request) {
 
+        //predifine indexes?
+        $this->service->predifineIndexes();
+
+        $status = Priority::find(Input::get('id'));
+        $status->index = Input::get('position');
+        $status->save();
+
+        return $status;
+    }
     /**
      * Remove the specified resource from storage.
      *
