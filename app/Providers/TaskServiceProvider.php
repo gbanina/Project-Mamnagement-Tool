@@ -104,14 +104,16 @@ class TaskServiceProvider extends ServiceProvider
     public function setResponsible($taskId, $responsibleId)
     {
         $commentsService = new CommentProvider();
-        //UserTask::where('task_id', $taskId)->delete();
+
         if($responsibleId !== null){
-            $userTask = UserTask::where('task_id', $taskId)->first();
+            // Todo refactor this!
+            $userTask = UserTask::orderBy('updated_at', 'desc')->where('task_id', $taskId)->first();
             if($userTask->user_id != $responsibleId){
-                $userTask = UserTask::create(['task_id' => $taskId, 'user_id' => $responsibleId]);
-                $user = $userTask->user()->first();
+                $user = User::find($responsibleId);//$userTask->user()->first();
                 $commentsService->createAttribute($taskId, 'Responsible', $user->name);
             }
+            UserTask::where('task_id', $taskId)->delete();
+            UserTask::create(['task_id' => $taskId, 'user_id' => $responsibleId]);
         }
     }
 }
