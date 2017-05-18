@@ -21,7 +21,10 @@ class TaskStatusServiceProvider extends ServiceProvider
         $status = new Status();
         $status->account_id = Auth::user()->current_acc;
         $status->name =$args['status-name'];
+        $status->index = 999;
         $status->save();
+
+        $this->predifineIndexes();
 
         return $status;
     }
@@ -54,5 +57,7 @@ class TaskStatusServiceProvider extends ServiceProvider
     {
         $status = Status::find($id);
         $status->delete();
+
+        $this->predifineIndexes();
     }
 }

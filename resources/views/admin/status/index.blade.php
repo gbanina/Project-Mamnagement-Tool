@@ -23,10 +23,12 @@
                           </tr>
                          </thead>
                         <tbody>
+
                           @foreach ($statuses as $status)
+
                           <tr id="{{$status->id}}" datarow="{{$status->id}}">
-                            <td>{{$status->index}} <i class="fa fa-arrows"></i> </td>
-                            <td>
+                            <td class="draggable">{{$status->index}} <i class="fa fa-arrows"></i> </td>
+                            <td class="draggable">
                               <a>{{$status->name}}</a>
                               <br>
                               <small>Created {{$status->created_at}}</small>
@@ -41,6 +43,7 @@
                             </td>
                           </tr>
                           @endforeach
+
                         </tbody>
                       </table>
                     </div>
@@ -57,9 +60,9 @@
         <script>
           var table = $('#advanced-table').DataTable({
               rowReorder: {
-                selector: 'tr'
+                selector: '.draggable',
               },
-              "bSort": false,
+              //"bSort": false,
             });
           table.on( 'row-reorder', function ( e, diff, edit ) {
               for ( var i=0, ien=diff.length ; i<ien ; i++ ) {
@@ -67,7 +70,7 @@
                 //koji id:
                 var id = diff[i].node.attributes.datarow.nodeValue;
                 var position = diff[i].newPosition;
-
+                console.log('put ID:' + id + ' on ' + position + '.position')
                       $.ajax({
                           headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

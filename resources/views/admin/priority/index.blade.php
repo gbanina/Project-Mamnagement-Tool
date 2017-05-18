@@ -26,8 +26,8 @@
                         <tbody>
                           @foreach ($priorities as $priority)
                           <tr id="{{$priority->id}}" datarow="{{$priority->id}}">
-                            <td>{{$priority->index}}</td>
-                            <td>
+                            <td class="draggable">{{$priority->index}}</td>
+                            <td class="draggable">
                               <a>{{$priority->label}}</a>
                               <br>
                               <small>Created {{$priority->created_at}}</small>
@@ -55,7 +55,7 @@
         <script>
           var table = $('#advanced-table').DataTable({
               rowReorder: {
-                selector: 'tr'
+                selector: '.draggable'
               }
             });
 

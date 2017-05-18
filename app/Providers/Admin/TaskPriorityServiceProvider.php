@@ -21,7 +21,10 @@ class TaskPriorityServiceProvider extends ServiceProvider
         $priority = new Priority();
         $priority->account_id = Auth::user()->current_acc;
         $priority->label = $args['priority-name'];
+        $priority->index = 999;
         $priority->save();
+
+        $this->predifineIndexes();
 
         return $priority;
     }
@@ -53,5 +56,6 @@ class TaskPriorityServiceProvider extends ServiceProvider
     {
         $priority = Priority::find($id);
         $priority->delete();
+        $this->predifineIndexes();
     }
 }
