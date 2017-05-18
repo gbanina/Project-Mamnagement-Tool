@@ -13,7 +13,7 @@ class TaskStatusServiceProvider extends ServiceProvider
 
     public function all()
     {
-        return Status::all()->where('account_id', Auth::user()->current_acc);
+        return Status::orderBy('index', 'asc')->where('account_id', Auth::user()->current_acc)->get();
     }
 
     public function store($args)
@@ -38,6 +38,16 @@ class TaskStatusServiceProvider extends ServiceProvider
         $status->save();
 
         return $status;
+    }
+
+    public function predifineIndexes(){
+        $all = Status::orderBy('index', 'asc')->where('account_id', Auth::user()->current_acc)->get(); //orderBy('index', 'desc')
+        $i = 0;
+        foreach($all as $status) {
+            $status->index = $i;
+            $status->save();
+            $i++;
+        }
     }
 
     public function destroy($id)
