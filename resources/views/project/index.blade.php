@@ -3,43 +3,37 @@
 @section('content')
 
 <div class="">
-            <div class="page-title">
-              <div class="title_left">
-                <h3>Projects</h3>
-              </div>
 
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
             <div class="clearfix"></div>
             <div class="row">
               <div class="col-md-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Projects</h2>
+                    <h2>Projects Overview</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{ URL::to('project/create') }}" class="btn btn-default">Add new Project</a>
+                    </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content" style="display: block;">
-                    <a href="{{ URL::to('project/create') }}" class="btn btn-default">Add new Project</a>
-                    <p>Listing all projects for {{Auth::user()->currentacc->name}}</p>
                     <!-- start project list -->
-                    <table class="table table-striped projects">
+                    <table id="advanced-table" class="table table-striped projects">
                       <thead>
+                      <tr>
+                        <th><input id="id-filter" class="form-control"/></th>
+                        <th><input id="name-filter" class="form-control"/></th>
+                        <th><input id="manager-filter" class="form-control"/></th>
+                        <th><input id="responsible-filter" class="form-control"/></th>
+                        <th>{!! WebComponents::projectType() !!}</th>
+                        <th></th>
+                      </tr>
                         <tr>
-                          <th style="width: 1%">ID</th>
-                          <th >Project Name</th>
-                          <th style="width: 20%">Responsible Users</th>
-                          <th style="width: 20%">Project Progress</th>
-                          <th style="width: 10%">Type</th>
-                          <th style="width: 15%">Edit</th>
+                          <th style="min-width: 50px">ID</th>
+                          <th style="min-width: 300px">Project Name</th>
+                          <th style="min-width: 100px">Project Manager</th>
+                          <th style="min-width: 100px">Default Responsible</th>
+                          <th style="min-width: 100px">Type</th>
+                          <th style="min-width: 100px">Edit</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -54,28 +48,16 @@
                             </a>
                           </td>
                           <td>
-                            <ul class="list-inline">
-                            @foreach($project->responsibleUsers as $user)
-                              <li>
-                                <img src="{{ URL::to('images/' . $user->avatar) }}" class="avatar" alt="Avatar">
-                              </li>
-                              @endforeach
-                            </ul>
+                              {{$project->ProjectManager}}
                           </td>
-                          <td class="project_progress">
-                            <div class="progress progress_sm">
-                              <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="57" aria-valuenow="57" style="width: 57%;"></div>
-                            </div>
-                            <small>57% Complete</small>
+                           <td>
+                              {{$project->ResponsibleUser}}
                           </td>
                           <td>
                             <button type="button" class="btn btn-success btn-xs">{{$project->type}}</button>
                           </td>
                           <td>
-                          <!--
-                            <a href="{{ URL::to('project/'.$project->id.'/edit') }}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                            -->
-                            <a href="{{ URL::to('project/'.$project->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                             <a href="{{ URL::to('project/'.$project->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
 
                             @if($project->permission == 'DEL')
                                 @component('component.delete-button', ['route' => 'project.destroy', 'id' => $project->id])
@@ -93,4 +75,42 @@
               </div>
             </div>
           </div>
+@endsection
+
+@section('js_include')
+    <script src="{{ URL::to('js/table/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ URL::to('js/table/dataTables.select.min.js')}}"></script>
+    <script src="https://cdn.datatables.net/colreorder/1.3.3/js/dataTables.colReorder.min.js"></script>
+    <script>
+      var table = $('#advanced-table').DataTable({
+        stateSave: true,
+        select: true,
+        colReorder: true
+    });
+    var search_id = table.columns( table.colReorder.transpose( 0 ) ).search();
+    $('#id-filter').val(search_id[0]);
+    $('#id-filter').on( 'keyup change', function () {
+        table.columns( table.colReorder.transpose( 0 ) ).search( this.value ).draw();
+    });
+    var search_name = table.columns( table.colReorder.transpose( 1 ) ).search();
+    $('#name-filter').val(search_name[0]);
+    $('#name-filter').on( 'keyup change', function () {
+        table.columns( table.colReorder.transpose( 1 ) ).search( this.value ).draw();
+    });
+    var search_manager = table.columns( table.colReorder.transpose( 2 ) ).search();
+    $('#manager-filter').val(search_manager[0]);
+    $('#manager-filter').on( 'keyup change', function () {
+        table.columns( table.colReorder.transpose( 2 ) ).search( this.value ).draw();
+    });
+    var search_responsible = table.columns( table.colReorder.transpose( 3 ) ).search();
+    $('#responsible-filter').val(search_responsible[0]);
+    $('#responsible-filter').on( 'keyup change', function () {
+        table.columns( table.colReorder.transpose( 3 ) ).search( this.value ).draw();
+    });
+    var search_type = table.columns( table.colReorder.transpose( 4 ) ).search();
+    $('#type_id-filter').val(search_type[0]);
+    $('#type_id-filter').on( 'change', function () {
+        table.columns( table.colReorder.transpose( 4 ) ).search( this.value ).draw();
+    });
+    </script>
 @endsection

@@ -91,4 +91,14 @@ class Project extends Model {
         $userIds = UserTask::whereIn('task_id', $taskIds->toArray())->pluck('user_id')->unique();
         return User::whereIn('id', $userIds->toArray())->limit(4)->get();
     }
+    public function getResponsibleUserAttribute()
+    {
+
+        return User::find($this->default_responsible)->name;
+    }
+    public function getProjectManagerAttribute()
+    {
+        $userProject = $this->hasOne('App\Models\UserProject', 'project_id');
+        return User::find($userProject->first()->user_id)->name;
+    }
 }

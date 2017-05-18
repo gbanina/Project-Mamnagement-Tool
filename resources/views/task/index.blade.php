@@ -10,7 +10,7 @@
                   <div class="x_title">
                     <h2>Tasks Overview</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <a href="#" id="add_new_button" class="btn btn-default">Add new Task</a>
+                     <a href="#" id="add_new_button" class="btn btn-default">Add new Task</a>
                       <!-- {{ Form::select('project_id', $projects, '', array('style' => 'max-width: 250px;','id'=>'project_id', 'class' => 'form-control', 'required')) }} -->
                     </ul>
                     <div class="clearfix"></div>
