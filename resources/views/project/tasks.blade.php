@@ -1,14 +1,13 @@
 <div class="x_panel">
     <div class="x_title">
         <h2>Tasks</h2>
+        <ul class="nav navbar-right panel_toolbox">
+              <a href="{{ URL::to('task/create') }}?p={{$project->id}}" class="btn btn-default" type="button">Add new Task</a>
+        </ul>
         <div class="clearfix"></div>
     </div>
                   <div class="x_content" style="display: block;">
-                    <p>
-                      <div id="task_type_buttons">
-                        <a href="{{ URL::to('task/create') }}?p={{$project->id}}" class="btn btn-default" type="button">Add new Task</a>
-                      </div>
-                    </p>
+
                     <!-- start project list -->
                     <table class="table table-striped projects">
                       <thead>

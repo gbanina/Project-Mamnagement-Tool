@@ -39,6 +39,10 @@
                                       <div class="x_panel">
                                         <div class="x_title">
                                           <h2>Project : <strong>{{$project->type}}</strong> <small>(Edit)</small></h2>
+                                          <ul class="nav navbar-right panel_toolbox">
+                                                <a href="{{ URL::previous() }}" class="btn btn-default" type="button">Cancel</a>
+                                               {!! Form::submit('Save', array($global_css, 'class' => 'btn btn-primary')) !!}
+                                          </ul>
                                           <div class="clearfix"></div>
                                         </div>
                                         <div class="x_content">
@@ -62,21 +66,6 @@
                                               <label class="control-label col-md-4 col-sm-4 col-xs-12">Default Responsible</label>
                                               <div class="col-md-8 col-sm-8 col-xs-12">
                                                   {{ Form::select('default_responsible', $users, $project->default_responsible, array($global_css, 'class' => 'form-control', 'required')) }}
-                                              </div>
-                                            </div>
-                                            <div class="form-group">
-                                            <!--
-                                              <label class="control-label col-md-4 col-sm-4 col-xs-12">Task Types</label>
-                                              <label class="data-label col-md-8 col-sm-8 col-xs-12">
-                                                <div id="task_type_div">Task, Issue, Bug, Epic, Idea <br></div>
-                                                -->
-                                                  <!--<a href="" style="margin-bottom: 5px" class="btn btn-primary btn-xs">Edit</a>-->
-                                              </label>
-                                            </div>
-                                            <div class="form-group">
-                                              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
-                                                <a href="{{ URL::to('project') }}" class="btn btn-primary" type="button">Cancel</a>
-                                                {!! Form::submit('Save', array($global_css, 'class' => 'btn btn-success')) !!}
                                               </div>
                                             </div>
 
