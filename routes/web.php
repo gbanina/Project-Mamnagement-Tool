@@ -62,4 +62,6 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('morph-return', 'MorphController@returnFromMorph');
 
     Route::post('file-upload/{uploadTaskId}', 'FileController@upload');
+
+    Route::get('/send', 'EmailController@send');
 });
