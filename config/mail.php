@@ -7,16 +7,15 @@ return [
     | Mail Driver
     |--------------------------------------------------------------------------
     |
-    | Laravel supports both SMTP and PHP's "mail" function as drivers for the
+        | Laravel supports both SMTP and PHP's "mail" function as drivers for the
     | sending of e-mail. You may specify which one you're using throughout
     | your application here. By default, Laravel is setup for SMTP mail.
     |
-    | Supported: "smtp", "sendmail", "mailgun", "mandrill", "ses",
-    |            "sparkpost", "log", "array"
+    | Supported: "smtp", "mail", "sendmail", "mailgun", "mandrill", "ses", "log"
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'driver' => 'mailgun',
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +28,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => 'smtp.mailgun.org',
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +41,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
+    'port' => 587,
 
     /*
     |--------------------------------------------------------------------------
@@ -55,10 +54,7 @@ return [
     |
     */
 
-    'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
-    ],
+    'from' => ['address' => 'postmaster@app.teambiosis.com', 'name' => 'Teambiosis'],
 
     /*
     |--------------------------------------------------------------------------
@@ -71,7 +67,7 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    'encryption' => 'tls',
 
     /*
     |--------------------------------------------------------------------------
@@ -84,27 +80,44 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME'),
-
-    'password' => env('MAIL_PASSWORD'),
+    'username' => null,
 
     /*
     |--------------------------------------------------------------------------
-    | Markdown Mail Settings
+    | SMTP Server Password
     |--------------------------------------------------------------------------
     |
-    | If you are using Markdown based email rendering, you may configure your
-    | theme and component paths here, allowing you to customize the design
-    | of the emails. Or, you may simply stick with the Laravel defaults!
+    | Here you may set the password required by your SMTP server to send out
+    | messages from your application. This will be given to the server on
+    | connection so that the application will be able to send messages.
     |
     */
 
-    'markdown' => [
-        'theme' => 'default',
+    'password' => null,
 
-        'paths' => [
-            resource_path('views/vendor/mail'),
-        ],
-    ],
+    /*
+    |--------------------------------------------------------------------------
+    | Sendmail System Path
+    |--------------------------------------------------------------------------
+    |
+    | When using the "sendmail" driver to send e-mails, we will need to know
+    | the path to where Sendmail lives on this server. A default path has
+    | been provided here, which will work well on most of your systems.
+    |
+    */
 
+    'sendmail' => '/usr/sbin/sendmail -bs',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Mail "Pretend"
+    |--------------------------------------------------------------------------
+    |
+    | When this option is enabled, e-mail will not actually be sent over the
+    | web and will instead be written to your application's logs files so
+    | you may inspect the message. This is great for local development.
+    |
+    */
+
+    'pretend' => false,
 ];
