@@ -16,7 +16,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password', 'confirmed', 'confirmation_code'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -83,6 +83,6 @@ class User extends Authenticatable
 
     public function myTasks()
     {
-        return $this->belongsToMany('App\Models\Task', 'user_tasks')->where('closed', '0');
+        return $this->belongsToMany('App\Models\Task', 'user_tasks')->where('closed', '0')->where('account_id', Auth::user()->current_acc);
     }
 }

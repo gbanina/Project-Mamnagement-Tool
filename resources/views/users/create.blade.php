@@ -16,12 +16,26 @@
                   </div>
                   <div class="x_content">
                     <br>
-                {!! Form::open(array('url' => 'account/create', 'class' => 'form-horizontal form-label-left')) !!}
+                {!! Form::open(array('url' => 'users', 'class' => 'form-horizontal form-label-left')) !!}
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status-name">Email <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          {{ Form::email('email', '', array('class' => 'form-control')) }}
+                          {{ Form::text('name', '', array('required' => 'required', 'class' => 'form-control')) }}
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          {{ Form::email('email', '', array('required' => 'required', 'class' => 'form-control')) }}
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="role">Role <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          {{ Form::select('role_id', $roles, '', array('required' => 'required', 'class' => 'form-control')) }}
                         </div>
                       </div>
                       <div class="form-group">

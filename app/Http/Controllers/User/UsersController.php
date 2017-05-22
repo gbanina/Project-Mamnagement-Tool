@@ -7,14 +7,22 @@ use Auth;
 use View;
 Use Redirect;
 use App\User;
+use App\Models\Role;
 use App\Models\UserAccounts;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use App\Providers\Admin\UserServiceProvider;
 
 class UsersController extends BaseController {
 
+    protected $service;
+
+    public function __construct()
+    {
+        $this->service = new UserServiceProvider();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +42,8 @@ class UsersController extends BaseController {
      */
     public function create()
     {
-        return View::make('users.create');
+        $roles = Role::where('account_id', Auth::user()->current_acc)->pluck('name', 'id');
+        return View::make('users.create')->with('roles', $roles);
     }
 
     /**
@@ -44,8 +53,8 @@ class UsersController extends BaseController {
      */
     public function store()
     {
-
-        return Redirect::to('users.index');
+        $this->service->inviteUser(Input::get('email'), Input::get('name'), Input::get('role_id'));
+        return Redirect::to('users');
     }
 
     /**

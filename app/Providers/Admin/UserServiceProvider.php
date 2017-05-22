@@ -3,10 +3,14 @@
 namespace App\Providers\Admin;
 
 use DB;
+use URL;
 use Auth;
+use Hash;
 use App\User;
 use App\Models\UserAccounts;
+use App\Models\Invite;
 use Illuminate\Support\ServiceProvider;
+use App\Providers\EmailProvider;
 
 class UserServiceProvider extends ServiceProvider
 {
@@ -25,5 +29,30 @@ class UserServiceProvider extends ServiceProvider
     {
         return DB::table('users')->join('user_accounts', 'users.id', '=', 'user_accounts.user_id')
         ->where('account_id', Auth::user()->current_acc)->pluck('name', 'user_id');
+    }
+    public function inviteUser($email, $name, $role)
+    {
+        $hash = Hash::make(time() . '_' . Auth::user()->current_acc);
+        $hash = preg_replace('/[^A-Za-z0-9\-]/', '', $hash);
+
+        $invite = new Invite();
+        $invite->account_id = Auth::user()->current_acc;
+        $invite->email = $email;
+        $invite->hash = $hash;
+        $invite->role_id = $role;
+        $invite->save();
+
+        $emailService = new EmailProvider();
+
+        if(User::where('email', $email)->first() == null) {// User not exists
+            $emailService->createAttribute($email, $name, URL::to('register-invite/' . $hash ));
+        }else { // User Exists
+            $emailService->createAttribute($email, $name, URL::to('invite/' . $hash ));
+        }
+            // create invitation
+            // send email
+
+            // create invitation
+
     }
 }

@@ -19,7 +19,7 @@ use Illuminate\Support\ServiceProvider;
 
 class PredefinedDataServiceProvider extends ServiceProvider
 {
-    public function __construct($userId, $name)
+    public function __construct($userId, $name, $currentAccount)
     {
         $account    = $this->createAccount($userId, $name);
         $role       = $this->generateRole($account->id);
@@ -28,15 +28,19 @@ class PredefinedDataServiceProvider extends ServiceProvider
                                             'role_id' => $role->id,
                                             'type' => 'OWNER']);
 
-                    $this->generateStatuses($account->id);
-                    $this->generatePriorities($account->id);
+        $this->generateStatuses($account->id);
+        $this->generatePriorities($account->id);
         $projectType = $this->generateProjectType($account->id);
         $view = $this->generateTaskView($account->id, $projectType->id);
         $taskType = $this->generateTaskType($account->id, $view->id, $projectType->id);
-        $this->generateTaskFields($account->id, $taskType->id);
+        $this->generateTaskFields($account->id, $taskType->id, $view->id);
 
         $this->generateProject($account, $projectType->id, $userId);
-        $this->setCurrentAcc($userId, $account->id);
+
+        if($currentAccount == 0)
+            $this->setCurrentAcc($userId, $account->id);
+        else
+            $this->setCurrentAcc($userId, $currentAccount);
     }
 
     public function createAccount($userId, $name)

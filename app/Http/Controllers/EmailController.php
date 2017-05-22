@@ -9,14 +9,19 @@ class EmailController extends Controller
 {
 
     public function send(Request $request){
-         $title = 'test title';//$request->input('title');
-         $content = 'test content';//$request->input('content');
 
-        Mail::send('email.send', ['title' => $title, 'content' => $content], function ($message)
+         $data = [
+                    'name' => 'Goran Banina',
+                    'inviter' => 'John Dow',
+                    'team' => 'SuperKewlAwsome',
+                    'accept' => 'accept_url',
+                ];
+
+
+        Mail::send('email.send', $data , function ($message)
         {
-
-            $message->from('me@gmail.com', 'Teambiosis');
-
+            $message->subject('Welcome to the Teambiosis');
+            $message->from('postman@teambiosis.com', 'Teambiosis');
             $message->to('gbanina@gmail.com');
 
         });

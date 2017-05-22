@@ -19,6 +19,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::resource('register-invite', 'Auth\RegisterInviteController');
+Route::get('/activate/{activationCode}', 'Auth\RegisterController@confirm');
 
 Route::group(['middleware' => 'auth'], function()
 {
@@ -28,7 +30,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('task-close/{closeId}', 'TaskController@close');
     Route::get('task-reopen/{reopenId}', 'TaskController@reopen');
 
-    Route::resource('users', 'UsersController');
+    Route::resource('users', 'User\UsersController');
 
     Route::resource('help', 'HelpController');
     Route::resource('settings', 'SettingsController');
@@ -64,4 +66,5 @@ Route::group(['middleware' => 'auth'], function()
     Route::post('file-upload/{uploadTaskId}', 'FileController@upload');
 
     Route::get('/send', 'EmailController@send');
+    Route::get('/invite/{inviteHash}', 'User\InviteController@accept');
 });

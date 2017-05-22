@@ -99,6 +99,8 @@ class Project extends Model {
     public function getProjectManagerAttribute()
     {
         $userProject = $this->hasOne('App\Models\UserProject', 'project_id');
-        return User::find($userProject->first()->user_id)->name;
+        if($userProject->first()!= null)
+            return User::find($userProject->first()->user_id)->name;
+        else return '';
     }
 }
