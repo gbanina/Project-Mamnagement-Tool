@@ -22,7 +22,7 @@ class EmailProvider extends ServiceProvider
         Mail::send('email.send', $data , function ($message) use ($email)
         {
             $message->subject('Welcome to the Teambiosis');
-            $message->from('postman@teambiosis.com', 'Teambiosis');
+            $message->from('postman@app.teambiosis.com', 'Teambiosis');
             $message->to($email);
         });
     }
