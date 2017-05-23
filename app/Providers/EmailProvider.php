@@ -40,4 +40,21 @@ class EmailProvider extends ServiceProvider
             $message->to($email);
         });
     }
+    public function taskAssign($email, $name, $taskName,$type, $url)
+    {
+        $data = [
+            'name' => $name,
+            'creator' => Auth::user()->name,
+            'taskName' => $taskName,
+            'type' => $type,
+            'url' => $url,
+        ];
+
+        Mail::send('email.assigned', $data , function ($message) use ($email, $taskName)
+        {
+            $message->subject('Assigned to You: ' . $taskName);
+            $message->from('postmaster@app.teambiosis.com', 'Teambiosis');
+            $message->to($email);
+        });
+    }
 }

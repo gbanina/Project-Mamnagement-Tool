@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Auth;
 use App\Models\UserTask;
 use App\Models\TaskField;
 use App\Models\TaskAttribute;
@@ -12,6 +13,8 @@ use App\Models\Task;
 use App\Models\Priority;
 use App\Models\Status;
 use App\User;
+use URL;
+use App\Providers\EmailProvider;
 
 class TaskServiceProvider extends ServiceProvider
 {
@@ -74,6 +77,7 @@ class TaskServiceProvider extends ServiceProvider
     public function setAdditional($taskId, $additional)
     {
         $commentsService = new CommentProvider();
+
         //TaskAttribute::where('task_id', $taskId)->delete();
         if($additional !== null){
             foreach ($additional as $key=>$att){
@@ -104,6 +108,7 @@ class TaskServiceProvider extends ServiceProvider
     public function setResponsible($taskId, $responsibleId)
     {
         $commentsService = new CommentProvider();
+        $emailService = new EmailProvider();
 
         if($responsibleId !== null){
             // Todo refactor this!
@@ -111,6 +116,11 @@ class TaskServiceProvider extends ServiceProvider
             if($userTask->user_id != $responsibleId){
                 $user = User::find($responsibleId);//$userTask->user()->first();
                 $commentsService->createAttribute($taskId, 'Responsible', $user->name);
+                if(Auth::user()->id != $responsibleId){
+                    $url = URL::to('task/'.$taskId.'/edit');
+                    $emailService->taskAssign($user->email, $user->name, $userTask->task->name,
+                                                        $userTask->task->getTypeAttribute(),  $url);
+                }
             }
             UserTask::where('task_id', $taskId)->delete();
             UserTask::create(['task_id' => $taskId, 'user_id' => $responsibleId]);
