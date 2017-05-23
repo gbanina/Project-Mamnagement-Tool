@@ -47,7 +47,7 @@
                             <a class="toggle-vis" data-column="1">Task Name</a>
                           </li>
                           <li role="presentation">
-                            <a class="toggle-vis" data-column="2">Team Members</a>
+                            <a class="toggle-vis" data-column="2">Responsible</a>
                           </li>
                           <li role="presentation">
                             <a class="toggle-vis" data-column="3">Project</a>
@@ -70,7 +70,7 @@
                         <tr>
                           <th style="width: 30px;">#</th>
                           <th style="width: 20%">Task Name</th>
-                          <th style="width: 12%">Team Members</th>
+                          <th style="width: 12%">Responsible</th>
                           <th>Project</th>
                           <th>Type</th>
                           <th>Status</th>

@@ -281,6 +281,17 @@ class TaskController extends BaseController {
     public function close($id, Request $request)
     {
         $task = Task::find($id);
+
+        if($task->permission != 'NONE' && $task->permission != 'READ'){
+            $service = new TaskServiceProvider();
+
+            $service->setDefaultFields($task->id, Input::all());
+            $service->setResponsible($task->id, Input::get('responsible_id'));
+            $service->setAdditional($task->id, Input::get('additional'));
+            $this->boardService->taskEdit($task);
+        }
+
+        $task = Task::find($id);
         $task->closed = '1';
         $task->update();
         $this->boardService->taskClose($task);
