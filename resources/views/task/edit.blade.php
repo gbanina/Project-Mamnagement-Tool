@@ -50,7 +50,7 @@
                   </div>
                 </h2>
                 <ul class="nav navbar-right panel_toolbox">
-                          <a href="#" onClick="goBack()" class="btn btn-default" type="button">Cancel</a>
+                          <a href="{{ WebComponents::backUrl() }}" class="btn btn-default" type="button">Cancel</a>
                           {!! Form::submit('Submit', array($global_css, 'class' => 'btn btn-success')) !!}
                 </ul>
                 <div class="clearfix"></div>

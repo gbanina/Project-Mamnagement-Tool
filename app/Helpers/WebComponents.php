@@ -38,4 +38,7 @@ class WebComponents{
         $types =  $service->all()->pluck('label', 'label')->prepend('Project Type', '');
         return Form::select('type_id', $types, '', array('id' => 'type_id-filter', 'class' => 'form-control'));
     }
+    public static function backUrl(){
+        return \Session::get('real-previous-url');
+    }
 }
