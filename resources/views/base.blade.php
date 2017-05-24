@@ -90,7 +90,6 @@
       </div>
     </div>
 
-
     <!-- Bootstrap Progress Bar-->
     <script src="{{ URL::to('js/bootstrap-progressbar.min.js')}}"></script>
     <!-- FastClick -->

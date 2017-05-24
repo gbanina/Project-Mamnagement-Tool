@@ -5,7 +5,10 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Recent Activities <small><a href="{{ URL::to('board/create') }}" class="btn btn-default" type="button">Add News</a></small></h2>
+                  <h2>Recent Activities</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                      <a href="{{ URL::to('board/create') }}" class="btn btn-default" type="button">Add News</a>
+                  </ul>
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">

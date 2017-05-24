@@ -4,11 +4,15 @@
        <div class="">
           <div class="clearfix"></div>
             <div class="row">
-                {!! Form::open(array('url' => 'board', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
+                {!! Form::model($board, array('route' => array('board.update', $board->id), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Edit News <small>Dashboard</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{ WebComponents::backUrl() }}" class="btn btn-default" type="button">Cancel</a>
+                        {!! Form::submit('Save', array('class' => 'btn btn-success')) !!}
+                    </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -32,10 +36,6 @@
                       </div>
                       <div class="form-group">
                         <div class="col-md-7 col-sm-7 col-xs-7">
-                        </div>
-                        <div class="col-md-5 col-sm-5 col-xs-5">
-                            {!! Form::submit('Save', array('class' => 'btn btn-success')) !!}
-                            <a href="{{ URL::to('board') }}" class="btn btn-primary" type="button">Cancel</a>
                         </div>
                       </div>
                   </div>

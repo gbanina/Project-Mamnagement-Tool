@@ -71,7 +71,7 @@ function add_work()
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: "POST", //PUT
-            url: "{{ URL::to('work')}}", // ide na update metodu
+            url: "{{ URL::to('work-save')}}", // ide na update metodu
             data: {date: $("#date").val(), task_id: $("#task_id").val(), cost: $("#cost").val()},
             success: function( msg ) {
               new PNotify({

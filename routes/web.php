@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('project-rights/{project_id}/', 'Project\ProjectRightController');
     Route::resource('task', 'TaskController');
     Route::put('task-close/{closeId}', 'TaskController@close');
+    Route::get('task-close/{closeId2}', 'TaskController@close');
     Route::get('task-reopen/{reopenId}', 'TaskController@reopen');
 
     Route::resource('users', 'User\UsersController');
@@ -54,8 +55,9 @@ Route::group(['middleware' => 'auth'], function()
     Route::post('admin/task-type-reorder', 'Admin\TaskTypeController@reorder');
 
     Route::resource('board', 'BoardController');
-    Route::resource('work', 'Work\WorkController');
     Route::resource('account', 'AccountController');
+    Route::post('work-save', 'Work\WorkController@storeAjax');
+    Route::resource('work', 'Work\WorkController');
 
     Route::resource('comment', 'CommentController');
 

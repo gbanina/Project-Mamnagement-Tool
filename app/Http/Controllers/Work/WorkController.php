@@ -55,6 +55,21 @@ class WorkController extends BaseController {
 
         $request->session()->flash('alert-success', 'Work for '.$work->task->name.' was successful created!');
 
+        return Redirect::back();
+    }
+
+    public function storeAjax(Request $request)
+    {
+        $work = new Work;
+        $work->account_id = Auth::user()->current_acc;
+        $work->user_id = Auth::user()->id;
+        $work->task_id = Input::get('task_id');
+        $work->date = PMTypesHelper::dateToSQL(Input::get('date'));
+        $work->cost = Input::get('cost');
+        $work->save();
+
+        $request->session()->flash('alert-success', 'Work for '.$work->task->name.' was successful created!');
+
         return $work->id;//Redirect::back();
     }
 

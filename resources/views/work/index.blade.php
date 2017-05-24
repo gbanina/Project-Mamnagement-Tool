@@ -10,7 +10,7 @@
                   </div>
                   <div class="x_content">
                     @include('work.tasks')
-                    <h2>My work for this week <small>{{$cost}}h</small></h2>
+                    <h2>My work for this week ({{$cost}}h)</h2>
                     <table class="table">
                       <thead>
                         <tr>
