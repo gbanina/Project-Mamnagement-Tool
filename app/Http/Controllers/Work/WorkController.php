@@ -30,9 +30,6 @@ class WorkController extends BaseController {
         $tasksCount = $tasks->count();
         $tasks = $tasks->get();
 
-        /* If you try to edit work from work.index, return to it */
-        $request->session()->put('url.intended', 'work');
-
         $view = View::make('work.index')->with('works', $work->get())->with('tasksCount', $tasksCount)
                 ->with('tasks', $tasks)->with('cost', $work->sum('cost'));
         return $view;
