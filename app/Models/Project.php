@@ -56,6 +56,15 @@ class Project extends Model {
         return $tasks->get();
     }
 
+    public function getProgressAttribute()
+    {
+        $all = $this->hasMany('App\Models\Task', 'project_id')->count();
+        $closed = $this->hasMany('App\Models\Task', 'project_id')->where('closed', '1')->count();
+        if($all != 0)
+            return floor (($closed / $all) * 100);
+        return 0;
+    }
+
     public function getEstimatedStartDateAttribute()
     {
         $item = $this->hasMany('App\Models\Task', 'project_id')->min('estimated_start_date');

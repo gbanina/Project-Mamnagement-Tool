@@ -26,6 +26,7 @@
                         <th><input id="responsible-filter" class="form-control"/></th>
                         <th>{!! WebComponents::projectType() !!}</th>
                         <th></th>
+                        <th></th>
                       </tr>
                         <tr>
                           <th style="min-width: 50px">ID</th>
@@ -33,6 +34,7 @@
                           <th style="min-width: 100px">Project Manager</th>
                           <th style="min-width: 100px">Default Responsible</th>
                           <th style="min-width: 100px">Type</th>
+                          <th style="min-width: 100px">Project Progress</th>
                           <th style="min-width: 100px">Edit</th>
                         </tr>
                       </thead>
@@ -55,6 +57,12 @@
                           </td>
                           <td>
                             <button type="button" class="btn btn-success btn-xs">{{$project->type}}</button>
+                          </td>
+                          <td class="project_progress">
+                            <div class="progress progress_sm">
+                              <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="{{$project->progress}}" aria-valuenow="{{$project->progress}}"></div>
+                            </div>
+                            <small>{{$project->progress}}% Complete</small>
                           </td>
                           <td>
                              <a href="{{ URL::to('project/'.$project->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
