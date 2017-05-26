@@ -43,8 +43,8 @@ class RegisterInviteController extends BaseController {
         $user = User::create([
             'name' => Input::get('name'),
             'email' => $invite->email,
-            'password' => bcrypt(Input::get('password'),
-            'confirmed' => 1),
+            'password' => bcrypt(Input::get('password')),
+            'confirmed' => 1,
         ]);
 
         $userAcc = UserAccounts::create(['user_id' => $user->id,

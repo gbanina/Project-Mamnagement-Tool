@@ -9,7 +9,11 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Add New Project Type <small>Admin</small></h2>
+                    <h2>Add new Project Type</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <a href="{{ WebComponents::backUrl() }}" class="btn btn-default" type="button">Cancel</a>
+                      {!! Form::submit('Add', array('class' => 'btn btn-success')) !!}
+                    </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -21,18 +25,13 @@
                             {!! Form::text('type-name', '', array('required' => 'required', 'class' => 'form-control col-md-7 col-xs-12')) !!}
                         </div>
                       </div>
-                      <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-6">
-                            {!! Form::submit('Save', array('class' => 'btn btn-default')) !!}
-                        </div>
-                      </div>
                     </div>
                 </div>
               </div>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>Add Task Types for current project type</h2>
+                      <h2>Add Task Types</h2>
                       <div class="clearfix"></div>
                     </div>
                     <div class="x_content">

@@ -5,7 +5,9 @@ use DateTime;
 use App\Providers\Admin\TaskStatusServiceProvider;
 use App\Providers\Admin\TaskTypeServiceProvider;
 use App\Providers\Admin\ProjectTypeServiceProvider;
+use App\Providers\Admin\RoleServiceProvider;
 use Form;
+use URL;
 
 class WebComponents{
 
@@ -38,7 +40,16 @@ class WebComponents{
         $types =  $service->all()->pluck('label', 'label')->prepend('Project Type', '');
         return Form::select('type_id', $types, '', array('id' => 'type_id-filter', 'class' => 'form-control'));
     }
+    public static function roles(){
+        $service = new RoleServiceProvider();
+        $roles =  $service->all()->pluck('name', 'name')->prepend('Role', '');
+        return Form::select('role_id', $roles, '', array('id' => 'role_id-filter', 'class' => 'form-control'));
+    }
+    public static function userTypes(){
+        $types =  array('' => 'Type', 'OWNER' => 'OWNER', 'ADMIN' => 'ADMIN', 'MEMBER' => 'MEMBER');
+        return Form::select('type_id', $types, '', array('id' => 'type_id-filter', 'class' => 'form-control'));
+    }
     public static function backUrl(){
-        return \Session::get('real-previous-url');
+        return URL::previous();//\Session::get('real-previous-url');
     }
 }

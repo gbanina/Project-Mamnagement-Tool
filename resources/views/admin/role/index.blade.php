@@ -1,14 +1,17 @@
 @extends('base')
 
 @section('content')
-<div class="col-md-6 col-sm-6 col-xs-12 form-group">
-    <div class="x_panel">
+<div class="row">
+  <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="x_panel">
                   <div class="x_title">
-                    <h2>Roles <small>Admin</small></h2>
+                    <h2>Roles</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{ URL::to('/admin/role/create') }}" class="btn btn-default">Add new Role</a>
+                    </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                        <a href="{{ URL::to('/admin/role/create') }}" class="btn btn-default">Add new Role</a>
                         <table class="table table-striped projects">
                           <thead>
                             <tr>
@@ -41,4 +44,5 @@
                       </div>
                   </div>
                 </div>
+              </div>
 @endsection

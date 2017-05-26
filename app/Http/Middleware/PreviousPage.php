@@ -19,11 +19,13 @@ class PreviousPage
     {
         $currentUrl = Request::capture()->fullUrl();
 
-        if($currentUrl != \Session::get('real-current-url')) {
-            \Session::put('real-previous-url', \Session::get('real-current-url'));
-            \Session::put('real-current-url',$currentUrl);
-            \Session::save();
-        }
+        //if($request->isMethod('post') || $request->isMethod('get')) {
+            if($currentUrl != \Session::get('real-current-url')) {
+                \Session::put('real-previous-url', \Session::get('real-current-url'));
+                \Session::put('real-current-url',$currentUrl);
+                \Session::save();
+            }
+        //}
 
         return $next($request);
     }

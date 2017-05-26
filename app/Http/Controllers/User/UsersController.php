@@ -14,6 +14,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use App\Providers\Admin\UserServiceProvider;
+use Illuminate\Http\Request;
 
 class UsersController extends BaseController {
 
@@ -98,7 +99,7 @@ class UsersController extends BaseController {
         $account->save();
 
         $request->session()->flash('alert-success', 'User account was successful updated!');
-        return Redirect::to('user');
+        return Redirect::to('users');
     }
 
     /**
@@ -107,9 +108,13 @@ class UsersController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
+        $account = UserAccounts::find($id);
+        $account->delete();
 
+        $request->session()->flash('alert-success', 'User was successful deleted!');
+        return Redirect::to('users');
     }
 
 }

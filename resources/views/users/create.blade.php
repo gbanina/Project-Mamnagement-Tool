@@ -10,13 +10,18 @@
             <div class="row">
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
+                {!! Form::open(array('url' => 'users', 'class' => 'form-horizontal form-label-left')) !!}
                   <div class="x_title">
-                    <h2>Invite user to {{Auth::user()->currentacc->name}}<small>Accounts</small></h2>
+                    <h2>Invite User to {{Auth::user()->currentacc->name}}</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="{{ WebComponents::backUrl() }}" class="btn btn-default" type="button">Cancel</a>
+                        {!! Form::submit('Invite', array('class' => 'btn btn-success')) !!}
+                    </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <br>
-                {!! Form::open(array('url' => 'users', 'class' => 'form-horizontal form-label-left')) !!}
+
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name <span class="required">*</span>
                         </label>
@@ -38,13 +43,8 @@
                           {{ Form::select('role_id', $roles, '', array('required' => 'required', 'class' => 'form-control')) }}
                         </div>
                       </div>
-                      <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-6">
-                            {!! Form::submit('Invite', array('class' => 'btn btn-default')) !!}
-                        </div>
-                      </div>
-                {!! Form::close() !!}
                     </div>
+                    {!! Form::close() !!}
                 </div>
               </div>
             </div>
