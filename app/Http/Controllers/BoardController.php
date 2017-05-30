@@ -32,7 +32,7 @@ class BoardController extends BaseController {
                                                   'account_id' => Auth::user()->current_acc,
                                                   'key' => 'last_bord'], ['value' => $boards->first()->id]);
         $preference->value = $boards->first()->id;
-        $preference->update();
+        $preference->save();
 
         $view = View::make('board.index')->with('boards', $boards);
         return $view;
