@@ -23,8 +23,15 @@ class BoardServiceProvider extends ServiceProvider
 
     public function countUnseen() {
         $boardService = new BoardServiceProvider();
-        $lastBoardId = UserPreference::where('user_id', Auth::user()->id )
-                            ->where('account_id', Auth::user()->current_acc)->where('key', 'last_bord')->first()->value;
+        $lastBoard = UserPreference::where('user_id', Auth::user()->id )
+                            ->where('account_id', Auth::user()->current_acc)->where('key', 'last_bord')->first();
+
+        if($lastBoard == null) {
+            $lastBoardId = 0;
+        }
+        else {
+            $lastBoardId = $lastBoard->value;
+        }
 
         $projectService = new ProjectServiceProvider(Auth::user());
         $projectIds = $projectService->all()->pluck('id')->toArray();
