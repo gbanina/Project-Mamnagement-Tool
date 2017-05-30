@@ -6,8 +6,12 @@ use App\Providers\Admin\TaskStatusServiceProvider;
 use App\Providers\Admin\TaskTypeServiceProvider;
 use App\Providers\Admin\ProjectTypeServiceProvider;
 use App\Providers\Admin\RoleServiceProvider;
+use App\Providers\BoardServiceProvider;
+use App\Models\UserPreference;
+use App\Models\Dashboard;
 use Form;
 use URL;
+use Auth;
 
 class WebComponents{
 
@@ -51,5 +55,14 @@ class WebComponents{
     }
     public static function backUrl(){
         return URL::previous();//\Session::get('real-previous-url');
+    }
+    public static function boardEvents() {
+        $boardService = new BoardServiceProvider();
+        $newCount = $boardService->countUnseen();
+
+        if($newCount != 0)
+            return '<span class="label label-success pull-right">'.$newCount.' New Events</span>';
+
+        return '';
     }
 }

@@ -173,3 +173,11 @@ ul.messages li .message_wrapper.wrapper_note{
 .files form{
     display:none;
 }
+
+
+@media (min-width: 480px) {
+    .nav_menu2 {
+        position: fixed;
+    }
+}
+

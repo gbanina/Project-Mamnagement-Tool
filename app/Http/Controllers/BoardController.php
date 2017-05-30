@@ -9,24 +9,31 @@ Use Redirect;
 use App\Models\Dashboard;
 use App\Models\Project;
 use App\Providers\ProjectServiceProvider;
+use App\Providers\BoardServiceProvider;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreBoard;
+use App\Models\UserPreference;
 
 class BoardController extends BaseController {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
+    protected $service;
+
+    public function __construct(){
+        $this->service = new BoardServiceProvider();
+    }
+
     public function index()
     {
-        $projectService = new ProjectServiceProvider(Auth::user());
-        $projectIds = $projectService->all()->pluck('id')->toArray();
-        $boards = Dashboard::where('account_id', Auth::user()->current_acc)->whereIn('project_id', $projectIds)->orderBy('id', 'desc')->get();
+        $boards = $this->service->all()->get();
+         $preference = UserPreference::firstOrNew(['user_id' => Auth::user()->id,
+                                                  'account_id' => Auth::user()->current_acc,
+                                                  'key' => 'last_bord'], ['value' => $boards->first()->id]);
+        $preference->value = $boards->first()->id;
+        $preference->update();
+
         $view = View::make('board.index')->with('boards', $boards);
         return $view;
     }

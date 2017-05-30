@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="">
-
             <div class="clearfix"></div>
             <div class="row">
               <div class="col-md-12">
@@ -10,8 +9,14 @@
                   <div class="x_title">
                     <h2>Tasks Overview</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                     <a href="#" id="add_new_button" class="btn btn-default">Add new Task</a>
-                      <!-- {{ Form::select('project_id', $projects, '', array('style' => 'max-width: 250px;','id'=>'project_id', 'class' => 'form-control', 'required')) }} -->
+                        <div class="btn-group">
+                          <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> Add new Task <span class="caret"></span> </button>
+                          <ul class="dropdown-menu">
+                            @foreach ($projects as $projectId => $project)
+                              <li><a href="{{ URL::to('task/create?p=' . $projectId) }}">{{$project}}</a></li>
+                            @endforeach
+                          </ul>
+                        </div>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -143,18 +148,6 @@
     <script src="{{ URL::to('js/table/dataTables.select.min.js')}}"></script>
     <script src="https://cdn.datatables.net/colreorder/1.3.3/js/dataTables.colReorder.min.js"></script>
 
-    <script>
-      $( "#project_id" ).change(function() {
-        chainge_project_overview_add(this.value);
-      });
-      function chainge_project_overview_add(id){
-        if(id != 0 && id != '0')
-          $('#add_new_button').attr('href','{{ URL::to('task\/create') }}' + '?p=' + id);
-      }
-      $( document ).ready(function() {
-          chainge_project_overview_add({{$firstProject}});
-      });
-    </script>
     <script>
       var table = $('#advanced-table').DataTable({
         stateSave: true,

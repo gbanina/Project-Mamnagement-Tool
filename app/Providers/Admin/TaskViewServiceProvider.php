@@ -99,8 +99,9 @@ class TaskViewServiceProvider extends ServiceProvider
     {
         $taskType = TaskType::find($id);
         $taskType->status = "IN_PROGRESS";
-        if($published == 'on')
-            $taskType->status = "PUBLISHED";
+        //if($published == 'on')
+          //  $taskType->status = "PUBLISHED";
+        $taskType->status = $published;
         $taskType->name = $name;
         $taskType->save();
 
@@ -142,6 +143,10 @@ class TaskViewServiceProvider extends ServiceProvider
         return $destinationType;
     }
 
+    public function children($sourceId)
+    {
+        return TaskType::where('parent', $sourceId)->pluck('name');
+    }
     public function destroy($id)
     {
         $type = TaskType::find($id);

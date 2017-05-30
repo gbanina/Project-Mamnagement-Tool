@@ -5,36 +5,37 @@
 {!! Form::open(array('url' => 'admin/priority-reorder', 'class' => 'form-horizontal form-label-left')) !!}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 {!! Form::close() !!}
-
-<div class="col-md-6 col-sm-6 col-xs-12 form-group">
-    <div class="x_panel">
+<div class="row">
+  <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="x_panel">
                   <div class="x_title">
-                    <h2>Priority <small>Admin</small></h2>
+                    <h2>Priority</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <a href="{{ URL::to('/admin/priority/create') }}" class="btn btn-default">Add new Priority</a>
+                    </ul>
                     <div class="clearfix"></div>
                   </div>
-                  <a href="{{ URL::to('/admin/priority/create') }}" class="btn btn-default">Add new Priority</a>
                   <div class="x_content" style="display: block;">
 
                       <table id="advanced-table" class="table table-striped projects">
                         <thead>
                           <tr>
-                            <th style="width: 1%">#</th>
-                            <th style="width: 20%">Priority Name</th>
-                            <th style="width: 20%">Edit</th>
+                            <th style="width: 25px">#</th>
+                            <th>Priority Name</th>
+                            <th style="width: 25px"></th>
                           </tr>
                         </thead>
                         <tbody>
                           @foreach ($priorities as $priority)
                           <tr id="{{$priority->id}}" datarow="{{$priority->id}}">
-                            <td class="draggable">{{$priority->index}}</td>
-                            <td class="draggable">
-                              <a>{{$priority->label}}</a>
+                            <td class="draggable"><i class="fa fa-arrows"></i></td>
+                            <td>
+                              <a href="{{ URL::to('admin/priority/'.$priority->id.'/edit') }}">{{$priority->label}}</a>
                               <br>
                               <small>Created {{$priority->created_at}}</small>
                             </td>
                             <td>
                               <li style="display: inline-block;">
-                              <a href="{{ URL::to('admin/priority/'.$priority->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                                 @component('component.delete-button', ['route' => 'priority.destroy', 'id' => $priority->id])
                                   Delete
                                 @endcomponent
@@ -47,6 +48,7 @@
                     </div>
                   </div>
                 </div>
+              </div>
 @endsection
 @section('js_include')
     <script src="{{ URL::to('js/table/jquery.dataTables.min.js')}}"></script>

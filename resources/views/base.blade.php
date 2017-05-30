@@ -60,7 +60,7 @@
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col">
+        <div class="col-md-3 menu_fixed left_col">
           <div class="left_col scroll-view">
             @include('main-nav')
             @include('top-nav')
@@ -82,7 +82,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Project Management Tool by <a href="https://google.com">OurAwsomeCompany</a>
+            Project Management Tool by <a href="//teambiosis.com/">Teambiosis Team</a>
           </div>
           <div class="clearfix"></div>
         </footer>

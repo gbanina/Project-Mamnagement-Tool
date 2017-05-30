@@ -16,23 +16,17 @@
                         {!! Form::text('view_name', $taskType->name, array('id' => 'view_name','class' => 'form-control editable-title')) !!}
                       </strong>
                       <div class="header-buttons">
-                        <a onClick="saveForm()" class="btn btn-default btn-sm" type="button">Save</a>
-                        <a href="{{ URL::to('admin/task-view')}}" class="btn btn-primary btn-sm" type="button">Cancel</a>
+                        <a id="published_link" @if($taskType->status == 'IN_PROGRESS') style="display:none;" @endif
+                          onClick="unpublish()" class="btn btn-dark btn-sm" type="button">Unpublish</a>
+                        <a id="unpublished_link" @if($taskType->status == 'PUBLISHED') style="display:none;" @endif
+                        onClick="publish()" class="btn btn-primary btn-sm" type="button">Publish</a>
 
+                        <input type="hidden" id="publish_hidden" name="publish_hidden" value="{{$taskType->status}}">
                       </div>
                     </h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <li>
-                      @if($taskType->status == 'PUBLISHED')
-                        <label id="switchery_label">
-                          <input id="form_published" type="checkbox" class="js-switch" value="on" disabled="disabled" checked="checked"/> Published
-                        </label>
-                      @else
-                        <label id="switchery_label">
-                          <input id="form_published" type="checkbox" class="js-switch" value="off" /> Publish
-                        </label>
-                      @endif
-                      </li>
+                        <a href="{{ WebComponents::backUrl() }}" class="btn btn-default" type="button">Cancel</a>
+                        <a onClick="saveForm()" class="btn btn-success btn-sm" type="button">Save</a>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -191,6 +185,38 @@
 @section('js_include')
 <script>
 
+function unpublish()
+{
+      $.ajax({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "PUT",
+            url: "{{ URL::to('admin/task-view-unpublish/'. $viewId)}}",
+            data: {data: {{$taskType->id}} },
+            success: function( msg ) {
+              if(msg == ''){
+                $('#unpublished_link').css('display', 'inline-block');
+                $('#published_link').css('display', 'none');
+                $('#publish_hidden').val('IN_PROGRESS');
+              }else {
+                  new PNotify({
+                    title: 'Error unpublishing view!',
+                    text: 'This view is used on : ' + msg,
+                    type: 'alert-success',
+                    styling: 'bootstrap3'
+                });
+              }
+            }
+        });
+}
+function publish()
+{
+    $('#unpublished_link').css('display', 'none');
+    $('#published_link').css('display', 'inline-block');
+    $('#publish_hidden').val('PUBLISHED');
+}
+
 function saveForm()
 {
   var result = [];
@@ -212,10 +238,9 @@ if(Object.keys(result).length != 0){
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            type: "PUT", //POST
-            //url: "{{ URL::to('admin/task-view')}}", // ide na store metodu
-            url: "{{ URL::to('admin/task-view/'. $viewId)}}", // ide na update metodu
-            data: {data: result, view_name: $("#view_name").val(), published: $("#form_published").val()},
+            type: "PUT",
+            url: "{{ URL::to('admin/task-view/'. $viewId)}}",
+            data: {data: result, view_name: $("#view_name").val(), published: $("#publish_hidden").val()},
             success: function( msg ) {
               new PNotify({
                   title: 'Success',

@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('admin/task-type', 'Admin\TaskTypeController');
     Route::resource('admin/project-type', 'Admin\ProjectTypeController');
     Route::resource('admin/task-view', 'Admin\TaskViewController');
+    Route::put('admin/task-view-unpublish/{unpublishId}', 'Admin\TaskViewController@unpublish');
 
     Route::get('admin/task-view/copy/{cpSource}/{cpDestination}', 'Admin\TaskViewController@copy');
     Route::get('admin/task-view/duplicate/{dpcId}', 'Admin\TaskViewController@duplicate');
@@ -58,6 +59,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('account', 'AccountController');
     Route::post('work-save', 'Work\WorkController@storeAjax');
     Route::resource('work', 'Work\WorkController');
+    Route::resource('team', 'My\TeamController');
 
     Route::resource('comment', 'CommentController');
 

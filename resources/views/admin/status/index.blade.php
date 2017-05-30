@@ -5,21 +5,23 @@
 {!! Form::open(array('url' => 'admin/status-reorder', 'class' => 'form-horizontal form-label-left')) !!}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 {!! Form::close() !!}
-
-<div class="col-md-6 col-sm-6 col-xs-12 form-group">
-      <div class="x_panel">
+<div class="row">
+  <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="x_panel">
                   <div class="x_title">
-                    <h2>Status <small>Admin</small></h2>
+                    <h2>Status</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <a href="{{ URL::to('/admin/status/create') }}" class="btn btn-default">Add new Status</a>
+                    </ul>
                     <div class="clearfix"></div>
                   </div>
-                  <a href="{{ URL::to('/admin/status/create') }}" class="btn btn-default">Add new Status</a>
                   <div class="x_content" style="display: block;">
                       <table id="advanced-table" class="table table-striped projects">
                         <thead>
                           <tr>
-                            <th style="width: 1%">#</th>
-                            <th style="width: 20%">Status Name</th>
-                            <th style="width: 10%">Edit</th>
+                            <th style="width: 25px"></th>
+                            <th>Status Name</th>
+                            <th style="width: 25px"></th>
                           </tr>
                          </thead>
                         <tbody>
@@ -27,15 +29,14 @@
                           @foreach ($statuses as $status)
 
                           <tr id="{{$status->id}}" datarow="{{$status->id}}">
-                            <td class="draggable">{{$status->index}} <i class="fa fa-arrows"></i> </td>
-                            <td class="draggable">
-                              <a>{{$status->name}}</a>
+                            <td class="draggable"><i class="fa fa-arrows"></i> </td>
+                            <td>
+                              <a href="{{ URL::to('admin/status/'.$status->id.'/edit') }}">{{$status->name}}</a>
                               <br>
                               <small>Created {{$status->created_at}}</small>
                             </td>
                             <td>
                               <li style="display: inline-block;">
-                              <a href="{{ URL::to('admin/status/'.$status->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                                 @component('component.delete-button', ['route' => 'status.destroy', 'id' => $status->id])
                                   Delete
                                 @endcomponent
@@ -51,6 +52,7 @@
 
                   </div>
                 </div>
+              </div>
 @endsection
 
 @section('js_include')

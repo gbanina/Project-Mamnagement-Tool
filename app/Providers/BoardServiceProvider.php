@@ -5,12 +5,36 @@ namespace App\Providers;
 use Auth;
 use App\Models\Dashboard;
 use Illuminate\Support\ServiceProvider;
+use App\Providers\BoardServiceProvider;
+use App\Models\UserPreference;
 
 class BoardServiceProvider extends ServiceProvider
 {
     public function __construct(){
         //
     }
+    public function all() {
+        $projectService = new ProjectServiceProvider(Auth::user());
+        $projectIds = $projectService->all()->pluck('id')->toArray();
+        $boards = Dashboard::where('account_id', Auth::user()->current_acc)->whereIn('project_id', $projectIds)->orderBy('id', 'desc');
+
+        return $boards;
+    }
+
+    public function countUnseen() {
+        $boardService = new BoardServiceProvider();
+        $lastBoardId = UserPreference::where('user_id', Auth::user()->id )
+                            ->where('account_id', Auth::user()->current_acc)->where('key', 'last_bord')->first()->value;
+
+        $projectService = new ProjectServiceProvider(Auth::user());
+        $projectIds = $projectService->all()->pluck('id')->toArray();
+        // where user_id != Auth::user()
+        $boardsCount = Dashboard::where('account_id', Auth::user()->current_acc)
+                  ->whereIn('project_id', $projectIds)->where('id', '>', $lastBoardId)->count();
+
+        return $boardsCount;
+    }
+
     protected function taskModdify($task, $title, $content){
         $board = new Dashboard;
         $board->account_id = Auth::user()->current_acc;
