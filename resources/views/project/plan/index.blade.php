@@ -2,12 +2,12 @@
 
 @section('content')
 <div class="row">
-  <div class="col-md-6 col-sm-6 col-xs-12">
+  <div class="col-md-9 col-sm-9 col-xs-12">
       <div class="x_panel">
                   <div class="x_title">
-                    <h2>Project Type</h2>
+                    <h2>Project Plan</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                        <a href="{{ URL::to('/admin/project-type/create') }}" class="btn btn-default">Add new Project Type</a>
+                        <a href="{{ URL::to('/project-plan/create') }}" class="btn btn-default">Add new Project Plan</a>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -16,22 +16,23 @@
                       <table class="table table-striped projects">
                         <thead>
                           <tr>
-                            <th>Type Name</th>
+                            <th>Name</th>
+                            <th>Type</th>
                             <th style="width: 100px"></th>
                           </tr>
                         </thead>
                         <tbody>
-                          @foreach ($projectTypes as $type)
+                          @foreach ($plans as $plan)
                           <tr>
                             <td>
-                              <a href="{{ URL::to('admin/project-type/'.$type->id.'/edit') }}">{{$type->label}}</a>
+                              <a href="{{ URL::to('project-plan/'.$plan->id.'/edit') }}">{{$plan->name}}</a>
                               <br>
-                              <small>Created {{$type->created_at}}</small>
+                              <small>Created {{$plan->created_at}}</small>
                             </td>
+                            <td>{{$plan->type->label}}</td>
                             <td>
                               <li style="display: inline-block;">
-                              <!--<a href="{{ URL::to('admin/project-type/'.$type->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>-->
-                               @component('component.delete-button', ['route' => 'project-type.destroy', 'id' => $type->id])
+                                @component('component.delete-button', ['route' => 'project-plan.destroy', 'id' => $plan->id])
                                   Delete
                                 @endcomponent
                               </li>
@@ -41,7 +42,6 @@
                         </tbody>
                       </table>
                     </div>
-                    <!-- end project list -->
                   </div>
                 </div>
               </div>

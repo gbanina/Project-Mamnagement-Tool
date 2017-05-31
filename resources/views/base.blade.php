@@ -52,9 +52,13 @@
     <!-- Datatables -->
     <link href="{{ URL::to('css/vendor/dataTables.bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ URL::to('https://cdn.datatables.net/rowreorder/1.2.0/css/rowReorder.dataTables.min.css')}}" rel="stylesheet">
+    <!-- Gantt -->
+    <script src="{{ URL::to('js/gantt/dhtmlxgantt.js')}}"></script>
+    <link href="{{ URL::to('css/vendor/dhtmlxgantt.css')}}" rel="stylesheet">
 
     <!-- Custom functions -->
     <script src="{{ URL::to('js/functions.js')}}"></script>
+
   </head>
 
   <body class="nav-md">
@@ -127,9 +131,10 @@
         @endforeach
     @endif
     });
+    /*
     String.prototype.capitalize = function() {
         return this.charAt(0).toUpperCase() + this.slice(1);
-    }
+    }*/
     </script>
 <script>
     $('.confirm-delete').click(function(event){

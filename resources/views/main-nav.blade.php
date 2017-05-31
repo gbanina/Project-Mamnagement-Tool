@@ -32,6 +32,7 @@
                     <ul class="nav child_menu">
                       <li><a href="{{ URL::to('project') }}">All Projects</a></li>
                       <li><a href="{{ URL::to('project/create') }}">Add New Project</a></li>
+                      <li><a href="{{ URL::to('project-plan') }}">Project Plan</a></li>
                       <!-- <li><a href="form_advanced.html">Project Settings</a></li> -->
                     </ul>
                   </li>

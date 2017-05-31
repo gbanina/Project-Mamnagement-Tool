@@ -7,6 +7,7 @@ use App\Providers\Admin\TaskTypeServiceProvider;
 use App\Providers\Admin\ProjectTypeServiceProvider;
 use App\Providers\Admin\RoleServiceProvider;
 use App\Providers\BoardServiceProvider;
+use App\Providers\Admin\UserServiceProvider;
 use App\Models\UserPreference;
 use App\Models\Dashboard;
 use Form;
@@ -14,6 +15,16 @@ use URL;
 use Auth;
 
 class WebComponents{
+
+    public static function usersSelect(){
+        $service = new UserServiceProvider();
+        $users = $service->all()->pluck('user.name', 'id')->prepend('Choose...', '');
+        return Form::select('user_id', $users, '', array('id' => 'user_id', 'class' => 'form-control'));
+    }
+    public static function users(){
+        $service = new UserServiceProvider();
+        return $service->all()->pluck('user.name', 'id')->prepend('N/A', '');
+    }
 
     public static function status(){
         $service = new TaskStatusServiceProvider();
