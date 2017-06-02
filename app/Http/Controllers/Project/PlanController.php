@@ -121,9 +121,9 @@ class PlanController extends BaseController {
         return "plan saved";
     }
     public function run($id, Request $request) {
-        $this->planService->run($id);
-
-        dd('done!');
+        $project = $this->planService->run($id);
+        $request->session()->flash('alert-success', 'Successfuly created project from plan : '.$project->name.'!');
+        return Redirect::to('project-plan');
     }
     /**
      * Remove the specified resource from storage.

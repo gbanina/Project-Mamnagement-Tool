@@ -26,6 +26,7 @@ class PlanService extends ServiceProvider
         foreach($array['data'] as $task) {
             $this->createTask($task, $project->id);
         }
+        return $project;
     }
 
     private function createTask($data, $projectId)
