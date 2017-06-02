@@ -10,6 +10,9 @@
       <div class="x_panel">
                   <div class="x_title">
                     <h2>Project Plan - {{$plan->name}}</h2>
+                    <div class="header-buttons">
+                        <a href="{{ URL::to('project-plan/run/'.$plan->id) }}" class="btn btn-sm btn-success">Run</a>
+                    </div>
                     <ul class="nav navbar-right panel_toolbox">
                         <a href="{{ WebComponents::backUrl() }}" class="btn btn-default" type="button">Cancel</a>
                         <a onClick="save_plan()" class="btn btn-primary">Save</a>
@@ -33,15 +36,24 @@
             {name:"responsible",   label:"Responsible",  template:function(obj){
                 return gantt.getLabel("responsible", obj.responsible);
             }, align: "center", width:60 },
+            {name:"task_types",   label:"Task Types",  template:function(obj){
+                return gantt.getLabel("task_types", obj.task_types);
+            }, align: "center", width:60 },
             {name:"add",        label:"",           width:100 }
         ];
                 gantt.locale.labels["section_responsible"] = "Responsible";
+                gantt.locale.labels["section_task_types"] = "Task Type";
                 gantt.locale.labels["section_name"] = "Task Name";
         gantt.config.lightbox.sections = [
             {name: "name", height: 38, map_to: "text", type: "textarea", focus: true},
             {name: "responsible", height: 30, map_to: "responsible", type: "select", options: [
                 @foreach(WebComponents::users() as $id=>$user)
                     {key:"{{$id}}", label: "{{$user}}"},
+                @endforeach
+                ]},
+            {name: "task_types", height: 30, map_to: "task_types", type: "select", options: [
+                @foreach($taskTypes as $id=>$type)
+                    {key:"{{$id}}", label: "{{$type}}"},
                 @endforeach
                 ]},
             {name: "time", type: "duration", map_to: "auto", time_format:["%d","%m","%Y"]}

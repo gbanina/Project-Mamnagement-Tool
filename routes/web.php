@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function()
 {
     Route::resource('project', 'Project\ProjectController');
     Route::resource('project-plan', 'Project\PlanController');
+    Route::get('project-plan/run/{runId}', 'Project\PlanController@run');
     Route::resource('project-rights/{project_id}/', 'Project\ProjectRightController');
     Route::resource('task', 'TaskController');
     Route::put('task-close/{closeId}', 'TaskController@close');

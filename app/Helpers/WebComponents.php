@@ -18,12 +18,12 @@ class WebComponents{
 
     public static function usersSelect(){
         $service = new UserServiceProvider();
-        $users = $service->all()->pluck('user.name', 'id')->prepend('Choose...', '');
+        $users = $service->all()->pluck('user.name', 'user.id')->prepend('Choose...', '');
         return Form::select('user_id', $users, '', array('id' => 'user_id', 'class' => 'form-control'));
     }
     public static function users(){
         $service = new UserServiceProvider();
-        return $service->all()->pluck('user.name', 'id')->prepend('N/A', '');
+        return $service->all()->pluck('user.name', 'user.id')->prepend('N/A', '');
     }
 
     public static function status(){

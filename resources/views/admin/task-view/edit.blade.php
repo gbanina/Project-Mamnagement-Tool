@@ -19,14 +19,14 @@
                         <a id="published_link" @if($taskType->status == 'IN_PROGRESS') style="display:none;" @endif
                           onClick="unpublish()" class="btn btn-dark btn-sm" type="button">Unpublish</a>
                         <a id="unpublished_link" @if($taskType->status == 'PUBLISHED') style="display:none;" @endif
-                        onClick="publish()" class="btn btn-primary btn-sm" type="button">Publish</a>
+                        onClick="publish()" class="btn btn-success btn-sm" type="button">Publish</a>
 
                         <input type="hidden" id="publish_hidden" name="publish_hidden" value="{{$taskType->status}}">
                       </div>
                     </h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <a href="{{ WebComponents::backUrl() }}" class="btn btn-default" type="button">Cancel</a>
-                        <a onClick="saveForm()" class="btn btn-success btn-sm" type="button">Save</a>
+                        <a onClick="saveForm()" class="btn btn-primary btn-sm" type="button">Save</a>
                     </ul>
                     <div class="clearfix"></div>
                   </div>

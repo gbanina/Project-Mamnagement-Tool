@@ -8,20 +8,24 @@ use Auth;
 use Redirect;
 use Session;
 use App\Models\ProjectPlan;
+use App\Models\ProjectTypes;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Providers\ProjectServiceProvider;
+use App\Providers\Project\PlanService;
 
 class PlanController extends BaseController {
 
     protected $projectService;
+    protected $planService;
 
     public function __construct()
     {
         $this->projectService = new ProjectServiceProvider(Auth::user());
+        $this->planService = new PlanService();
     }
     /**
      * Display a listing of the resource.
@@ -94,7 +98,10 @@ class PlanController extends BaseController {
     public function edit($id)
     {
         $plan = ProjectPlan::find($id);
-        return View::make('project.plan.edit')->with('plan', $plan)->with('planJson', json_encode(unserialize($plan->plan)));
+        $projectType = ProjectTypes::find($plan->project_type_id);
+        $taskTypes = $projectType->posibleTaskTypes()->pluck('name', 'id')->prepend('Choose type', '');
+        return View::make('project.plan.edit')->with('plan', $plan)
+                ->with('taskTypes', $taskTypes)->with('planJson', json_encode(unserialize($plan->plan)));
     }
 
     /**
@@ -113,7 +120,11 @@ class PlanController extends BaseController {
 
         return "plan saved";
     }
+    public function run($id, Request $request) {
+        $this->planService->run($id);
 
+        dd('done!');
+    }
     /**
      * Remove the specified resource from storage.
      *

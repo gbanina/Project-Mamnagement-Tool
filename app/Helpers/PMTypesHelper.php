@@ -17,6 +17,16 @@ class PMTypesHelper{
         return $result;
     }
 
+    public static function webToSQL($date){
+        $date = explode(' ', $date);
+        $arr = explode('-', $date[0]);
+        $result = NULL;
+        if($arr != '' && $arr != null && count ($arr) > 2)
+            $result = $arr[2] . '-' . $arr[1] . '-' . $arr[0];
+        return $result;
+    }
+
+
     public static function dateToHuman($date){
         if($date == 'null') return 'N/A';
         $arr = explode(' ', $date);
