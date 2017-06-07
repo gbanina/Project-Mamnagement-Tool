@@ -79,7 +79,7 @@
                 </div>
             </div>
             @endif
-          @yield('content')
+            @yield('content')
         </div>
         <!-- /page content -->
 
@@ -113,7 +113,7 @@
     @foreach ([ 'success', 'error', 'notice', 'danger'] as $msg)
         @if(Session::has('alert-' . $msg))
         new PNotify({
-            title: '{{ $msg }}'.capitalize(),
+            title: '{{ $msg }}',
             text: '{{ Session::get('alert-' . $msg) }}',
             type: '{{ $msg }}',
             styling: 'bootstrap3'
