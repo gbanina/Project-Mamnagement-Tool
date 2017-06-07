@@ -29,7 +29,7 @@
                           @foreach ($statuses as $status)
 
                           <tr id="{{$status->id}}" datarow="{{$status->id}}">
-                            <td class="draggable"><i class="fa fa-arrows"></i> </td>
+                            <td class="draggable"><p hidden>{{$status->index}}</p><i class="fa fa-arrows"></i> </td>
                             <td>
                               <a href="{{ URL::to('admin/status/'.$status->id.'/edit') }}">{{$status->name}}</a>
                               <br>
@@ -72,6 +72,7 @@
                 //koji id:
                 var id = diff[i].node.attributes.datarow.nodeValue;
                 var position = diff[i].newPosition;
+                position++;
                 console.log('put ID:' + id + ' on ' + position + '.position')
                       $.ajax({
                           headers: {

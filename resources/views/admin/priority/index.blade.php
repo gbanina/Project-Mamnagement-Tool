@@ -28,7 +28,7 @@
                         <tbody>
                           @foreach ($priorities as $priority)
                           <tr id="{{$priority->id}}" datarow="{{$priority->id}}">
-                            <td class="draggable"><i class="fa fa-arrows"></i></td>
+                            <td class="draggable"><p hidden>{{$priority->index}}</p><i class="fa fa-arrows"></i></td>
                             <td>
                               <a href="{{ URL::to('admin/priority/'.$priority->id.'/edit') }}">{{$priority->label}}</a>
                               <br>
@@ -67,7 +67,8 @@
                 //koji id:
                 var id = diff[i].node.attributes.datarow.nodeValue;
                 var position = diff[i].newPosition;
-
+                position++;
+                console.log(id + ' to ' + position );
                       $.ajax({
                           headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
