@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Route;
+use URL;
 use Illuminate\Http\Request;
 
 class PreviousPage
@@ -17,16 +18,13 @@ class PreviousPage
      */
     public function handle($request, Closure $next)
     {
-        $currentUrl = Request::capture()->fullUrl();
+        $currentUrl = URL::previous();
 
-        //if($request->isMethod('post') || $request->isMethod('get')) {
-            if($currentUrl != \Session::get('real-current-url')) {
-                \Session::put('real-previous-url', \Session::get('real-current-url'));
-                \Session::put('real-current-url',$currentUrl);
+        if($currentUrl != \Session::get('real-last-url')) {
+                \Session::put('real-previous-url', \Session::get('real-last-url'));
+                \Session::put('real-last-url',$currentUrl);
                 \Session::save();
             }
-        //}
-
         return $next($request);
     }
 }

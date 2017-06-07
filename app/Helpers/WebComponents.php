@@ -65,7 +65,11 @@ class WebComponents{
         return Form::select('type_id', $types, '', array('id' => 'type_id-filter', 'class' => 'form-control'));
     }
     public static function backUrl(){
-        return URL::previous();//\Session::get('real-previous-url');
+        //return URL::previous();
+        if(URL::current() == \Session::get('real-last-url'))
+            return \Session::get('real-previous-url');
+
+        return \Session::get('real-last-url');
     }
     public static function boardEvents() {
         $boardService = new BoardServiceProvider();
