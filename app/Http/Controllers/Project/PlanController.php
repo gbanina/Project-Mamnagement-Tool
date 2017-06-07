@@ -114,7 +114,6 @@ class PlanController extends BaseController {
     {
         $plan = ProjectPlan::find($id);
         $plan->plan = serialize(Input::get('data'));
-        Log::info($plan->plan);
 
         $plan->update();
 

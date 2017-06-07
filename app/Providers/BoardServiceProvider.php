@@ -6,6 +6,8 @@ use Auth;
 use App\Models\Dashboard;
 use Illuminate\Support\ServiceProvider;
 use App\Providers\BoardServiceProvider;
+use App\Providers\EmailProvider;
+use App\Providers\Admin\UserServiceProvider;
 use App\Models\UserPreference;
 
 class BoardServiceProvider extends ServiceProvider
@@ -79,5 +81,15 @@ class BoardServiceProvider extends ServiceProvider
         $this->taskModdify($task,
                     "Deleted task " . $task->name,
                     $task->internal_id . ':' . $task->name . ' - ' . ' has been DELETED.');
+   }
+
+   public function afterCreate($projectId, $boardName, $description) {
+        $userService = new UserServiceProvider();
+        $emailService = new EmailProvider();
+        $users = $userService->getUsersWithAccess($projectId);
+
+        foreach ($users as $user) {
+            $emailService->newBoard($user->email, $user->name, $boardName, $description);
+        }
    }
 }

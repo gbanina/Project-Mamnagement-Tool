@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use DB;
 use View;
 Use Redirect;
-use App\Bill;
+use Auth;
 use Session;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use App\Models\UserAccounts;
 
 class SettingsController extends BaseController {
 
@@ -20,7 +21,10 @@ class SettingsController extends BaseController {
      */
     public function index()
     {
-        $view = View::make('settings.index');
+        foreach(Auth::user()->accounts as $acc)
+            $accounts[$acc->id] = UserAccounts::where('account_id', $acc->id)->with('user')->first();
+
+        $view = View::make('settings.index')->with('user', Auth::user())->with('accounts', $accounts);
         return $view;
     }
 

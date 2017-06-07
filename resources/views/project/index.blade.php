@@ -32,10 +32,10 @@
                           <th style="min-width: 50px">ID</th>
                           <th style="min-width: 300px">Project Name</th>
                           <th style="min-width: 100px">Project Manager</th>
-                          <th style="min-width: 100px">Default Responsible</th>
+                          <th style="min-width: 130px">Default Responsible</th>
                           <th style="min-width: 100px">Type</th>
                           <th style="min-width: 100px">Project Progress</th>
-                          <th style="min-width: 100px">Edit</th>
+                          <th style="min-width: 45px"></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -65,7 +65,6 @@
                             <small>{{$project->progress}}% Complete</small>
                           </td>
                           <td>
-                             <a href="{{ URL::to('project/'.$project->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
 
                             @if($project->permission == 'DEL')
                                 @component('component.delete-button', ['route' => 'project.destroy', 'id' => $project->id])

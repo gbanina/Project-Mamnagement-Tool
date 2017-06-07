@@ -12,12 +12,12 @@
                     <table class="table table-striped projects">
                       <thead>
                         <tr>
-                          <th style="width: 1%">#</th>
-                          <th style="width: 26%">Name</th>
+                          <th style="width: 50px">#</th>
+                          <th >Name</th>
                           <th>Type</th>
                           <th>Status</th>
                           <th>Responsible</th>
-                          <th>Edit</th>
+                          <th style="width: 100px">Edit</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -48,7 +48,6 @@
                           </td>
                           <td>
                             <li style="display: inline-block;">
-                            <a href="{{ URL::to('task/'.$task->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                             <a href="{{ URL::to('task-close/'.$task->id) }}" class="btn btn-success btn-xs"> Close </a>
                             @if($task->permission == 'DEL')
                                 @component('component.delete-button', ['route' => 'task.destroy', 'id' => $task->id])

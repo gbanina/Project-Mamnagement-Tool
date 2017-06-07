@@ -49,10 +49,22 @@ class UserServiceProvider extends ServiceProvider
         }else { // User Exists
             $emailService->createAttribute($email, $name, URL::to('invite/' . $hash ));
         }
-            // create invitation
-            // send email
-
-            // create invitation
-
+    }
+    public function getUsersWithAccess($projectId) {
+        $allAccounts = UserAccounts::where('account_id', Auth::user()->current_acc)->get();
+        $users = array();
+        foreach($allAccounts as $account) {
+            if($account->type == 'ADMIN' || $account->type == 'OWNER') {
+                array_push($users, $account->user);
+                continue;
+            }
+            $right = ProjectRight::where('role_id', $account->role_id)->where('project_id', $projectId)->first();
+            if($right != null) {
+                if($right->permission != 'NONE') {
+                    array_push($users, $account->user);
+                }
+            }
+        }
+        return $users;
     }
 }

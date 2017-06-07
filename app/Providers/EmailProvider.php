@@ -3,6 +3,7 @@
 namespace App\Providers;
 use Mail;
 use Auth;
+use URL;
 use Illuminate\Support\ServiceProvider;
 
 class EmailProvider extends ServiceProvider
@@ -53,6 +54,23 @@ class EmailProvider extends ServiceProvider
         Mail::send('email.assigned', $data , function ($message) use ($email, $taskName)
         {
             $message->subject('Assigned to You: ' . $taskName);
+            $message->from('postmaster@app.teambiosis.com', 'Teambiosis');
+            $message->to($email);
+        });
+    }
+    public function newBoard($email, $name, $boardName, $description)
+    {
+        $data = [
+            'name' => $name,
+            'creator' => Auth::user()->name,
+            'boardName' => $boardName,
+            'description' => $description,
+            'url' => URL::to('/'),
+        ];
+
+        Mail::send('email.newboard', $data , function ($message) use ($email, $boardName)
+        {
+            $message->subject('New board message: ' . $boardName);
             $message->from('postmaster@app.teambiosis.com', 'Teambiosis');
             $message->to($email);
         });

@@ -61,11 +61,13 @@ class BoardController extends BaseController {
         $board->account_id = Auth::user()->current_acc;
         $board->project_id = Input::get('project_id');
         $board->user_id = Auth::user()->id;
-        $board->title =Input::get('title');
-        $board->content =Input::get('content');
+        $board->title = Input::get('title');
+        $board->content = Input::get('content');
         $board->editable = 'Y';
 
         $board->save();
+
+        $this->service->afterCreate(Input::get('project_id'), Input::get('title'), Input::get('content'));
 
         $request->session()->flash('alert-success', 'Board successful created!');
         return Redirect::to('board');

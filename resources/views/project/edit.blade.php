@@ -38,7 +38,7 @@
                       {!! Form::model($project, array('route' => array('project.update', $project->id), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
                                       <div class="x_panel">
                                         <div class="x_title">
-                                          <h2>Project : <strong>{{$project->type}}</strong> <small>(Edit)</small></h2>
+                                          <h2>Project : <strong>{{$project->type}}</strong></h2>
                                           <ul class="nav navbar-right panel_toolbox">
                                               <a href="{{ WebComponents::backUrl() }}" class="btn btn-default" type="button">Cancel</a>
                                                {!! Form::submit('Save', array($global_css, 'class' => 'btn btn-primary')) !!}
