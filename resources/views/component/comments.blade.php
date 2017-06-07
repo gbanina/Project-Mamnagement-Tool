@@ -24,7 +24,7 @@
                             <div class="message_wrapper">
                               <h4 class="heading">
                                 {{$comment->user->name}} <small>({{$comment->timeElapsed}})</small>
-                                @if($comment->user->id == Auth::user()->id)
+                                @if($comment->user->id == Auth::user()->id && $global_css != 'disabled')
                                   @component('component.delete-link', ['id' => $comment->id, 'route' => 'comment.destroy'])
                                   @endcomponent
                                 @endif
