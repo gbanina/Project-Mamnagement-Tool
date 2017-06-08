@@ -8,6 +8,7 @@ use Auth;
 use Hash;
 use App\User;
 use App\Models\UserAccounts;
+use App\Models\ProjectRight;
 use App\Models\Invite;
 use Illuminate\Support\ServiceProvider;
 use App\Providers\EmailProvider;
