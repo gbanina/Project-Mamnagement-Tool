@@ -13,6 +13,7 @@ use App\Models\Dashboard;
 use Form;
 use URL;
 use Auth;
+Use Redirect;
 
 class WebComponents{
 
@@ -70,6 +71,9 @@ class WebComponents{
             return \Session::get('real-previous-url');
 
         return \Session::get('real-last-url');
+    }
+    public static function redirectBack(){
+        return Redirect::to(\Session::get('real-previous-url'));
     }
     public static function boardEvents() {
         $boardService = new BoardServiceProvider();

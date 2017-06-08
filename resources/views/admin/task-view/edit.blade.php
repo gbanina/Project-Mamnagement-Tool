@@ -203,7 +203,7 @@ function unpublish()
                   new PNotify({
                     title: 'Error unpublishing view!',
                     text: 'This view is used on : ' + msg,
-                    type: 'alert-success',
+                    type: 'error',
                     styling: 'bootstrap3'
                 });
               }

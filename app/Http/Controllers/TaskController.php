@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use View;
 use Auth;
-Use Redirect;
+use Redirect;
 use App\User;
 use App\Models\Status;
 use App\Models\Priority;
@@ -31,6 +31,7 @@ use Illuminate\Http\Request;
 use App\Providers\TaskServiceProvider;
 use App\Providers\Admin\UserServiceProvider;
 use App\Providers\BoardServiceProvider;
+use App\Helpers\WebComponents;
 
 class TaskController extends BaseController {
 
@@ -276,7 +277,10 @@ class TaskController extends BaseController {
             $service->setAdditional($task->id, Input::get('additional'));
             $this->boardService->taskEdit($task);
         }
-        return Redirect::back();
+        $request->session()->flash('alert-success', 'Task : '.$task->name.' was successfully saved!');
+
+        //return Redirect::to(WebComponents::redirectBack());
+        return WebComponents::redirectBack();
     }
     public function close($id, Request $request)
     {

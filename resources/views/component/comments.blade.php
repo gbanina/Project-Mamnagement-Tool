@@ -58,7 +58,7 @@ function add_comment()
               new PNotify({
                   title: 'Success',
                   text: 'Your comment has been saved successfully!',
-                  type: 'alert-success',
+                  type: 'success',
                   styling: 'bootstrap3'
               });
               $content = comment_append_content();

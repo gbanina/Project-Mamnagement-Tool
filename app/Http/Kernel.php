@@ -20,7 +20,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        //\App\Http\Middleware\PreviousPage::class,
+        \App\Http\Middleware\PreviousPage::class,
     ];
 
     /**
