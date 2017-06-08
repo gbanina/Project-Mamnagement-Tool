@@ -21,7 +21,7 @@
                 <ul class="nav side-menu">
                   <li><a href="{{ URL::to('/') }}"><i class="fa fa-laptop"></i> Boards {!! WebComponents::boardEvents() !!}</a></li>
                   <li><a href="{{ URL::to('/work') }}"><i class="fa fa-cubes"></i> My Work </a></li>
-                  <li><a href="{{ URL::to('/team') }}"><i class="fa fa-users"></i> My Team </a></li>
+                  <!--<li><a href="{{ URL::to('/team') }}"><i class="fa fa-users"></i> My Team </a></li>-->
                   <li><a><i class="fa fa-sitemap"></i> Projects <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ URL::to('project') }}">All Projects</a></li>
