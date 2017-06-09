@@ -28,9 +28,11 @@ class BoardController extends BaseController {
     public function index()
     {
         $boards = $this->service->all()->get();
+        if($boards->first() != null) {
          $preference = UserPreference::firstOrNew(['user_id' => Auth::user()->id,
                                                   'account_id' => Auth::user()->current_acc,
                                                   'key' => 'last_bord'], ['value' => $boards->first()->id]);
+        }
         $preference->value = $boards->first()->id;
         $preference->save();
 
