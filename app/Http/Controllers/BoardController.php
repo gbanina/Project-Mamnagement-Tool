@@ -32,9 +32,11 @@ class BoardController extends BaseController {
          $preference = UserPreference::firstOrNew(['user_id' => Auth::user()->id,
                                                   'account_id' => Auth::user()->current_acc,
                                                   'key' => 'last_bord'], ['value' => $boards->first()->id]);
-        }
         $preference->value = $boards->first()->id;
         $preference->save();
+
+        }
+
 
         $view = View::make('board.index')->with('boards', $boards);
         return $view;
