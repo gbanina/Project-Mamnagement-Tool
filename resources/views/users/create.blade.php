@@ -10,7 +10,7 @@
             <div class="row">
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
-                {!! Form::open(array('url' => 'users', 'class' => 'form-horizontal form-label-left')) !!}
+                {!! Form::open(array('url' => TMBS::url('users'), 'class' => 'form-horizontal form-label-left')) !!}
                   <div class="x_title">
                     <h2>Invite User to {{Auth::user()->currentacc->name}}</h2>
                     <ul class="nav navbar-right panel_toolbox">

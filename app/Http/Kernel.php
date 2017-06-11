@@ -20,6 +20,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        //\App\Http\Middleware\AccountVerify::class,
         \App\Http\Middleware\PreviousPage::class,
     ];
 
@@ -60,5 +61,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'admin_access' => \App\Http\Middleware\AdminAccess::class,
+        'acc_verify' => \App\Http\Middleware\AccountVerify::class,
     ];
 }

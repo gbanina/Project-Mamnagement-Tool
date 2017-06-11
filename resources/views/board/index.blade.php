@@ -7,7 +7,7 @@
                 <div class="x_title">
                   <h2>Recent Activities</h2>
                   <ul class="nav navbar-right panel_toolbox">
-                      <a href="{{ URL::to('board/create') }}" class="btn btn-default" type="button">Add News</a>
+                      <a href="{{ TMBS::url('board/create') }}" class="btn btn-default" type="button">Add News</a>
                   </ul>
                   <div class="clearfix"></div>
                 </div>
@@ -24,14 +24,14 @@
                                   @if($board->task_id == null)
                                     {{$board->title}}
                                   @else
-                                    <a href="{{ URL::to('task/' . $board->task_id . '/edit') }}">{{$board->title}}</a>
+                                    <a href="{{ TMBS::url('task/' . $board->task_id . '/edit') }}">{{$board->title}}</a>
                                   @endif
                                   @if($board->user->id == Auth::user()->id && $board->editable == 'Y')
-                                    &nbsp;&nbsp;<a href="{{ URL::to('board/' . $board->id . '/edit') }}"><i class="fa fa-edit"></i></span></a>
+                                    &nbsp;&nbsp;<a href="{{ TMBS::url('board/' . $board->id . '/edit') }}"><i class="fa fa-edit"></i></span></a>
                                   @endif
                             </h2>
                             <div class="byline">
-                              <span>{{$board->timeElapsed}}</span> in <a href="{{ URL::to('project/'.$board->project->id.'/edit') }}">{{$board->project->name}}</a>
+                              <span>{{$board->timeElapsed}}</span> in <a href="{{ TMBS::url('project/'.$board->project->id.'/edit') }}">{{$board->project->name}}</a>
                             </div>
                             <p class="excerpt">{{$board->content}}
                             </p>

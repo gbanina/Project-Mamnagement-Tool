@@ -11,7 +11,7 @@
 
                               </th>
                             @foreach($roles as $role)
-                              <th>{{$role->name}} <a href="{{ URL::to('morph/' . $role->id) }}"><i class="fa fa-eye"></i></a></th>
+                              <th>{{$role->name}} <a href="{{ TMBS::url('morph/' . $role->id) }}"><i class="fa fa-eye"></i></a></th>
                             @endforeach
                           </tr>
                            <tr>

@@ -232,7 +232,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'WebComponents'   => 'App\Helpers\WebComponents',
-
+        'TMBS'   => 'App\Helpers\TMBS',
     ],
 
 ];

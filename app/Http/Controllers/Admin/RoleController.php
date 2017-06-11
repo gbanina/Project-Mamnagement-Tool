@@ -47,11 +47,11 @@ class RoleController extends BaseController {
      *
      * @return Response
      */
-    public function store(StoreRole $request)
+    public function store($account, StoreRole $request)
     {
         $this->service->store(Input::get('role-name'));
         $request->session()->flash('alert-success', 'New role successfuly created!');
-        return Redirect::to('admin/role');
+        return Redirect::to($account . '/admin/role');
     }
 
     /**
@@ -60,7 +60,7 @@ class RoleController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($account, $id)
     {
         $view = View::make('admin.role.edit')->with('role', $this->service->find($id));
         return $view;
@@ -72,11 +72,11 @@ class RoleController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, StoreRole $request)
+    public function update($account, $id, StoreRole $request)
     {
         $this->service->update($id, Input::get('role-name'));
         $request->session()->flash('alert-success', 'Role successfuly updated!');
-        return Redirect::to('admin/role');
+        return Redirect::to($account . '/admin/role');
     }
 
     /**
@@ -85,10 +85,10 @@ class RoleController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($account, $id, Request $request)
     {
         $this->service->delete($id);
         $request->session()->flash('alert-success', 'Role successfuly deleted!');
-        return Redirect::to('admin/role');
+        return Redirect::to($account . '/admin/role');
     }
 }

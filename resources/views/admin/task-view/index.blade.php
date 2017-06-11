@@ -19,7 +19,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                        {!! Form::open(array('url' => 'admin/task-view', 'class' => 'form-horizontal form-label-left')) !!}
+                        {!! Form::open(array('url' => TMBS::url('admin/task-view'), 'class' => 'form-horizontal form-label-left')) !!}
                         <tr>
                          <td>
                             {!! Form::text('view-name', '', array('required' => 'required', 'class' => 'form-control')) !!}
@@ -36,7 +36,7 @@
                           @foreach ($taskTypes as $type)
                           <tr>
                             <td>
-                              <a href="{{ URL::to('admin/task-view/'. $type->id . '/edit') }}">{{$type->name}}</a>
+                              <a href="{{ TMBS::url('admin/task-view/'. $type->id . '/edit') }}">{{$type->name}}</a>
                               <br>
                               <small>Created {{$type->created_at}}</small>
                             </td>
@@ -45,8 +45,10 @@
                             </td>
                             <td>
                               <li style="display: inline-block;">
-                              <a  class="btn btn-success btn-xs"><i class="fa fa-copy"></i> Duplicate </a>
-                                @component('component.delete-button', ['route' => 'task-view.destroy', 'id' => $type->id])
+                              <a href="{{ TMBS::url('admin/task-view/duplicate/'. $type->id) }}" class="btn btn-success btn-xs">
+                                <i class="fa fa-copy"></i> Duplicate
+                              </a>
+                                @component('component.delete-button', ['url' => 'admin/task-view', 'id' => $type->id])
                                   Delete
                                 @endcomponent
                               </li>

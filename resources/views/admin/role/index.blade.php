@@ -7,7 +7,7 @@
                   <div class="x_title">
                     <h2>Roles</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                        <a href="{{ URL::to('/admin/role/create') }}" class="btn btn-default">Add new Role</a>
+                        <a href="{{ TMBS::url('admin/role/create') }}" class="btn btn-default">Add new Role</a>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -23,13 +23,13 @@
                             @foreach ($roles as $role)
                             <tr>
                               <td>
-                                <a href="{{ URL::to('/admin/role/'.$role->id.'/edit') }}">{{$role->name}}</a>
+                                <a href="{{ TMBS::url('admin/role/'.$role->id.'/edit') }}">{{$role->name}}</a>
                                 <br>
                                 <small>Created {{$role->created_at}}</small>
                               </td>
                               <td>
                                 <li style="display: inline-block;">
-                                @component('component.delete-button', ['route' => 'role.destroy', 'id' => $role->id])
+                                @component('component.delete-button', ['url' => 'admin/role', 'id' => $role->id])
                                   Delete
                                 @endcomponent
                                 </li>

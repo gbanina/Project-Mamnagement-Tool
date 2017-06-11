@@ -13,16 +13,25 @@
 
 Route::get('/', function () {
     if (Auth::guest())
-        return Redirect::to('board');
+        return Redirect::to('login');
     else
-        return Redirect::to('board');
+        return Redirect::to(Auth::user()->current_acc . '/board');
 });
 
 Auth::routes();
+
 Route::resource('register-invite', 'Auth\RegisterInviteController');
 Route::get('/activate/{activationCode}', 'Auth\RegisterController@confirm');
 
-Route::group(['middleware' => 'auth'], function()
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('help', 'HelpController');
+    Route::resource('settings', 'SettingsController');
+    Route::resource('profile', 'ProfileController');
+    Route::get('/invite/{inviteHash}', 'User\InviteController@accept');
+});
+
+Route::group(['middleware' => ['auth', 'acc_verify:accountId'], 'prefix' => '{accountId}', 'as' => '{accountId}.'], function()
 {
     Route::resource('project', 'Project\ProjectController');
     Route::resource('project-plan', 'Project\PlanController');
@@ -34,10 +43,6 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('task-reopen/{reopenId}', 'TaskController@reopen');
 
     Route::resource('users', 'User\UsersController');
-
-    Route::resource('help', 'HelpController');
-    Route::resource('settings', 'SettingsController');
-    Route::resource('profile', 'ProfileController');
 
     Route::resource('admin/role', 'Admin\RoleController');
     Route::resource('admin/task-type', 'Admin\TaskTypeController');
@@ -70,7 +75,4 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('morph-return', 'MorphController@returnFromMorph');
 
     Route::post('file-upload/{uploadTaskId}', 'FileController@upload');
-
-    Route::get('/send', 'EmailController@send');
-    Route::get('/invite/{inviteHash}', 'User\InviteController@accept');
 });

@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use App\Providers\ProjectServiceProvider;
 use Auth;
+use WebComponents;
 use Illuminate\Http\Request;
 
 class ProjectController extends BaseController {
@@ -46,12 +47,12 @@ class ProjectController extends BaseController {
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store($account, Request $request)
     {
         $this->service->store(Input::all());
         $request->session()->flash('alert-success', 'Project was successful created!');
 
-        return Redirect::to('project');
+        return Redirect::to($account . '/project');
     }
 
     /**
@@ -60,7 +61,7 @@ class ProjectController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($account, $id)
     {
         $fields = $this->service->edit($id);
         return View::make('project.edit')->with('users', $fields['users'])
@@ -77,12 +78,12 @@ class ProjectController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, Request $request)
+    public function update($account, $id, Request $request)
     {
         $fields = $this->service->update($id, Input::all());
         $request->session()->flash('alert-success', 'Project was successfuly updated!');
 
-        return Redirect::to('project');
+        return Redirect::to($account . '/project');
     }
 
     /**
@@ -91,10 +92,10 @@ class ProjectController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($account, $id, Request $request)
     {
         $this->service->delete($id);
         $request->session()->flash('alert-success', 'Project was successfuly deleted!');
-        return Redirect::to('project');
+        return Redirect::to($account . '/project');
     }
 }

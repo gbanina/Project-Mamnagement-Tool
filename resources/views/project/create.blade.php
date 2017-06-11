@@ -5,7 +5,7 @@
             <div class="row">
               <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
-                      {!! Form::open(array('url' => 'project', 'class' => 'form-horizontal form-label-left')) !!}
+                      {!! Form::open(array('url' => TMBS::acc() . '/project', 'class' => 'form-horizontal form-label-left')) !!}
                   <div class="x_title">
                     <h2>Create New Project</h2>
                     <ul class="nav navbar-right panel_toolbox">

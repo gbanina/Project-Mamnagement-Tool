@@ -10,18 +10,20 @@
               <div class="col-md-12" style="{{$viewStyle}}">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>{{$project->name}} <small><a href="{{ URL::to('project') }}">Projects</a> | Project Rights</small></h2>
+                    <h2><a href="{{ TMBS::url('project') }}">{{$project->name}}</a> - Rights</h2>
+                      <ul class="nav navbar-right panel_toolbox">
+                      </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content" style="display: block;">
                     {!! Form::open(array('url' => 'project-rights/' . $project->id)) !!}
                       {!! Form::submit('Save', array('class' => 'btn btn-success')) !!}
-                      <a href="{{ URL::to('project/'.$project->id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
+                      <a href="{{ TMBS::url('project/'.$project->id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
 
                         @include('admin.right.project')
 
                       {!! Form::submit('Save', array('class' => 'btn btn-success')) !!}
-                      <a href="{{ URL::to('project/'.$project->id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
+                      <a href="{{ TMBS::url('project/'.$project->id.'/edit') }}" class="btn btn-primary" type="button">Cancel</a>
                     {!! Form::close() !!}
                   </div>
                 </div>

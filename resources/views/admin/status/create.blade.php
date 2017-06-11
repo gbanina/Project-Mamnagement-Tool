@@ -8,7 +8,7 @@
             <div>
             <div class="row">
                 <div class="x_panel">
-                {!! Form::open(array('url' => 'admin/status', 'class' => 'form-horizontal form-label-left')) !!}
+                {!! Form::open(array('url' => TMBS::url('admin/status'), 'class' => 'form-horizontal form-label-left')) !!}
                   <div class="x_title">
                     <h2>Add New Status</h2>
                    <ul class="nav navbar-right panel_toolbox">

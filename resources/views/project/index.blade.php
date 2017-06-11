@@ -11,7 +11,7 @@
                   <div class="x_title">
                     <h2>Projects Overview</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                        <a href="{{ URL::to('project/create') }}" class="btn btn-default">Add new Project</a>
+                        <a href="{{ TMBS::url('project/create') }}" class="btn btn-default">Add new Project</a>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -43,7 +43,7 @@
                           <tr>
                           <td>{{$project->internal_id}}</td>
                           <td class="overview-names">
-                            <a title="{{$project->name}}" href="{{ URL::to('project/'.$project->id.'/edit') }}">
+                            <a title="{{$project->name}}" href="{{ TMBS::url('project/'.$project->id.'/edit') }}">
                               {{$project->name}}
                               <br>
                               <small>Created {{$project->created_at}}</small>
@@ -67,7 +67,7 @@
                           <td>
 
                             @if($project->permission == 'DEL')
-                                @component('component.delete-button', ['route' => 'project.destroy', 'id' => $project->id])
+                                @component('component.delete-button', ['url' => 'project', 'id' => $project->id])
                                   Delete
                                 @endcomponent
                             @endif

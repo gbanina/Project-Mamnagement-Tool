@@ -13,7 +13,7 @@
                           <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false"> Add new Task <span class="caret"></span> </button>
                           <ul class="dropdown-menu">
                             @foreach ($projects as $projectId => $project)
-                              <li><a href="{{ URL::to('task/create?p=' . $projectId) }}">{{$project}}</a></li>
+                              <li><a href="{{ TMBS::url('task/create?p=' . $projectId) }}">{{$project}}</a></li>
                             @endforeach
                           </ul>
                         </div>
@@ -88,10 +88,10 @@
                         @foreach ($tasks as $task)
                         <tr>
                           <td>
-                              <a href="{{ URL::to('task/'.$task->id.'/edit') }}">{{$task->internal_id}}</a>
+                              <a href="{{ TMBS::url('task/'.$task->id.'/edit') }}">{{$task->internal_id}}</a>
                           </td>
                           <td class="overview-names">
-                              <a title="{{$task->name}}" href="{{ URL::to('task/'.$task->id.'/edit') }}">{{$task->name}}</a>
+                              <a title="{{$task->name}}" href="{{ TMBS::url('task/'.$task->id.'/edit') }}">{{$task->name}}</a>
                             <br>
                             <small>Created {{$task->created_at}}</small>
                           </td>
@@ -105,7 +105,7 @@
                             </ul>
                           </td>
                           <td class="project_progress">
-                            <a href="{{ URL::to('project/'. $task->project_id . '/edit') }}">{{$task->project->name}}</a>
+                            <a href="{{ TMBS::url('project/'. $task->project_id . '/edit') }}">{{$task->project->name}}</a>
                           </td>
                           <td>
                             <button type="button" class="btn btn-default btn-xs">{{ $task->type }}</button>
@@ -119,13 +119,12 @@
                           <td>
                             <li style="display: inline-block;">
                               @if($task->close == 'Yes')
-                              <a href="{{ URL::to('task-reopen/'.$task->id) }}" class="btn btn-primary btn-xs"> Reopen </a>
+                              <a href="{{ TMBS::url('task-reopen/'.$task->id) }}" class="btn btn-primary btn-xs"> Reopen </a>
                               @else
-                              <!--<a href="{{ URL::to('task/'.$task->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>-->
-                              <a href="{{ URL::to('task-close/'.$task->id) }}" class="btn btn-success btn-xs"> Close </a>
+                             <a href="{{ TMBS::url('task-close/'.$task->id) }}" class="btn btn-success btn-xs"> Close </a>
                               @endif
                               @if($task->permission == 'DEL')
-                                @component('component.delete-button', ['route' => 'task.destroy', 'id' => $task->id])
+                                @component('component.delete-button', ['url' => 'task', 'id' => $task->id])
                                   Delete
                                 @endcomponent
                               @endif

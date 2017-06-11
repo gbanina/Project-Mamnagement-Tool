@@ -57,11 +57,11 @@ class TaskTypeController extends BaseController {
      *
      * @return Response
      */
-    public function store(StoreTaskType $request)
+    public function store($account, StoreTaskType $request)
     {
         $this->service->store(Input::all());
         $request->session()->flash('alert-success', 'Task Type was successfuly created!');
-        return Redirect::to('admin/task-type');
+        return Redirect::to($account . '/admin/task-type');
     }
 
     /**
@@ -70,7 +70,7 @@ class TaskTypeController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($account, $id)
     {
         $fields = $this->service->edit($id);
         $taskViews = $this->viewService->published()->pluck('name', 'id')->prepend('Choose type', '');
@@ -86,11 +86,11 @@ class TaskTypeController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, StoreTaskType $request)
+    public function update($account, $id, StoreTaskType $request)
     {
         $this->service->update($id, Input::all());
         $request->session()->flash('alert-success', 'Task Type was successfuly updated!');
-        return Redirect::to('admin/task-type');
+        return Redirect::to($account . '/admin/task-type');
     }
 
     /**
@@ -99,10 +99,10 @@ class TaskTypeController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($account, $id, Request $request)
     {
         $this->service->destroy($id);
         $request->session()->flash('alert-success', 'Task Type was successfuly deleted!');
-        return Redirect::to('admin/task-type');
+        return Redirect::to($account . '/admin/task-type');
     }
 }

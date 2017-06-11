@@ -13,7 +13,7 @@ use App\Models\Task;
 use App\Models\Priority;
 use App\Models\Status;
 use App\User;
-use URL;
+use TMBS;
 use App\Providers\EmailProvider;
 
 class TaskServiceProvider extends ServiceProvider
@@ -117,7 +117,7 @@ class TaskServiceProvider extends ServiceProvider
                 $user = User::find($responsibleId);//$userTask->user()->first();
                 $commentsService->createAttribute($taskId, 'Responsible', $user->name);
                 if(Auth::user()->id != $responsibleId){
-                    $url = URL::to('task/'.$taskId.'/edit');
+                    $url = TMBS::url('task/'.$taskId.'/edit');
                     $emailService->taskAssign($user->email, $user->name, $userTask->task->name,
                                                         $userTask->task->getTypeAttribute(),  $url);
                 }

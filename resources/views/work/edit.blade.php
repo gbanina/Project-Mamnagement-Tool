@@ -4,13 +4,10 @@
 @section('content')
        <div class="">
             <div class="clearfix"></div>
-
-            <div>
             <div class="row">
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
-                 {!! Form::model($work, array('route' => array('work.update', $work->id), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
-
+                 {!! Form::model($work, array('url' => TMBS::url('work/' . $work->id), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
                   <div class="x_title">
                     <h2>Edit Work</h2>
                       <ul class="nav navbar-right panel_toolbox">
@@ -49,8 +46,6 @@
                 </div>
               </div>
             </div>
-
-          </div>
         </div>
 
 @endsection

@@ -7,7 +7,7 @@
                   <div class="x_title">
                     <h2>Project Plan</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                        <a href="{{ URL::to('/project-plan/create') }}" class="btn btn-default">Add new Project Plan</a>
+                        <a href="{{ TMBS::url('project-plan/create') }}" class="btn btn-default">Add new Project Plan</a>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -25,14 +25,14 @@
                           @foreach ($plans as $plan)
                           <tr>
                             <td>
-                              <a href="{{ URL::to('project-plan/'.$plan->id.'/edit') }}">{{$plan->name}}</a>
+                              <a href="{{ TMBS::url('project-plan/'.$plan->id.'/edit') }}">{{$plan->name}}</a>
                               <br>
                               <small>Created {{$plan->created_at}}</small>
                             </td>
                             <td>{{$plan->type->label}}</td>
                             <td>
                               <li style="display: inline-block;">
-                                @component('component.delete-button', ['route' => 'project-plan.destroy', 'id' => $plan->id])
+                                @component('component.delete-button', ['url' => 'project-plan', 'id' => $plan->id])
                                   Delete
                                 @endcomponent
                               </li>

@@ -59,7 +59,7 @@ class BoardController extends BaseController {
      *
      * @return Response
      */
-    public function store(StoreBoard $request)
+    public function store(StoreBoard $request, $account)
     {
         $board = new Dashboard();
         $board->account_id = Auth::user()->current_acc;
@@ -74,7 +74,7 @@ class BoardController extends BaseController {
         $this->service->afterCreate(Input::get('project_id'), Input::get('title'), Input::get('content'));
 
         $request->session()->flash('alert-success', 'Board successful created!');
-        return Redirect::to('board');
+        return Redirect::to($account . '/board');
     }
 
     /**
@@ -83,7 +83,7 @@ class BoardController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($account, $id)
     {
         $projects = Project::all()->pluck('name', 'id')->prepend('Choose project', '');
         $board = Dashboard::find($id);
@@ -97,7 +97,7 @@ class BoardController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, StoreBoard $request)
+    public function update($account, $id, StoreBoard $request)
     {
         $board = Dashboard::find($id);
         $board->project_id = Input::get('project_id');
@@ -107,7 +107,7 @@ class BoardController extends BaseController {
         $board->save();
 
         $request->session()->flash('alert-success', 'Board successful updated!');
-        return Redirect::to('board');
+        return Redirect::to($account . '/board');
     }
 
     /**

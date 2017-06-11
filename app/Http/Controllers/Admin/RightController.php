@@ -43,11 +43,11 @@ class RightController extends BaseController {
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store($account, Request $request)
     {
         $this->service->storeAll(Input::get('project_right'), Input::get('field_right'));
         $request->session()->flash('alert-success', 'Rights successfuly updated!');
 
-        return Redirect::to('admin/right');
+        return Redirect::to($account . '/admin/right');
     }
 }

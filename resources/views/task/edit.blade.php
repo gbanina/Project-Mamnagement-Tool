@@ -36,16 +36,16 @@
                         </li>
                       </ul>
                 <div class="x_panel">
-                {!! Form::model($task, array('route' => array('task.update', $task->id), 'method' => 'PUT','id' => 'task-edit-form', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
+                {!! Form::model($task, array('url' => TMBS::url('task/' . $task->id), 'method' => 'PUT','id' => 'task-edit-form', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
               <div class="x_title">
                 <h2>
                   <strong>{{$task->type}}</strong> in
-                  <strong><a href="{{ URL::to('project/'.$task->project->id.'/edit') }}">{{$task->project->name}}</a></strong>
+                  <strong><a href="{{ TMBS::url('project/'.$task->project->id.'/edit') }}">{{$task->project->name}}</a></strong>
                   <div class="header-buttons">
                     @if($task->close == 'No')
                       <a onClick="closeTask()" class="btn btn-sm btn-primary" type="button">Close</a>
                     @else
-                      <a href="{{ URL::to('task-reopen/'.$task->id) }}" class="btn btn-sm btn-primary" type="button">Reopen</a>
+                      <a href="{{ TMBS::url('task-reopen/'.$task->id) }}" class="btn btn-sm btn-primary" type="button">Reopen</a>
                     @endif
                   </div>
                 </h2>
@@ -121,7 +121,7 @@
     <script src="{{ URL::to('js/daterangepicker.js') }}"></script>
     <script>
         function closeTask(){
-          $("#task-edit-form").attr("action", "{{ URL::to('task-close/'.$task->id) }}");
+          $("#task-edit-form").attr("action", "{{ TMBS::url('task-close/'.$task->id) }}");
           $( "#task-edit-form" ).submit();
         }
     </script>

@@ -33,6 +33,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        \App::bind('Illuminate\Routing\ResourceRegistrar', function ()
+        {
+            return \App::make('App\Providers\ResourceNoPrefixRegistrar');
+        });
     }
 }

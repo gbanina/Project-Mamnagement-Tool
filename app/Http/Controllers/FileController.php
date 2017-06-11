@@ -19,7 +19,7 @@ class FileController extends BaseController {
      *
      * @return Response
      */
-    public function upload($taskId, Request $request)
+    public function upload($account, $taskId, Request $request)
     {
         $name = (Input::file('file')->getClientOriginalName());
         $filePath = $request->file('file')->store('task_files');

@@ -1,6 +1,6 @@
 {!! Form::open(
     array(
-        'url' => 'file-upload/'.$task->id.'/',
+        'url' => TMBS::url('file-upload/'.$task->id.'/'),
         'class' => 'form',
         'novalidate' => 'novalidate',
         'files' => true)) !!}
@@ -23,7 +23,7 @@
         <ul class="list-unstyled project_files">
             @foreach($task->files as $file)
                 <li>
-                    <a href="{{ URL::to('storage/' . $file->path)}}" target="_blank"><i class="fa fa-file-archive-o"></i>{{$file->name}}</a>
+                    <a href="{{ TMBS::url('storage/' . $file->path)}}" target="_blank"><i class="fa fa-file-archive-o"></i>{{$file->name}}</a>
                 </li>
             @endforeach
         </ul>

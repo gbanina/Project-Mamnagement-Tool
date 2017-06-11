@@ -54,10 +54,10 @@ class ProjectRightController extends BaseController {
      *
      * @return Response
      */
-    public function store($id, Request $request)
+    public function store($account, $id, Request $request)
     {
         $this->service->projectRightsStore($id, Input::all());
         $request->session()->flash('alert-success', 'Rights successfuly updated!');
-        return Redirect::to('project-rights/' . $id);
+        return Redirect::to($account . '/project-rights/' . $id);
     }
 }

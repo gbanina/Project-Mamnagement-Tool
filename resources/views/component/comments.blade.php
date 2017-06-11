@@ -4,7 +4,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="x_content">
-          {!! Form::open(array('url' => 'comment', 'class' => 'form-horizontal form-label-left')) !!}
+          {!! Form::open(array('url' => TMBS::url('comment'), 'class' => 'form-horizontal form-label-left')) !!}
               {{ Form::textarea('data', '', ['rows'=> '8','id'=>'comment_data', $global_css, 'class' => 'resizable_textarea form-control', 'placeholder'=>'Write a comment']) }}
                   {{ Form::hidden('entity_id', $id, ['id' => 'entity_id']) }}
                   {{ Form::hidden('entity_type', $type, ['id' => 'entity_type']) }}
@@ -25,8 +25,7 @@
                               <h4 class="heading">
                                 {{$comment->user->name}} <small>({{$comment->timeElapsed}})</small>
                                 @if($comment->user->id == Auth::user()->id && $global_css != 'disabled')
-                                  @component('component.delete-link', ['id' => $comment->id, 'route' => 'comment.destroy'])
-                                  @endcomponent
+
                                 @endif
 
                               </h4>
@@ -51,8 +50,8 @@ function add_comment()
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            type: "POST", //PUT
-            url: "{{ URL::to('comment')}}", // ide na update metodu
+            type: "POST",
+            url: "{{ TMBS::url('comment')}}", // ide na update metodu
             data: {data: $("#comment_data").val(), entity_id: $("#entity_id").val(), entity_type: $("#entity_type").val()},
             success: function( msg ) {
               new PNotify({
@@ -63,6 +62,7 @@ function add_comment()
               });
               $content = comment_append_content();
               $( ".messages" ).prepend( $content );
+              $("#comment_data").val('');
             }
 
         });

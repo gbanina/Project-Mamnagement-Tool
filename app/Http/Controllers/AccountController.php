@@ -63,16 +63,6 @@ class AccountController extends BaseController {
         return Redirect::to('account.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -104,7 +94,7 @@ class AccountController extends BaseController {
         $account->save();
 
         $request->session()->flash('alert-success', 'Account : was successful updated!');
-        return Redirect::to('account');
+        return Redirect::to('settings');
     }
 
     /**
@@ -116,7 +106,7 @@ class AccountController extends BaseController {
     public function destroy($id, Request $request)
     {
         $request->session()->flash('alert-success', 'Account : was successful deleted!');
-        return Redirect::to('account');
+        return Redirect::to('settings');
     }
 
 }

@@ -8,7 +8,7 @@
             <div>
             <div class="row">
                 <div class="x_panel">
-                {!! Form::model($status, array('route' => array('status.update', $status->id), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
+                {!! Form::model($status, array('url' => TMBS::url('admin/status/' . $status->id), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
                   <div class="x_title">
                     <h2>Edit Status </h2>
                    <ul class="nav navbar-right panel_toolbox">

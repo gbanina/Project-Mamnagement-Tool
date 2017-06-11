@@ -7,7 +7,7 @@
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
-{!! Form::open(array('url' => 'task', 'class' => 'form-horizontal form-label-left')) !!}
+{!! Form::open(array('url' => TMBS::url('task'), 'class' => 'form-horizontal form-label-left')) !!}
               <div class="x_title">
                   <div class="header-buttons">
                   <h2>Add New Task to <strong>{{$projectName}}</strong>
@@ -70,7 +70,7 @@
 
     $( document ).ready(function() {
         $( "#type_id" ).change(function() {
-          window.location.href = "{{ URL::to('task/create?p='.$projectId) }}\&type_id=" + $( "#type_id" ).val();
+          window.location.href = "{{ TMBS::url('task/create?p='.$projectId) }}\&type_id=" + $( "#type_id" ).val();
         });
     });
     </script>

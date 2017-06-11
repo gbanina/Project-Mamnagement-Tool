@@ -47,22 +47,11 @@ class TaskViewController extends BaseController {
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store($account, Request $request)
     {
         $taskType = $this->service->store( Input::get('view-name') );
         $request->session()->flash('alert-success', 'View was successfuly created!');
-        return Redirect::to('admin/task-view/' . $taskType->id . '/edit');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
+        return Redirect::to($account . '/admin/task-view/' . $taskType->id . '/edit');
     }
 
     /**
@@ -71,7 +60,7 @@ class TaskViewController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($account, $id)
     {
         $fields = $this->service->edit($id);
         return View::make('admin.task-view.edit')
@@ -91,24 +80,19 @@ class TaskViewController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, Request $request)
+    public function update($account, $id, Request $request)
     {
         $this->service->update($id, Input::get('data'), Input::get('view_name'), Input::get('published'));
         return $request->all();
     }
 
-    public function copy($sourceId, $destinationId)
-    {
-
-    }
-
-    public function duplicate($sourceId, Request $request)
+    public function duplicate($account, $sourceId, Request $request)
     {
         $fields = $this->service->duplicate($sourceId);
         $request->session()->flash('alert-success', 'View was successfuly duplicated!');
-        return Redirect::to('admin/task-view/');
+        return Redirect::to($account . '/admin/task-view/');
     }
-    public function unpublish($unpublishId, Request $request)
+    public function unpublish($account, $unpublishId, Request $request)
     {
         $children = $this->service->children($unpublishId);
         return $children;
@@ -120,10 +104,10 @@ class TaskViewController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($account, $id, Request $request)
     {
         $this->service->destroy($id);
         $request->session()->flash('alert-success', 'View was successful deleted!');
-        return Redirect::to('admin/task-view/');
+        return Redirect::to($account . '/admin/task-view/');
     }
 }

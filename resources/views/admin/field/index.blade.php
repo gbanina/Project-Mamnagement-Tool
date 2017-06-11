@@ -7,7 +7,7 @@
                   <div class="x_title">
                     <h2>Available Fields</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <a href="{{ URL::to('/admin/field/create') }}" class="btn btn-default">Add new Available Field</a>
+                      <a href="{{ TMBS::url('admin/field/create') }}" class="btn btn-default">Add new Available Field</a>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -24,7 +24,7 @@
                           @foreach ($fields as $field)
                           <tr>
                             <td>
-                              <a href="{{ URL::to('admin/field/'.$field->id.'/edit') }}">{{$field->label}}</a>
+                              <a href="{{ TMBS::url('admin/field/'.$field->id.'/edit') }}">{{$field->label}}</a>
                               <br>
                               <small>Created {{$field->created_at}}</small>
                             </td>
@@ -34,7 +34,7 @@
                             <td>
                               <li style="display: inline-block;">
                                 @if($field->predefined == 0)
-                                  @component('component.delete-button', ['route' => 'field.destroy', 'id' => $field->id])
+                                  @component('component.delete-button', ['url' => 'admin/field', 'id' => $field->id])
                                     Delete
                                   @endcomponent
                                 @endif

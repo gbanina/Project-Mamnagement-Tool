@@ -56,7 +56,7 @@ class PlanController extends BaseController {
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store($account, Request $request)
     {
         $name = Input::get('name');
         $responsibleId = Input::get('project_manager');
@@ -75,18 +75,7 @@ class PlanController extends BaseController {
 
 
         $request->session()->flash('alert-success', 'ProjectPlan : '.$name.' was successful created!');
-        return Redirect::to('project-plan');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
+        return Redirect::to($account . '/project-plan');
     }
 
     /**
@@ -95,7 +84,7 @@ class PlanController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($account, $id)
     {
         $plan = ProjectPlan::find($id);
         $projectType = ProjectTypes::find($plan->project_type_id);
@@ -110,7 +99,7 @@ class PlanController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, Request $request)
+    public function update($account, $id, Request $request)
     {
         $plan = ProjectPlan::find($id);
         $plan->plan = serialize(Input::get('data'));
@@ -119,10 +108,10 @@ class PlanController extends BaseController {
 
         return "plan saved";
     }
-    public function run($id, Request $request) {
+    public function run($account, $id, Request $request) {
         $project = $this->planService->run($id);
         $request->session()->flash('alert-success', 'Successfuly created project from plan : '.$project->name.'!');
-        return Redirect::to('project-plan');
+        return Redirect::to($account . '/project-plan');
     }
     /**
      * Remove the specified resource from storage.
@@ -130,12 +119,12 @@ class PlanController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($account, $id, Request $request)
     {
         $plan = ProjectPlan::find($id);
         $plan->delete();
         $request->session()->flash('alert-success', 'Project Plan was successfuly deleted!');
-        return Redirect::to('project-plan');
+        return Redirect::to($account . '/project-plan');
     }
 
 }

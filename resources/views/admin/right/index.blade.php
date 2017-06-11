@@ -6,7 +6,7 @@
         <div class="clearfix"></div>
             <div class="row">
               <div class="col-md-12" style="{{$viewStyle}}">
-                    {!! Form::open(array('url' => 'admin/right')) !!}
+                    {!! Form::open(array('url' => TMBS::url('admin/right'))) !!}
                       {!! Form::submit('Save', array('class' => 'btn btn-success')) !!}
                       @foreach($projects as $project)
                         @include('admin.right.project')

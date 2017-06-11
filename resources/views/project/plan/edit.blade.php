@@ -11,7 +11,7 @@
                   <div class="x_title">
                     <h2>Project Plan - {{$plan->name}}</h2>
                     <div class="header-buttons">
-                        <a href="{{ URL::to('project-plan/run/'.$plan->id) }}" class="btn btn-sm btn-success">Run</a>
+                        <a href="{{ TMBS::url('project-plan/run/'.$plan->id) }}" class="btn btn-sm btn-success">Run</a>
                     </div>
                     <ul class="nav navbar-right panel_toolbox">
                         <a href="{{ WebComponents::backUrl() }}" class="btn btn-default" type="button">Cancel</a>
@@ -71,7 +71,7 @@ function save_plan() {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: "PUT",
-            url: "{{ URL::to('project-plan/'. $plan->id)}}",
+            url: "{{ TMBS::url('project-plan/'. $plan->id)}}",
             data: {data: gantt.serialize() },
             success: function( msg ) {
                   new PNotify({

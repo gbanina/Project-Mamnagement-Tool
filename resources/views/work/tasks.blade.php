@@ -25,9 +25,9 @@
                       <tbody>
                         @foreach ($tasks as $task)
                         <tr>
-                          <td><a href="{{ URL::to('task/'.$task->id.'/edit') }}">{{$task->internal_id}}</a></td>
+                          <td><a href="{{ TMBS::url('task/'.$task->id.'/edit') }}">{{$task->internal_id}}</a></td>
                           <td class="overview-names">
-                            <a title="{{$task->name}}" href="{{ URL::to('task/'.$task->id.'/edit') }}">
+                            <a title="{{$task->name}}" href="{{ TMBS::url('task/'.$task->id.'/edit') }}">
                               {{$task->name}}
                               <br>
                               <small>Created {{$task->created_at}}</small>
@@ -39,7 +39,7 @@
                           <td>
                             <button type="button" class="btn btn-default btn-xs">{{ $task->type }}</button>
                           </td>
-                          {!! Form::open(array('url' => 'work', 'class' => 'form-horizontal form-label-left')) !!}
+                          {!! Form::open(array('url' => TMBS::url('work'), 'class' => 'form-horizontal form-label-left')) !!}
                           <td>
                             <div class="xdisplay_inputx form-group">
                               {!! Form::text('date', '', array( 'class' => 'form-control datepicket_component')) !!}
@@ -56,9 +56,9 @@
                           <td>
                             <li style="display: inline-block;">
                             <!--<a href="{{ URL::to('task/'.$task->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>-->
-                            <a href="{{ URL::to('task-close/'.$task->id) }}" class="btn btn-success btn-xs"> Close </a>
+                            <a href="{{ TMBS::url('task-close/'.$task->id) }}" class="btn btn-success btn-xs"> Close </a>
                             @if($task->permission == 'DEL')
-                                @component('component.delete-button', ['route' => 'task.destroy', 'id' => $task->id])
+                                @component('component.delete-button', ['url' => 'task', 'id' => $task->id])
                                   Delete
                                 @endcomponent
                             @endif

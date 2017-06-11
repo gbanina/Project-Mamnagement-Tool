@@ -52,10 +52,10 @@ class UsersController extends BaseController {
      *
      * @return Response
      */
-    public function store()
+    public function store($account)
     {
         $this->service->inviteUser(Input::get('email'), Input::get('name'), Input::get('role_id'));
-        return Redirect::to('users');
+        return Redirect::to($account . '/users');
     }
 
     /**
@@ -75,13 +75,13 @@ class UsersController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($account, $id)
     {
-        $account = UserAccounts::find($id);
-        $roles = Role::where('account_id', $account->account_id)->pluck('name', 'id');
+        $usrAccount = UserAccounts::find($id);
+        $roles = Role::where('account_id', $usrAccount->account_id)->pluck('name', 'id');
         $types = array(/*'OWNER' => 'Owner', */'ADMIN' => 'Admin', 'MEMBER' => 'Member');
 
-        return View::make('users.edit')->with('account', $account)
+        return View::make('users.edit')->with('account', $usrAccount)
                         ->with('roles', $roles)->with('types', $types);
     }
 
@@ -91,15 +91,16 @@ class UsersController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, Request $request)
+    public function update($account, $id, Request $request)
     {
-        $account = UserAccounts::find($id);
-        $account->role_id = Input::get('role_id');
-        $account->type = Input::get('type');
-        $account->save();
+
+        $usrAcount = UserAccounts::find($id);
+        $usrAcount->role_id = Input::get('role_id');
+        $usrAcount->type = Input::get('type');
+        $usrAcount->save();
 
         $request->session()->flash('alert-success', 'User account was successful updated!');
-        return Redirect::to('users');
+        return Redirect::to($account . '/users');
     }
 
     /**
@@ -108,13 +109,13 @@ class UsersController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($account, $id, Request $request)
     {
         $account = UserAccounts::find($id);
         $account->delete();
 
         $request->session()->flash('alert-success', 'User was successful deleted!');
-        return Redirect::to('users');
+        return Redirect::to($account . '/users');
     }
 
 }

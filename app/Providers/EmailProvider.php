@@ -3,7 +3,7 @@
 namespace App\Providers;
 use Mail;
 use Auth;
-use URL;
+use TMBS;
 use Illuminate\Support\ServiceProvider;
 
 class EmailProvider extends ServiceProvider
@@ -65,7 +65,7 @@ class EmailProvider extends ServiceProvider
             'creator' => Auth::user()->name,
             'boardName' => $boardName,
             'description' => $description,
-            'url' => URL::to('/'),
+            'url' => TMBS::url('/'),
         ];
 
         Mail::send('email.newboard', $data , function ($message) use ($email, $boardName)

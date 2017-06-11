@@ -5,7 +5,7 @@
 
       <div class="clearfix"></div>
             <div class="row">
-                {!! Form::open(array('url' => 'admin/field', 'class' => 'form-horizontal form-label-left')) !!}
+                {!! Form::open(array('url' => TMBS::url('admin/field'), 'class' => 'form-horizontal form-label-left')) !!}
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">

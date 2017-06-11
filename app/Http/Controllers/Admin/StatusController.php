@@ -49,11 +49,11 @@ class StatusController extends BaseController {
      *
      * @return Response
      */
-    public function store(StoreStatus $request)
+    public function store($account, StoreStatus $request)
     {
         $status = $this->service->store(Input::all());
         $request->session()->flash('alert-success', 'Status : '. $status->name .' was successful created!');
-        return Redirect::to('admin/status');
+        return Redirect::to($account . '/admin/status');
     }
 
     /**
@@ -62,7 +62,7 @@ class StatusController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($account, $id)
     {
         $view = View::make('admin.status.edit')->with('status', $this->service->getStatus($id));
         return $view;
@@ -74,11 +74,11 @@ class StatusController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, StoreStatus $request)
+    public function update($account, $id, StoreStatus $request)
     {
         $status = $this->service->update($id, Input::all());
         $request->session()->flash('alert-success', 'Status : '.$status->name.' was successful updated!');
-        return Redirect::to('admin/status');
+        return Redirect::to($account . '/admin/status');
     }
     public function reorder(Request $request) {
 
@@ -97,10 +97,10 @@ class StatusController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($account, $id, Request $request)
     {
         $this->service->destroy($id);
         $request->session()->flash('alert-success', 'Status was successful deleted!');
-        return Redirect::to('admin/status');
+        return Redirect::to($account . '/admin/status');
     }
 }

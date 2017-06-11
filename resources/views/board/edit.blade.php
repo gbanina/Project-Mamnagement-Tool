@@ -4,11 +4,11 @@
        <div class="">
           <div class="clearfix"></div>
             <div class="row">
-                {!! Form::model($board, array('route' => array('board.update', $board->id), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
+                {!! Form::model($board, array('url' => TMBS::url('board/' . $board->id), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Edit News <small>Dashboard</small></h2>
+                    <h2>Edit News</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <a href="{{ WebComponents::backUrl() }}" class="btn btn-default" type="button">Cancel</a>
                         {!! Form::submit('Save', array('class' => 'btn btn-success')) !!}

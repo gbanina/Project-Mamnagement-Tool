@@ -67,7 +67,7 @@ class TaskController extends BaseController {
      *
      * @return Response
      */
-    public function create(Request $request)
+    public function create($account, Request $request)
     {
         $userService = new UserServiceProvider;
         $fields = array();
@@ -121,7 +121,7 @@ class TaskController extends BaseController {
                                                             ->with('types',$types)->with('fields', $fields)
                                                                 ->with('projectName',$projectName)->with('typeId', $typeId);
         }
-        return Redirect::to('task');
+        return Redirect::to($account . '/task');
     }
 
     /**
@@ -129,7 +129,7 @@ class TaskController extends BaseController {
      *
      * @return Response
      */
-    public function store(StoreTask $request)
+    public function store($account, StoreTask $request)
     {
         $task = new Task;
             //dd(Input::all());
@@ -173,7 +173,10 @@ class TaskController extends BaseController {
         if(Input::get('responsible_id') !== null){
                 UserTask::create(['task_id' => $task->id, 'user_id' => Input::get('responsible_id')]);
             }
-        return Redirect::to('task/' . $task->id . '/edit');
+
+        $request->session()->flash('alert-success', 'Task : '.$task->name.' was successfully created!');
+
+        return Redirect::to($account . '/task/' . $task->id . '/edit');
     }
 
     /**
@@ -182,7 +185,7 @@ class TaskController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id, Request $request)
+    public function edit($account, $id, Request $request)
     {
         $task = Task::find($id);
         if ($task == null) {
@@ -265,7 +268,7 @@ class TaskController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, Request $request)
+    public function update($account, $id, Request $request)
     {
         $task = Task::find($id);
 
@@ -282,7 +285,7 @@ class TaskController extends BaseController {
         //return Redirect::to(WebComponents::redirectBack());
         return WebComponents::redirectBack();
     }
-    public function close($id, Request $request)
+    public function close($account, $id, Request $request)
     {
         $task = Task::find($id);
 
@@ -302,7 +305,7 @@ class TaskController extends BaseController {
         $request->session()->flash('alert-success', 'Task : '.$task->name.' was successfully closed!');
         return Redirect::back();
     }
-    public function reopen($id, Request $request)
+    public function reopen($account, $id, Request $request)
     {
         $task = Task::find($id);
         $task->closed = '0';
@@ -317,7 +320,7 @@ class TaskController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($account, $id, Request $request)
     {
         $task = Task::find($id);
 

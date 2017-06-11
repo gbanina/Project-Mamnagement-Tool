@@ -5,7 +5,7 @@
 
        <div class="">
             <div class="clearfix"></div>
-            {!! Form::model($taskType, array('route' => array('task-view.update', 1), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
+            {!! Form::model($taskType, array('url' => TMBS::url('admin/task-view/' . 1), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
             <meta name="csrf-token" content="{{ csrf_token() }}">
             <div class="row">
               <div class="col-md-10 col-sm-12 col-xs-12">
@@ -192,7 +192,7 @@ function unpublish()
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: "PUT",
-            url: "{{ URL::to('admin/task-view-unpublish/'. $viewId)}}",
+            url: "{{ TMBS::url('admin/task-view-unpublish/'. $viewId)}}",
             data: {data: {{$taskType->id}} },
             success: function( msg ) {
               if(msg == ''){
@@ -231,15 +231,13 @@ function saveForm()
       }
     }
 
-    //if($("#form_published").val() == 'on')
-      //$('#form_published').attr("disabled", true);
 if(Object.keys(result).length != 0){
     $.ajax({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: "PUT",
-            url: "{{ URL::to('admin/task-view/'. $viewId)}}",
+            url: "{{ TMBS::url('admin/task-view/'. $viewId)}}",
             data: {data: result, view_name: $("#view_name").val(), published: $("#publish_hidden").val()},
             success: function( msg ) {
               new PNotify({

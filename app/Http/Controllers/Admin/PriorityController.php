@@ -47,12 +47,12 @@ class PriorityController extends BaseController {
      *
      * @return Response
      */
-    public function store(StorePriority $request)
+    public function store($account, StorePriority $request)
     {
         $priority = $this->service->store(Input::all());
         $request->session()->flash('alert-success', 'Priority : '.$priority->label.' was successful created!');
 
-        return Redirect::to('admin/priority');
+        return Redirect::to($account . '/admin/priority');
     }
 
     /**
@@ -61,7 +61,7 @@ class PriorityController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($account, $id)
     {
         $view = View::make('admin.priority.edit')->with('priority', $this->service->getPriority($id));
         return $view;
@@ -73,12 +73,12 @@ class PriorityController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, StorePriority $request)
+    public function update($account, $id, StorePriority $request)
     {
         $priority = $this->service->update($id, Input::all());
         $request->session()->flash('alert-success', 'Priority : '.$priority->label.' was successful updated!');
 
-        return Redirect::to('admin/priority');
+        return Redirect::to($account . '/admin/priority');
     }
     public function reorder(Request $request) {
 
@@ -97,11 +97,11 @@ class PriorityController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($account, $id, Request $request)
     {
         $this->service->destroy($id);
         $request->session()->flash('alert-success', 'Priority was successful deleted!');
 
-        return Redirect::to('admin/priority');
+        return Redirect::to($account . '/admin/priority');
     }
 }

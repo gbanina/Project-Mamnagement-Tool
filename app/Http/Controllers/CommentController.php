@@ -101,7 +101,7 @@ class CommentController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($account, $id, Request $request)
     {
         $comment = Comment::find($id);
         $comment->delete();

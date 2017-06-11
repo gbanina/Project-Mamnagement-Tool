@@ -6,7 +6,7 @@
                   <div class="x_title">
                     <h2>All Users</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <a href="{{ URL::to('users/create') }}" class="btn btn-default" type="button">Invite User</a>
+                      <a href="{{ TMBS::url('users/create') }}" class="btn btn-default" type="button">Invite User</a>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -35,16 +35,15 @@
                         <tbody>
                           @foreach ($users as $usrAcc)
                           <tr>
-                          <th scope="row"><a href="{{ URL::to('users/'.$usrAcc->id.'/edit') }}">{{$usrAcc->user->id}}</a></th>
-                          <td><a href="{{ URL::to('users/'.$usrAcc->id.'/edit') }}">{{$usrAcc->user->name}}</a></td>
+                          <th scope="row"><a href="{{ TMBS::url('users/'.$usrAcc->id.'/edit') }}">{{$usrAcc->user->id}}</a></th>
+                          <td><a href="{{ TMBS::url('users/'.$usrAcc->id.'/edit') }}">{{$usrAcc->user->name}}</a></td>
                           <td>{{$usrAcc->user->email}}</td>
                           <td>{{$usrAcc->type}}</td>
                           <td>{{$usrAcc->role->name}}</td>
                           <td>{{$usrAcc->user->created_at}}</td>
                             <td>
                               <li style="display: inline-block;">
-                              <!--<a href="{{ URL::to('account/'.$usrAcc->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>-->
-                              {{ Form::open(['route' => ['users.destroy', $usrAcc->id], 'method' => 'delete', 'style'=>'display: inline']) }}
+                              {{ Form::open(['url' => TMBS::url('users.destroy' . $usrAcc->id), 'method' => 'delete', 'style'=>'display: inline']) }}
                               <button type="submit" class="btn btn-danger btn-xs">Delete</button>
                               {{ Form::close() }}
                               </li>

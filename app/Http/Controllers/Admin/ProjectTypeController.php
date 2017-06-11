@@ -51,12 +51,12 @@ class ProjectTypeController extends BaseController {
      *
      * @return Response
      */
-    public function store(StoreProjectType $request)
+    public function store($account, StoreProjectType $request)
     {
         $this->service->store(Input::all());
         $request->session()->flash('alert-success', 'Project Type was successfuly created!');
 
-        return Redirect::to('admin/project-type');
+        return Redirect::to($account . '/admin/project-type');
     }
 
     /**
@@ -65,7 +65,7 @@ class ProjectTypeController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($account, $id)
     {
         $fields = $this->service->edit($id);
         $view = View::make('admin.project-type.edit')->with('projectType', $fields['projectTypes'])
@@ -80,12 +80,12 @@ class ProjectTypeController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, StoreProjectType $request)
+    public function update($account, $id, StoreProjectType $request)
     {
         $this->service->update($id, Input::all());
         $request->session()->flash('alert-success', 'Project Type was successfuly updated!');
 
-        return Redirect::to('admin/project-type');
+        return Redirect::to($account . '/admin/project-type');
     }
 
     /**
@@ -94,12 +94,12 @@ class ProjectTypeController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($account, $id, Request $request)
     {
         $type = ProjectTypes::find($id);
         $type->delete();
         $request->session()->flash('alert-success', 'Project Type was successfuly deleted!');
 
-        return Redirect::to('admin/project-type');
+        return Redirect::to($account . '/admin/project-type');
     }
 }

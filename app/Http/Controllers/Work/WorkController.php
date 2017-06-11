@@ -14,6 +14,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Helpers\WebComponents;
 
 class WorkController extends BaseController {
 
@@ -76,7 +77,7 @@ class WorkController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id, Request $request)
+    public function edit($account, $id, Request $request)
     {
         $work = Work::find($id);
         $tasks = Auth::user()->myTasks()->pluck('name', 'id')->prepend('Choose task', '');
@@ -90,7 +91,7 @@ class WorkController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, Request $request)
+    public function update($account, $id, Request $request)
     {
         $work = Work::find($id);
         $work->task_id = Input::get('task_id');
@@ -98,7 +99,8 @@ class WorkController extends BaseController {
         $work->date = PMTypesHelper::dateToSQL(Input::get('date'));
         $work->save();
         $request->session()->flash('alert-success', 'Work : ID:'.$work->task_id.' was successful updated!');
-        return Redirect::to($request->session()->get('url.intended'));
+        //return Redirect::to($request->session()->get('url.intended'));
+        return WebComponents::redirectBack();
     }
 
     /**
@@ -107,12 +109,12 @@ class WorkController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($account, $id, Request $request)
     {
         $work = Work::find($id);
         $work->delete();
         $request->session()->flash('alert-success', 'Work was successful deleted!');
 
-        return Redirect::back();
+        return Redirect::to(WebComponents::backUrl());
     }
 }

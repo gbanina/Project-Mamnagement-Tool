@@ -35,8 +35,16 @@ class ProjectRightProvider extends ServiceProvider
 
     public function storeAll($project_right, $field_right){
         foreach ($this->getProjects() as $project) {
-            $this->storeProjectRights($project->id, $project_right[$project->id]);
-            $this->storeFieldRights($project->id, $field_right[$project->id]);
+            try {
+                if(isset($project_right[$project->id])) {
+                    $this->storeProjectRights($project->id, $project_right[$project->id]);
+                    $this->storeFieldRights($project->id, $field_right[$project->id]);
+                }
+
+            } catch (Exception $e) {
+                var_dump($e);
+            }
+
         }
     }
 

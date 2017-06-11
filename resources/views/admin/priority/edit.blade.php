@@ -9,7 +9,7 @@
             <div class="row">
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
-                  {!! Form::model($priority, array('route' => array('priority.update', $priority->id), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
+                  {!! Form::model($priority, array('url' => TMBS::url('admin/priority/' . $priority->id), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
                   <div class="x_title">
                     <h2>Edit Priority</h2>
                     <ul class="nav navbar-right panel_toolbox">

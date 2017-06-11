@@ -35,7 +35,7 @@
                         </ul>
               </div>
               <div class="col-md-6 col-sm-12 col-xs-12">
-                      {!! Form::model($project, array('route' => array('project.update', $project->id), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
+                      {!! Form::model($project, array('url' => TMBS::acc() . '/project/' . $project->id, 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}
                                       <div class="x_panel">
                                         <div class="x_title">
                                           <h2>Project : <strong>{{$project->type}}</strong></h2>
@@ -71,7 +71,7 @@
 
                                             <div class="ln_solid"></div>
                                               <div class="btn-group">
-                                                <a href="{{ URL::to('project-rights/'.$project->id) }}" class="btn btn-default" type="button">Permissions</a>
+                                                <a href="{{ TMBS::url('project-rights/'.$project->id) }}" class="btn btn-default" type="button">Permissions</a>
                                                 <button class="btn btn-default" type="button">Versions</button>
                                                 <button class="btn btn-default" type="button">Components</button>
                                               </div>

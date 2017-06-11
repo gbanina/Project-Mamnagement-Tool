@@ -1,5 +1,5 @@
       <div class="">
-                      {!! Form::open(array('url' => 'project', 'class' => 'form-horizontal form-label-left')) !!}
+                      {!! Form::open(array('url' => TMBS::url('project'), 'class' => 'form-horizontal form-label-left')) !!}
             <div class="clearfix"></div>
 
 
@@ -43,7 +43,7 @@
                     <br>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
-                          <a href="{{ URL::to('project') }}" class="btn btn-primary" type="button">Cancel</a>
+                          <a href="{{ TMBS::url('project') }}" class="btn btn-primary" type="button">Cancel</a>
                           {!! Form::submit('Save', array('class' => 'btn btn-success')) !!}
                         </div>
                       </div>

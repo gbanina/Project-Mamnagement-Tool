@@ -2,7 +2,7 @@
 
 @section('content')
 
-{!! Form::open(array('url' => 'admin/priority-reorder', 'class' => 'form-horizontal form-label-left')) !!}
+{!! Form::open(array('url' => TMBS::url('admin/priority-reorder'), 'class' => 'form-horizontal form-label-left')) !!}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 {!! Form::close() !!}
 <div class="row">
@@ -11,7 +11,7 @@
                   <div class="x_title">
                     <h2>Priority</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <a href="{{ URL::to('/admin/priority/create') }}" class="btn btn-default">Add new Priority</a>
+                      <a href="{{ TMBS::url('admin/priority/create') }}" class="btn btn-default">Add new Priority</a>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -30,13 +30,13 @@
                           <tr id="{{$priority->id}}" datarow="{{$priority->id}}">
                             <td class="draggable"><p hidden>{{$priority->index}}</p><i class="fa fa-arrows"></i></td>
                             <td>
-                              <a href="{{ URL::to('admin/priority/'.$priority->id.'/edit') }}">{{$priority->label}}</a>
+                              <a href="{{ TMBS::url('admin/priority/'.$priority->id.'/edit') }}">{{$priority->label}}</a>
                               <br>
                               <small>Created {{$priority->created_at}}</small>
                             </td>
                             <td>
                               <li style="display: inline-block;">
-                                @component('component.delete-button', ['route' => 'priority.destroy', 'id' => $priority->id])
+                                @component('component.delete-button', ['url' => 'admin/priority', 'id' => $priority->id])
                                   Delete
                                 @endcomponent
                               </li>
@@ -74,7 +74,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                           },
                           type: "POST", //PUT
-                          url: "{{ URL::to('admin/priority-reorder')}}", // ide na update metodu
+                          url: "{{ TMBS::url('admin/priority-reorder')}}", // ide na update metodu
                           data: {id: id, position: position},
                           success: function( msg ) {
                             // done

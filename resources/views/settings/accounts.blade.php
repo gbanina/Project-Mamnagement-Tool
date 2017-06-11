@@ -19,9 +19,9 @@
                           <td>{{$usrAcc->user->created_at}}</td>
                             <td>
                               <li style="display: inline-block;">
-                              {{ Form::open(['route' => ['account.destroy', $usrAcc->id], 'method' => 'delete', 'style'=>'display: inline']) }}
-                              <button type="submit" class="btn btn-danger btn-xs">Leave</button>
-                              {{ Form::close() }}
+                                @component('component.delete-button', ['url' => 'account', 'id' => $usrAcc->id])
+                                  Leave
+                                @endcomponent
                               </li>
                             </td>
                           </tr>

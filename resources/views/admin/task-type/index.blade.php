@@ -7,7 +7,7 @@
                   <div class="x_title">
                     <h2>Task Types</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                        <a href="{{ URL::to('/admin/task-type/create') }}" class="btn btn-default">Add new Task Type</a>
+                        <a href="{{ TMBS::url('admin/task-type/create') }}" class="btn btn-default">Add new Task Type</a>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -23,13 +23,13 @@
                         <tbody>
                           @foreach ($taskTypes as $type)
                           <tr><td>
-                              <a href="{{ URL::to('admin/task-type/'.$type->id.'/edit') }}">{{$type->name}}</a>
+                              <a href="{{ TMBS::url('admin/task-type/'.$type->id.'/edit') }}">{{$type->name}}</a>
                               <br>
                               <small>Created {{$type->created_at}}</small>
                             </td>
                             <td>
                               <li style="display: inline-block;">
-                                @component('component.delete-button', ['route' => 'task-type.destroy', 'id' => $type->id])
+                                @component('component.delete-button', ['url' => 'admin/task-type', 'id' => $type->id])
                                   Delete
                                 @endcomponent
                               </li>

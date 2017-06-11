@@ -4,7 +4,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    {!! Form::open(array('url' => 'work', 'class' => 'form-horizontal form-label-left')) !!}
+                    {!! Form::open(array('url' => TMBS::url('work'), 'class' => 'form-horizontal form-label-left')) !!}
                         <meta name="csrf-token" content="{{ csrf_token() }}">
                         <table class="table">
                           <thead>
@@ -51,8 +51,8 @@
                                     <td>{{$work->DateReal}}</td>
                                     <td>{{$work->cost}}h</td>
                                     <td>
-                                        <a href="{{ URL::to('work/'.$work->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                                            @component('component.delete-button', ['route' => 'work.destroy', 'id' => $work->id])
+                                        <a href="{{ TMBS::url('work/'.$work->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                                            @component('component.delete-button', ['url' => 'work', 'id' => $work->id])
                                               Delete
                                             @endcomponent
                                     </td>
@@ -71,7 +71,7 @@ function add_work()
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: "POST", //PUT
-            url: "{{ URL::to('work-save')}}", // ide na update metodu
+            url: "{{ TMBS::url('work-save')}}", // ide na update metodu
             data: {date: $("#date").val(), task_id: $("#task_id").val(), cost: $("#cost").val()},
             success: function( msg ) {
               new PNotify({
@@ -93,7 +93,7 @@ function work_append_content(id)
   result += '         <td>{{Auth::user()->name}}</td>';
   result += '         <td>'+$('#date').val()+'</td>';
   result += '         <td>'+$('#cost').val()+'</td>';
-  result += '         <td><a href="{{ URL::to('work') }}/'+id+'/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a><button type="submit" class="btn btn-danger btn-xs">Delete</button></td>';
+  result += '         <td><a href="{{ TMBS::url('work') }}/'+id+'/edit" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a><button type="submit" class="btn btn-danger btn-xs">Delete</button></td>';
   result += '      <tr>';
   return result;
 }

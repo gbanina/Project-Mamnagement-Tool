@@ -2,7 +2,7 @@
     <div class="x_title">
         <h2>Tasks</h2>
         <ul class="nav navbar-right panel_toolbox">
-              <a href="{{ URL::to('task/create') }}?p={{$project->id}}" class="btn btn-default" type="button">Add new Task</a>
+              <a href="{{ TMBS::url('task/create') }}?p={{$project->id}}" class="btn btn-default" type="button">Add new Task</a>
         </ul>
         <div class="clearfix"></div>
     </div>
@@ -25,7 +25,7 @@
                         <tr>
                           <td>{{$task->internal_id}}</td>
                           <td class="overview-names">
-                            <a title="{{$task->name}}" href="{{ URL::to('task/'.$task->id.'/edit') }}">
+                            <a title="{{$task->name}}" href="{{ TMBS::url('task/'.$task->id.'/edit') }}">
                               {{$task->name}}
                               <br>
                               <small>Created {{$task->created_at}}</small>
@@ -48,9 +48,9 @@
                           </td>
                           <td>
                             <li style="display: inline-block;">
-                            <a href="{{ URL::to('task-close/'.$task->id) }}" class="btn btn-success btn-xs"> Close </a>
+                            <a href="{{ TMBS::url('task-close/'.$task->id) }}" class="btn btn-success btn-xs"> Close </a>
                             @if($task->permission == 'DEL')
-                                @component('component.delete-button', ['route' => 'task.destroy', 'id' => $task->id])
+                                @component('component.delete-button', ['url' => 'task', 'id' => $task->id])
                                   Delete
                                 @endcomponent
                             @endif
