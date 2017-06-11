@@ -19,7 +19,7 @@
               <div class="menu_section">
                 <h3> {{Auth::user()->currentacc->name}} </h3>
                 <ul class="nav side-menu">
-                  <li><a href="{{ TMBS::url('/') }}"><i class="fa fa-laptop"></i> Boards {!! WebComponents::boardEvents() !!}</a></li>
+                  <li><a href="{{ TMBS::url('board') }}"><i class="fa fa-laptop"></i> Boards {!! WebComponents::boardEvents() !!}</a></li>
                   <li><a href="{{ TMBS::url('work') }}"><i class="fa fa-cubes"></i> My Work </a></li>
                   <!--<li><a href="{{ TMBS::url('/team') }}"><i class="fa fa-users"></i> My Team </a></li>-->
                   <li><a><i class="fa fa-sitemap"></i> Projects <span class="fa fa-chevron-down"></span></a>
