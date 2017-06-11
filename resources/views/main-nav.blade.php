@@ -63,14 +63,14 @@
 
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
+              <a href="{{ URL::to('settings') }}" data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+              <a href="{{ URL::to('profile') }}" data-toggle="tooltip" data-placement="top" title="Profile">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              <a href="{{ URL::to('help') }}" data-toggle="tooltip" data-placement="top" title="Help">
+                <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
               </a>
               <a data-toggle="tooltip" data-placement="top" title="Logout" href="{{ URL::to('logout') }}" >
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
