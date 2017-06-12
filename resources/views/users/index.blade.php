@@ -43,9 +43,9 @@
                           <td>{{$usrAcc->user->created_at}}</td>
                             <td>
                               <li style="display: inline-block;">
-                              {{ Form::open(['url' => TMBS::url('users.destroy' . $usrAcc->id), 'method' => 'delete', 'style'=>'display: inline']) }}
-                              <button type="submit" class="btn btn-danger btn-xs">Delete</button>
-                              {{ Form::close() }}
+                               @component('component.delete-button', ['url' => 'users', 'id' => $usrAcc->id])
+                                  Delete
+                                @endcomponent
                               </li>
                             </td>
                           </tr>

@@ -111,8 +111,8 @@ class UsersController extends BaseController {
      */
     public function destroy($account, $id, Request $request)
     {
-        $account = UserAccounts::find($id);
-        $account->delete();
+        $usrAccount = UserAccounts::find($id);
+        $usrAccount->delete();
 
         $request->session()->flash('alert-success', 'User was successful deleted!');
         return Redirect::to($account . '/users');
