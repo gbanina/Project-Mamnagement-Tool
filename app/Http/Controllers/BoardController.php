@@ -116,9 +116,9 @@ class BoardController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($account, $id, Request $request)
     {
         $request->session()->flash('alert-success', 'Board was successful deleted!');
-        return Redirect::to('board');
+        return Redirect::to($account . '/board');
     }
 }

@@ -116,6 +116,6 @@ class RegisterController extends Controller
 
         $request->session()->flash('alert-success', 'You have successfully verified your account!');
 
-        return Redirect::to($user->current_acc . '/board');
+        return Redirect::to('/');
     }
 }
