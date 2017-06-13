@@ -96,7 +96,14 @@ class AccountController extends BaseController {
         $request->session()->flash('alert-success', 'Account : was successful updated!');
         return Redirect::to('settings');
     }
+    public function rename(Request $request)
+    {
+        $account = Account::find(Auth::user()->current_acc);
+        $account->name = Input::get('data');
+        $account->save();
 
+        return $account->name;
+    }
     /**
      * Remove the specified resource from storage.
      *

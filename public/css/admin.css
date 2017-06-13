@@ -181,3 +181,27 @@ ul.messages li .message_wrapper.wrapper_note{
     }
 }
 
+.editable-account {
+    color: #E7E7E7;
+    background-color: #2A3F54;
+    width: 174px;
+    font-size: 13px;
+    border: none;
+    box-shadow: none;
+}
+.editable-account:focus {
+    border: 1px solid #fff;
+}
+.main-menu-account-list {
+    position: relative;
+    left: -21px;
+    top: -28px;
+}
+.account-text-title {
+    padding: 12px;
+    font-size: 13px;
+}
+
+.menu_section h3 {
+    text-transform: none;
+}

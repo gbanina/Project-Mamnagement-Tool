@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('settings', 'SettingsController');
     Route::resource('profile', 'ProfileController');
     Route::get('/invite/{inviteHash}', 'User\InviteController@accept');
+    Route::get('account-rename', 'AccountController@rename');
 });
 
 Route::group(['middleware' => ['auth', 'acc_verify:accountId'], 'prefix' => '{accountId}', 'as' => '{accountId}.'], function()

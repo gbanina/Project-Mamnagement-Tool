@@ -17,7 +17,9 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3> {{Auth::user()->currentacc->name}} </h3>
+                <h3> @component('component.account-link')
+                     @endcomponent
+                </h3>
                 <ul class="nav side-menu">
                   <li><a href="{{ TMBS::url('board') }}"><i class="fa fa-laptop"></i> Boards {!! WebComponents::boardEvents() !!}</a></li>
                   <li><a href="{{ TMBS::url('work') }}"><i class="fa fa-cubes"></i> My Work </a></li>

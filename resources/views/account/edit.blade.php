@@ -14,13 +14,6 @@
                     <h2>Edit Account <small>Accounts</small></h2>
                     <div class="clearfix"></div>
                   </div>
-                  @if($errors->count() != 0):
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                                {!! var_dump($errors->count()) !!}
-                            </div>
-                        </div>
-                  @endif
                   <div class="x_content">
                     <br>
                 {!! Form::model($account, array('route' => array('account.update', $account->id), 'method' => 'PUT', 'class' => 'form-horizontal exit-alert form-label-left')) !!}

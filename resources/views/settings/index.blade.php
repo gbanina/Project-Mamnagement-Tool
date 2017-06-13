@@ -23,7 +23,10 @@
                         </li>
                       </ul>
 
-                      <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
+                      <a class="btn btn-success btn-sm"><i class="fa fa-edit m-right-xs"></i> Edit Profile</a>
+                      {{ Form::open(array('url' => 'settings/'.$user->id, 'method' => 'delete', 'style'=>'display: inline')) }}
+                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-power-off m-right-xs"></i> Delete Account</button>
+                      {{ Form::close() }}
                       <br />
 
                     </div>

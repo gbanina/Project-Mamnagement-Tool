@@ -90,7 +90,15 @@ class SettingsController extends BaseController {
      */
     public function destroy($id)
     {
+        foreach(Auth::user()->accounts as $acc) {
+            $account = UserAccounts::where('account_id', $acc->id);
+            $account->delete();
+        }
 
+        $user = \App\User::find($id);
+        $user->delete();
+
+        return View::make('auth.login');
     }
 
 }
