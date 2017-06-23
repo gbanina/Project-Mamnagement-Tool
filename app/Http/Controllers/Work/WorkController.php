@@ -15,24 +15,35 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Helpers\WebComponents;
+use App\Providers\My\WorkingOnService;
 
 class WorkController extends BaseController {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
+    protected $workingOnService;
+
+    public function __construct()
+    {
+        $this->workingOnService = new WorkingOnService();
+    }
     public function index(Request $request)
     {
+        $woTaskId = 0;
+        $woStartTime = '00:00:00';
+
         $work = Work::where('account_id', Auth::user()->current_acc)
-                        ->where('user_id', Auth::user()->id)->where('created_at', '>', date('Y-m-d 00:00:00',strtotime('last monday')));
+                        ->where('user_id', Auth::user()->id)->where('created_at', '>', date('Y-m-d 00:00:00', strtotime('last monday')));
         $tasks = Auth::user()->myTasks();
         $tasksCount = $tasks->count();
         $tasks = $tasks->get();
+        $workingOn = $this->workingOnService->userWorksOn(Auth::user()->id);
+        if ($workingOn != null) {
+            $woTaskId = $workingOn->task_id;
+            $woStartTime = $workingOn->start_time;
+        }
 
         $view = View::make('work.index')->with('works', $work->get())->with('tasksCount', $tasksCount)
-                ->with('tasks', $tasks)->with('cost', $work->sum('cost'));
+                ->with('tasks', $tasks)->with('cost', $work->sum('cost'))->with('working_on', $woTaskId)
+                ->with('start_time', $woStartTime);
         return $view;
     }
 
@@ -101,6 +112,28 @@ class WorkController extends BaseController {
         $request->session()->flash('alert-success', 'Work : ID:'.$work->task_id.' was successful updated!');
         //return Redirect::to($request->session()->get('url.intended'));
         return WebComponents::redirectBack();
+    }
+
+    public function addTime($account, $id, Request $request)
+    {
+        //var_dump(Input::all());
+        //dd('adding time for ' . $id);
+
+        $work = new Work();
+        $work->account_id = Auth::user()->current_acc;
+        $work->task_id = $id;
+        $work->user_id = Auth::user()->id;
+        $work->start_time = Input::get('start_time') . ':00';
+        $work->end_time = Input::get('end_time') . ':00';
+
+        $dteStart = new \DateTime($work->start_time.'');
+        $dteEnd   = new \DateTime($work->end_time.'');
+        $dteDiff  = $dteStart->diff($dteEnd);
+        $work->time = $dteDiff->format("%H:%I:%S");
+
+        $work->save();
+
+        return Redirect::back();
     }
 
     /**

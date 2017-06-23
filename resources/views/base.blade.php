@@ -7,8 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>TeamBiosis</title>
-
+    {!! TMBS::siteTitle() !!}
     <link rel="apple-touch-icon" sizes="57x57" href="{{ URL::to('assets/fav/apple-icon-57x57.png')}}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ URL::to('assets/fav/apple-icon-60x60.png')}}">
     <link rel="apple-touch-icon" sizes="72x72" href="{{ URL::to('assets/fav/apple-icon-72x72.png')}}">
@@ -59,6 +58,15 @@
     <!-- Custom functions -->
     <script src="{{ URL::to('js/functions.js')}}"></script>
 
+    <!-- select -->
+    <link href="{{ URL::to('css/vendor/bootstrap-select.css')}}" rel="stylesheet">
+
+    <!-- datePicker -->
+    <script src="{{ URL::to('js/moment.min.js')}}"></script>
+    <script src="{{ URL::to('js/bootstrap-datetimepicker.min.js')}}"></script>
+    <link href="{{ URL::to('css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
+
+
   </head>
 
   <body class="nav-md">
@@ -79,6 +87,7 @@
                 </div>
             </div>
             @endif
+            <div id="showTime"></div>
             @yield('content')
         </div>
         <!-- /page content -->
@@ -153,7 +162,6 @@
 
 <script>
 
-
 $( document ).ready(function() {
     $( ".exit-alert :input" ).change(function() {
         window.onbeforeunload = function() {
@@ -167,6 +175,34 @@ $( ".exit-alert" ).submit(function( event ) {
 });
 
 
+</script>
+
+<script type="text/javascript">
+<!--
+
+function tmbsUpdateClock ( startString, taskName )
+{
+    var date1 = new Date();
+    var date2 = new Date(startString /*"2015/07/30 21:59:00"*/);
+    var currentTimeString = showDiff(date1, date2);
+
+  // Update the time display
+  //document.getElementById("tmb-count").firstChild.nodeValue = currentTimeString;
+  $( ".tmb-count" ).text( currentTimeString );
+  $( ".tmb-count-title" ).text( currentTimeString + ' - ' + taskName +  ' in TeamBiosis' );
+}
+function tmbsUpdateTaskClock ( startString, moddifier )
+{
+    var val = moddifier.split(":");
+    console.log(val);
+    var date1 = new Date();
+    var date2 = new Date(startString);
+    var currentTimeString = showDiffWAdd(date1, date2, parseInt(val[0]), parseInt(val[1]), parseInt(val[2]));
+
+  $( ".tmb-count-active-task" ).text( currentTimeString );
+}
+
+// -->
 </script>
 
     @yield('js_include')

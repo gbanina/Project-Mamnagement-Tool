@@ -18,6 +18,10 @@ Route::get('/', function () {
         return Redirect::to(Auth::user()->current_acc . '/board');
 });
 
+Route::get('showcase', function () {
+    return View::make('showcase.index');
+});
+
 Auth::routes();
 
 Route::resource('register-invite', 'Auth\RegisterInviteController');
@@ -66,6 +70,7 @@ Route::group(['middleware' => ['auth', 'acc_verify:accountId'], 'prefix' => '{ac
     Route::resource('board', 'BoardController');
     Route::resource('account', 'AccountController');
     Route::post('work-save', 'Work\WorkController@storeAjax');
+    Route::post('work-add-time/{taskIDtime}', 'Work\WorkController@addTime');
     Route::resource('work', 'Work\WorkController');
     Route::resource('team', 'My\TeamController');
 
@@ -74,6 +79,9 @@ Route::group(['middleware' => ['auth', 'acc_verify:accountId'], 'prefix' => '{ac
     Route::get('switch/{id}', 'AccountChaingeController@switchTo');
     Route::get('morph/{roleId}', 'MorphController@switchTo');
     Route::get('morph-return', 'MorphController@returnFromMorph');
+
+    Route::get('workingon/start/{startWTaskId}', 'My\WorkingOnController@start');
+    Route::get('workingon/end/{endWTaskId}', 'My\WorkingOnController@end');
 
     Route::post('file-upload/{uploadTaskId}', 'FileController@upload');
 });

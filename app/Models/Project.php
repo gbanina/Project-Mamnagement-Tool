@@ -91,8 +91,15 @@ class Project extends Model {
     }
     public function getRealCostAttribute()
     {
-        $tasks = $this->hasMany('App\Models\Task', 'project_id')->get();
-        return $tasks->sum('realCost');
+        $time = DB::table('tasks')
+            ->join('works', 'tasks.id', '=', 'works.task_id')
+            ->select('works.time')
+            ->where('project_id', $this->id)
+            ->sum('time');
+
+        return PMTypesHelper::secToTime($time);
+
+
     }
     public function getResponsibleUsersAttribute()
     {

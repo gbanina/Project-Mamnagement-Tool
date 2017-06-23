@@ -30,7 +30,7 @@
                           </li>
                           <li class="hidden-phone">
                             <span class="name"> Real cost</span>
-                            <span class="value text-success"> {{$project->realCost}}h </span>
+                            <span class="value text-success"> {{$project->realCost}} </span>
                           </li>
                         </ul>
               </div>

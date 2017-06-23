@@ -46,7 +46,12 @@ class PMTypesHelper{
                         'USER' =>   'User',
             );
     }
-
+    public static function secToTime($seconds) {
+      $t = round($seconds);
+      // Ono wtf?
+      //return sprintf('%02d:%02d:%02d', ($t/3600),($t/60%60), $t%60);
+      return sprintf('%02d:%02d:%02d', ($t/10000),($t/100%100), $t%100);
+    }
     public static function timeElapsedString($datetime, $full = false) {
         $now = new DateTime;
         $ago = new DateTime($datetime);

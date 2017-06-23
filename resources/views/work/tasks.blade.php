@@ -4,21 +4,19 @@
                         <tr>
                           <th><input id="id-filter" class="form-control"/></th>
                           <th><input id="name-filter" class="form-control"/></th>
+                          <th><input id="project-filter" class="form-control"/></th>
                           <th>{!! WebComponents::statusOverview() !!}</th>
                           <th>{!! WebComponents::taskTypeOverview() !!}</th>
-                          <th></th>
-                          <th></th>
                           <th></th>
                           <th></th>
                         </tr>
                         <tr>
                           <th style="width: 35px">#</th>
                           <th>Name</th>
+                          <th>Project</th>
                           <th style="width: 125px">Status</th>
                           <th style="width: 125px">Type</th>
-                          <th style="width: 100px">Date</th>
-                          <th style="width: 10%">Cost</th>
-                          <th style="width: 5%">Add</th>
+                          <th style="width: 100px">Time</th>
                           <th style="width: 120px">Edit</th>
                         </tr>
                       </thead>
@@ -33,28 +31,40 @@
                               <small>Created {{$task->created_at}}</small>
                             </a>
                           </td>
+                          <td class="overview-names">
+                            {{$task->project->name}}
+                          </td>
                           <td>
                             {{ $task->status }}
                           </td>
                           <td>
                             <button type="button" class="btn btn-default btn-xs">{{ $task->type }}</button>
                           </td>
-                          {!! Form::open(array('url' => TMBS::url('work'), 'class' => 'form-horizontal form-label-left')) !!}
-                          <td>
-                            <div class="xdisplay_inputx form-group">
-                              {!! Form::text('date', '', array( 'class' => 'form-control datepicket_component')) !!}
-                            </div>
-                          {{ Form::hidden('task_id', $task->id) }}
+                          <td style="font-size: 16px;">
+                          <a data-toggle="modal" data-target=".bs-example-modal-sm-{{$task->id}}"><i class="fa fa-clock-o"></i></a>
+                          @component('component.add-time', ['task' => $task])
+                          @endcomponent
+                           @if($working_on != $task->id)
+                            {{$task->times}}
+                            <a href="{{ TMBS::url('workingon/start/'.$task->id) }}" >
+                              <i class="fa fa-play"></i>
+                            </a>
+                            @else
+                              <span class="tmb-count-active-task"></span>
+                            <script>
+                              $( document ).ready(function() {
+                                  tmbsUpdateTaskClock("{{$start_time}}", "{{$task->times}}");
+                                  setInterval('tmbsUpdateTaskClock("{{$start_time}}", "{{$task->times}}")', 1000 );
+                              });
+                            </script>
+                            <a href="{{ TMBS::url('workingon/end/'.$task->id) }}" >
+                              <i class="fa fa-stop"></i>
+                            </a>
+                            @endif
                           </td>
-                          <td>
-                          <input type="number" step="any"  name="cost" value="0" required class="form-control"/>
-                          </td>
-                          <td>
-                          {!! Form::submit('Add', array('class' => 'btn btn-default btn-xs')) !!}
-                          </td>
-                          {!! Form::close() !!}
                           <td>
                             <li style="display: inline-block;">
+
                             <!--<a href="{{ URL::to('task/'.$task->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>-->
                             <a href="{{ TMBS::url('task-close/'.$task->id) }}" class="btn btn-success btn-xs"> Close </a>
                             @if($task->permission == 'DEL')

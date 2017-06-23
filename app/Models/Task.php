@@ -97,6 +97,12 @@ class Task extends Model {
     {
         $cost = $this->hasMany('App\Models\Work');
         return $cost->sum('cost');
+
+    }
+    public function getTimesAttribute()
+    {
+        $cost = $this->hasMany('App\Models\Work', 'task_id');
+        return PMTypesHelper::secToTime($cost->sum('time'));
     }
     public function getRealStartDateAttribute()
     {

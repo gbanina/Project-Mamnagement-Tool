@@ -23,7 +23,7 @@
         <ul class="list-unstyled project_files">
             @foreach($task->files as $file)
                 <li>
-                    <a href="{{ TMBS::url('storage/' . $file->path)}}" target="_blank"><i class="fa fa-file-archive-o"></i>{{$file->name}}</a>
+                    <a href="{{ URL::to('storage/' . $file->path)}}" target="_blank"><i class="fa fa-file-archive-o"></i>{{$file->name}}</a>
                 </li>
             @endforeach
         </ul>

@@ -32,7 +32,7 @@
                         </li>
                         <li class="hidden-phone">
                           <span class="name"> Real cost</span>
-                          <span class="value text-success"> {{$task->realCost}} </span>
+                          <span class="value text-success"> {{$task->Times}} </span>
                         </li>
                       </ul>
                 <div class="x_panel">
@@ -113,7 +113,7 @@
           </div>
           <!-- tu -->
         </div>
-
+@component('component.add-time', ['task' => $task]) @endcomponent
 @endsection
 
 @section('js_include')

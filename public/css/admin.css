@@ -205,3 +205,17 @@ ul.messages li .message_wrapper.wrapper_note{
 .menu_section h3 {
     text-transform: none;
 }
+
+.menu-count-wrap {
+    padding: 6px 15px 12px;
+}
+.stop-count-button i {
+    background: red;
+    color: white;
+    padding: 3px;
+        font-size: 18px;
+    margin-left: 7px;
+}
+.tmb-count {
+    font-weight: 600;
+}

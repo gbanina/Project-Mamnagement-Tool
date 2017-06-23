@@ -1,6 +1,7 @@
 @extends('base')
 
 @section('content')
+
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -52,35 +53,24 @@
     $('#name-filter').val(search_name[0]);
     $('#name-filter').on( 'keyup change', function () {
         table.columns( table.colReorder.transpose( 1 ) ).search( this.value ).draw();
-    });/*
-    var search_projects = table.columns( table.colReorder.transpose( 3 ) ).search();
+    });
+    var search_projects = table.columns( table.colReorder.transpose( 2 ) ).search();
     $('#project-filter').val(search_projects[0]);
     $('#project-filter').on( 'keyup change', function () {
-        table.columns( table.colReorder.transpose( 3 ) ).search( this.value ).draw();
-    });*/
-        var search_status = table.columns( table.colReorder.transpose( 2 ) ).search();
-    $('#status_id-filter').val(search_status[0]);
-    $('#status_id-filter').on( 'change', function () {
         table.columns( table.colReorder.transpose( 2 ) ).search( this.value ).draw();
     });
-    var search_type = table.columns( table.colReorder.transpose( 3 ) ).search();
+        var search_status = table.columns( table.colReorder.transpose( 3 ) ).search();
+    $('#status_id-filter').val(search_status[0]);
+    $('#status_id-filter').on( 'change', function () {
+        table.columns( table.colReorder.transpose( 3 ) ).search( this.value ).draw();
+    });
+    var search_type = table.columns( table.colReorder.transpose( 4 ) ).search();
     $('#type_id-filter').val(search_type[0]);
     $('#type_id-filter').on( 'change', function () {
-        table.columns( table.colReorder.transpose( 3 ) ).search( this.value ).draw();
+        table.columns( table.colReorder.transpose( 4 ) ).search( this.value ).draw();
     });
 
     </script>
   <script src="{{ URL::to('js/moment.min.js') }}"></script>
   <script src="{{ URL::to('js/daterangepicker.js') }}"></script>
-  <script>
-  $( document ).ready(function() {
-      $(".calendar-week").datepicker({
-        showWeek: true,
-        onSelect: function(dateText, inst) {
-            $(this).val("'Week Number '" + $.datepicker.iso8601Week(new Date(dateText)));
-        }
-    });
-});
-
-  </script>
 @endsection

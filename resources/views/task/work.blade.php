@@ -1,39 +1,16 @@
 <div class="x_panel">
                   <div class="x_title">
                     <h2>Logged hours for <strong>{{$task->name}}</strong> </h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        @if($task->close == 'No')
+                            <a data-toggle="modal" data-target=".bs-example-modal-sm-{{$task->id}}" class="btn btn-default" type="button">Add</a>
+                        @endif
+                    </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     {!! Form::open(array('url' => TMBS::url('work'), 'class' => 'form-horizontal form-label-left')) !!}
                         <meta name="csrf-token" content="{{ csrf_token() }}">
-                        <table class="table">
-                          <thead>
-                            <tr>
-                              <!--<th>Task</th>-->
-                              <th>Date</th>
-                              <th>Cost</th>
-                              <th></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <!--<td>{{ Form::text('task_name', $task->name, array('disabled', 'class' => 'form-control')) }}</td>-->
-                              <td>
-                                {!! Form::text('date', '', array('id' => 'date',$global_css, 'class' => 'form-control has-feedback-left datepicket_component')) !!}
-                              </td>
-                              <td>
-                                <input type="number" step="any" id="cost" name="cost" {{$global_css}} required class="form-control"/>
-                                {{ Form::hidden('return_to', 'task/' . $task->id . '/edit') }}
-                                {{ Form::hidden('task_id', $task->id, ['id' => 'task_id']) }}
-                              </td>
-                              <td>
-                                @if($task->close == 'No')
-                                  <a onClick="add_work()" class="btn btn-default" type="button">Add</a>
-                                @endif
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                     {!! Form::close() !!}
                              <table class="table">
                                 <thead>
@@ -47,11 +24,13 @@
                                 <tbody id="work_costs">
                                 @foreach ($task->work as $work)
                                   <tr>
-                                    <td>{{$work->user->name}}</td>
-                                    <td>{{$work->DateReal}}</td>
-                                    <td>{{$work->cost}}h</td>
                                     <td>
-                                        <a href="{{ TMBS::url('work/'.$work->id.'/edit') }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                                      <a onClick="alert('Not implemented yet!')" ><i class="fa fa-clock-o"></i></a>
+                                      {{$work->user->name}}
+                                    </td>
+                                    <td>{{$work->updated_at}}</td>
+                                    <td>{{$work->time}}h</td>
+                                    <td>
                                             @component('component.delete-button', ['url' => 'work', 'id' => $work->id])
                                               Delete
                                             @endcomponent
