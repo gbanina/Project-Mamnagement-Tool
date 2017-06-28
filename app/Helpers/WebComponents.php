@@ -66,6 +66,11 @@ class WebComponents{
         $types =  array('' => 'Type', 'OWNER' => 'OWNER', 'ADMIN' => 'ADMIN', 'MEMBER' => 'MEMBER');
         return Form::select('type_id', $types, '', array('id' => 'type_id-filter', 'class' => 'form-control'));
     }
+    public static function myTasks($taskID) {
+        $tasks = Auth::user()->myTasks()->pluck('name', 'id')->prepend('Choose task', '');
+        return Form::select('task_id', $tasks, $taskID, array('id' => 'tasks-filter', 'class' => 'form-control'));
+    }
+
     public static function backUrl(){
         //return URL::previous();
         if(URL::current() == \Session::get('real-last-url'))

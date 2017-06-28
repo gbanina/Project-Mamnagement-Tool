@@ -116,9 +116,6 @@ class WorkController extends BaseController {
 
     public function addTime($account, $id, Request $request)
     {
-        //var_dump(Input::all());
-        //dd('adding time for ' . $id);
-
         $work = new Work();
         $work->account_id = Auth::user()->current_acc;
         $work->task_id = $id;
@@ -136,6 +133,22 @@ class WorkController extends BaseController {
         return Redirect::back();
     }
 
+    public function editTime($account, $taskID, $workId, Request $request)
+    {
+        $work = Work::find($workId);
+        $work->task_id = Input::get('task_id');
+        $work->start_time = Input::get('start_time') . ':00';
+        $work->end_time = Input::get('end_time') . ':00';
+
+        $dteStart = new \DateTime($work->start_time.'');
+        $dteEnd   = new \DateTime($work->end_time.'');
+        $dteDiff  = $dteStart->diff($dteEnd);
+        $work->time = $dteDiff->format("%H:%I:%S");
+
+        $work->save();
+
+        return $work;
+    }
     /**
      * Remove the specified resource from storage.
      *

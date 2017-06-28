@@ -13,8 +13,12 @@
                       @foreach ($works as $work)
                         @if($work->task != null)
                         <tr>
-                          <td><a href="{{ TMBS::url('work/'.$work->id.'/edit') }}">{{$work->id}}</a></td>
-                          <td class="overview-names"><a title="{{$work->task->name}}" href="{{ TMBS::url('work/'.$work->id.'/edit') }}">{{$work->task->name}}</a></td>
+                          <td>
+                            <a data-toggle="modal" data-target=".bs-edit-modal-sm-{{$work->id}}">{{$work->id}}</a>
+                                @component('component.time.edit', ['task' => $work->task, 'work' => $work])
+                                @endcomponent
+                          </td>
+                          <td class="overview-names"><a title="{{$work->task->name}}" data-toggle="modal" data-target=".bs-edit-modal-sm-{{$work->id}}">{{$work->task->name}}</a></td>
                           <td>{{$work->updated_at}}</td>
                           <td>{{$work->time}}h</td>
                           <td>

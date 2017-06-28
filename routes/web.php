@@ -71,6 +71,7 @@ Route::group(['middleware' => ['auth', 'acc_verify:accountId'], 'prefix' => '{ac
     Route::resource('account', 'AccountController');
     Route::post('work-save', 'Work\WorkController@storeAjax');
     Route::post('work-add-time/{taskIDtime}', 'Work\WorkController@addTime');
+    Route::post('work-edit-time/{taskIDEditRime}/{workTimeId}', 'Work\WorkController@editTime');
     Route::resource('work', 'Work\WorkController');
     Route::resource('team', 'My\TeamController');
 

@@ -25,7 +25,10 @@
                                 @foreach ($task->work as $work)
                                   <tr>
                                     <td>
-                                      <a onClick="alert('Not implemented yet!')" ><i class="fa fa-clock-o"></i></a>
+                                      <a  ><i class="fa fa-clock-o"></i></a>
+                                      @component('component.time.edit', ['task' => $task, 'work' => $work])
+                                      @endcomponent
+
                                       {{$work->user->name}}
                                     </td>
                                     <td>{{$work->updated_at}}</td>

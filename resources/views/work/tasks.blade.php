@@ -42,7 +42,7 @@
                           </td>
                           <td style="font-size: 16px;">
                           <a data-toggle="modal" data-target=".bs-example-modal-sm-{{$task->id}}"><i class="fa fa-clock-o"></i></a>
-                          @component('component.add-time', ['task' => $task])
+                          @component('component.time.add', ['task' => $task])
                           @endcomponent
                            @if($working_on != $task->id)
                             {{$task->times}}
