@@ -113,7 +113,7 @@
           </div>
           <!-- tu -->
         </div>
-@component('component.add-time', ['task' => $task]) @endcomponent
+@component('component.time.add', ['task' => $task]) @endcomponent
 @endsection
 
 @section('js_include')

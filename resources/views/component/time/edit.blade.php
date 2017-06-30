@@ -7,7 +7,7 @@
                           </button>
                           <h4 class="modal-title" id="myModalLabel2">Edit time for {{$task->name}}</h4>
                         </div>
-                        {!! Form::open(array('url' => TMBS::url('work-edit-time/' . $work->id), 'class' => 'form-horizontal form-label-left')) !!}
+                        {!! Form::open(array('url' => TMBS::url('work-edit-time/' . $task->id . '/' . $work->id), 'class' => 'form-horizontal form-label-left')) !!}
                         <div class="modal-body">
 
                           <div class="container">

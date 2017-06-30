@@ -1,1 +1,4 @@
 php artisan db:seed --class=OwnersTableSeeder
+composer require laravel/passport
+php artisan passport:install
+composer require barryvdh/laravel-cors

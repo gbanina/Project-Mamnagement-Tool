@@ -22,6 +22,7 @@ class Kernel extends HttpKernel
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
         //\App\Http\Middleware\AccountVerify::class,
         \App\Http\Middleware\PreviousPage::class,
+        \Barryvdh\Cors\HandleCors::class,
     ];
 
     /**

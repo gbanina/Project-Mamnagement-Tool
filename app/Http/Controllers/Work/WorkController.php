@@ -130,6 +130,8 @@ class WorkController extends BaseController {
 
         $work->save();
 
+        $request->session()->flash('alert-success', 'Time successfuly added!');
+
         return Redirect::back();
     }
 
@@ -147,7 +149,9 @@ class WorkController extends BaseController {
 
         $work->save();
 
-        return $work;
+        $request->session()->flash('alert-success', 'Work was successful updated!');
+
+        return Redirect::back();
     }
     /**
      * Remove the specified resource from storage.
